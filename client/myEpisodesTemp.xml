@@ -360,7 +360,7 @@
 
           <tr>
             <td> <input type="text" class="txt" value="TV Show Name Here" id="srch_txt" onclick="reset_srch_text()"/> </td>
-            <td> <input type="button" class="btn" value="Search" id="srch_btn" onmouseover="this.className='btnhov'"onmouseout="this.className='btn'" onclick="importXML()" /> </td>
+            <td> <input type="button" class="btn" value="Search" id="srch_btn" onmouseover="this.className='btnhov'"onmouseout="this.className='btn'" onclick="search_episode()" /> </td>
             <td> <input type="button" disabled class="btn" value="Reset" id="reset_srch_btn" onmouseover="this.className='btnhov'"onmouseout="this.className='btn'" onclick="reset_srch()" /></td>
           </tr>
 
