@@ -41,7 +41,7 @@
        }
 
     function search_episode()    {
-		var url = "http://www.tvrage.com/feeds/full_search.php?show="+document.getElementById('srch_txt').value.toLowerCase();
+		var url = "http://www.tvrage.com/feeds/full_search.php?show=" + document.getElementById('srch_txt').value.toLowerCase();
 		
 		if (document.implementation && document.implementation.createDocument){
 			xmlDoc = document.implementation.createDocument("", "", null);
