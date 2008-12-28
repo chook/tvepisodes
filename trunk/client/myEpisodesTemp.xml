@@ -41,6 +41,7 @@
        }
 
     function search_episode()    {
+		var check = false;
 		var url = "http://www.tvrage.com/feeds/full_search.php?show=" + document.getElementById('srch_txt').value.toLowerCase();
 		
 		if (document.implementation && document.implementation.createDocument){
@@ -58,7 +59,8 @@
 				alert('Your browser can\'t handle this script');
 				return;
 			}
-		xmlDoc.load(url);
+		check = xmlDoc.load(url);
+		if (!check) document.getElementById('srch_txt').value == 'TV Show Name Here';
 	}
 	function createResultTable()	{
 		var x = xmlDoc.getElementsByTagName('show');
