@@ -43,7 +43,7 @@ class SearchShow(webapp.RequestHandler):
   # This function is invoked when a user sends a get request
   def get(self):
     showName = self.request.get('ShowName')
-
+    self.response.headers['Content-Type'] = 'text/plain'
     if(showName != ""):
       shows = build_table_for_search(showName)
       description = {"showid": ("number", "ID"),
