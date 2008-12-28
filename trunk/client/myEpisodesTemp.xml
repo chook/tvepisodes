@@ -59,36 +59,6 @@
 				return;
 			}
 		xmlDoc.load(url);
-		
-/*		checked_no=0
-		var lost = 'lost'
-	    var heroes = 'heroes'
-		document.getElementById('reset_srch_btn').disabled = false
-		document.getElementById('add_btn').disabled = true
-
-
-      if (lost.indexOf(document.getElementById('srch_txt').value.toLowerCase()) != -1)
-        { 
-        document.getElementById('main_div').style.display = 'none'
-        document.getElementById('lost_div').style.display = '' 
-        document.getElementById('hero_div').style.display = 'none' 
-        document.getElementById('no_result_div').style.display = 'none' 
-        } 
-        else if (heroes.indexOf(document.getElementById('srch_txt').value.toLowerCase()) != -1)
-        { 
-        document.getElementById('main_div').style.display = 'none' 
-        document.getElementById('lost_div').style.display = 'none' 
-        document.getElementById('hero_div').style.display = '' 
-        document.getElementById('no_result_div').style.display = 'none' 
-        } 
-        else 
-        { 
-        document.getElementById('main_div').style.display = 'none' 
-        document.getElementById('lost_div').style.display = 'none' 
-        document.getElementById('hero_div').style.display = 'none' 
-        document.getElementById('no_result_div').style.display = '' 
-        }  
-*/
 	}
 	function createResultTable()	{
 		var x = xmlDoc.getElementsByTagName('show');
