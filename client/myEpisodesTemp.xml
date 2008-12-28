@@ -406,34 +406,6 @@
    </tr>
  </table>
 </div>
-<div style="display:none" id="lost_div">
-  <table id="search_result" class="sample" border="1">
-    <tr>
-      <th> Name </th>
-      <th> Add </th>
-    </tr>
-    <tr>
-      <td> Lost  </td>
-      <td> <input style="display:none" type="checkbox" id="lost1_check" onclick="chosen('lost1_check')"/> </td>
-    </tr>
-    <tr>
-      <td> Lost procces </td>
-      <td> <input type="checkbox" id="lostproc_check" onclick="chosen('lostproc_check')"/> </td>
-    </tr>
-  </table>
-</div>
-<div style="display:none" id="hero_div">
-  <table id="search_result" class="sample" border="1">
-    <tr>
-      <th> Name </th>
-      <th> Add </th>
-    </tr>
-    <tr>
-      <td> Heroes </td>
-      <td> <input style="display:none" type="checkbox" id="heroes1_check" onclick="chosen('heroes1_check')"/> </td>
-    </tr>
-  </table>
-</div>
 <div style="display:none" id="no_result_div"> 
   <table id="search_result" class="sample" border="1">
     <tr>
