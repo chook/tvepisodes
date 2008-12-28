@@ -39,13 +39,32 @@
         tabs.addTab("Add", "add_div");
         tabs.addTab("Statistics", "sts_div", drawChart());
        }
-    function search_episode() 
-    {
-      checked_no=0
-      var lost = 'lost'
-      var heroes = 'heroes'
-      document.getElementById('reset_srch_btn').disabled = false
-      document.getElementById('add_btn').disabled = true
+
+    function search_episode()    {
+		var url = "http://www.tvrage.com/feeds/full_search.php?show="+document.getElementById('srch_txt').value.toLowerCase();
+		
+		if (document.implementation && document.implementation.createDocument){
+			xmlDoc = document.implementation.createDocument("", "", null);
+			xmlDoc.onload = createResultTable;
+		}
+		else
+			if (window.ActiveXObject){
+				xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
+				xmlDoc.onreadystatechange = function () {
+					if (xmlDoc.readyState == 4) createResultTable()
+					};
+			}
+			else{
+				alert('Your browser can\'t handle this script');
+				return;
+			}
+		xmlDoc.load(url);
+		
+/*		checked_no=0
+		var lost = 'lost'
+	    var heroes = 'heroes'
+		document.getElementById('reset_srch_btn').disabled = false
+		document.getElementById('add_btn').disabled = true
 
 
       if (lost.indexOf(document.getElementById('srch_txt').value.toLowerCase()) != -1)
@@ -68,8 +87,41 @@
         document.getElementById('lost_div').style.display = 'none' 
         document.getElementById('hero_div').style.display = 'none' 
         document.getElementById('no_result_div').style.display = '' 
-        }     
-      }
+        }  
+*/
+	}
+	function createResultTable()	{
+		var x = xmlDoc.getElementsByTagName('show');
+		var newEl = document.createElement('TABLE');
+		newEl.setAttribute('cellPadding',5);
+		var tmp = document.createElement('TBODY');
+		newEl.appendChild(tmp);
+		var row = document.createElement('TR');
+		for (j=0;j<x[0].childNodes.length;j++)
+		{
+			if (x[0].childNodes[j].nodeType != 1) continue;
+			var container = document.createElement('TH');
+			var theData = document.createTextNode(x[0].childNodes[j].nodeName);
+			container.appendChild(theData);
+			row.appendChild(container);
+		}
+		tmp.appendChild(row);
+		for (i=0;i<x.length;i++)
+		{
+			var row = document.createElement('TR');
+			for (j=0;j<x[i].childNodes.length;j++)
+			{
+				if (x[i].childNodes[j].nodeType != 1) continue;
+				var container = document.createElement('TD');
+				var theData = document.createTextNode(x[i].childNodes[j].firstChild.nodeValue);
+				container.appendChild(theData);
+				row.appendChild(container);
+			}
+			tmp.appendChild(row);
+		}
+		document.getElementById('writeroot').appendChild(newEl);
+	}	
+
      function reset_srch_text() 
       {
         if (document.getElementById('srch_txt').value == 'TV Show Name Here')
@@ -338,7 +390,7 @@
 
           <tr>
             <td> <input type="text" class="txt" value="TV Show Name Here" id="srch_txt" onclick="reset_srch_text()"/> </td>
-            <td> <input type="button" class="btn" value="Search" id="srch_btn" onmouseover="this.className='btnhov'"onmouseout="this.className='btn'" onclick="search_episode()" /> </td>
+            <td> <input type="button" class="btn" value="Search" id="srch_btn" onmouseover="this.className='btnhov'"onmouseout="this.className='btn'" onclick="importXML()" /> </td>
             <td> <input type="button" disabled class="btn" value="Reset" id="reset_srch_btn" onmouseover="this.className='btnhov'"onmouseout="this.className='btn'" onclick="reset_srch()" /></td>
           </tr>
 
