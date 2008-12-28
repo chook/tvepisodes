@@ -59,8 +59,7 @@
 				alert('Your browser can\'t handle this script');
 				return;
 			}
-		check = xmlDoc.load(url);
-		if (!check) document.getElementById('srch_txt').value == 'TV Show Name Here';
+		check = xmlDoc.loadXML(url);
 	}
 	function createResultTable()	{
 		var x = xmlDoc.getElementsByTagName('show');
