@@ -44,14 +44,15 @@
 		var url = "http://epihourtesting.appspot.com/SearchShow?ShowName=" + document.getElementById('srch_txt').value.toLowerCase();
 		var query = new google.visualization.Query(url); 
 		// Send the query with a callback function.
-		query.send(handleQueryResponse);		
+		query.send(handleQueryResponse);
+		document.getElementById('reset_srch_btn').disabled = false
 	}
 	function handleQueryResponse(response)	{
 		if (response.isError()) {
 			alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
 			return;
 		}
-		document.getElementById('most_pop').disabled = 'none'
+		document.getElementById('most_pop').style.display = 'none'
 		var data = response.getDataTable();
 		var table = new google.visualization.Table(document.getElementById('main_div'));
 		table.draw(data, {page: 'enable', pageSize: 15});
@@ -68,9 +69,7 @@
         document.getElementById('add_btn').disabled = true
         document.getElementById('reset_srch_btn').disabled = true
         document.getElementById('srch_txt').value = 'TV Show Name Here'
-        document.getElementById('main_div').style.display = '' 
-        document.getElementById('lost_div').style.display = 'none' 
-        document.getElementById('hero_div').style.display = 'none' 
+        document.getElementById('most_pop').style.display = '' 
         document.getElementById('no_result_div').style.display = 'none'   
       }
 
