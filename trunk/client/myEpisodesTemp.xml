@@ -41,56 +41,19 @@
        }
 
     function search_episode()    {
-		var check = false;
-		var url = "http://www.tvrage.com/feeds/full_search.php?show=" + document.getElementById('srch_txt').value.toLowerCase();
-		
-		if (document.implementation && document.implementation.createDocument){
-			xmlDoc = document.implementation.createDocument("", "", null);
-			xmlDoc.onload = createResultTable;
-		}
-		else
-			if (window.ActiveXObject){
-				xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
-				xmlDoc.onreadystatechange = function () {
-					if (xmlDoc.readyState == 4) createResultTable()
-					};
-			}
-			else{
-				alert('Your browser can\'t handle this script');
-				return;
-			}
-		check = xmlDoc.loadXML(url);
+		var url = 'http://www.tvrage.com/feeds/full_search.php?show=' + document.getElementById('srch_txt').value.toLowerCase();
+		var query = new google.visualization.Query(url); 
+		// Send the query with a callback function.
+		query.send(handleQueryResponse);		
 	}
-	function createResultTable()	{
-		var x = xmlDoc.getElementsByTagName('show');
-		var newEl = document.createElement('TABLE');
-		newEl.setAttribute('cellPadding',5);
-		var tmp = document.createElement('TBODY');
-		newEl.appendChild(tmp);
-		var row = document.createElement('TR');
-		for (j=0;j<x[0].childNodes.length;j++)
-		{
-			if (x[0].childNodes[j].nodeType != 1) continue;
-			var container = document.createElement('TH');
-			var theData = document.createTextNode(x[0].childNodes[j].nodeName);
-			container.appendChild(theData);
-			row.appendChild(container);
+	function handleQueryResponse()	{
+		if (response.isError()) {
+			alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+			return;
 		}
-		tmp.appendChild(row);
-		for (i=0;i<x.length;i++)
-		{
-			var row = document.createElement('TR');
-			for (j=0;j<x[i].childNodes.length;j++)
-			{
-				if (x[i].childNodes[j].nodeType != 1) continue;
-				var container = document.createElement('TD');
-				var theData = document.createTextNode(x[i].childNodes[j].firstChild.nodeValue);
-				container.appendChild(theData);
-				row.appendChild(container);
-			}
-			tmp.appendChild(row);
-		}
-		document.getElementById('writeroot').appendChild(newEl);
+		var data = response.getDataTable();
+		var table = new google.visualization.Table(document.getElementById('main_div'));
+		table.draw(data, {page: 'enable', pageSize: 15});
 	}	
 
      function reset_srch_text() 
