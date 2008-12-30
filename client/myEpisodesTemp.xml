@@ -41,8 +41,9 @@
        }
 
     function search_episode()    {
-		var url = 'http://epihourtesting.appspot.com/SearchShow?ShowName=' + document.getElementById('srch_txt').value.toLowerCase();
-		alert('url: ' + url);
+		//var url = 'http://epihourtesting.appspot.com/SearchShow?ShowName=' + document.getElementById('srch_txt').value.toLowerCase();
+		var url = 'http://spreadsheets.google.com/tq?key=pxk4YcSK2-L24X8uhC7bNPg&range=A2:B4&gid=0';
+    //alert('url: ' + url);
     var query = new google.visualization.Query(url); 
     
     // Send the query with a callback function.
@@ -50,11 +51,12 @@
 		document.getElementById('most_pop').style.display = 'none';
 		document.getElementById('reset_srch_btn').disabled = false;
 	}
+  
 	function handleQueryResponse(response)	{
-		/*if (response.isError()) {
+		if (response.isError()) {
 			alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
 			return;
-		}*/
+		}
 		var data = response.getDataTable();
 		var table = new google.visualization.Table(document.getElementById('main_div'));
 		table.draw(data, {page: 'enable', pageSize: 15});
