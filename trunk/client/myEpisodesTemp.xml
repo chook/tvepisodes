@@ -44,17 +44,17 @@
 		var url = 'http://epihourtesting.appspot.com/SearchShow?ShowName=' + document.getElementById('srch_txt').value.toLowerCase();
 		alert('url: ' + url);
     var query = new google.visualization.Query(url); 
-    alert('query: ' + query);
-		// Send the query with a callback function.
+    
+    // Send the query with a callback function.
 		query.send(handleQueryResponse);
 		document.getElementById('most_pop').style.display = 'none';
 		document.getElementById('reset_srch_btn').disabled = false;
 	}
 	function handleQueryResponse(response)	{
-		if (response.isError()) {
+		/*if (response.isError()) {
 			alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
 			return;
-		}
+		}*/
 		var data = response.getDataTable();
 		var table = new google.visualization.Table(document.getElementById('main_div'));
 		table.draw(data, {page: 'enable', pageSize: 15});
