@@ -42,7 +42,9 @@
 
     function search_episode()    {
 		var url = 'http://epihourtesting.appspot.com/SearchShow?ShowName=' + document.getElementById('srch_txt').value.toLowerCase();
-		var query = new google.visualization.Query(url); 
+		alert('url: ' + url);
+    var query = new google.visualization.Query(url); 
+    alert('query: ' + query);
 		// Send the query with a callback function.
 		query.send(handleQueryResponse);
 		document.getElementById('most_pop').style.display = 'none';
