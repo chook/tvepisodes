@@ -64,6 +64,7 @@
 		var data = response.getDataTable();
 		var table = new google.visualization.Table(document.getElementById('main_div'));
 		table.draw(data, {page: 'enable', pageSize: 15});
+    alert("Table drawed");
 	}	
 
     function reset_srch_text() 
