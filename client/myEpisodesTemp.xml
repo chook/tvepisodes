@@ -28,7 +28,8 @@
     </style>
     <script type="text/javascript" src="http://www.google.com/jsapi"></script>
     <script type="text/javascript">
-     var checked_no=0; 
+     var checked_no=0;
+	 google.load("visualization", "1", {packages:["columnchart", "table"]});	 
       function init() {
         // Initialize tabs.
          var tabs = new _IG_Tabs(__MODULE_ID__ );
@@ -41,7 +42,6 @@
         
         //google.setOnLoadCallback(search_episode);
        }
-
     function search_episode()    {
 		//var url = 'http://epihourtesting.appspot.com/SearchShow?ShowName=' + document.getElementById('srch_txt').value.toLowerCase();
 		google.load("visualization", "1", {'packages':['table']});
@@ -225,7 +225,7 @@
         document.getElementById('add_btn').disabled = true
       }
     }
-    google.load("visualization", "1", {packages:["columnchart"]});
+
     google.setOnLoadCallback(drawChart);
     function drawChart(){
       var data = new google.visualization.DataTable();
