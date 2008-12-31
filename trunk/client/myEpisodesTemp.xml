@@ -38,17 +38,17 @@
         tabs.addTab("My Episodes", "epsd_div");
         tabs.addTab("Add", "add_div");
         tabs.addTab("Statistics", "sts_div", drawChart());
-        google.load("visualization", "1", {'packages':['table']});
-        google.setOnLoadCallback(search_episode);
+        
+        //google.setOnLoadCallback(search_episode);
        }
 
     function search_episode()    {
 		var url = 'http://epihourtesting.appspot.com/SearchShow?ShowName=' + document.getElementById('srch_txt').value.toLowerCase();
-		
+		google.load("visualization", "1", {'packages':['table']});
     //var url = 'http://spreadsheets.google.com/tq?key=pxk4YcSK2-L24X8uhC7bNPg&range=A2:B4&gid=0';
     //alert('url: ' + url);
     var query = new google.visualization.Query(url); 
-    
+    alert("Before query send");
     // Send the query with a callback function.
 		query.send(handleQueryResponse);
 		document.getElementById('most_pop').style.display = 'none';
@@ -56,7 +56,8 @@
 	}
   
 	function handleQueryResponse(response)	{
-		if (response.isError()) {
+		alert("In handleQueryResponse");
+    if (response.isError()) {
 			alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
 			return;
 		}
