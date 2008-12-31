@@ -41,8 +41,9 @@
        }
 
     function search_episode()    {
-		//var url = 'http://epihourtesting.appspot.com/SearchShow?ShowName=' + document.getElementById('srch_txt').value.toLowerCase();
-		var url = 'http://spreadsheets.google.com/tq?key=pxk4YcSK2-L24X8uhC7bNPg&range=A2:B4&gid=0';
+		var url = 'http://epihourtesting.appspot.com/SearchShow?ShowName=' + document.getElementById('srch_txt').value.toLowerCase();
+		google.load("visualization", "1", {'packages':['table']});
+    //var url = 'http://spreadsheets.google.com/tq?key=pxk4YcSK2-L24X8uhC7bNPg&range=A2:B4&gid=0';
     //alert('url: ' + url);
     var query = new google.visualization.Query(url); 
     
