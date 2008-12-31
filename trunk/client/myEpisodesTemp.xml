@@ -56,16 +56,22 @@
 	}
   
 	function handleQueryResponse(response)	{
+    var gadgetHelper = new google.visualization.GadgetHelper();
+    if (!gadgetHelper.validateResponse(response)) {
+      alert("not validated");
+      return;
+    } 
     if (response.isError()) {
 			alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
 			return;
 		}
+    
     alert("Before getDataTable, handle query no errors");
 		var data = response.getDataTable();
     alert("Before new Table");
 		var table = new google.visualization.Table(document.getElementById('main_div'));
     alert("Before draw");
-		table.draw(data);
+		table.draw(data, null);
     alert("Table drawed");
 	}	
 
