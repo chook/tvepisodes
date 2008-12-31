@@ -56,7 +56,7 @@
 	}
   
 	function handleQueryResponse(response)	{
-		alert("In handleQueryResponse");
+		alert("In handleQueryResponse " + response.getMessage());
     if (response.isError()) {
 			alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
 			return;
