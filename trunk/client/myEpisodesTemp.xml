@@ -27,7 +27,7 @@
       .mmlib_xlink {font-family: "Comic Sans MS"; background-color: #b4c3f6; color:#dbe3eb;cursor: pointer; }
     </style>
     <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-    <script type="text/javascript">
+    <script type="text/javascript" src="js/Tooltip.js>
      var checked_no=0;
 	 google.load("visualization", "1", {packages:["columnchart", "table"]});	 
       function init() {
@@ -58,10 +58,18 @@
 		var data = response.getDataTable();
 		var table = new google.visualization.Table(document.getElementById('vis_results'));
 		var view = new google.visualization.DataView(data);
-		view.hideColumns([0]); // Create a view with the second column only.
-		table.draw(view, {showRowNumber: true, allowHtml:true, page:'enable', width: 170});
+		table.insertColumn(2, string [,'Add' [,add]]);
+		var num = table.getNumberOfRows();
+		for (var i = 0; i<num; i++){
+			setValue(i, 2, 'checkbox');
+		}
+		view.hideColumns([0]); // show the name column only.
+		table.draw(view, {showRowNumber: true, allowHtml:true, page:'enable', width: 170, pageSize: 5});
+		google.visualization.events.addListener(table, 'select', selectHandler);
+		function selectHandler(e) {  alert('A table row was selected');}
 	}	
-
+	function addCheckbox(row){
+	}
     function reset_srch_text() 
       {
         if (document.getElementById('srch_txt').value == 'TV Show Name Here')
