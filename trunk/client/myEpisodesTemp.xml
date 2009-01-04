@@ -64,7 +64,7 @@
 		function selectHandler() {
 			 var selection = table.getSelection();
 			 for (var i = 0; i < selection.length; i++) {
-				 var name = table.getValue(selection[i].row, 0);
+				 var name = table.getValue(selection[i].row, null);
 				 add_series( name, 1 , 1);
 			 }
 			if (selection.length>0)
