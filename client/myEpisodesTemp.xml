@@ -47,6 +47,8 @@
 			var query = new google.visualization.Query(url); 
 			// Send the query with a callback function.
 			query.send(handleQueryResponse);
+			document.getElementById('most_pop').style.display = 'none';
+			document.getElementById('reset_srch_btn').disabled = false;
 		}
 	  
 		function handleQueryResponse(response)	{
@@ -58,8 +60,6 @@
 			var data = response.getDataTable();
 			var table = new google.visualization.Table(document.getElementById('main_div'));
 			table.draw(data, null);
-			document.getElementById('most_pop').style.display = 'none';
-			document.getElementById('reset_srch_btn').disabled = false;
 		}	
 
 		function reset_srch_text() 
