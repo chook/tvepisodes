@@ -27,7 +27,7 @@
       .mmlib_xlink {font-family: "Comic Sans MS"; background-color: #b4c3f6; color:#dbe3eb;cursor: pointer; }
     </style>
     <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-    <script type="text/javascript" src="js/Tooltip.js>
+    <script type="text/javascript" >
      var checked_no=0;
 	 google.load("visualization", "1", {packages:["columnchart", "table"]});	 
       function init() {
