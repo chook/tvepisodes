@@ -57,10 +57,10 @@
 		}
 		var data = response.getDataTable();
 		var table = new google.visualization.Table(document.getElementById('vis_results'));
-		var formatter = new google.visualization.TablePatternFormat('<a href="mailto:{'showid'}">{'name'}</a>');
-		formatter.format(data, ['showid', 'name']); // Apply formatter and set the formatted value of the first column
+		var formatter = new google.visualization.TablePatternFormat('<a href="show more information on: ">{1}</a>');
+		formatter.format(data, [0, 1]); // Apply formatter and set the formatted value of the first column
 		var view = new google.visualization.DataView(data);
-		view.setColumns(['name']); // Create a view with the second column only.
+		view.setColumns([1]); // Create a view with the second column only.
 		table.draw(view, {showRowNumber: true, allowHtml:true, page:'enable'});
 	}	
 
