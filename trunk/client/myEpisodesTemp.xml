@@ -60,43 +60,33 @@
 		var view = new google.visualization.DataView(data);
 		view.hideColumns([0]); // show the name column only.
 		table.draw(view, {showRowNumber: true, allowHtml:true, page:'enable', width: 170, pageSize: 5});
+			
+		}
 		google.visualization.events.addListener(table, 'select', selectHandler);
 		function selectHandler() {
 			 var selection = table.getSelection();
-			 var message = '';
 			 for (var i = 0; i < selection.length; i++) {
-			 var item = selection[i];
-			 if (item.row != null && item.column != null) {
-			 message += '{row:' + item.row + ',column:' + item.column + '}';
+				 var name = table.getValue(selection[i].row, 1);
+				 add_series( name, 1 , 1);
 			 }
-			 else if (item.row != null) {
-			 message += '{row:' + item.row + '}';
-			 }
-			 else if (item.column != null) {
-			 message += '{column:' + item.column + '}';
-			 }
-			 }
-			 if (message == '') {
-			 message = 'nothing';
-			 }
-			 alert('You selected ' + message);
 		}
 	}
 	
     function reset_srch_text() 
       {
         if (document.getElementById('srch_txt').value == 'TV Show Name Here')
-            document.getElementById('srch_txt').value = ''
+            document.getElementById('srch_txt').value = '';
       }
     function reset_srch() 
       { 
-        checked_no=0
-        document.getElementById('add_btn').disabled = true
-        document.getElementById('reset_srch_btn').disabled = true
-        document.getElementById('srch_txt').value = 'TV Show Name Here'
-        document.getElementById('most_pop').style.display = '' 
-		document.getElementById('vis_results').style.display = 'none' 
-        document.getElementById('no_result_div').style.display = 'none'   
+        checked_no=0;
+        document.getElementById('add_btn').disabled = true;
+        document.getElementById('reset_srch_btn').disabled = true;
+        document.getElementById('srch_txt').value = 'TV Show Name Here';
+        document.getElementById('most_pop').style.display = ''; 
+		document.getElementById('vis_results').style.display = 'none'; 
+        document.getElementById('no_result_div').style.display = 'none' ;
+		response = null;
       }
 
     function add_checked_episodes()
