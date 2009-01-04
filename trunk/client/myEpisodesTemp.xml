@@ -59,15 +59,16 @@
 		var table = new google.visualization.Table(document.getElementById('vis_results'));
 		var view = new google.visualization.DataView(data);
 		view.hideColumns([0]); // show the name column only.
-		data.insertColumn(2, string [,'Add' [,add]]);
+		data.insertColumn(2, string ['Add' [add]]);
 		var num = data.getNumberOfRows();
 		for (var i = 0; i<num; i++){
 			setValue(i, 2, 'checkbox');
 		}
 		table.draw(view, {showRowNumber: true, allowHtml:true, page:'enable', width: 170, pageSize: 5});
 		google.visualization.events.addListener(table, 'select', selectHandler);
-		function selectHandler(e) {  alert('A table row was selected');}
-	}	
+	}
+	function selectHandler(e) {  alert('A table row was selected');}
+	
 	function addCheckbox(row){
 	}
     function reset_srch_text() 
