@@ -56,7 +56,7 @@
 			}
 		var data = response.getDataTable();
 		var table = new google.visualization.Table(document.getElementById('main_div'));
-		table.draw(data, null);
+		table.draw(data, {allowHtml=true, page='enable'});
 	}	
 
     function reset_srch_text() 
