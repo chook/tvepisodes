@@ -43,9 +43,11 @@
     function search_episode()    {
 		var url = 'http://epihourtesting.appspot.com/SearchShow?ShowName=' + document.getElementById('srch_txt').value.toLowerCase();
 		var query = new google.visualization.Query(url); 
+		query.setQuery('select Name');
 		// Send the query with a callback function.
 		query.send(handleQueryResponse);
 		document.getElementById('most_pop').style.display = 'none';
+		document.getElementById('vis_results').style.display = '' ;
 		document.getElementById('reset_srch_btn').disabled = false;
 	}
   
@@ -55,7 +57,7 @@
 				return;
 			}
 		var data = response.getDataTable();
-		var table = new google.visualization.Table(document.getElementById('main_div'));
+		var table = new google.visualization.Table(document.getElementById('vis_results'));
 		table.draw(data, {showRowNumber: true, allowHtml:true, page:'enable'});
 	}	
 
@@ -71,6 +73,7 @@
         document.getElementById('reset_srch_btn').disabled = true
         document.getElementById('srch_txt').value = 'TV Show Name Here'
         document.getElementById('most_pop').style.display = '' 
+		document.getElementById('vis_results').style.display = 'none' 
         document.getElementById('no_result_div').style.display = 'none'   
       }
 
@@ -336,6 +339,7 @@
  
       
  <div id="main_div">
+  <div id="vis_results"> </div>
 <table id="most_pop" class="sample" border="1"> 
   <tr>
      <td></td>
