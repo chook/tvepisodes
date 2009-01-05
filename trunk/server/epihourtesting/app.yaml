@@ -12,6 +12,9 @@ handlers:
 - url: /index\.html
   script: main.py
 
+- url: /SearchShow
+  script: main.py
+
 - url: /images
   static_dir: static/images
 
