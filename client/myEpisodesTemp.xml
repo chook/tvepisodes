@@ -81,7 +81,8 @@
 			}
 			alert('You selected ' + message);*/
 			for (var i = 0; i < selection.length; i++) {
-				var name = table.getValue(selection[i].row, 0);
+				var item = selection[j];
+				var name = table.getValue(item.row, 0);
 				alert('Row ' + selection[i].row + ' value is: ' + name);
 				add_series( name, 1 , 1);
 			}
