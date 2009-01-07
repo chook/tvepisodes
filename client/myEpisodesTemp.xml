@@ -59,13 +59,12 @@
 		var data = response.getDataTable();
 		data.addColumn('string' , '');
 		for (var j=0; j<data.getNumberOfRows(); j++){
-			data.setValue(j , 2, '<input type="checkbox" align="center" id="add"+j />');
+			data.setValue(j , 2, '<input type="checkbox" align="center" id=j />');
 		}
 		var table = new google.visualization.Table(document.getElementById('vis_results'));
 		var view = new google.visualization.DataView(data);
 		view.hideColumns([0]); // show the name column only.
 		table.draw(view, {showRowNumber: true, allowHtml:true, page:'enable', width: 210, pageSize: 5});
-		alert(document.getElementById(add1));
 		//google.visualization.events.addListener(table, 'select', selectHandler);
 		function selectHandler() {
 			var selection = table.getSelection();
