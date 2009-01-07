@@ -63,28 +63,9 @@
 		google.visualization.events.addListener(table, 'select', selectHandler);
 		function selectHandler() {
 			 var selection = table.getSelection();
-			 /*var message = '';
-			 for (var j = 0; j < selection.length; j++) {
-				 var item = selection[j];
-				 if (item.row != null && item.column != null) {
-					message += '{row:' + item.row + ',column:' + item.column + '}';
-				 }
-				 else if (item.row != null) {
-				   message += '{row:' + item.row + '}';
-				 }
-				   else if (item.column != null) {
-					message += '{column:' + item.column + '}';
-				   }
-			}
-			if (message == '') {
-				message = 'nothing';
-			}
-			alert('You selected ' + message);*/
 			for (var i = 0; i < selection.length; i++) {
-				var item = selection[i];
-				alert('selection['+ i +'] ='+ item + '. Row is: ' + item.row + '. Column is: '+ item.column); 
-				var name = data.getValue(item.row, 1);
-				alert(item +' Row ' + selection[i].row + ' value is: ' + name);
+				var name = data.getValue(selection[i].row, 1);
+				alert(' Row ' + selection[i].row + ' value is: ' + name);
 				add_series( name, 1 , 1);
 			}
 			if (selection.length>0)
