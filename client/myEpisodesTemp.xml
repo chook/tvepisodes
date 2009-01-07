@@ -58,8 +58,8 @@
 		var data = response.getDataTable();
 		var table = new google.visualization.Table(document.getElementById('vis_results'));
 		var view = new google.visualization.DataView(data);
-		view.setColumns([0 , 1]);
-	//	view.hideColumns([0]); // show the name column only.
+		view.setColumns([1]);
+//		view.hideColumns([0]); // show the name column only.
 		table.draw(view, {showRowNumber: true, allowHtml:true, page:'enable', width: 170, pageSize: 5});
 		google.visualization.events.addListener(table, 'select', selectHandler);
 		function selectHandler() {
