@@ -59,7 +59,7 @@
 		var data = response.getDataTable();
 		data.addColumn('string' , '');
 		for (var j=0; j<data.getNumberOfRows(); j++){
-			data.setValue(j , 2, '<input type="checkbox" align="center" id="add'+j+'" />');
+			data.setValue(j , 2, '<input type="checkbox" align="center" id="add'+j+'" onclick="chosen('+id+')" />');
 		}
 		var table = new google.visualization.Table(document.getElementById('vis_results'));
 		var view = new google.visualization.DataView(data);
