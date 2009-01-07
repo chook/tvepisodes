@@ -83,7 +83,7 @@
 			for (var i = 0; i < selection.length; i++) {
 				var item = selection[i];
 				var name = 'defult';
-				alert('selection['+ i +'] ='+ item + '. 'Row is: ' + item.row+ '. Column is: '+ item.column); 
+				alert('selection['+ i +'] ='+ item + '. Row is: ' + item.row + '. Column is: '+ item.column); 
 				name = table.getValue(item.row, 0);
 				alert(item +' Row ' + selection[i].row + ' value is: ' + name);
 				add_series( name, 1 , 1);
