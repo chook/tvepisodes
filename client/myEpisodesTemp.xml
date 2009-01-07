@@ -60,7 +60,7 @@
 		var view = new google.visualization.DataView(data);
 		view.hideColumns([0]); // show the name column only.
 		table.draw(view, {showRowNumber: true, allowHtml:true, page:'enable', width: 170, pageSize: 5});
-		var temp = view.getValue(2,1);
+		var temp = data.getValue(2,1);
 		alert(temp);
 		google.visualization.events.addListener(table, 'select', selectHandler);
 		function selectHandler() {
