@@ -60,6 +60,8 @@
 		var view = new google.visualization.DataView(data);
 		view.hideColumns([0]); // show the name column only.
 		table.draw(view, {showRowNumber: true, allowHtml:true, page:'enable', width: 170, pageSize: 5});
+		var temp = table.getValue(2,1);
+		alert(temp);
 		google.visualization.events.addListener(table, 'select', selectHandler);
 		function selectHandler() {
 			 var selection = table.getSelection();
@@ -82,9 +84,8 @@
 			alert('You selected ' + message);*/
 			for (var i = 0; i < selection.length; i++) {
 				var item = selection[i];
-				var name = 'defult';
 				alert('selection['+ i +'] ='+ item + '. Row is: ' + item.row + '. Column is: '+ item.column); 
-				name = table.getValue(item.row, 1);
+				var name = table.getValue(item.row, 1);
 				alert(item +' Row ' + selection[i].row + ' value is: ' + name);
 				add_series( name, 1 , 1);
 			}
