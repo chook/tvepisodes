@@ -412,7 +412,7 @@
     </tr>
   </table>
 </div>
-  <input type=submit disabled class="btn" value="Add" id="Add_btn" onmouseover="this.className='btnhov'"onmouseout="this.className='btn'" onclick="add_checked_episodes()" />
+  <input type="button" disabled class="btn" value="Add" id="Add_btn" onmouseover="this.className='btnhov'"onmouseout="this.className='btn'" onclick="add_checked_episodes()" />
 </div>
 <div align="center" id="sts_div" class="background"> </div>
 </body>
