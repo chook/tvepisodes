@@ -59,32 +59,32 @@
 		var table = new google.visualization.Table(document.getElementById('vis_results'));
 		var view = new google.visualization.DataView(data);
 		view.setColumns([0 , 1]);
-		view.hideColumns([0]); // show the name column only.
+	//	view.hideColumns([0]); // show the name column only.
 		table.draw(view, {showRowNumber: true, allowHtml:true, page:'enable', width: 170, pageSize: 5});
 		google.visualization.events.addListener(table, 'select', selectHandler);
 		function selectHandler() {
 			 var selection = table.getSelection();
-			   var message = '';
-			   for (var j = 0; j < selection.length; j++) {
-			   var item = selection[j];
-			   if (item.row != null && item.column != null) {
-			   message += '{row:' + item.row + ',column:' + item.column + '}';
-			   }
-			   else if (item.row != null) {
-			   message += '{row:' + item.row + '}';
-			   }
-			   else if (item.column != null) {
-			   message += '{column:' + item.column + '}';
-			   }
-			   }
-			   if (message == '') {
-			   message = 'nothing';
-			   }
-			   alert('You selected ' + message);
-			 for (var i = 0; i < selection.length; i++) {
-				 var name = table.getValue(selection[i].row, 1);
-				 add_series( name, 1 , 1);
-			 }
+			 var message = '';
+			 for (var j = 0; j < selection.length; j++) {
+				 var item = selection[j];
+				 if (item.row != null && item.column != null) {
+					message += '{row:' + item.row + ',column:' + item.column + '}';
+				 }
+				 else if (item.row != null) {
+				   message += '{row:' + item.row + '}';
+				 }
+				   else if (item.column != null) {
+					message += '{column:' + item.column + '}';
+				   }
+			}
+			if (message == '') {
+				message = 'nothing';
+			}
+			alert('You selected ' + message);
+			for (var i = 0; i < selection.length; i++) {
+				var name = table.getValue(selection[i].row, 1);
+				add_series( name, 1 , 1);
+			}
 			if (selection.length>0)
 				document.getElementById('add_btn').disabled = false;
 			else 
