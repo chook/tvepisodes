@@ -56,13 +56,17 @@
 				return;
 		}
 		var data = response.getDataTable();
+		data.addColumn('string' , [Add, 3]);
+		for (var j=0; j<data.getNumberOfRows; j++){
+			data.setCell(j , 3, '<input type=checkbox/>');
+		}
 		var table = new google.visualization.Table(document.getElementById('vis_results'));
 		var view = new google.visualization.DataView(data);
 		view.hideColumns([0]); // show the name column only.
 		table.draw(view, {showRowNumber: true, allowHtml:true, page:'enable', width: 170, pageSize: 5});
 		google.visualization.events.addListener(table, 'select', selectHandler);
 		function selectHandler() {
-			 var selection = table.getSelection();
+			var selection = table.getSelection();
 			for (var i = 0; i < selection.length; i++) {
 				var name = data.getValue(selection[i].row, 1);
 				alert(' Row ' + selection[i].row + ' value is: ' + name);
