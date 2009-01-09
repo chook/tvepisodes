@@ -1,0 +1,111 @@
+      .background {
+		  font-family:"Comic Sans MS";
+		  background-color: #dbe3eb;
+		  font-size: 14px;
+	  }   
+      .btn {
+		  font-family: "Comic Sans MS";
+		  font-size:11px;
+		  background-color: #b4c3f6;
+		  filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0,StartColorStr='#dbe3eb',EndColorStr='#b4c3f6');
+	  }
+      .btnhov{
+		  font-family: "Comic Sans MS";
+		  font-size:11px;
+		  cursor: pointer;
+		  border-color: 'white';
+		  background-color: #b4c3f6;
+		  filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0,StartColorStr='#dbe3eb',EndColorStr='#b4c3f6');
+	  }
+      .txt {
+		  font-family: "Comic Sans MS";
+		  font-size:11px;
+	  }
+      .tablib_table {
+		  background-color: #c7d5e2;
+		  width: 100%;
+		  border-collapse: separate; border-spacing: 0px;
+		  empty-cells: show;
+		  font-size: 10px;
+		  text-align: rih;
+	  }
+      .tablib_emptyTab {
+		  border-bottom: 1px solid #676767;
+		  padding: 0px 1px;
+	  }
+      .tablib_spacrTab {
+		  border-bottom: 1px solid #676767;
+		  padding: 0px 1px;
+		  width: 1px;
+	  }
+      .tablib_selected {
+		  font-family: "Comic Sans MS";
+		  font-style: italic;
+		  background-color: #dbe3eb;
+		  padding: 2px 0px;
+		  border: 1.5px solid #676767;
+		  border-bottom-width: 0px;
+		  color: #3366cc;
+		  font-weight: bold;
+		  width: 80px;
+		  cursor: default;
+	  }
+      .tablib_unselected {
+		  font-family: "Comic Sans MS";
+		  background-color: #b4c3f6;
+		  padding: 2px 0px;
+		  border: 1px solid #aaaaaa;
+		  border-bottom-color: #676767;
+		  color: #000000;
+		  width: 80px;
+		  cursor: pointer;
+	  }
+      .tablib_navContainer {
+		  width: 10px;
+		  vertical-align: middle;
+	  }
+      .tablib_navContainer a:link, .tablib_navContainer a:visited, .tablib_navContainer a:hover {
+		  color: #3366aa;
+		  text-decoration: none;
+	  }
+      table.sample {
+		  border-width: 0px;
+		  border-spacing: ;
+		  border-style:none;
+		  border-color: ;
+		  border-collapse: separate;
+		  background-color: #dbe3eb;
+	  }
+      table.sample th {
+		  font-family:"Comic Sans MS";
+		  font-size: 11px;
+		  text-align: center;
+		  border-width: 2px;
+		  padding: 1px;
+		  border-style: none;
+		  border-color: #dbe3eb;
+		  background-color: white;
+		  -moz-border-radius: ;
+	  }
+      table.sample td {
+		  font-family:"Comic Sans MS";
+		  font-size: 11px;
+		  text-align: center;
+		  border-width: 2px;
+		  padding: 1px;
+		  border-style: none;
+		  border-color: #dbe3eb;
+		  background-color: white;
+		  -moz-border-radius: ;
+	  }
+      .mmlib_table {
+		  font-family:"Comic Sans MS";
+		  font-size: 10px;
+		  background-color: #b4c3f6;
+		  border: 3px solid #dbe3eb;
+	  }
+      .mmlib_xlink {
+		  font-family: "Comic Sans MS";
+		  background-color: #b4c3f6; 
+		  color:#dbe3eb;cursor: pointer;
+	  }
