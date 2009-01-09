@@ -46,6 +46,7 @@
 	function handleQueryResponse(response)	{
 		if (response.isError()) {
 			alert(response.getDetailedMessage());
+			alert(response.getReasons());
 			alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
 			return;
 		}
