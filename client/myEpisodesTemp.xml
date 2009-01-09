@@ -138,7 +138,7 @@
 				showsArray[j] = data.getValue( i , 0); //getting the showID
 				alert('show:'+showsArray[j]+' was added to the array');
 				//var sid = 'sid'+j;
-				var val = JSON.stringify(showArray[j]);
+				var val = JSON.stringify(showsArray[j]);
 				url += '&' + 'sid' + '=' + encodeURIComponent(val);
 				alert(url);
 				++j;
