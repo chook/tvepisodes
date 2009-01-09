@@ -17,6 +17,7 @@
 	 var checked_no=0;
 	 var data;
 	 var table;
+	 var query = '';
 	 
 	 google.load("visualization", "1", {packages:["columnchart", "table"]});	 
       function init() {
@@ -33,7 +34,7 @@
 		checked_no = 0;
 		var url = 'http://epihourtesting.appspot.com/SearchShow?ShowName=' + document.getElementById('srch_txt').value.toLowerCase();
 		alert(url);
-		var query = new google.visualization.Query(url);
+		query = new google.visualization.Query(url);
 		alert("after query");
 		// Send the query with a callback function.
 		query.send(handleQueryResponse);
@@ -90,6 +91,7 @@
         document.getElementById('no_result_div').style.display = 'none' ;
 		data = NULL;
 		table = NULL;
+		query = '';
 		document.getElementById('main_div').removeChild(document.getElementById('vis_results'));
 		var newDiv = document.createElement("div");
 		newDiv.id = "vis_results";
