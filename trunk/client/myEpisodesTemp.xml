@@ -25,8 +25,9 @@
          var tabs = new _IG_Tabs(__MODULE_ID__ );
         // When you use addDynamicTab, the tab's content is 
         // dynamically generated through the callback function. 
-        tabs.addTab("News", "news_div", create_msg()); 
-        tabs.addTab("My Episodes", "epsd_div", getFavorites());
+        tabs.addTab("News", "news_div", create_msg());
+       // tabs.addTab("My Episodes", "epsd_div", getFavorites());		
+        tabs.addTab("My Episodes", "epsd_div");
         tabs.addTab("Add", "add_div");
         tabs.addTab("Statistics", "sts_div", drawChart());
        }
