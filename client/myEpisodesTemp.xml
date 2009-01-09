@@ -131,9 +131,11 @@
 		for (var i=0; i<data.getNumberOfRows(); i++){
 			if (document.getElementById('add'+i)){
 				showsArray[j] = data.getValue( i , 0); //getting the showID
+				alert("show:"+showArray[j]+" was added to the array");
 				//var sid = 'sid'+j;
 				var val = JSON.stringify(showArray[j]);
 				url += '&' + 'sid' + '=' + encodeURIComponent(val);
+				alert(url);
 				++j;
 			}
 		}
@@ -184,7 +186,7 @@
             document.getElementById('heroes_check').checked = false;
             document.getElementById('heroes_check').style.display = 'none';
           }*/
-      }
+    }
 
     function add_series(name, s, e){
        var div = document.getElementById('epsd_div');
