@@ -26,7 +26,7 @@
         // When you use addDynamicTab, the tab's content is 
         // dynamically generated through the callback function. 
         tabs.addTab("News", "news_div", create_msg()); 
-        tabs.addTab("My Episodes", "epsd_div");
+        tabs.addTab("My Episodes", "epsd_div", getFavorites());
         tabs.addTab("Add", "add_div");
         tabs.addTab("Statistics", "sts_div", drawChart());
        }
@@ -56,7 +56,7 @@
 		}
 		table = new google.visualization.Table(document.getElementById('vis_results'));
 		var view = new google.visualization.DataView(data);
-		view.hideColumns([0]); // show the name column only.
+		view.hideColumns([0]); // do not show the showID.
 		table.draw(view, {showRowNumber: true, allowHtml:true, page:'enable', width: 210, pageSize: 5});
 		//google.visualization.events.addListener(table, 'select', selectHandler);
 		function selectHandler() {
@@ -94,10 +94,66 @@
 		var newDiv = document.createElement("div");
 		newDiv.id = "vis_results";
 		document.getElementById('main_div').appendChild(newDiv);
-      }
-
-    function add_checked_episodes()
-      {
+    }
+	  
+	function getFavorites()    {
+		var url = 'http://epihourtesting.appspot.com/SearchShow?ShowName=' //CHANGE WHEN THERE IS A VALID LINK
+		//alert(url);
+		var favoritesQuery = new google.visualization.Query(url);
+		//alert("after query");
+		// Send the query with a callback function.
+		favoritesQuery.send(handleFavoritesQueryResponse);
+		//alert("after sending");	
+	}
+	function handleFavoritesQueryResponse(response)	{
+		if (response.isError()) {
+			alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+			return;
+		}
+		var favoritesData = response.getDataTable();
+		favoritesData.addColumn('string' , '');
+		for (var j=0; j<favoritesData.getNumberOfRows(); j++){
+			favoritesData.setValue(j , 3, '<input type="botton" align="center" class="btn" value="[x]" id="delete'+j+'" onmouseover="this.className=\'btnhov\'" onmouseout="this.className=\'btn\'" onclick="remove_row(\'favoritesData.getValue('+j+',0)\')" />');
+		}
+		var favoritesTable = new google.visualization.Table(document.getElementById('epsd_div'));
+		var view = new google.visualization.DataView(favoritesData);
+		view.hideColumns([0]); // do not show the showID.
+		favoritesTable.draw(view, {showRowNumber: true, allowHtml:true, page: 'enable', sortColumn:2, page:'enable', width: 210, pageSize: 5});
+	}
+	
+    function add_checked_episodes() {
+		var userID = 10012009;
+		var url = 'http://epihour.appspot.com/favorites?uid=' + encodeURIComponent(userID);
+		//creating the shows to add array
+		var showsArray = newArray();
+		var j = 0;
+		for (var i=0; i<data.getNumberOfRows(); i++){
+			if (document.getElementById('add'+i)){
+				showsArray[j] = data.getValue( i , 0); //getting the showID
+				//var sid = 'sid'+j;
+				var val = JSON.stringify(showArray[j]);
+				url += '&' + 'sid' + '=' + encodeURIComponent(val);
+				++j;
+			}
+		}
+		var req = new XMLHttpRequest();
+		// Create a 'GET' request w/ an optional callback handler
+		req.open('GET', url, true); 
+		req.onreadystatechange = function() {
+			if(req.readyState == 4 && req.status == 200) {
+				var response = null;
+				try { 
+					response = JSON.parse(req.responseText);
+				}
+				catch (e) {
+					response = req.responseText;
+				}
+				alert(response);
+			} 
+		}
+		// Make the actual request
+		req.send(null);
+/*
           if (document.getElementById('friends_check').checked == true){
             add_series("Friends","1","1");
             document.getElementById('friends_check').checked = false;
@@ -126,7 +182,7 @@
             document.getElementById('heroes1_check').style.display = 'none';
             document.getElementById('heroes_check').checked = false;
             document.getElementById('heroes_check').style.display = 'none';
-          }
+          }*/
       }
 
     function add_series(name, s, e){
