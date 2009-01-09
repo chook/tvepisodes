@@ -1,0 +1,598 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+  <ModulePrefs scrolling="true" title="My Episodes Gadget" height="250" >
+    <Require feature="tabs" />
+    <Require feature="minimessage" />
+  </ModulePrefs>
+  <Content type="html" view="home,canvas">
+    <![CDATA[
+  <html>
+<head>
+    <style type="text/css">
+      .background { font-family:"Comic Sans MS"; background-color: #dbe3eb; font-size: 14px; }   
+      .btn { font-family: "Comic Sans MS"; font-size:11px; background-color: #b4c3f6; filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0,StartColorStr='#dbe3eb',EndColorStr='#b4c3f6'); }
+      .btnhov{ font-family: "Comic Sans MS"; font-size:11px;cursor: pointer; border-color: 'white';background-color: #b4c3f6; filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0,StartColorStr='#dbe3eb',EndColorStr='#b4c3f6'); }
+      .txt { font-family: "Comic Sans MS"; font-size:11px;  }
+      .tablib_table { background-color: #c7d5e2; width: 100%; border-collapse: separate; border-spacing: 0px; empty-cells: show; font-size: 10px; text-align: rih;}
+      .tablib_emptyTab { border-bottom: 1px solid #676767; padding: 0px 1px;}
+      .tablib_spacrTab { border-bottom: 1px solid #676767; padding: 0px 1px; width: 1px;}
+      .tablib_selected { font-family: "Comic Sans MS"; font-style: italic; background-color: #dbe3eb;padding: 2px 0px; border: 1.5px solid #676767; border-bottom-width: 0px; color: #3366cc; font-weight: bold; width: 80px; cursor: default;}
+      .tablib_unselected { font-family: "Comic Sans MS"; background-color: #b4c3f6;padding: 2px 0px; border: 1px solid #aaaaaa; border-bottom-color: #676767; color: #000000; width: 80px; cursor: pointer;}
+      .tablib_navContainer { width: 10px; vertical-align: middle;}
+      .tablib_navContainer a:link, .tablib_navContainer a:visited, .tablib_navContainer a:hover { color: #3366aa; text-decoration: none;}
+      table.sample {border-width: 0px;border-spacing: ;border-style:none;border-color: ;border-collapse: separate;background-color: #dbe3eb;}
+      table.sample th {font-family:"Comic Sans MS"; font-size: 11px;text-align: center;border-width: 2px;padding: 1px;border-style: none;border-color: #dbe3eb;background-color: white;-moz-border-radius: ;}
+      table.sample td {font-family:"Comic Sans MS"; font-size: 11px;text-align: center;border-width: 2px;padding: 1px;border-style: none;border-color: #dbe3eb;background-color: white;-moz-border-radius: ;}
+      .mmlib_table {font-family:"Comic Sans MS"; font-size: 10px;background-color: #b4c3f6; border: 3px solid #dbe3eb;  }
+      .mmlib_xlink {font-family: "Comic Sans MS"; background-color: #b4c3f6; color:#dbe3eb;cursor: pointer; }
+    </style>
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    <script type="text/javascript" >
+     var checked_no=0;
+	 google.load("visualization", "1", {packages:["columnchart", "table"]});
+<style> 
+                .google-visualization-table-table { font-size:xx-small; } 
+                .google-visualization-table-table, .google-visualization-table- 
+table  { font-size:xx-small; } 
+                .google-visualization-table-table *  { font-size:xx-small; } 
+                </style>  
+      function init() {
+        // Initialize tabs.
+         var tabs = new _IG_Tabs(__MODULE_ID__ );
+        // When you use addDynamicTab, the tab's content is 
+        // dynamically generated through the callback function. 
+        tabs.addTab("News", "news_div", create_msg()); 
+        tabs.addTab("My Episodes", "epsd_div");
+        tabs.addTab("Add", "add_div");
+        tabs.addTab("Statistics", "sts_div", drawChart());
+       }
+    function search_episode()    {
+		checked_no = 0;
+		var url = 'http://epihourtesting.appspot.com/SearchShow?ShowName=' + document.getElementById('srch_txt').value.toLowerCase();
+		var query = new google.visualization.Query(url); 
+		// Send the query with a callback function.
+		query.send(handleQueryResponse);
+		document.getElementById('most_pop').style.display = 'none';
+		document.getElementById('vis_results').style.display = '' ;
+		document.getElementById('reset_srch_btn').disabled = false;		
+	}
+  
+	function handleQueryResponse(response)	{
+		if (response.isError()) {
+				alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+				return;
+		}
+		var data = response.getDataTable();
+		data.addColumn('string' , '');
+		for (var j=0; j<data.getNumberOfRows(); j++){
+			data.setValue(j , 2, '<input type="checkbox" align="center" id="add'+j+'" onclick="chosen(\'add'+j+'\')" />');
+		}
+		var table = new google.visualization.Table(document.getElementById('vis_results'));
+		var view = new google.visualization.DataView(data);
+		view.hideColumns([0]); // show the name column only.
+		table.draw(view, {showRowNumber: true, allowHtml:true, page:'enable', width: 210, pageSize: 5});
+		//google.visualization.events.addListener(table, 'select', selectHandler);
+		function selectHandler() {
+			var selection = table.getSelection();
+			for (var i = 0; i < selection.length; i++) {
+				var name = data.getValue(selection[i].row, 1);
+				alert(' Row ' + selection[i].row + ' value is: ' + name);
+				add_series( name, 1 , 1);
+			}
+			if (selection.length>0)
+				document.getElementById('add_btn').disabled = false;
+			else 
+				document.getElementById('add_btn').disabled = true;
+		}
+	}
+	
+    function reset_srch_text() 
+      {
+        if (document.getElementById('srch_txt').value == 'TV Show Name Here')
+            document.getElementById('srch_txt').value = '';
+      }
+    function reset_srch() 
+      { 
+        checked_no=0;
+        document.getElementById('add_btn').disabled = true;
+        document.getElementById('reset_srch_btn').disabled = true;
+        document.getElementById('srch_txt').value = 'TV Show Name Here';
+        document.getElementById('most_pop').style.display = ''; 
+		document.getElementById('vis_results').style.display = 'none'; 
+        document.getElementById('no_result_div').style.display = 'none' ;
+		response = null;
+      }
+
+    function add_checked_episodes()
+      {
+          if (document.getElementById('friends_check').checked == true){
+            add_series("Friends","1","1");
+            document.getElementById('friends_check').checked = false;
+            document.getElementById('friends_check').style.display = 'none';
+          }
+          if (document.getElementById('prison_check').checked == true){
+            add_series("Prison Break","1","1");
+            document.getElementById('prison_check').checked = false;
+            document.getElementById('prison_check').style.display = 'none';
+          }
+          if (document.getElementById('lostproc_check').checked == true){
+            add_series("Lost Process","1","1");
+            document.getElementById('lostproc_check').checked = false;
+            document.getElementById('lostproc_check').style.display = 'none';
+          }
+          if ((document.getElementById('lost_check').checked == true) ||(document.getElementById('lost1_check').checked == true)){
+            add_series("Lost","1","1");
+            document.getElementById('lost1_check').checked = false;
+            document.getElementById('lost1_check').style.display = 'none';
+            document.getElementById('lost_check').checked = false;
+            document.getElementById('lost_check').style.display = 'none';
+          }
+          if ((document.getElementById('heroes_check').checked == true) ||(document.getElementById('heroes1_check').checked == true)){
+            add_series("Heroes","1","1");
+            document.getElementById('heroes1_check').checked = false;
+            document.getElementById('heroes1_check').style.display = 'none';
+            document.getElementById('heroes_check').checked = false;
+            document.getElementById('heroes_check').style.display = 'none';
+          }
+      }
+
+    function add_series(name, s, e){
+       var div = document.getElementById('epsd_div');
+       mytable = document.getElementById("series");
+       mytablebody = document.createElement("tbody")
+       mycurrent_row = document.createElement("tr");
+
+               mycurrent_cell = document.createElement("td");
+               currenttext = document.createTextNode(name);
+               mycurrent_cell.appendChild(currenttext);
+               mycurrent_row.appendChild(mycurrent_cell);
+               mycurrent_cell = document.createElement("td");
+               currenttext = document.createTextNode(s);
+               mycurrent_cell.appendChild(currenttext);
+               mycurrent_row.appendChild(mycurrent_cell);
+               mycurrent_cell = document.createElement("td");
+               currenttext = document.createTextNode(e);
+               mycurrent_cell.appendChild(currenttext);
+               mycurrent_row.appendChild(mycurrent_cell);
+                
+               mycurrent_cell = document.createElement("td");
+               currenttext = document.createElement('input'); 
+               currenttext.type = "checkbox";
+               mycurrent_cell.appendChild(currenttext);
+               mycurrent_row.appendChild(mycurrent_cell);
+               
+               mycurrent_cell = document.createElement("td");
+               currenttext = document.createElement('input'); 
+               currenttext.type = "checkbox";
+               mycurrent_cell.appendChild(currenttext);
+               mycurrent_row.appendChild(mycurrent_cell);
+
+               mycurrent_cell = document.createElement("td");
+               currenttext = document.createElement('select');
+               newOption = document.createElement("OPTION"); 
+               currenttext.options.add(newOption);
+               newOption.value = "-";
+              newOption.text = "-";
+              for(var i=1; i < 6; i++){
+               newOption = document.createElement("OPTION"); 
+               currenttext.options.add(newOption);
+               newOption.value = i
+               newOption.text = i;
+              }
+              mycurrent_cell.appendChild(currenttext);
+              mycurrent_row.appendChild(mycurrent_cell);
+    
+    
+               mycurrent_cell = document.createElement("td");
+               currenttext = document.createElement('input'); 
+               currenttext.type = "button";
+               currenttext.value = "[x]";
+               currenttext.setAttribute("class","btn");
+               currenttext.setAttribute("onmouseover",".btnhov");
+               currenttext.setAttribute("onmouseout",".btn");
+               mycurrent_cell.appendChild(currenttext);
+               mycurrent_row.appendChild(mycurrent_cell);
+
+
+    
+           mytablebody.appendChild(mycurrent_row);
+       
+       mytable.appendChild(mytablebody);
+       div.appendChild(mytable);      
+    }
+    function remove_row(row_name){
+      var answer = confirm("Are you sure you want to discard?")
+      if (answer){      
+        var tbl = document.getElementById('series');
+        var oldrow = document.getElementById(row_name);
+        tbl.removeChild(oldrow);
+      }
+    }
+     function create_msg()
+      {
+        var msg = new _IG_MiniMessage(__MODULE_ID__, _gel("news_div"));
+        msg.createDismissibleMessage("Heroes S3 E13 is on tonight!", dismissed);   
+        msg.createDismissibleMessage("Survivor S17 E13 is on this Tursday !", dismissed);      
+      }
+    // Used as callback function when message is dismissed.
+    // If callback returns false, then cancel the dismissal.
+    function dismissed() {
+       return confirm("Are you sure you want to discard?");
+     }
+    function dismiss_epi(line) {
+       var answer = confirm("Are you sure you want to discard?")
+       if (answer) {
+         document.getElementById(line).style.display = 'none'
+         document.getElementById(line+'_check').style.display = ''
+         document.getElementById(line+'1_check').style.display = ''
+       }  
+     }
+    function chosen(name){
+     if ((document.getElementById(name).checked)==true){
+      ++checked_no;
+      document.getElementById('add_btn').disabled = false
+     }
+    else{
+      --checked_no;
+      if (checked_no ==0)
+        document.getElementById('add_btn').disabled = true
+      }
+    }
+
+    google.setOnLoadCallback(drawChart);
+    function drawChart(){
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Series');
+      data.addColumn('number', 'My Rank');
+      data.addColumn('number', 'Others');
+      data.addRows(5);
+      data.setValue(0, 0, 'Survivor');
+      data.setValue(0, 1, 4);
+      data.setValue(0, 2, 5);
+      data.setValue(1, 0, 'Heroes');
+      data.setValue(1, 1, 5);
+      data.setValue(1, 2, 4.7);
+      data.setValue(2, 0, 'Lost');
+      data.setValue(2, 1, 4);
+      data.setValue(2, 2, 3.5);
+      data.setValue(3, 0, 'Prison Break');
+      data.setValue(3, 1, 0);
+      data.setValue(3, 2, 4.3);
+      data.setValue(4, 0, 'Friends');
+      data.setValue(4, 1, 0);
+      data.setValue(4, 2, 4.5);
+      var chart = new google.visualization.ColumnChart(document.getElementById('sts_div'));
+      var colArr= new Array('#99aef5','#1b09a2');
+      chart.draw(data, {width: 230, height: 240, is3D: true, title: 'Most Popular Ranking', backgroundColor:'#dbe3eb',focusBorderColor:'#b4c3f6' ,axisColor:'#b4c3f6',legendBackgroundColor:'#b4c3f6', colors:colArr});
+    }
+      // Call init function to initialize and display tabs.
+     
+    _IG_RegisterOnloadHandler(init); 
+    </script>
+</head>
+<body bgcolor="#dbe3eb">
+    <div id="news_div" class="background" align="center" ></div>
+
+    <div id="epsd_div" class="background" align="center" >
+    
+      
+        <br>
+        <table id="series" class="sample" border="1" width="100%" >
+          <tr>
+            <th> Name </th>
+            <th> Season </th>
+            <th> Episode </th>
+            <th> W </th>
+            <th> S </th>
+            <th> My Rank </th>
+          </tr>
+          <tr id="lost">       
+              <td> Lost </td>
+              <td> 1 </td>
+              <td> 3 </td>
+              <td> <input type="checkbox" /> </td>
+              <td> <input type="checkbox" /> </td>
+              <td>
+                <select>
+                   <option selected value="-">-</option>
+                   <option value="1">1</option>
+                   <option value="2">2</option>
+                   <option value="3">3</option>
+                   <option value="4">4</option>
+                   <option value="5">5</option>
+                </select>
+              </td>
+              <td> <input type="button" class="btn" value="[x]" id="delete_btn" onmouseover="this.className='btnhov'" onmouseout="this.className='btn'" onclick="dismiss_epi('lost')"/> </td>
+          </tr>
+          <tr id="survivor">       
+              <td> Survivor </td>
+              <td> 17 </td>
+              <td> 13 </td>
+              <td> <input type="checkbox" /> </td>
+              <td> <input type="checkbox" /> </td>
+              <td>
+                <select>
+                   <option selected value="-">-</option>
+                   <option value="1">1</option>
+                   <option value="2">2</option>
+                   <option value="3">3</option>
+                   <option value="4">4</option>
+                   <option value="5">5</option>
+                </select>
+              </td>
+              <td> <input type="button" class="btn" value="[x]" id="delete_btn" onmouseover="this.className='btnhov'" onmouseout="this.className='btn'" onclick="dismiss_epi('survivor')"/> </td>
+          </tr>
+          <tr id="heroes">       
+              <td> Heroes </td>
+              <td> 3 </td>
+              <td> 13 </td>
+              <td> <input type="checkbox" /> </td>
+              <td> <input type="checkbox" /> </td>
+              <td>
+                <select>
+                   <option selected value="-">-</option>
+                   <option value="1">1</option>
+                   <option value="2">2</option>
+                   <option value="3">3</option>
+                   <option value="4">4</option>
+                   <option value="5">5</option>
+                </select>
+              </td>
+              <td> <input type="button" class="btn" value="[x]" id="delete_btn" onmouseover="this.className='btnhov'" onmouseout="this.className='btn'" onclick="dismiss_epi('heroes')"/> </td>
+          </tr>
+          <tbody>
+          </tbody>
+        </table>
+        <br>
+        <input disabled type="button" class="btn" value="View Calender" id="caln_btn" onmouseover="this.className='btnhov'"onmouseout="this.className='btn'"/>
+      </div>
+      <div class="background" align="center" id="add_div" >
+         <br> 
+
+
+        <table>
+
+          <tr>
+            <td> <input type="text" class="txt" value="TV Show Name Here" id="srch_txt" onclick="reset_srch_text()"/> </td>
+            <td> <input type="button" class="btn" value="Search" id="srch_btn" onmouseover="this.className='btnhov'"onmouseout="this.className='btn'" onclick="search_episode()" /> </td>
+            <td> <input type="button" disabled class="btn" value="Reset" id="reset_srch_btn" onmouseover="this.className='btnhov'"onmouseout="this.className='btn'" onclick="reset_srch()" /></td>
+          </tr>
+
+        </table>
+
+        
+        <br>
+ 
+      
+ <div id="main_div">
+  <div id="vis_results"> </div>
+<table id="most_pop" class="sample" border="1"> 
+  <tr>
+     <td></td>
+     <th> Most Popular </th>
+     <th> Add </th>
+   </tr>
+   <tr>
+     <td> 1 </td>
+     <td> Survivor </td>
+     <td> <input style="display:none" type="checkbox" id="survivor_check" onclick="chosen('survivor_check')"/> </td>
+   </tr>
+   <tr>
+     <td> 2 </td>
+     <td> Heroes </td>
+     <td> <input style="display:none" type="checkbox" id="heroes_check" onclick="chosen('heroes_check')"/> </td>
+   </tr>
+   <tr>
+     <td> 3 </td>
+     <td> Lost </td>
+     <td> <input style="display:none" type="checkbox" id="lost_check" onclick="chosen('lost_check')"/> </td>
+   </tr>
+   <tr>
+     <td> 4 </td>
+     <td> Prison Break </td>
+     <td> <input type="checkbox" id="prison_check" onclick="chosen('prison_check')"/> </td>
+   </tr>
+   <tr>
+     <td> 5 </td>
+     <td> Friends </td>
+     <td> <input type="checkbox" id="friends_check" onclick="chosen('friends_check')"/> </td>
+   </tr>
+ </table>
+</div>
+<div style="display:none" id="no_result_div"> 
+  <table id="search_result" class="sample" border="1">
+    <tr>
+      <th> No Results. try again! </th>
+    </tr>
+  </table>
+</div>
+  <input type="button" disabled class="btn" value="Add" id="Add_btn" onmouseover="this.className='btnhov'"onmouseout="this.className='btn'" onclick="add_checked_episodes()" />
+</div>
+<div align="center" id="sts_div" class="background"> </div>
+</body>
+</html>
+    ]]>
+  </Content>
+</Module>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
