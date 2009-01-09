@@ -13,7 +13,11 @@
     </style>
     <script type="text/javascript" src="http://www.google.com/jsapi"></script>
     <script type="text/javascript" >
-     var checked_no=0;
+     //global variables
+	 var checked_no=0;
+	 var data;
+	 var table;
+	 
 	 google.load("visualization", "1", {packages:["columnchart", "table"]});	 
       function init() {
         // Initialize tabs.
@@ -41,12 +45,12 @@
 				alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
 				return;
 		}
-		var data = response.getDataTable();
+		data = response.getDataTable();
 		data.addColumn('string' , '');
 		for (var j=0; j<data.getNumberOfRows(); j++){
 			data.setValue(j , 2, '<input type="checkbox" align="center" id="add'+j+'" onclick="chosen(\'add'+j+'\')" />');
 		}
-		var table = new google.visualization.Table(document.getElementById('vis_results'));
+		table = new google.visualization.Table(document.getElementById('vis_results'));
 		var view = new google.visualization.DataView(data);
 		view.hideColumns([0]); // show the name column only.
 		table.draw(view, {showRowNumber: true, allowHtml:true, page:'enable', width: 210, pageSize: 5});
@@ -79,7 +83,6 @@
         document.getElementById('most_pop').style.display = ''; 
 		document.getElementById('vis_results').style.display = 'none'; 
         document.getElementById('no_result_div').style.display = 'none' ;
-		response = null;
       }
 
     function add_checked_episodes()
