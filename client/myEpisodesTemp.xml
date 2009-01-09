@@ -136,7 +136,7 @@
 			if ((document.getElementById('add'+i).checked) == true){
 				alert('true');
 				showsArray[j] = data.getValue( i , 0); //getting the showID
-				alert('show:'+showArray[j]+' was added to the array');
+				alert('show:'+showsArray[j]+' was added to the array');
 				//var sid = 'sid'+j;
 				var val = JSON.stringify(showArray[j]);
 				url += '&' + 'sid' + '=' + encodeURIComponent(val);
