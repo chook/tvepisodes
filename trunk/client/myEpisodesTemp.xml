@@ -83,13 +83,12 @@
         document.getElementById('most_pop').style.display = ''; 
 		document.getElementById('vis_results').style.display = 'none'; 
         document.getElementById('no_result_div').style.display = 'none' ;
-		date = NULL;
+		data = NULL;
 		table = NULL;
 		document.getElementById('main_div').removeChild(document.getElementById('vis_results'));
 		var newDiv = document.createElement("div");
 		newDiv.id = "vis_results";
 		document.getElementById('main_div').appendChild(newDiv);
-		
       }
 
     function add_checked_episodes()
