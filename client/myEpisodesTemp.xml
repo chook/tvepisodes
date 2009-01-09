@@ -83,6 +83,8 @@
         document.getElementById('most_pop').style.display = ''; 
 		document.getElementById('vis_results').style.display = 'none'; 
         document.getElementById('no_result_div').style.display = 'none' ;
+		date = NULL;
+		table = NULL;
       }
 
     function add_checked_episodes()
