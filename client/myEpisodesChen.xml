@@ -30,12 +30,7 @@
     <script type="text/javascript" >
      var checked_no=0;
 	 google.load("visualization", "1", {packages:["columnchart", "table"]});
-<style> 
-                .google-visualization-table-table { font-size:xx-small; } 
-                .google-visualization-table-table, .google-visualization-table- 
-table  { font-size:xx-small; } 
-                .google-visualization-table-table *  { font-size:xx-small; } 
-                </style>  
+ 
       function init() {
         // Initialize tabs.
          var tabs = new _IG_Tabs(__MODULE_ID__ );
