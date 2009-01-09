@@ -136,10 +136,10 @@
 			if ((document.getElementById('add'+i).checked) == true){
 				alert('true');
 				showsArray[j] = data.getValue( i , 0); //getting the showID
-				alert('show:'+showsArray[j]+' was added to the array');
+				alert('show no. '+j+':'+showsArray[j]+' was added to the array');
 				//var sid = 'sid'+j;
-				var val = JSON.stringify(showsArray[j]);
-				url += '&' + 'sid' + '=' + encodeURIComponent(val);
+				//var val = JSON.stringify(showsArray[j]);
+				url += '&' + 'sid' + '=' + encodeURIComponent(showsArray[j]);
 				alert(url);
 				++j;
 			}
