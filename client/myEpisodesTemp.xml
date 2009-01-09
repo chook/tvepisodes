@@ -44,15 +44,10 @@
 	}
   
 	function handleQueryResponse(response)	{
-		var gadgetHelper = new google.visualization.GadgetHelper();
-		if (!gadgetHelper.validateResponse(response)) { 
-			alert(response.getReasons());
-			 alert("not validated");
-			 return;
-		}  	
 		if (response.isError()) {
-				alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
-				return;
+			alert(response.getDetailedMessage());
+			alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+			return;
 		}
 		data = response.getDataTable();
 		data.addColumn('string' , '');
