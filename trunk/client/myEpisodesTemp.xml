@@ -132,7 +132,9 @@
 		var j = 0;
 		alert('number of rows:'+data.getNumberOfRows());
 		for (var i=0; i<data.getNumberOfRows(); i++){
+			alert('checking row no.'+i);
 			if ((document.getElementById('add'+i).checked) == true){
+				alert('true');
 				showsArray[j] = data.getValue( i , 0); //getting the showID
 				alert('show:'+showArray[j]+' was added to the array');
 				//var sid = 'sid'+j;
