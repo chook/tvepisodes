@@ -25,6 +25,10 @@
       table.sample td {font-family:"Comic Sans MS"; font-size: 11px;text-align: center;border-width: 2px;padding: 1px;border-style: none;border-color: #dbe3eb;background-color: white;-moz-border-radius: ;}
       .mmlib_table {font-family:"Comic Sans MS"; font-size: 10px;background-color: #b4c3f6; border: 3px solid #dbe3eb;  }
       .mmlib_xlink {font-family: "Comic Sans MS"; background-color: #b4c3f6; color:#dbe3eb;cursor: pointer; }
+                .google-visualization-table-table { font-size:xx-small; } 
+                .google-visualization-table-table, .google-visualization-table- 
+table  { font-size:xx-small; } 
+                .google-visualization-table-table *  { font-size:xx-small; } 
     </style>
     <script type="text/javascript" src="http://www.google.com/jsapi"></script>
     <script type="text/javascript" >
