@@ -126,12 +126,13 @@
 		var userID = 10012009;
 		var url = 'http://epihour.appspot.com/favorites?uid=' + encodeURIComponent(userID);
 		alert(url);
+		alert(data);
 		//creating the shows to add array
-		var showsArray = newArray();
+		var showsArray = new Array();
 		var j = 0;
 		alert('number of rows:'+data.getNumberOfRows());
 		for (var i=0; i<data.getNumberOfRows(); i++){
-			if (document.getElementById('add'+i).checked == true){
+			if ((document.getElementById('add'+i).checked) == true){
 				showsArray[j] = data.getValue( i , 0); //getting the showID
 				alert('show:'+showArray[j]+' was added to the array');
 				//var sid = 'sid'+j;
