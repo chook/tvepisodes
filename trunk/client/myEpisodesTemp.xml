@@ -130,9 +130,9 @@
 		var j = 0;
 		alert('number of rows:'+data.getNumberOfRows());
 		for (var i=0; i<data.getNumberOfRows(); i++){
-			alert('checking row no.'+i);
+			//alert('checking row no.'+i);
 			if ((document.getElementById('add'+i).checked) == true){
-				alert('true');
+				//alert('true');
 				showsArray[j] = data.getValue( i , 0); //getting the showID
 				alert('show no. '+j+':'+showsArray[j]+' was added to the array');
 				//var sid = 'sid'+j;
@@ -142,22 +142,24 @@
 				++j;
 			}
 		}
-		 try{
+		var req = null;
+		try{
 			// Firefox, Opera 8.0+, Safari, IE7
-			var req =new XMLHttpRequest();
+			req =new XMLHttpRequest();
 		}
 		catch(e){
 			// Old IE
 			try{
-				var req=new ActiveXObject("Microsoft.XMLHTTP");
+				req = new ActiveXObject("Microsoft.XMLHTTP");
 			}
 			catch(e){
+				alert('Your browser does not support this request!');
 				return;  
 			}
 		}
 		alert(req);
 		// Create a 'GET' request w/ an optional callback handler
-		req.open('GET', url, 'true'); 
+		req.open('GET', url, true); 
 		req.onreadystatechange = function() {
 			if(req.readyState == 4 && req.status == 200) {
 				var response = null;
