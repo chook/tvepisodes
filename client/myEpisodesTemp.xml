@@ -168,6 +168,10 @@
 				}
 			}
 		}
+		alert('before open. url is: ' + url);
+		// Create a 'GET' request w/ an optional callback handler
+		req.open("GET", url, true); 
+		alert('after open');
 		alert('before onreadystatechange');
 		req.onreadystatechange = function() {
 			if(req.readyState == 4 && req.status == 200) {
@@ -176,15 +180,14 @@
 					response = JSON.parse(req.responseText);
 				}
 				catch (e) {
-					response = req.responseText;
+					if (req.responseText != null)
+						response = req.responseText;
+					else
+						alert('no response');
 				}
 				alert(response);
 			} 
 		}
-		alert('before open. url is: ' + url);
-		// Create a 'GET' request w/ an optional callback handler
-		req.open("GET", url, true); 
-		alert('after open');
 		alert('before send');
 		// Make the actual request
 		req.send(null);
