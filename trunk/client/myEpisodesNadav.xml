@@ -127,7 +127,7 @@
 		var url = "http://epihour.appspot.com/favorites";
 		//creating the shows to add array
 		var showsArray = new Array();
-		var body = '?uid=' + encodeURIComponent(userID);
+		var body = "?uid=" + encodeURIComponent(userID);
 		var j = 0;
 		alert('number of rows:'+data.getNumberOfRows());
 		for (var i=0; i<data.getNumberOfRows(); i++){ //IF PAGE:'ENABLE' WE NEED TO TO DO I<5!
@@ -138,12 +138,12 @@
 				alert('show no. '+j+':'+showsArray[j]+' was added to the array');
 				//var sid = 'sid'+j;
 				//var val = JSON.stringify(showsArray[j]);
-				body += '&' + 'sid' + '=' + encodeURIComponent(showsArray[j]);
+				body += "&sid=" + encodeURIComponent(showsArray[j]);
 				alert(body);
 				++j;
 			}
 		}
-		body += '&search='+document.getElementById('srch_txt').value.toLowerCase();
+		body += "&search=" + encodeURIComponent(document.getElementById('srch_txt').value.toLowerCase());
 		var req;
 		alert('before req');
 		try
@@ -188,7 +188,7 @@
 		}
 		alert('before open. url is: ' + url);
 		 // Create an XMLHttpRequest 'POST' request w/ an optional callback handler
-		req.open('POST', url, true); 
+		req.open("POST", url, true); 
 		alert('after open');
 		alert('body.length = ' + body.length);
 		req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
