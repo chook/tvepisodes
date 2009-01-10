@@ -150,7 +150,7 @@
 		catch(e){
 			// Old IE
 			try{
-				req = new ActiveXObject("Microsoft.XMLHTTP");
+				req = new ActiveXObject('Microsoft.XMLHTTP');
 			}
 			catch(e){
 				alert('Your browser does not support this request!');
