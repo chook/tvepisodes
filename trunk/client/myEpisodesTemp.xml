@@ -171,7 +171,7 @@
 		}
 		alert('before onreadystatechange');
 		req.onreadystatechange = function() {
-			alert(req.responseText);
+			alert('response:' +req.responseText+'. readyState:' + req.readyState+ '. status: ' + req.status);
 			if(req.readyState == 4 && req.status == 200) {
 				var response = null;
 				try { 
