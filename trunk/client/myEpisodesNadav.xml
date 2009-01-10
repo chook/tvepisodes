@@ -127,7 +127,7 @@
 		var url = "http://epihour.appspot.com/favorites";
 		//creating the shows to add array
 		var showsArray = new Array();
-		var body = "?uid=" + encodeURIComponent(userID);
+		var body = "uid=" + encodeURIComponent(userID);
 		var j = 0;
 		alert('number of rows:'+data.getNumberOfRows());
 		for (var i=0; i<data.getNumberOfRows(); i++){ //IF PAGE:'ENABLE' WE NEED TO TO DO I<5!
