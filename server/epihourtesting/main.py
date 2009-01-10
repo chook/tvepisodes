@@ -4,6 +4,7 @@
 ## It builds a DataTable and returns it as a response
 ##
 import cgi
+import os
 import gviz_api
 import logging
 from google.appengine.api import urlfetch 
@@ -38,10 +39,28 @@ def build_table_for_search(showName):
     })
   return dicShows 
 
+class Gadget(webapp.RequestHandler):
+  # This function is invoked when a user sends a get request
+  def get(self):
+    url = 'gadget.html'
+    result = urlfetch.fetch(os.path.join(os.path.dirname(__file__), 'gadget.html'))
+    self.response.out.write(result.content)
+
+
 class MainPage(webapp.RequestHandler):
   # This function is invoked when a user sends a get request
   def get(self):
-    self.response.out.write("Invalid usage")
+    showId = self.request.get('ShowId')
+    con = False
+    for i in range (0,10):
+        url = "http://images.tvrage.net/shows/%s/%s.jpg" % (i, showId)
+        result = urlfetch.fetch(url)
+        if result.status_code != 404:
+            self.response.out.write(url)
+            con = True
+            break
+    if con == False:
+        self.response.out.write("Invalid usage")
 
 class SearchShow(webapp.RequestHandler):
   # This function is invoked when a user sends a get request
@@ -82,7 +101,8 @@ class SearchShow(webapp.RequestHandler):
 
 # Define the webapp applications and map the classes to different paths
 application = webapp.WSGIApplication([('/', MainPage),
-                                     ('/SearchShow', SearchShow)],
+                                     ('/SearchShow', SearchShow),
+                                     ('/Gadget', Gadget)],
                                      debug=True)
 
 # Main global function
