@@ -142,19 +142,28 @@
 				++j;
 			}
 		}
-		var req = null;
-		try{
-			// Firefox, Opera 8.0+, Safari, IE7
-			req =new XMLHttpRequest();
+		var req;
+		try
+		{  // Firefox, Opera 8.0+, Safari  
+			req =new XMLHttpRequest(); 
 		}
-		catch(e){
-			// Old IE
-			try{
-				req = new ActiveXObject('Microsoft.XMLHTTP');
+		catch (e)
+		{  // Internet Explorer
+			try
+			{
+				req = new ActiveXObject("Msxml2.XMLHTTP");
 			}
-			catch(e){
-				alert('Your browser does not support this request!');
-				return;  
+			catch (e)
+			{ 
+				try
+				{ 
+					req = new ActiveXObject("Microsoft.XMLHTTP");
+				}
+				catch (e)
+				{   
+					alert("Your browser does not support AJAX!"); 
+					return false;
+				}
 			}
 		}
 		alert(req);
