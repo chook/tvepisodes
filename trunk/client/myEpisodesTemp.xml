@@ -143,6 +143,7 @@
 			}
 		}
 		var req;
+		alert(req);
 		try
 		{  // Firefox, Opera 8.0+, Safari  
 			req =new XMLHttpRequest(); 
