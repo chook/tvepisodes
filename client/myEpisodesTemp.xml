@@ -170,7 +170,7 @@
 		}
 		alert('before open. url is: ' + url);
 		// Create a 'GET' request w/ an optional callback handler
-		req.open("GET", url, true); 
+		req.open("GET", url, false); 
 		alert('after open');
 		alert('before onreadystatechange');
 		req.onreadystatechange = function() {
