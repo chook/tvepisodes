@@ -170,9 +170,9 @@
 		}
 		alert('before open. url is: ' + url);
 		// Create a 'GET' request w/ an optional callback handler
-		req.open("GET", url, false); 
+		req.open('GET', url, false); 
 		alert('after open');
-		alert('before onreadystatechange');
+		/*alert('before onreadystatechange');
 		req.onreadystatechange = function() {
 			if(req.readyState == 4 && req.status == 200) {
 				var response = null;
@@ -187,7 +187,7 @@
 				}
 				alert(response);
 			} 
-		}
+		}*/
 		alert('before send');
 		// Make the actual request
 		req.send(null);
