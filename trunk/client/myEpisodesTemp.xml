@@ -129,7 +129,7 @@
 		var showsArray = new Array();
 		var j = 0;
 		alert('number of rows:'+data.getNumberOfRows());
-		for (var i=0; i<data.getNumberOfRows(); i++){
+		for (var i=0; i<data.getNumberOfRows(); i++){ //IF PAGE:'ENABLE' WE NEED TO TO DO I<5!
 			//alert('checking row no.'+i);
 			if ((document.getElementById('add'+i).checked) == true){
 				//alert('true');
@@ -170,6 +170,7 @@
 		alert(req);
 		// Create a 'GET' request w/ an optional callback handler
 		req.open('GET', url, true); 
+		alert('after open');
 		req.onreadystatechange = function() {
 			if(req.readyState == 4 && req.status == 200) {
 				var response = null;
@@ -182,6 +183,7 @@
 				alert(response);
 			} 
 		}
+		alert('before send');
 		// Make the actual request
 		req.send(null);
 /*
