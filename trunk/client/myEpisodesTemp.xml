@@ -58,7 +58,7 @@
 		table = new google.visualization.Table(document.getElementById('vis_results'));
 		var view = new google.visualization.DataView(data);
 		view.hideColumns([0]); // do not show the showID.
-		table.draw(view, {showRowNumber: true, allowHtml:true, page:'enable', width: 210, pageSize: 5});
+		table.draw(view, {showRowNumber: true, allowHtml:true, width: 210, pageSize: 5});
 		//google.visualization.events.addListener(table, 'select', selectHandler);
 		function selectHandler() {
 			var selection = table.getSelection();
