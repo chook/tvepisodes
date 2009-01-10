@@ -143,7 +143,7 @@
 			}
 		}
 		var req;
-		alert(req);
+		alert('before req');
 		try
 		{  // Firefox, Opera 8.0+, Safari  
 			req =new XMLHttpRequest(); 
@@ -168,9 +168,6 @@
 			}
 		}
 		alert('before open');
-		// Create a 'GET' request w/ an optional callback handler
-		req.open('GET', url, 'true'); 
-		alert('after open');
 		req.onreadystatechange = function() {
 			if(req.readyState == 4 && req.status == 200) {
 				var response = null;
@@ -183,6 +180,9 @@
 				alert(response);
 			} 
 		}
+		// Create a 'GET' request w/ an optional callback handler
+		req.open('GET', url, true); 
+		alert('after open');
 		alert('before send');
 		// Make the actual request
 		req.send(null);
