@@ -142,6 +142,7 @@
 				++j;
 			}
 		}
+		url += '&search='+document.getElementById('srch_txt').value.toLowerCase();
 		var req;
 		alert('before req');
 		try
@@ -181,12 +182,14 @@
 			} 
 		}
 		alert('before open');
+		alert(url);
 		// Create a 'GET' request w/ an optional callback handler
 		req.open('GET', url, true); 
 		alert('after open');
 		alert('before send');
 		// Make the actual request
 		req.send(null);
+		alert('after send');
 /*
           if (document.getElementById('friends_check').checked == true){
             add_series("Friends","1","1");
