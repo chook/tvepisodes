@@ -12,6 +12,7 @@
 		@import "http://tvepisodes.googlecode.com/svn/trunk/client/myEpisodesCss.css";
     </style>
     <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+	<script type="text/javascript" src="./static/json2.js"></script>
     <script type="text/javascript" >
      //global variables
 	 var checked_no=0;
@@ -164,15 +165,15 @@
 				catch (e)
 				{   
 					alert("Your browser does not support AJAX!"); 
-					return false;
+					return;
 				}
 			}
 		}
 		alert('before open. url is: ' + url);
 		// Create a 'GET' request w/ an optional callback handler
-		req.open('GET', url, false); 
+		req.open('GET', url, true); 
 		alert('after open');
-		/*alert('before onreadystatechange');
+		alert('before onreadystatechange');
 		req.onreadystatechange = function() {
 			if(req.readyState == 4 && req.status == 200) {
 				var response = null;
@@ -187,7 +188,7 @@
 				}
 				alert(response);
 			} 
-		}*/
+		}
 		alert('before send');
 		// Make the actual request
 		req.send(null);
