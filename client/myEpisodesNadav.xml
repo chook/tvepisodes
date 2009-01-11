@@ -121,17 +121,17 @@
 		view.hideColumns([0]); // do not show the showID.
 		favoritesTable.draw(view, {showRowNumber: true, allowHtml:true, page: 'enable', sortColumn:2, page:'enable', width: 210, pageSize: 5});
 	}
+
+	function addCallbackFunction(obj) {
+		   alert(obj.text);
+	};
 	
 	function makePOSTRequest(url, postdata) {
 		var params = {};
-		//postdata = gadgets.io.encodeValues(postdata);		// already given in the encodedvalue format
+		//postdata = gadgets.io.encodeValues(postdata);		// already given in the encodedValue format
 		params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.POST;
 		params[gadgets.io.RequestParameters.POST_DATA]= postdata;
-		gadgets.io.makeRequest(url, response, params); 
-	};
-	
-	function addCallbackFunction(obj) {
-		   alert(obj.text);
+		gadgets.io.makeRequest(url, addCallbackFunction, params); 
 	};
 	
     function add_checked_episodes() {
@@ -156,6 +156,7 @@
 			}
 		}
 		body += "&search=" + encodeURIComponent(document.getElementById('srch_txt').value.toLowerCase());
+		alert(body);
 		/*
 		var req;
 		alert('before req');
@@ -516,7 +517,7 @@
     </tr>
   </table>
 </div>
-  <input type="button" disabled class="btn" value="Add" id="add_btn" onmouseover="this.className='btnhov'"onmouseout="this.className='btn'" onclick="add_checked_episodes();return false" />
+  <input type="button" disabled class="btn" value="Add" id="add_btn" onmouseover="this.className='btnhov'"onmouseout="this.className='btn'" onclick="add_checked_episodes()" />
 </div>
 <div align="center" id="sts_div" class="background"> </div>
 </body>
