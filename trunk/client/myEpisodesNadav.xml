@@ -127,17 +127,11 @@
 	};
 	
 	function makePOSTRequest(url, postdata) {
-		alert("entered makePOSTrequest");
 		var params = {};
 		//postdata = gadgets.io.encodeValues(postdata);		// already given in the encodedValue format
-		alert("trying to use gadgets.io API");
 		params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.POST;
-		alert("used one");
 		params[gadgets.io.RequestParameters.POST_DATA]= postdata;
-		alert("used two");
-		alert("making request");
 		gadgets.io.makeRequest(url, addCallbackFunction, params); 
-		alert("made request");
 	};
 	
     function add_checked_episodes() {
