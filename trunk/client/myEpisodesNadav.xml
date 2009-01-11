@@ -122,6 +122,18 @@
 		favoritesTable.draw(view, {showRowNumber: true, allowHtml:true, page: 'enable', sortColumn:2, page:'enable', width: 210, pageSize: 5});
 	}
 	
+	function makePOSTRequest(url, postdata) {
+		var params = {};
+		//postdata = gadgets.io.encodeValues(postdata);		// already given in the encodedvalue format
+		params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.POST;
+		params[gadgets.io.RequestParameters.POST_DATA]= postdata;
+		gadgets.io.makeRequest(url, response, params); 
+	};
+	
+	function addCallbackFunction(obj) {
+		   alert(obj.text);
+	};
+	
     function add_checked_episodes() {
 		var userID = 11111;
 		var url = "http://epihour.appspot.com/favorites";
@@ -144,6 +156,7 @@
 			}
 		}
 		body += "&search=" + encodeURIComponent(document.getElementById('srch_txt').value.toLowerCase());
+		/*
 		var req;
 		alert('before req');
 		try
@@ -198,6 +211,8 @@
 		// Make the actual request
 		req.send(body);
 		alert('after send');
+		*/
+		makePOSTRequest(url, body); 
 
 /*
           if (document.getElementById('friends_check').checked == true){
