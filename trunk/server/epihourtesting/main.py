@@ -70,6 +70,15 @@ class SearchShow(webapp.RequestHandler):
     
     # The show name from the GET method (http://.../SearchShow?ShowName=<SHOW>)
     showName = self.request.get('ShowName')
+    reqId = self.request.get('tqx')
+    
+    try :
+        reqId = reqId[6:8]
+        if reqId == None or reqId == '' :
+            reqId = 0
+    except :
+        reqId = 0
+        
     if(showName != ""):
         showName = showName.lower()
         
@@ -91,10 +100,7 @@ class SearchShow(webapp.RequestHandler):
         data_table.LoadData(dicShows)
         
         # Write the object as a JSon response back to the caller
-        #table = self.ToJSon(columns_order, order_by)
-        #self.response.out.write("handleQueryResponse({version:'0.5'," +
-        #                        "reqId:'%s',status:'ok',table:%s});" % (0, data_table.ToJSon(columns_order=("showid", "name"))))
-        self.response.out.write(data_table.ToJSonResponse(columns_order=("showid", "name")))
+        self.response.out.write(data_table.ToJSonResponse(columns_order=("showid", "name"),order_by=(),req_id=reqId))
     else:
         # No show name specified, return
         self.response.out.write("Search Show: Invalid usage")
