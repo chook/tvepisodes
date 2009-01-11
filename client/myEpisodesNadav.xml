@@ -501,7 +501,7 @@
     </tr>
   </table>
 </div>
-  <input type="button" disabled class="btn" value="Add" id="add_btn" onmouseover="this.className='btnhov'"onmouseout="this.className='btn'" onclick="add_checked_episodes()" />
+  <input type="button" disabled class="btn" value="Add" id="add_btn" onmouseover="this.className='btnhov'"onmouseout="this.className='btn'" onclick="add_checked_episodes();return false" />
 </div>
 <div align="center" id="sts_div" class="background"> </div>
 </body>
