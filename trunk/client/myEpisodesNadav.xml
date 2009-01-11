@@ -124,7 +124,7 @@
 	
     function add_checked_episodes() {
 		var userID = 11111;
-		var url = "http://epihour.appspot.com/favorites";
+		var url = "\'http://epihour.appspot.com/favorites\'";
 		//creating the shows to add array
 		var showsArray = new Array();
 		var body = "uid=" + encodeURIComponent(userID);
