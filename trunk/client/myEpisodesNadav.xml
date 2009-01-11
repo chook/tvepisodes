@@ -3,7 +3,6 @@
   <ModulePrefs scrolling="true" title="My Episodes Gadget" height="250" >
     <Require feature="tabs" />
     <Require feature="minimessage" />
-	<Require feature="gadgets.io"/>
   </ModulePrefs>
   <Content type="html" view="home,canvas">
     <![CDATA[
