@@ -131,7 +131,9 @@
 		//postdata = gadgets.io.encodeValues(postdata);		// already given in the encodedValue format
 		params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.POST;
 		params[gadgets.io.RequestParameters.POST_DATA]= postdata;
+		alert("making request");
 		gadgets.io.makeRequest(url, addCallbackFunction, params); 
+		alert("made request");
 	};
 	
     function add_checked_episodes() {
