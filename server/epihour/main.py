@@ -1,15 +1,24 @@
 from google.appengine.ext import db
-from epihour import *
+from datastore import *
 
 from shows import *
 from favorites import *
+from users import *
 
-
+def clearAll():
+    clearAllShows()
+    clearAllUsers()
+    
 # Define the webapp applications and map the classes to different paths
 application = webapp.WSGIApplication([('/', MainPage),
                                      ('/SearchShow', SearchShow),
                                      ('/SearchAndStoreShow', SearchAndStoreShow),
-                                     ('/favorites', AddFavorite)],
+                                     ('/favorites', AddFavorite),
+                                     ('/getFavorites', GetFavorites),
+                                     ('/users',AddUser),
+                                     ('/clearAllShows',clearAllShows),
+                                     ('/clearAllUsers',clearAllUsers),
+                                     ('/clearAll',clearAll)],
                                      debug=True)
 
 # Main global function
