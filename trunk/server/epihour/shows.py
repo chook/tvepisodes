@@ -13,10 +13,12 @@ from google.appengine.ext.webapp.util import run_wsgi_app
 from google.appengine.api import memcache
 
 from google.appengine.ext import db
-from epihour import *
+
+from datastore import *
 
 __author__ = "Chen Harel"
 
+TVRAGE_SEARCH_URL = "http://www.tvrage.com/feeds/full_search.php?show="
 #class Shows(db.Model):
 #    showid = db.IntegerProperty(required=True)
 #    name = db.StringProperty(required=True)
@@ -57,8 +59,8 @@ def build_table_for_search(showName):
   dom.unlink();
   return dicShows 
 
-def add_data_to_datastore(showName):
-    url = 'http://www.tvrage.com/feeds/full_search.php?show=%s' % showName
+def addDataToDS(showName):
+    url = TVRAGE_SEARCH_URL + showName
 #    url = url.encode("utf-8")
     dom = parse(url)
 
@@ -76,7 +78,7 @@ def add_data_to_datastore(showName):
         name = show.getElementsByTagName('name')[0].firstChild.data
         country = show.getElementsByTagName('country')[0].firstChild.data
         
-        showRecord = Shows(showid = int(showid),
+        showRecord = Show(showid = int(showid),
                            name = name,
                            country = country)
         print "entering to the datastore:<br>"
@@ -96,10 +98,10 @@ def add_data_to_datastore(showName):
 
 def show_from_datastore():
 
-    query = Shows.gql("WHERE name = :name ",
+    query = Show.gql("WHERE name = :name ",
                       name='Rescue Heroes')
 
-    query2 = Shows.gql("WHERE showid > 20000")
+    query2 = Show.gql("WHERE showid > 20000")
         
     results = query.fetch(1)
     for result in results:
@@ -207,3 +209,20 @@ class SearchAndStoreShow(webapp.RequestHandler):
     else:
         # No show name specified, return
         self.response.out.write("Search Show: Invalid usage\n")
+       
+def addShowsFromSearch(searchString):
+    
+    print "Entering information into the datastore<br>"
+#        self.response.out.write("Entering information into the datastore")
+    addDataToDS(searchString)
+
+#        print "showing a certain show in Datastore:<br>"
+#        self.response.out.write("showing a certain show in Datastore:")
+#       show_from_datastore()
+        #self.response.out.write(data_table.ToJSon(columns_order=("showid", "name")))
+        
+def clearAllShows():
+    
+    query = db.GqlQuery("SELECT * FROM Show")
+    results = query.fetch(1000)
+    db.delete(results)
