@@ -26,7 +26,7 @@
         // When you use addDynamicTab, the tab's content is 
         // dynamically generated through the callback function. 
         tabs.addTab("News", "news_div", create_msg());
-        tabs.addTab("My Shows", "epsd_div", getFavorites());
+        tabs.addTab("My Shows", "epsd_div", getFavorites);
         tabs.addTab("Add", "add_div");
         tabs.addTab("Statistics", "sts_div", drawChart());
        }
