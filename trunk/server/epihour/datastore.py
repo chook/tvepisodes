@@ -15,7 +15,7 @@ class Show(db.Model):
 	name = db.StringProperty(required=True)
 	genres = db.ListProperty(db.Key)
 	country = db.StringProperty()
-	started_year = db.DateTimeProperty()
+	started_year = db.IntegerProperty()
 	is_show_over = db.BooleanProperty()#required=True)
 
 	@property
