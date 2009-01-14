@@ -8,6 +8,7 @@ from users import *
 def clearAll():
     clearAllShows()
     clearAllUsers()
+    clearAllGenres()
     
 # Define the webapp applications and map the classes to different paths
 application = webapp.WSGIApplication([('/', MainPage),
@@ -18,6 +19,7 @@ application = webapp.WSGIApplication([('/', MainPage),
                                      ('/users',AddUser),
                                      ('/clearAllShows',clearAllShows),
                                      ('/clearAllUsers',clearAllUsers),
+                                     ('/clearAllGenres',clearAllGenres),
                                      ('/clearAll',clearAll)],
                                      debug=True)
 
