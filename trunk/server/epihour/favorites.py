@@ -101,8 +101,9 @@ def addFavorite(userid, showid, searchString):
                 # run over the search string, and add all the missing shows from it
                 # do this only once, and only if one of the shows that were marked as favorite
                 # wasn't in the DS
-                addShowsFromSearch(searchString)
+                addShow(showid)
                 
+                return
                 # running the query again to get the new show that was added
                 query = Show.all()
                 query.filter("showid = ", int(showid))

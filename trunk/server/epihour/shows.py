@@ -19,13 +19,7 @@ from datastore import *
 __author__ = "Chen Harel"
 
 TVRAGE_SEARCH_URL = "http://www.tvrage.com/feeds/full_search.php?show="
-#class Shows(db.Model):
-#    showid = db.IntegerProperty(required=True)
-#    name = db.StringProperty(required=True)
-#    genres = db.StringListProperty()
-#    country = db.StringProperty()
-#    started_year = db.DateTimeProperty()
-#    is_show_over = db.BooleanProperty()#required=True)
+TVRAGE_SHOWINFO_URL = "http://www.tvrage.com/feeds/showinfo.php?sid="
 
 # This function parses a URL and returns a minidom object
 def parse(url):    
@@ -210,6 +204,57 @@ class SearchAndStoreShow(webapp.RequestHandler):
         # No show name specified, return
         self.response.out.write("Search Show: Invalid usage\n")
        
+def getXMLField(tag, subTagName):
+    return tag.getElementsByTagName(subTagName)[0].firstChild.data
+
+def addShow(showid):
+    print "Entering information into the datastore<br>"
+    url = TVRAGE_SHOWINFO_URL + showid
+#    url = url.encode("utf-8")
+    dom = parse(url)
+
+    show = dom.getElementsByTagName('Showinfo')
+    # Appending the showid as int and name as string
+    name = getXMLField(dom, 'showname')
+    started_year = getXMLField(dom, 'started')
+    country = getXMLField(dom, 'origin_country')
+    if getXMLField(dom, 'ended'):
+        is_show_over = True
+    else:
+        is_show_over = False
+    genres = dom.getElementsByTagName('genre')
+    #genres = getXMLField(dom, 'genres')
+    print "showname: " + name
+    print "started_year: " + started_year
+    print "country: " + country
+    print "is_show_over?: " + str(is_show_over)
+    print "show's genres:"
+    for genre in genres:
+        print genre.firstChild.data
+    
+    dom.unlink();
+    return
+
+    showRecord = Show(showid = int(showid),
+                       name = name,
+                       country = country)
+    print "entering to the datastore:<br>"
+    print "showid = %s<br>" % showid
+    print "name = %s<br>" % name
+    print "country = %s<br>" % country
+    print "==================================================<br>"
+    showRecord.put()
+        
+#        print "show's name = %s" % showname
+#        dicShows.append({ 
+#                         'showid': int(show.childNodes[1].firstChild.data), 
+#                         'name'  : show.childNodes[3].firstChild.data
+#                         })
+    
+    
+    
+    
+    
 def addShowsFromSearch(searchString):
     
     print "Entering information into the datastore<br>"

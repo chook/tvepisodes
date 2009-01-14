@@ -13,7 +13,7 @@ class User(db.Model):
 class Show(db.Model):
 	showid = db.IntegerProperty(required=True)
 	name = db.StringProperty(required=True)
-	genres = db.StringListProperty()
+	genres = db.ListProperty(db.Key)
 	country = db.StringProperty()
 	started_year = db.DateTimeProperty()
 	is_show_over = db.BooleanProperty()#required=True)
@@ -21,6 +21,14 @@ class Show(db.Model):
 	@property
 	def user_members(self):
 		return User.gql("WHERE favorite_shows = :1", self.key())
+	
+class Genre(db.Model):
+	name = db.StringProperty(required=True)
+	
+	@property
+	def shows_members(self):
+		return Show.gql("WHERE genres = :1", self.key())
+	
 	
 class Suggestion(db.Model):
 	user = db.ReferenceProperty(User)
