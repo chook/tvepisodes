@@ -26,8 +26,8 @@
         // When you use addDynamicTab, the tab's content is 
         // dynamically generated through the callback function. 
         tabs.addTab("News", "news_div", create_msg());
-       // tabs.addTab("My Episodes", "epsd_div", getFavorites());		
-        tabs.addTab("My Episodes", "epsd_div");
+        tabs.addTab("My Episodes", "epsd_div", getFavorites());		
+        //tabs.addTab("My Episodes", "epsd_div");
         tabs.addTab("Add", "add_div");
         tabs.addTab("Statistics", "sts_div", drawChart());
        }
@@ -98,7 +98,8 @@
     }
 	  
 	function getFavorites()    {
-		var url = 'http://epihourtesting.appspot.com/SearchShow?ShowName=' //CHANGE WHEN THERE IS A VALID LINK
+		var uid = 11111;
+		var url = 'http://epihour.appspot.com/getFavorites?uid='+ uid;
 		//alert(url);
 		var favoritesQuery = new google.visualization.Query(url);
 		//alert("after query");
@@ -114,12 +115,12 @@
 		var favoritesData = response.getDataTable();
 		favoritesData.addColumn('string' , '');
 		for (var j=0; j<favoritesData.getNumberOfRows(); j++){
-			favoritesData.setValue(j , 3, '<input type="botton" align="center" class="btn" value="[x]" id="delete'+j+'" onmouseover="this.className=\'btnhov\'" onmouseout="this.className=\'btn\'" onclick="remove_row(\'favoritesData.getValue('+j+',0)\')" />');
+			favoritesData.setValue(j , 2, '<input type="botton" align="center" class="btn" value="[x]" id="delete'+j+'" onmouseover="this.className=\'btnhov\'" onmouseout="this.className=\'btn\'" onclick="remove_row(\'favoritesData.getValue('+j+',0)\')" />');
 		}
 		var favoritesTable = new google.visualization.Table(document.getElementById('epsd_div'));
 		var view = new google.visualization.DataView(favoritesData);
 		view.hideColumns([0]); // do not show the showID.
-		favoritesTable.draw(view, {showRowNumber: true, allowHtml:true, page: 'enable', sortColumn:2, page:'enable', width: 210, pageSize: 5});
+		favoritesTable.draw(view, {showRowNumber: true, allowHtml:true, page: 'enable', sortColumn:1, page:'enable', width: 210, pageSize: 5});
 	}
 
 	function addCallbackFunction(obj) {
@@ -141,25 +142,25 @@
 		var showsArray = new Array();
 		var body = "uid=" + encodeURIComponent(userID);
 		var j = 0;
-		alert('number of rows:'+data.getNumberOfRows());
+		//alert('number of rows:'+data.getNumberOfRows());
 		for (var i=0; i<data.getNumberOfRows(); i++){ //IF PAGE:'ENABLE' WE NEED TO TO DO I<5!
 			//alert('checking row no.'+i);
 			if ((document.getElementById('add'+i).checked) == true){
 				//alert('true');
 				showsArray[j] = data.getValue( i , 0); //getting the showID
-				alert('show no. '+j+':'+showsArray[j]+' was added to the array');
+				//alert('show no. '+j+':'+showsArray[j]+' was added to the array');
 				//var sid = 'sid'+j;
 				//var val = JSON.stringify(showsArray[j]);
 				body += "&sid=" + encodeURIComponent(showsArray[j]);
-				alert(body);
+				//alert(body);
 				++j;
 			}
 		}
 		body += "&search=" + encodeURIComponent(document.getElementById('srch_txt').value.toLowerCase());
-		alert(body);
+		//alert(body);
 		/*
 		var req;
-		alert('before req');
+		//alert('before req');
 		try
 		{  // Firefox, Opera 8.0+, Safari  
 			req =new XMLHttpRequest(); 
@@ -183,9 +184,9 @@
 				}
 			}
 		}
-		alert('before onreadystatechange');
+		//alert('before onreadystatechange');
 		req.onreadystatechange = function() {
-			alert('response:' +req.responseText+'. readyState:' + req.readyState+ '. status: ' + req.status);
+			//alert('response:' +req.responseText+'. readyState:' + req.readyState+ '. status: ' + req.status);
 			if(req.readyState == 4 && req.status == 200) {
 				var response = null;
 				try { 
@@ -200,18 +201,18 @@
 				alert(response);
 			} 
 		}
-		alert('before open. url is: ' + url);
+		//alert('before open. url is: ' + url);
 		 // Create an XMLHttpRequest 'POST' request w/ an optional callback handler
 		req.open("POST", url, true); 
-		alert('after open');
-		alert('body.length = ' + body.length);
+		//alert('after open');
+		//alert('body.length = ' + body.length);
 		req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		req.setRequestHeader("Content-length", body.length);
 		req.setRequestHeader("Connection", "close");
-		alert('before send');
+		//alert('before send');
 		// Make the actual request
 		req.send(body);
-		alert('after send');
+		//alert('after send');
 		*/
 		alert("running makePOSTrequest");
 		makePOSTRequest(url, body); 
