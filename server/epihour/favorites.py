@@ -23,9 +23,8 @@ class AddFavorite(webapp.RequestHandler):
         
         userid = self.request.get('uid')
         showid = self.request.get('sid')
-        searchString = self.request.get('search')
         
-        addFavorite(userid, showid, searchString)
+        addFavorite(userid, showid)
     
 
       
@@ -36,9 +35,8 @@ class AddFavorite(webapp.RequestHandler):
         # get userid & showid to add to the favorites table
         userid = self.request.get('uid')
         showid = self.request.get('sid')
-        searchString = self.request.get('search')
     
-        addFavorite(userid, showid, searchString)
+        addFavorite(userid, showid)
 
 class GetFavorites(webapp.RequestHandler):
   
@@ -85,10 +83,10 @@ class GetFavorites(webapp.RequestHandler):
         
     
 
-def addFavorite(userid, showid, searchString):
+def addFavorite(userid, showid):
     
         # making sure data was received properly
-        if not (userid == "" or showid == "" or searchString == ""):
+        if not (userid == "" or showid == ""):
     
             # checking if the shows exists
             query = Show.all()
@@ -96,14 +94,13 @@ def addFavorite(userid, showid, searchString):
             show = query.get()
             
             if not show:
-                print "show doesn't exist on DS, adding all the shows from the search string<br>"
+                print "show doesn't exist on DS, adding it to the DS<br>"
                 # if the show isn't in the DS,
                 # run over the search string, and add all the missing shows from it
                 # do this only once, and only if one of the shows that were marked as favorite
                 # wasn't in the DS
                 addShow(showid)
                 
-                return
                 # running the query again to get the new show that was added
                 query = Show.all()
                 query.filter("showid = ", int(showid))
@@ -135,19 +132,19 @@ def addFavorite(userid, showid, searchString):
             
             
             if show.key() not in user.favorite_shows:
-                print "show isn't in user's favorites list, adding it"
+                print "show isn't in user's favorites list, adding it<br>"
                 # adding the show as a favorite for this user
                 user.favorite_shows.append(show.key())
                 user.put()
             else:
-                print "show is already in user's favorites list"
+                print "show is already in user's favorites list<br>"
                 
-            print "user's favorites list:"
+            print "user's favorites list:<br>"
             favoriteShows = [db.get(key) for key in user.favorite_shows] 
             for show in favoriteShows:
-                print show.name
+                print show.name + "<br>"
     
-            print "OK"
+            print "OK<br>"
     
     #        query.filter("user = ", userid)
     #        userFavorites = query.fetch(1000)
@@ -158,4 +155,4 @@ def addFavorite(userid, showid, searchString):
             
         else:
             # No show name specified, return
-            print "get information missing (needs uid, sid & searchString)<br>"
+            print "get information missing (needs uid, sid)<br>"
