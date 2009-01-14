@@ -99,7 +99,7 @@
 	function getFavorites(tabId)    {
 		var uid = 11111;
 		var url = 'http://epihour.appspot.com/getFavorites?uid='+ uid;
-		alert(url);
+		//alert(url);
 		var favoritesQuery = new google.visualization.Query(url);
 		//alert("after query");
 		// Send the query with a callback function.
@@ -385,80 +385,7 @@
 <body bgcolor="#dbe3eb">
     <div id="news_div" class="background" align="center" ></div>
 
-    <div id="epsd_div" class="background" align="center" >
-    
-      
-       /* <br>
-        <table id="series" class="sample" border="1" width="100%" >
-          <tr>
-            <th> Name </th>
-            <th> Season </th>
-            <th> Episode </th>
-            <th> W </th>
-            <th> S </th>
-            <th> My Rank </th>
-          </tr>
-          <tr id="lost">       
-              <td> Lost </td>
-              <td> 1 </td>
-              <td> 3 </td>
-              <td> <input type="checkbox" /> </td>
-              <td> <input type="checkbox" /> </td>
-              <td>
-                <select>
-                   <option selected value="-">-</option>
-                   <option value="1">1</option>
-                   <option value="2">2</option>
-                   <option value="3">3</option>
-                   <option value="4">4</option>
-                   <option value="5">5</option>
-                </select>
-              </td>
-              <td> <input type="button" class="btn" value="[x]" id="delete_btn" onmouseover="this.className='btnhov'" onmouseout="this.className='btn'" onclick="dismiss_epi('lost')"/> </td>
-          </tr>
-          <tr id="survivor">       
-              <td> Survivor </td>
-              <td> 17 </td>
-              <td> 13 </td>
-              <td> <input type="checkbox" /> </td>
-              <td> <input type="checkbox" /> </td>
-              <td>
-                <select>
-                   <option selected value="-">-</option>
-                   <option value="1">1</option>
-                   <option value="2">2</option>
-                   <option value="3">3</option>
-                   <option value="4">4</option>
-                   <option value="5">5</option>
-                </select>
-              </td>
-              <td> <input type="button" class="btn" value="[x]" id="delete_btn" onmouseover="this.className='btnhov'" onmouseout="this.className='btn'" onclick="dismiss_epi('survivor')"/> </td>
-          </tr>
-          <tr id="heroes">       
-              <td> Heroes </td>
-              <td> 3 </td>
-              <td> 13 </td>
-              <td> <input type="checkbox" /> </td>
-              <td> <input type="checkbox" /> </td>
-              <td>
-                <select>
-                   <option selected value="-">-</option>
-                   <option value="1">1</option>
-                   <option value="2">2</option>
-                   <option value="3">3</option>
-                   <option value="4">4</option>
-                   <option value="5">5</option>
-                </select>
-              </td>
-              <td> <input type="button" class="btn" value="[x]" id="delete_btn" onmouseover="this.className='btnhov'" onmouseout="this.className='btn'" onclick="dismiss_epi('heroes')"/> </td>
-          </tr>
-          <tbody>
-          </tbody>
-        </table>
-        <br>
-        <input disabled type="button" class="btn" value="View Calender" id="caln_btn" onmouseover="this.className='btnhov'"onmouseout="this.className='btn'"/>
-      */
-	  </div>
+    <div id="epsd_div" class="background" align="center" ></div>
       <div class="background" align="center" id="add_div" >
          <br> 
 
