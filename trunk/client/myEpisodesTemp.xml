@@ -229,7 +229,7 @@
 		var userID = 11111;
 		var answer = confirm("Are you sure you want to delete this show?")
 		if (answer){      
-			var url = "http://epihour.appspot.com/favorites"; //to change
+			var url = "http://epihour.appspot.com/"; //to change
 			var body = "uid=" + encodeURIComponent(userID);
 			body += "&sid=" + encodeURIComponent(showId);
 			alert(body);
