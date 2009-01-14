@@ -13,7 +13,7 @@ def clearAll():
 application = webapp.WSGIApplication([('/', MainPage),
                                      ('/SearchShow', SearchShow),
                                      ('/SearchAndStoreShow', SearchAndStoreShow),
-                                     ('/favorites', AddFavorite),
+                                     ('/addFavorite', AddFavorite),
                                      ('/getFavorites', GetFavorites),
                                      ('/users',AddUser),
                                      ('/clearAllShows',clearAllShows),
