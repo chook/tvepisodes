@@ -24,3 +24,9 @@ class Suggestions(db.Model):
 	showid = db.ReferenceProperty(Shows)
 	suggestion_date = db.DateTimeProperty(auto_now_add=True)
 	shown = db.BooleanProperty(required=True, default=True)
+	
+class Suggestionss(db.Model):
+	user = db.ReferenceProperty(Users)
+	showid = db.ReferenceProperty(Shows)
+	suggestion_date = db.DateTimeProperty(auto_now_add=True)
+	shown = db.BooleanProperty(required=True, default=True)
