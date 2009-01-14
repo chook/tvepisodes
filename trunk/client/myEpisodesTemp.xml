@@ -114,7 +114,7 @@
 		var favoritesData = response.getDataTable();
 		favoritesData.addColumn('string' , '');
 		for (var j=0; j<favoritesData.getNumberOfRows(); j++){
-			favoritesData.setValue(j , 2, '<button type="submit" align="center"  class="btn" value="[x]" id="delete'+j+'" onmouseover="this.className=\'btnhov\'" onmouseout="this.className=\'btn\'" onclick="remove_row(\'favoritesData.getValue('+j+',0)\')" />');
+			favoritesData.setValue(j , 2, '<button type="submit" align="center"  class="btn" text="[x]" id="delete'+j+'" onmouseover="this.className=\'btnhov\'" onmouseout="this.className=\'btn\'" onclick="remove_row(\'favoritesData.getValue('+j+',0)\')" />');
 		}
 		var favoritesTable = new google.visualization.Table(document.getElementById('epsd_div'));
 		var view = new google.visualization.DataView(favoritesData);
