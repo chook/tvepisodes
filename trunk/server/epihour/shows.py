@@ -241,7 +241,7 @@ def addShow(showid):
         query.filter("name = ", genreName)
         genre = query.get() 
         if not genre:
-            print "the genre %s doesn't exist in the DS, adding it" % genreName
+            print "the genre %s doesn't exist in the DS, adding it<br>" % genreName
             # adding the user to the DS
             newGenre = Genre(name = genreName)
             newGenre.put()
@@ -252,15 +252,15 @@ def addShow(showid):
     newShow.put()
 
                         
-    print "entering show to the datastore:"
-    print "showid: " + showid
-    print "showname: " + name
-    print "started_year: " + str(started_year)
-    print "country: " + country
-    print "is_show_over?: " + str(is_show_over)
-    print "show's genres:"
+    print "entering show to the datastore:<br>"
+    print "showid: " + showid + "<br>"
+    print "showname: " + name + "<br>"
+    print "started_year: " + str(started_year) + "<br>"
+    print "country: " + country + "<br>"
+    print "is_show_over?: " + str(is_show_over) + "<br>"
+    print "show's genres:<br>"
     for genre in showGenres:
-        print genre.firstChild.data
+        print genre.firstChild.data + "<br>"
     
     dom.unlink();
     return
