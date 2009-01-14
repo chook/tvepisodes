@@ -157,62 +157,6 @@
 		}
 		body += "&search=" + encodeURIComponent(document.getElementById('srch_txt').value.toLowerCase());
 		//alert(body);
-		/*
-		var req;
-		//alert('before req');
-		try
-		{  // Firefox, Opera 8.0+, Safari  
-			req =new XMLHttpRequest(); 
-		}
-		catch (e)
-		{  // Internet Explorer
-			try
-			{
-				req = new ActiveXObject("Msxml2.XMLHTTP");
-			}
-			catch (e)
-			{ 
-				try
-				{ 
-					req = new ActiveXObject("Microsoft.XMLHTTP");
-				}
-				catch (e)
-				{   
-					alert("Your browser does not support AJAX!"); 
-					return;
-				}
-			}
-		}
-		//alert('before onreadystatechange');
-		req.onreadystatechange = function() {
-			//alert('response:' +req.responseText+'. readyState:' + req.readyState+ '. status: ' + req.status);
-			if(req.readyState == 4 && req.status == 200) {
-				var response = null;
-				try { 
-					response = JSON.parse(req.responseText);
-				}
-				catch (e) {
-					if (req.responseText != null)
-						response = req.responseText;
-					else
-						alert('no response');
-				}
-				alert(response);
-			} 
-		}
-		//alert('before open. url is: ' + url);
-		 // Create an XMLHttpRequest 'POST' request w/ an optional callback handler
-		req.open("POST", url, true); 
-		//alert('after open');
-		//alert('body.length = ' + body.length);
-		req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		req.setRequestHeader("Content-length", body.length);
-		req.setRequestHeader("Connection", "close");
-		//alert('before send');
-		// Make the actual request
-		req.send(body);
-		//alert('after send');
-		*/
 		alert("running makePOSTrequest");
 		makePOSTRequest(url, body); 
 
