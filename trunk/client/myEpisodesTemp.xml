@@ -19,6 +19,7 @@
 	 var table = null;
 	 var query = null;
 	 
+	 
 	 google.load("visualization", "1", {packages:["columnchart", "table"]});	 
       function init() {
         // Initialize tabs.
@@ -116,7 +117,7 @@
 		for (var j=0; j<favoritesData.getNumberOfRows(); j++){
 			favoritesData.setValue(j , 2, '<input type="submit" align="center"  class="btn" value="[x]" id="delete'+j+'" onmouseover="this.className=\'btnhov\'" onmouseout="this.className=\'btn\'" onclick="remove_row(\'favoritesData.getValue('+j+',0)\')" />');
 		}
-		var favoritesTable = new google.visualization.Table(document.getElementById('epsd_div'));
+		var favoritesTable = new google.visualization.Table(document.getElementById('favorites'));
 		var view = new google.visualization.DataView(favoritesData);
 		view.hideColumns([0]); // do not show the showID.
 		favoritesTable.draw(view, {showRowNumber: true, allowHtml:true, page: 'enable', sortColumn:1, page:'enable', width: 210, pageSize: 5});
@@ -149,7 +150,6 @@
 				showsArray[j] = data.getValue( i , 0); //getting the showID
 				//alert('show no. '+j+':'+showsArray[j]+' was added to the array');
 				//var sid = 'sid'+j;
-				//var val = JSON.stringify(showsArray[j]);
 				body += "&sid=" + encodeURIComponent(showsArray[j]);
 				//alert(body);
 				++j;
@@ -159,37 +159,6 @@
 		//alert(body);
 		alert("running makePOSTrequest");
 		makePOSTRequest(url, body); 
-
-/*
-          if (document.getElementById('friends_check').checked == true){
-            add_series("Friends","1","1");
-            document.getElementById('friends_check').checked = false;
-            document.getElementById('friends_check').style.display = 'none';
-          }
-          if (document.getElementById('prison_check').checked == true){
-            add_series("Prison Break","1","1");
-            document.getElementById('prison_check').checked = false;
-            document.getElementById('prison_check').style.display = 'none';
-          }
-          if (document.getElementById('lostproc_check').checked == true){
-            add_series("Lost Process","1","1");
-            document.getElementById('lostproc_check').checked = false;
-            document.getElementById('lostproc_check').style.display = 'none';
-          }
-          if ((document.getElementById('lost_check').checked == true) ||(document.getElementById('lost1_check').checked == true)){
-            add_series("Lost","1","1");
-            document.getElementById('lost1_check').checked = false;
-            document.getElementById('lost1_check').style.display = 'none';
-            document.getElementById('lost_check').checked = false;
-            document.getElementById('lost_check').style.display = 'none';
-          }
-          if ((document.getElementById('heroes_check').checked == true) ||(document.getElementById('heroes1_check').checked == true)){
-            add_series("Heroes","1","1");
-            document.getElementById('heroes1_check').checked = false;
-            document.getElementById('heroes1_check').style.display = 'none';
-            document.getElementById('heroes_check').checked = false;
-            document.getElementById('heroes_check').style.display = 'none';
-          }*/
     }
 
     function add_series(name, s, e){
@@ -256,13 +225,18 @@
        mytable.appendChild(mytablebody);
        div.appendChild(mytable);      
     }
-    function remove_row(row_name){
-      var answer = confirm("Are you sure you want to discard?")
-      if (answer){      
-        var tbl = document.getElementById('series');
-        var oldrow = document.getElementById(row_name);
-        tbl.removeChild(oldrow);
-      }
+    function remove_row(showId){
+		var userID = 11111;
+		var answer = confirm("Are you sure you want to delete this show?")
+		if (answer){      
+			var url = "http://epihour.appspot.com/favorites"; //to change
+			var body = "uid=" + encodeURIComponent(userID);
+			body += "&sid=" + encodeURIComponent(showId);
+			alert(body);
+			alert("running makePOSTrequest");
+			makePOSTRequest(url, body);
+			getFavorites();
+		}
     }
      function create_msg()
       {
@@ -329,11 +303,13 @@
 <body bgcolor="#dbe3eb">
     <div id="news_div" class="background" align="center" ></div>
 
-    <div id="epsd_div" class="background" align="center" ></div>
-      <div class="background" align="center" id="add_div" >
-         <br> 
-
-
+    <div id="epsd_div" class="background" align="center" >
+		<br>
+		<br>
+		<div id="favorites"> </div>
+	</div>
+    <div class="background" align="center" id="add_div" >
+        <br> 
         <table>
 
           <tr>
@@ -348,51 +324,51 @@
         <br>
  
       
- <div id="main_div">
-  <div id="vis_results"> </div>
-<table id="most_pop" class="sample" border="1"> 
-  <tr>
-     <td></td>
-     <th> Most Popular </th>
-     <th> Add </th>
-   </tr>
-   <tr>
-     <td> 1 </td>
-     <td> Survivor </td>
-     <td> <input style="display:none" type="checkbox" id="survivor_check" onclick="chosen('survivor_check')"/> </td>
-   </tr>
-   <tr>
-     <td> 2 </td>
-     <td> Heroes </td>
-     <td> <input style="display:none" type="checkbox" id="heroes_check" onclick="chosen('heroes_check')"/> </td>
-   </tr>
-   <tr>
-     <td> 3 </td>
-     <td> Lost </td>
-     <td> <input style="display:none" type="checkbox" id="lost_check" onclick="chosen('lost_check')"/> </td>
-   </tr>
-   <tr>
-     <td> 4 </td>
-     <td> Prison Break </td>
-     <td> <input type="checkbox" id="prison_check" onclick="chosen('prison_check')"/> </td>
-   </tr>
-   <tr>
-     <td> 5 </td>
-     <td> Friends </td>
-     <td> <input type="checkbox" id="friends_check" onclick="chosen('friends_check')"/> </td>
-   </tr>
- </table>
-</div>
-<div style="display:none" id="no_result_div"> 
-  <table id="search_result" class="sample" border="1">
-    <tr>
-      <th> No Results. try again! </th>
-    </tr>
-  </table>
-</div>
-  <input type="button" disabled class="btn" value="Add" id="add_btn" onmouseover="this.className='btnhov'"onmouseout="this.className='btn'" onclick="add_checked_episodes()" />
-</div>
-<div align="center" id="sts_div" class="background"> </div>
+		<div id="main_div">
+			<div id="vis_results"> </div>
+			<table id="most_pop" class="sample" border="1"> 
+				<tr>
+					 <td></td>
+					 <th> Most Popular </th>
+					 <th> Add </th>
+				</tr>
+				<tr>
+					 <td> 1 </td>
+					 <td> Survivor </td>
+					 <td> <input style="display:none" type="checkbox" id="survivor_check" onclick="chosen('survivor_check')"/> </td>
+				</tr>
+				<tr>
+					 <td> 2 </td>
+					 <td> Heroes </td>
+					 <td> <input style="display:none" type="checkbox" id="heroes_check" onclick="chosen('heroes_check')"/> </td>
+				</tr>
+				<tr>
+					 <td> 3 </td>
+					 <td> Lost </td>
+					 <td> <input style="display:none" type="checkbox" id="lost_check" onclick="chosen('lost_check')"/> </td>
+				</tr>
+				<tr>
+					 <td> 4 </td>
+					 <td> Prison Break </td>
+					 <td> <input type="checkbox" id="prison_check" onclick="chosen('prison_check')"/> </td>
+				</tr>
+				<tr>
+					 <td> 5 </td>
+					 <td> Friends </td>
+					 <td> <input type="checkbox" id="friends_check" onclick="chosen('friends_check')"/> </td>
+				</tr>
+			</table>
+		</div>
+		<div style="display:none" id="no_result_div"> 
+			<table id="search_result" class="sample" border="1">
+				<tr>
+					<th> No Results. try again! </th>
+				</tr>
+			</table>
+		</div>
+		<input type="button" disabled class="btn" value="Add" id="add_btn" onmouseover="this.className='btnhov'"onmouseout="this.className='btn'" onclick="add_checked_episodes()" />
+	</div>
+	<div align="center" id="sts_div" class="background"> </div>
 </body>
 </html>
     ]]>
