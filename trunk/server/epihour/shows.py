@@ -205,7 +205,9 @@ class SearchAndStoreShow(webapp.RequestHandler):
         self.response.out.write("Search Show: Invalid usage\n")
        
 def getXMLField(tag, subTagName):
-    return tag.getElementsByTagName(subTagName)[0].firstChild.data
+    subTag = tag.getElementsByTagName(subTagName)[0].firstChild
+    if subTag:
+        return subTag.data
 
 def addShow(showid):
     print "Entering information into the datastore<br>"
@@ -216,41 +218,53 @@ def addShow(showid):
     show = dom.getElementsByTagName('Showinfo')
     # Appending the showid as int and name as string
     name = getXMLField(dom, 'showname')
-    started_year = getXMLField(dom, 'started')
+    started_year = int(getXMLField(dom, 'started'))
     country = getXMLField(dom, 'origin_country')
     if getXMLField(dom, 'ended'):
         is_show_over = True
     else:
         is_show_over = False
-    genres = dom.getElementsByTagName('genre')
-    #genres = getXMLField(dom, 'genres')
+    showGenres = dom.getElementsByTagName('genre')
+    
+    # creating the show in the DS
+    newShow = Show(showid = int(showid),
+                   name = name,
+                   country = country,
+                   started_year = started_year,
+                   is_show_over = is_show_over)
+    # running over the genres
+    showGenresToAdd = []
+    for showGenre in showGenres:
+        genreName = showGenre.firstChild.data
+        # checking if the genre exists
+        query = Genre.all()
+        query.filter("name = ", genreName)
+        genre = query.get() 
+        if not genre:
+            print "the genre %s doesn't exist in the DS, adding it" % genreName
+            # adding the user to the DS
+            newGenre = Genre(name = genreName)
+            newGenre.put()
+            genre = newGenre
+        showGenresToAdd += [genre.key()]
+#        newShow = genres.put(genre)
+    newShow.genres = showGenresToAdd   
+    newShow.put()
+
+                        
+    print "entering show to the datastore:"
+    print "showid: " + showid
     print "showname: " + name
-    print "started_year: " + started_year
+    print "started_year: " + str(started_year)
     print "country: " + country
     print "is_show_over?: " + str(is_show_over)
     print "show's genres:"
-    for genre in genres:
+    for genre in showGenres:
         print genre.firstChild.data
     
     dom.unlink();
     return
-
-    showRecord = Show(showid = int(showid),
-                       name = name,
-                       country = country)
-    print "entering to the datastore:<br>"
-    print "showid = %s<br>" % showid
-    print "name = %s<br>" % name
-    print "country = %s<br>" % country
-    print "==================================================<br>"
-    showRecord.put()
         
-#        print "show's name = %s" % showname
-#        dicShows.append({ 
-#                         'showid': int(show.childNodes[1].firstChild.data), 
-#                         'name'  : show.childNodes[3].firstChild.data
-#                         })
-    
     
     
     
@@ -269,5 +283,11 @@ def addShowsFromSearch(searchString):
 def clearAllShows():
     
     query = db.GqlQuery("SELECT * FROM Show")
+    results = query.fetch(1000)
+    db.delete(results)
+
+def clearAllGenres():
+    
+    query = db.GqlQuery("SELECT * FROM Genre")
     results = query.fetch(1000)
     db.delete(results)
