@@ -18,7 +18,7 @@
 	 var data = null;
 	 var table = null;
 	 var query = null;
-	 
+	 var userID = 12345;
 	 
 	google.load("visualization", "1", {packages:["columnchart", "table"]});	 
     function init() {
@@ -98,6 +98,7 @@
         document.getElementById('most_pop').style.display = ''; 
 		document.getElementById('vis_results').style.display = 'none'; 
         document.getElementById('no_result_div').style.display = 'none' ;
+		document.getElementById('searching...').style.display = 'none' ;
 		data = null;
 		table = null;
 		query = null;
@@ -108,9 +109,9 @@
     }
 	  
 	function getFavorites()    {
-		var uid = 11111;
-		var url = 'http://epihour.appspot.com/getFavorites?uid='+ uid;
+		var url = 'http://epihour.appspot.com/getFavorites?uid='+ userID;
 		document.getElementById('getting_fav').style.display = '' ;
+		document.getElementById('no_fav').style.display = 'none' ;
 		alert(url);
 		var favoritesQuery = new google.visualization.Query(url);
 		//alert("after query");
@@ -132,7 +133,13 @@
 		var view = new google.visualization.DataView(favoritesData);
 		view.hideColumns([0]); // do not show the showID.
 		document.getElementById('getting_fav').style.display = 'none' ;
-		favoritesTable.draw(view, {showRowNumber: true, allowHtml:true, page: 'enable', sortColumn:1, page:'enable', width: 210, pageSize: 5});
+		if (favoritesData.getNumberOfRows() < 1){
+			document.getElementById('no_fav').style.display = '' ;
+			document.getElementById('favorites').style.display = 'none';
+		}
+		else{
+			favoritesTable.draw(view, {showRowNumber: true, allowHtml:true, page: 'enable', sortColumn:1, page:'enable', width: 210, pageSize: 5});
+		}
 	}
 
 	function addCallbackFunction(obj) {
@@ -148,7 +155,6 @@
 	};
 	
     function add_checked_episodes() {
-		var userID = 11111;
 		var url = "http://epihour.appspot.com/favorites";
 		//creating the shows to add array
 		var showsArray = new Array();
@@ -323,6 +329,13 @@
 			<table id="search_result" class="sample" border="1">
 				<tr>
 					<th> Getting your favorites, please wait... </th>
+				</tr>
+			</table>
+		</div>
+		<div style="display:none" id="no_fav"> 
+			<table id="search_result" class="sample" border="1">
+				<tr>
+					<th> You currently don't have favorites shows. Click "Add" tab to add shows.</th>
 				</tr>
 			</table>
 		</div>
