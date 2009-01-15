@@ -356,7 +356,8 @@ function response(data) {
       chart.draw(data, {width: 230, height: 240, is3D: true, title: 'Most Popular Ranking', backgroundColor:'#dbe3eb',focusBorderColor:'#b4c3f6' ,axisColor:'#b4c3f6',legendBackgroundColor:'#b4c3f6', colors:colArr});
     }
       // Call init function to initialize and display tabs.
-     
+
+     gadgets.util.registerOnLoadHandler(request);
     _IG_RegisterOnloadHandler(init); 
 	
 	gadgets.util.registerOnLoadHandler(request);
