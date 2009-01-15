@@ -1,0 +1,44 @@
+  <?xml version="1.0" encoding="UTF-8" ?> 
+<Module>
+<ModulePrefs title="Epi Freinds">
+  <Require feature="views" /> 
+  <Require feature="dynamic-height" /> 
+  <Require feature="opensocial-0.7" /> 
+  </ModulePrefs>
+<Content type="html" view="home">
+<![CDATA[ 
+ 
+   <script type="text/javascript">
+
+function request() { var req = opensocial.newDataRequest();
+var opt_params = { };
+opt_params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = [ opensocial.Person.Field.PROFILE_URL ];
+req.add(req.newFetchPersonRequest(opensocial.DataRequest.PersonId.OWNER, opt_params), "owner");
+req.add(req.newFetchPeopleRequest(opensocial.DataRequest.Group.OWNER_FRIENDS, opt_params), "owner_friends"); req.send(response);
+}
+function response(data) { 
+var owner = data.get("owner").getData(); var name = owner.getDisplayName(); 
+var thumb = owner.getField(opensocial.Person.Field.THUMBNAIL_URL);// var profile = owner.getField(opensocial.Person.Field.PROFILE_URL);
+
+
+ var html = '<img src="' + thumb + '"/> user id: ' + owner.getId() + ' user name: ' + name; // '<a href="' + profile + '" target="_top">' + owner.getId() + ' ' + name + '</a>';
+ html += '<hr>';   var owner_friends = data.get("owner_friends").getData(); owner_friends.each(function(person) { var thumb = person.getField(opensocial.Person.Field.THUMBNAIL_URL); var profile = person.getField(opensocial.Person.Field.PROFILE_URL); html += '<a href="' + profile + '" target="_top" style="float:left">' + '<img src="' + thumb + '"/>' + person.getId() + '</a>'; 
+ //if (tokenizedUrl.length == 2) {  // var uid = tokenizedUrl[0];  // html += uid;  //}  //else {  // html += "Error: user id not found";  //} 
+ });
+ document.getElementById('main').innerHTML = html;} 
+ gadgets.util.registerOnLoadHandler(request);    </script>
+	
+    <div>
+      <button onclick="gadgets.views.requestNavigateTo(new gadgets.views.View('canvas'));">Show and edit my friends list</button>
+    </div>
+    <em>This gadget is for testing purposes only.</em><br><br>
+
+    <div id="main">	   
+    </div>
+  
+
+  
+
+  ]]> 
+  </Content>
+  </Module>
