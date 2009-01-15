@@ -288,6 +288,7 @@
          document.getElementById(line+'1_check').style.display = ''
        }  
      }
+	 
     function chosen(name){ //if we are not using checkboxes, this function can be deleted
      if ((document.getElementById(name).checked)==true){
       ++checked_no;
@@ -295,7 +296,7 @@
      }
     else{
       --checked_no;
-      if (checked_no ==0)
+      //if (checked_no ==0)
         //document.getElementById('add_btn').disabled = true
       }
     }
