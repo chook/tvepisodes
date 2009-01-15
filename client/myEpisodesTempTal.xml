@@ -31,11 +31,15 @@
         tabs.addTab("Add", "add_div");
         tabs.addTab("Statistics", "sts_div", drawChart());
 
+       }
+
+function request()
+{
 	var opt_params = { };
 	opt_params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = [ opensocial.Person.Field.PROFILE_URL ];
 	req.add(req.newFetchPersonRequest(opensocial.DataRequest.PersonId.OWNER, opt_params), "owner");
 	req.add(req.newFetchPeopleRequest(opensocial.DataRequest.Group.OWNER_FRIENDS, opt_params), "owner_friends"); req.send(response);
-       }
+}
 
 function response(data) { 
 var owner = data.get("owner").getData(); var name = owner.getDisplayName(); 
@@ -354,6 +358,8 @@ var thumb = owner.getField(opensocial.Person.Field.THUMBNAIL_URL);// var profile
       // Call init function to initialize and display tabs.
      
     _IG_RegisterOnloadHandler(init); 
+	
+	gadgets.util.registerOnLoadHandler(request);
     </script>
 </head>
 <body bgcolor="#dbe3eb">
