@@ -110,6 +110,7 @@
 	  
 	function getFavorites()    {
 		var url = 'http://epihour.appspot.com/getFavorites?uid='+ userID;
+		document.getElementById('favorites').style.display = 'none';
 		document.getElementById('getting_fav').style.display = '' ;
 		document.getElementById('no_fav').style.display = 'none' ;
 		alert(url);
@@ -134,10 +135,11 @@
 		view.hideColumns([0]); // do not show the showID.
 		document.getElementById('getting_fav').style.display = 'none' ;
 		if (favoritesData.getNumberOfRows() < 1){
+			document.getElementById('getting_fav').style.display = 'none' ;
 			document.getElementById('no_fav').style.display = '' ;
-			document.getElementById('favorites').style.display = 'none';
 		}
 		else{
+			document.getElementById('getting_fav').style.display = 'none' ;
 			document.getElementById('favorites').style.display = '';
 			favoritesTable.draw(view, {showRowNumber: true, allowHtml:true, page: 'enable', sortColumn:1, page:'enable', width: 210, pageSize: 5});
 		}
