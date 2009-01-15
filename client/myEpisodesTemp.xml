@@ -20,8 +20,8 @@
 	 var query = null;
 	 
 	 
-	 google.load("visualization", "1", {packages:["columnchart", "table"]});	 
-      function init() {
+	google.load("visualization", "1", {packages:["columnchart", "table"]});	 
+    function init() {
         // Initialize tabs.
          var tabs = new _IG_Tabs(__MODULE_ID__ );
         // When you use addDynamicTab, the tab's content is 
@@ -32,6 +32,7 @@
         tabs.addTab("Statistics", "sts_div", drawChart());
        }
     function search_episode()    {
+		document.getElementById('no_result_div').style.display='none';
 		checked_no = 0;
 		var url = 'http://epihourtesting.appspot.com/SearchShow?ShowName=' + document.getElementById('srch_txt').value.toLowerCase();
 		//alert(url);
@@ -41,7 +42,7 @@
 		query.send(handleQueryResponse);
 		//alert("after sending");
 		document.getElementById('most_pop').style.display = 'none';
-		document.getElementById('vis_results').style.display = '' ;
+		document.getElementById('searching...').style.display = '' ;
 		document.getElementById('reset_srch_btn').disabled = false;		
 	}
   
@@ -58,19 +59,28 @@
 		table = new google.visualization.Table(document.getElementById('vis_results'));
 		var view = new google.visualization.DataView(data);
 		view.hideColumns([0]); // do not show the showID.
-		table.draw(view, {showRowNumber: true, allowHtml:true, width: 210, pageSize: 5});
-		//google.visualization.events.addListener(table, 'select', selectHandler);
-		function selectHandler() {
-			var selection = table.getSelection();
-			for (var i = 0; i < selection.length; i++) {
-				var name = data.getValue(selection[i].row, 1);
-				alert(' Row ' + selection[i].row + ' value is: ' + name);
-				add_series( name, 1 , 1);
+		if (data.getNumberOfRows()<1){
+			document.getElementById('vis_results').style.display='none';
+			document.getElementById('searching...').style.display = 'none' ;
+			document.getElementById('no_result_div').style.display='';
+		}
+		else{
+			document.getElementById('vis_results').style.display = '' ;
+			document.getElementById('searching...').style.display = 'none' ;
+			table.draw(view, {showRowNumber: true, allowHtml:true, width: 210, pageSize: 5});
+			//google.visualization.events.addListener(table, 'select', selectHandler);
+			function selectHandler() {
+				var selection = table.getSelection();
+				for (var i = 0; i < selection.length; i++) {
+					var name = data.getValue(selection[i].row, 1);
+					alert(' Row ' + selection[i].row + ' value is: ' + name);
+					add_series( name, 1 , 1);
+				}
+				if (selection.length>0)
+					document.getElementById('add_btn').disabled = false;
+				else 
+					document.getElementById('add_btn').disabled = true;
 			}
-			if (selection.length>0)
-				document.getElementById('add_btn').disabled = false;
-			else 
-				document.getElementById('add_btn').disabled = true;
 		}
 	}
 	
@@ -100,6 +110,7 @@
 	function getFavorites()    {
 		var uid = 11111;
 		var url = 'http://epihour.appspot.com/getFavorites?uid='+ uid;
+		document.getElementById('getting_fav').style.display = '' ;
 		alert(url);
 		var favoritesQuery = new google.visualization.Query(url);
 		//alert("after query");
@@ -120,6 +131,7 @@
 		var favoritesTable = new google.visualization.Table(document.getElementById('favorites'));
 		var view = new google.visualization.DataView(favoritesData);
 		view.hideColumns([0]); // do not show the showID.
+		document.getElementById('getting_fav').style.display = 'none' ;
 		favoritesTable.draw(view, {showRowNumber: true, allowHtml:true, page: 'enable', sortColumn:1, page:'enable', width: 210, pageSize: 5});
 	}
 
@@ -307,6 +319,13 @@
 		<br>
 		<br>
 		<div id="favorites"> </div>
+		<div style="display:none" id="getting_fav"> 
+			<table id="search_result" class="sample" border="1">
+				<tr>
+					<th> Getting your favorites, please wait... </th>
+				</tr>
+			</table>
+		</div>
 	</div>
     <div class="background" align="center" id="add_div" >
         <br> 
@@ -363,6 +382,13 @@
 			<table id="search_result" class="sample" border="1">
 				<tr>
 					<th> No Results. try again! </th>
+				</tr>
+			</table>
+		</div>
+		<div style="display:none" id="searching..."> 
+			<table id="search_result" class="sample" border="1">
+				<tr>
+					<th> Searching... </th>
 				</tr>
 			</table>
 		</div>
