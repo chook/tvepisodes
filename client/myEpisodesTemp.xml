@@ -59,7 +59,7 @@
 		data = response.getDataTable();
 		data.addColumn('string' , '');
 		for (var j=0; j<data.getNumberOfRows(); j++){
-			data.setValue(j , 2, '<input type="checkbox" align="center" id="add'+j+'" onclick="chosen(\'add'+j+'\')" />');
+			data.setValue(j , 5, '<input type="submit" align="center"  class="btn" value="Add" id="add'+j+'" onmouseover="this.className=\'btnhov\'" onmouseout="this.className=\'btn\'" onclick="add_show(\'data.getValue('+j+',0)\')" />');
 		}
 		table = new google.visualization.Table(document.getElementById('vis_results'));
 		var view = new google.visualization.DataView(data);
@@ -72,7 +72,7 @@
 		else{
 			document.getElementById('vis_results').style.display = '' ;
 			document.getElementById('searching...').style.display = 'none' ;
-			table.draw(view, {showRowNumber: true, allowHtml:true, width: 210, pageSize: 5});
+			table.draw(view, {showRowNumber: true, allowHtml:true, width: 210, page: 'enable', pageSize: 5});
 			google.visualization.events.addListener(table, 'select', selectHandler);
 			function selectHandler() {
 				var selection = table.getSelection();
@@ -99,7 +99,7 @@
       { 
         checked_no=0;
 		UnTip();
-        document.getElementById('add_btn').disabled = true;
+        //document.getElementById('add_btn').disabled = true;
         document.getElementById('reset_srch_btn').disabled = true;
         document.getElementById('srch_txt').value = 'TV Show Name Here';
         document.getElementById('most_pop').style.display = ''; 
@@ -165,15 +165,15 @@
 		gadgets.io.makeRequest(url, addCallbackFunction, params); 
 	};
 	
-    function add_checked_episodes() {
-		var url = "http://epihour.appspot.com/favorites";
+    function add_show(showId) {
+		var url = "http://epihour.appspot.com/addFavorite";
 		UnTip();
 		//creating the shows to add array
-		var showsArray = new Array();
+		//var showsArray = new Array();
 		var body = "uid=" + encodeURIComponent(userID);
-		var j = 0;
+		//var j = 0;
 		//alert('number of rows:'+data.getNumberOfRows());
-		for (var i=0; i<data.getNumberOfRows(); i++){ //IF PAGE:'ENABLE' WE NEED TO TO DO I<5!
+		/*for (var i=0; i<data.getNumberOfRows(); i++){ //IF PAGE:'ENABLE' WE NEED TO TO DO I<5!
 			//alert('checking row no.'+i);
 			if ((document.getElementById('add'+i).checked) == true){
 				//alert('true');
@@ -184,8 +184,9 @@
 				//alert(body);
 				++j;
 			}
-		}
-		body += "&search=" + encodeURIComponent(document.getElementById('srch_txt').value.toLowerCase());
+		}*/
+		body += "&sid=" + encodeURIComponent(showId);
+		//body += "&search=" + encodeURIComponent(document.getElementById('srch_txt').value.toLowerCase());
 		//alert(body);
 		alert("running makePOSTrequest");
 		makePOSTRequest(url, body); 
@@ -287,15 +288,15 @@
          document.getElementById(line+'1_check').style.display = ''
        }  
      }
-    function chosen(name){
+    function chosen(name){ //if we are not using checkboxes, this function can be deleted
      if ((document.getElementById(name).checked)==true){
       ++checked_no;
-      document.getElementById('add_btn').disabled = false
+      //document.getElementById('add_btn').disabled = false
      }
     else{
       --checked_no;
       if (checked_no ==0)
-        document.getElementById('add_btn').disabled = true
+        //document.getElementById('add_btn').disabled = true
       }
     }
 
@@ -419,7 +420,7 @@
 				</tr>
 			</table>
 		</div>
-		<input type="button" disabled class="btn" value="Add" id="add_btn" onmouseover="this.className='btnhov'"onmouseout="this.className='btn'" onclick="add_checked_episodes()" />
+		//<input type="button" disabled class="btn" value="Add" id="add_btn" onmouseover="this.className='btnhov'"onmouseout="this.className='btn'" onclick="add_checked_episodes()" />
 	</div>
 	<div align="center" id="sts_div" class="background"> </div>
 </body>
