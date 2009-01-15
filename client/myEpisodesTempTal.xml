@@ -35,6 +35,7 @@
 
 function request()
 {
+	alert('im in the reqest function!');
 	var opt_params = { };
 	opt_params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = [ opensocial.Person.Field.PROFILE_URL ];
 	req.add(req.newFetchPersonRequest(opensocial.DataRequest.PersonId.OWNER, opt_params), "owner");
@@ -45,12 +46,10 @@ function response(data) {
 var owner = data.get("owner").getData(); var name = owner.getDisplayName(); 
 var thumb = owner.getField(opensocial.Person.Field.THUMBNAIL_URL);// var profile = owner.getField(opensocial.Person.Field.PROFILE_URL);
 
+alert(' my owner id is '+  owner.getId());
 
- var html = '<img src="' + thumb + '"/> user id: ' + owner.getId() + ' user name: ' + name; // '<a href="' + profile + '" target="_top">' + owner.getId() + ' ' + name + '</a>';
- html += '<hr>';   var owner_friends = data.get("owner_friends").getData(); owner_friends.each(function(person) { var thumb = person.getField(opensocial.Person.Field.THUMBNAIL_URL); var profile = person.getField(opensocial.Person.Field.PROFILE_URL); html += '<a href="' + profile + '" target="_top" style="float:left">' + '<img src="' + thumb + '"/>' + person.getId() + '</a>'; 
- //if (tokenizedUrl.length == 2) {  // var uid = tokenizedUrl[0];  // html += uid;  //}  //else {  // html += "Error: user id not found";  //} 
  });
- document.getElementById('main').innerHTML = html;} 
+
 
     function search_episode()    {
 		document.getElementById('no_result_div').style.display='none';
@@ -365,8 +364,6 @@ var thumb = owner.getField(opensocial.Person.Field.THUMBNAIL_URL);// var profile
 <body bgcolor="#dbe3eb">
 <script type="text/javascript" src="http://tvepisodes.googlecode.com/svn/trunk/client/wz_tooltip.js"></script>
     <div id="news_div" class="background" align="center" >
-    <div id="main">	   
-    </div>
 	</div>
 
     <div id="epsd_div" class="background" align="center" >
