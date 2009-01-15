@@ -301,6 +301,7 @@
 
     google.setOnLoadCallback(drawChart);
     function drawChart(){
+		UnTip();
       var data = new google.visualization.DataTable();
       data.addColumn('string', 'Series');
       data.addColumn('number', 'My Rank');
