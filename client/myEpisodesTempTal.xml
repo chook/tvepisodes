@@ -35,19 +35,19 @@
 
 function request()
 {
-	alert('im in the reqest function!');
 	var opt_params = { };
 	opt_params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = [ opensocial.Person.Field.PROFILE_URL ];
 	req.add(req.newFetchPersonRequest(opensocial.DataRequest.PersonId.OWNER, opt_params), "owner");
 	req.add(req.newFetchPeopleRequest(opensocial.DataRequest.Group.OWNER_FRIENDS, opt_params), "owner_friends"); 
+
+	alert('im in the reqest function!');
+
 	req.send(response);
 }
 
 function response(data) { 
-var owner = data.get("owner").getData(); var name = owner.getDisplayName(); 
-var thumb = owner.getField(opensocial.Person.Field.THUMBNAIL_URL);// var profile = owner.getField(opensocial.Person.Field.PROFILE_URL);
-
-alert(' my owner id is '+  owner.getId());
+	var owner = data.get("owner").getData(); 
+	alert(' my owner id is '+  owner.getId());
 
  }
 
