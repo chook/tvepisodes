@@ -12,7 +12,6 @@
 		@import "http://tvepisodes.googlecode.com/svn/trunk/client/myEpisodesCss.css";
     </style>
     <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-	<script type="text/javascript" src="http://tvepisodes.googlecode.com/svn/trunk/client/wz_tooltip.js"></script>
     <script type="text/javascript" >
      //global variables
 	 var checked_no=0;
@@ -330,6 +329,7 @@
     </script>
 </head>
 <body bgcolor="#dbe3eb">
+<script type="text/javascript" src="http://tvepisodes.googlecode.com/svn/trunk/client/wz_tooltip.js"></script>
     <div id="news_div" class="background" align="center" ></div>
 
     <div id="epsd_div" class="background" align="center" >
