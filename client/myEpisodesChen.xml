@@ -18,7 +18,7 @@
 	 var data = null;
 	 var table = null;
 	 var query = null;
-	 var userID = 03067092798963641994;
+	 var userID = '03067092798963641994';
 	 
 	google.load("visualization", "1", {packages:["columnchart", "table"]});	 
     function init() {
@@ -263,7 +263,7 @@
        div.appendChild(mytable);      
     }
     function remove_row(showId){
-		var userID = 03067092798963641994;
+		var userID = '03067092798963641994';
 		var answer = confirm("Are you sure you want to delete this show?")
 		if (answer){      
 			var url = "http://epihour.appspot.com/"; //to change
