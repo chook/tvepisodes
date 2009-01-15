@@ -80,7 +80,7 @@
 					for (var i = 0; i < selection.length; i++) {
 						var name = data.getValue(selection[i].row, 1);
 						//alert(' Row ' + selection[i].row + ' value is: ' + name);
-						Tip('some information on '+name+ '<br><img src=http://tvepisodes.googlecode.com/svn/trunk/client/cat.jpeg width=\'60\'', TITLE, '<div class=\'TitleCls\'>'+name+'</div>');
+						Tip('some information on '+name+ '<br><img src=\'http://tvepisodes.googlecode.com/svn/trunk/client/cat.jpeg\' width=\'60\'', TITLE, '<div class=\'TitleCls\'>'+name+'</div>');
 					}
 					document.getElementById('add_btn').disabled = false;
 				}
