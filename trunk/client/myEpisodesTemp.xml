@@ -63,7 +63,7 @@
 		}
 		table = new google.visualization.Table(document.getElementById('vis_results'));
 		var view = new google.visualization.DataView(data);
-		view.hideColumns([0,2,3,4, 5]); // show only the show name and the add buttons.
+		view.hideColumns([0,2,3,4,5]); // show only the show name and the add buttons.
 		if (data.getNumberOfRows()<1){
 			document.getElementById('vis_results').style.display='none';
 			document.getElementById('searching...').style.display = 'none' ;
@@ -83,7 +83,10 @@
 						var seasonsNum = data.getValue(selection[i].row, 3);
 						var country = data.getValue(selection[i].row, 4);
 						var infoLink =  data.getValue(selection[i].row, 5);
-						Tip(name+ ' was first broadcasted on '+date+'. There are '+seasonsNum+' seasons for this show and it\'s original country is '+country+'.<br>For more information please visit <link rel=\''+infoLink+'\' href=infoLink>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>');
+						if (seasonsNum != 1)
+							Tip(name+ ' was first broadcasted on '+date+'. There are '+seasonsNum+' seasons for this show and it\'s original country is '+country+'.<br>For more information please visit <link rel=\''+infoLink+'\' href=infoLink>'+ infoLink , TITLE, '<div class=\'TitleCls\'>'+name+'</div>');
+						else
+							Tip(name+ ' was first broadcasted on '+date+'. There is '+seasonsNum+' season for this show and it\'s original country is '+country+'.<br>For more information please visit <link rel=\''+infoLink+'\' href=infoLink>'+infoLink , TITLE, '<div class=\'TitleCls\'>'+name+'</div>');
 					}
 				}
 				else {
