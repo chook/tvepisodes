@@ -83,7 +83,7 @@
 						var seasonsNum = data.getValue(selection[i].row, 3);
 						var country = data.getValue(selection[i].row, 4);
 						var infoLink =  data.getValue(selection[i].row, 5);
-						Tip(name+ ' was first broadcasted on '+date+'. There are '+seasonsNum+' seasons for this show and it\'s original country is '+country+'.<br>For more information please visit <link rel=\''+infoLink+'\' href=infoLink>  , TITLE, '<div class=\'TitleCls\'>'+name+'</div>');
+						Tip(name+ ' was first broadcasted on '+date+'. There are '+seasonsNum+' seasons for this show and it\'s original country is '+country+'.<br>For more information please visit <link rel=\''+infoLink+'\' href=infoLink>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>');
 					}
 				}
 				else {
