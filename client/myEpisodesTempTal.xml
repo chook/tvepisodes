@@ -357,10 +357,11 @@ function response(data) {
     }
       // Call init function to initialize and display tabs.
 
-     gadgets.util.registerOnLoadHandler(request);
+     
     _IG_RegisterOnloadHandler(init); 
-	
+
 	gadgets.util.registerOnLoadHandler(request);
+
     </script>
 </head>
 <body bgcolor="#dbe3eb">
