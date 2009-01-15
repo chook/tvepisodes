@@ -33,6 +33,10 @@
        }
     function search_episode()    {
 		document.getElementById('no_result_div').style.display='none';
+		document.getElementById('vis_results').style.display = 'none' ;
+		document.getElementById('most_pop').style.display = 'none';
+		document.getElementById('reset_srch_btn').disabled = false;	
+		document.getElementById('searching...').style.display = '' ;
 		checked_no = 0;
 		var url = 'http://epihourtesting.appspot.com/SearchShow?ShowName=' + document.getElementById('srch_txt').value.toLowerCase();
 		//alert(url);
