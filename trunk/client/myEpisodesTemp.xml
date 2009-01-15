@@ -138,6 +138,7 @@
 			document.getElementById('favorites').style.display = 'none';
 		}
 		else{
+			document.getElementById('favorites').style.display = '';
 			favoritesTable.draw(view, {showRowNumber: true, allowHtml:true, page: 'enable', sortColumn:1, page:'enable', width: 210, pageSize: 5});
 		}
 	}
