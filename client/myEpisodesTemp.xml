@@ -76,15 +76,18 @@
 			google.visualization.events.addListener(table, 'select', selectHandler);
 			function selectHandler() {
 				var selection = table.getSelection();
-				for (var i = 0; i < selection.length; i++) {
-					var name = data.getValue(selection[i].row, 1);
-					//alert(' Row ' + selection[i].row + ' value is: ' + name);
-					Tip('Some text');
-				}
-				if (selection.length>0)
+				if (selection.length>0){
+					for (var i = 0; i < selection.length; i++) {
+						var name = data.getValue(selection[i].row, 1);
+						//alert(' Row ' + selection[i].row + ' value is: ' + name);
+						Tip('Some text'+i);
+					}
 					document.getElementById('add_btn').disabled = false;
-				else 
+				}
+				else {
 					document.getElementById('add_btn').disabled = true;
+					UnTip();
+				}
 			}
 		}
 	}
