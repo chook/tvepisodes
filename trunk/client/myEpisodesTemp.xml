@@ -37,6 +37,7 @@
 		document.getElementById('most_pop').style.display = 'none';
 		document.getElementById('reset_srch_btn').disabled = false;	
 		document.getElementById('searching...').style.display = '' ;
+		UnTip();
 		checked_no = 0;
 		var url = 'http://epihourtesting.appspot.com/SearchShow?ShowName=' + document.getElementById('srch_txt').value.toLowerCase();
 		//alert(url);
@@ -99,6 +100,7 @@
     function reset_srch() 
       { 
         checked_no=0;
+		UnTip();
         document.getElementById('add_btn').disabled = true;
         document.getElementById('reset_srch_btn').disabled = true;
         document.getElementById('srch_txt').value = 'TV Show Name Here';
@@ -116,6 +118,7 @@
     }
 	  
 	function getFavorites()    {
+		UnTip();
 		var url = 'http://epihour.appspot.com/getFavorites?uid='+ userID;
 		document.getElementById('favorites').style.display = 'none';
 		document.getElementById('getting_fav').style.display = '' ;
@@ -166,6 +169,7 @@
 	
     function add_checked_episodes() {
 		var url = "http://epihour.appspot.com/favorites";
+		UnTip();
 		//creating the shows to add array
 		var showsArray = new Array();
 		var body = "uid=" + encodeURIComponent(userID);
