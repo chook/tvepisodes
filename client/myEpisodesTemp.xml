@@ -308,7 +308,7 @@
     }
 	function getStatistics(type , limit){
 		alert('type- '+type+'. limit- '+limit);
-		var url = 'http://epihourtesting2.appspot.com/Statistics?type='+type+'&limit='+limit';
+		var url = 'http://epihourtesting2.appspot.com/Statistics?type='+type+'&limit='+limit;
 		//alert(url);
 		query = new google.visualization.Query(url);
 		///alert("after query");
