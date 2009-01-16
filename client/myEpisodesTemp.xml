@@ -307,6 +307,11 @@
       }
     }
 	function getStatistics(type , limit){
+		document.getElementById('sts_div').removeChild(document.getElementById(type+'_stat'));
+		var newDiv = document.createElement("div");
+		newDiv.id = type+"_stat";
+		document.getElementById('sta_div').appendChild(newDiv);
+		
 		var url = 'http://epihourtesting2.appspot.com/Statistics?type='+type+'&limit='+limit;
 		//alert(url);
 		var query = new google.visualization.Query(url);
@@ -314,14 +319,14 @@
 		// Send the query with a callback function.
 		if(type == 'shows'){
 			document.getElementById('shows_stat').style.display = '';
-			query.send(handleShowsStatisticaResponse);
+			query.send(handleShowsStatisticsResponse);
 		}
 		else{
 			document.getElementById('genres_stat').style.display = '';
-			query.send(handleGenresStatisticaResponse);			
+			query.send(handleGenresStatisticsResponse);			
 		}
 	}
-		function handleShowsStatisticaResponse(response)	{
+	function handleShowsStatisticsResponse(response)	{
 		if (response.isError()) {
 			alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
 			return;
@@ -329,9 +334,16 @@
 		var showsData = response.getDataTable();
 		var showsChart = new google.visualization.BarChart(document.getElementById('shows_stat'));
 		showsChart.draw(showsData, {width: 400, height: 240, is3D: true, title: 'Most Popular Shows', backgroundColor:'#dbe3eb',focusBorderColor:'#b4c3f6' ,axisColor:'#b4c3f6',legendBackgroundColor:'#b4c3f6'});
-		
 	}
-    //google.setOnLoadCallback(drawChart);
+	function handleGenresStatisticsResponse(response)	{
+		if (response.isError()) {
+			alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+			return;
+		}
+		var genresData = response.getDataTable();
+		var genresChart = new google.visualization.PieChart(document.getElementById('genres_stat'));
+		genresChart.draw(genresData, {width: 400, height: 240, is3D: true, title: 'Popular Genres', backgroundColor:'#dbe3eb',focusBorderColor:'#b4c3f6',legendBackgroundColor:'#b4c3f6'});
+	}
     function drawChart(){
 		UnTip();
       var data = new google.visualization.DataTable();
