@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Module>
   <ModulePrefs scrolling="true" title="My Episodes Gadget" height="250" >
-  <Require feature="opensocial-0.7" /> 
+  <Require feature="opensocial-0.8" /> 
     <Require feature="tabs" />
     <Require feature="minimessage" />
   </ModulePrefs>
