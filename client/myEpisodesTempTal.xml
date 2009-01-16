@@ -33,6 +33,9 @@
         tabs.addTab("Statistics", "sts_div", drawChart());
 
 	// fetching user details
+
+	alert('chu chu :)');
+
 	var req = opensocial.newDataRequest();
 	var opt_params = { };
 	opt_params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = [ opensocial.Person.Field.PROFILE_URL ];
@@ -40,7 +43,7 @@
 	req.add(req.newFetchPeopleRequest(opensocial.DataRequest.Group.OWNER_FRIENDS, opt_params), "owner_friends"); 
 	req.send(response);
 
-	alert('chu chu :)');
+	
        }
 
 function response(data) 
