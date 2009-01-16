@@ -53,7 +53,7 @@ function response(data)
 	var name = owner.getDisplayName(); 
 	var thumb = owner.getField(opensocial.Person.Field.THUMBNAIL_URL);
 	// var profile = owner.getField(opensocial.Person.Field.PROFILE_URL);
-
+	aaa;
 	alert('owner id is: ' + owner.getId() );
 
 }
