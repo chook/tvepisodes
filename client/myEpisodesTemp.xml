@@ -29,7 +29,7 @@
         tabs.addTab("News", "news_div", create_msg());
         tabs.addTab("My Shows", "epsd_div", getFavorites);
         tabs.addTab("Add", "add_div");
-        tabs.addTab("Statistics", "sts_div");
+        tabs.addTab("Statistics", "sts_div", unTip);
        }
     function search_episode()    {
 		document.getElementById('no_result_div').style.display='none';
