@@ -29,9 +29,10 @@
         tabs.addTab("News", "news_div", create_msg());
         tabs.addTab("My Shows", "epsd_div", getFavorites);
         tabs.addTab("Add", "add_div");
-        tabs.addTab("Statistics", "sts_div");
+        tabs.addTab("Statistics", "sts_div", UnTip);
        }
     function search_episode()    {
+		UnTip();
 		document.getElementById('no_result_div').style.display='none';
 		document.getElementById('vis_results').style.display = 'none' ;
 		document.getElementById('most_pop').style.display = 'none';
@@ -83,9 +84,9 @@
 						var country = data.getValue(selection[i].row, 4);
 						var infoLink =  data.getValue(selection[i].row, 5);
 						if (seasonsNum != 1)
-							Tip('\"'+name+ '\" was first broadcasted on '+date+'. There are '+seasonsNum+' seasons for this show and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=\'_blank\>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>', WIDTH , 200, STICKY, true, CLOSEBTN , true);
+							Tip('\"'+name+ '\" was first broadcasted on '+date+'. There are '+seasonsNum+' seasons for this show and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=\'_blank\>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>', WIDTH , 200, STICKY, true, CLOSEBTN , true,CENTERMOUSE, true);
 						else
-							Tip('\"'+name+ '\" was first broadcasted on '+date+'. There is '+seasonsNum+' season for this show and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>' , WIDTH , 200, STICKY, true, CLOSEBTN , true);
+							Tip('\"'+name+ '\" was first broadcasted on '+date+'. There is '+seasonsNum+' season for this show and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>' , WIDTH , 200, STICKY, true, CLOSEBTN , true ,CENTERMOUSE, true);
 					}
 				}
 				else {
@@ -103,6 +104,7 @@
     function reset_srch() 
       { 
         checked_no=0;
+		UnTip();
         //document.getElementById('add_btn').disabled = true;
         document.getElementById('reset_srch_btn').disabled = true;
         document.getElementById('srch_txt').value = 'TV Show Name Here';
@@ -120,6 +122,7 @@
     }
 	  
 	function getFavorites()    {
+		UnTip();
 		document.getElementById('epsd_div').removeChild(document.getElementById('favorites'));
 		var newDiv = document.createElement("div");
 		newDiv.id = "favorites";
