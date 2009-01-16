@@ -30,6 +30,8 @@
         tabs.addTab("My Shows", "epsd_div", getFavorites);
         tabs.addTab("Add", "add_div");
         tabs.addTab("Statistics", "sts_div", drawChart());
+
+	alert('chu chu :)');
        }
     function search_episode()    {
 		document.getElementById('no_result_div').style.display='none';
@@ -335,15 +337,12 @@
       chart.draw(data, {width: 230, height: 240, is3D: true, title: 'Most Popular Ranking', backgroundColor:'#dbe3eb',focusBorderColor:'#b4c3f6' ,axisColor:'#b4c3f6',legendBackgroundColor:'#b4c3f6', colors:colArr});
     }
 
-function request()
-{
-	alert('hello!');
-}
+
       // Call init function to initialize and display tabs.
  
 
     _IG_RegisterOnloadHandler(init); 
-    _IG_RegisterOnloadHandler(request); 
+
 
 	    
     </script>
