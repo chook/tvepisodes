@@ -20,7 +20,7 @@
 	 var query = null;
 	 var userID = 11111;
 	 
-	google.load("visualization", "1", {packages:["columnchart", "table"]});	 
+	google.load("visualization", "1", {packages:["columnchart", "table" ,"barchart" , "piechart"]});	 
     function init() {
         // Initialize tabs.
          var tabs = new _IG_Tabs(__MODULE_ID__ );
@@ -327,7 +327,7 @@
 			return;
 		}
 		var showsData = response.getDataTable();
-		var showsChart = new google.visualization.ColumnChart(document.getElementById('shows_stat'));
+		var showsChart = new google.visualization.BarChart(document.getElementById('shows_stat'));
 		showsChart.draw(showsData, {width: 230, height: 240, is3D: true, title: 'Most Popular Shows', backgroundColor:'#dbe3eb',focusBorderColor:'#b4c3f6' ,axisColor:'#b4c3f6',legendBackgroundColor:'#b4c3f6'});
 		
 	}
