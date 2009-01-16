@@ -341,8 +341,10 @@ function request()
 }
       // Call init function to initialize and display tabs.
  
-//	request();    
+
     _IG_RegisterOnloadHandler(init); 
+
+	request();    
     </script>
 </head>
 <body bgcolor="#dbe3eb">
