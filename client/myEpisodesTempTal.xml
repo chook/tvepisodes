@@ -21,7 +21,10 @@
 	 var userID = 11111;
 	 
 	google.load("visualization", "1", {packages:["columnchart", "table"]});
-	gadgets.util.registerOnLoadHandler(request);	 
+
+
+	request|();
+//	gadgets.util.registerOnLoadHandler(request);	 
 
     function init() {
         // Initialize tabs.
