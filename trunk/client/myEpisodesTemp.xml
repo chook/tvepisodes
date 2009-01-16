@@ -29,7 +29,7 @@
         tabs.addTab("News", "news_div", create_msg());
         tabs.addTab("My Shows", "epsd_div", getFavorites);
         tabs.addTab("Add", "add_div");
-        tabs.addTab("Statistics", "sts_div", drawChart());
+        tabs.addTab("Statistics", "sts_div");
        }
     function search_episode()    {
 		document.getElementById('no_result_div').style.display='none';
@@ -307,13 +307,29 @@
       }
     }
 	function getStatistics(type , limit){
-		alert('type- '+type+'. limit- '+limit);
 		var url = 'http://epihourtesting2.appspot.com/Statistics?type='+type+'&limit='+limit;
 		//alert(url);
-		query = new google.visualization.Query(url);
+		var query = new google.visualization.Query(url);
 		///alert("after query");
 		// Send the query with a callback function.
-		//query.send(handleQueryResponse);
+		if(type == 'shows'){
+			document.getElementById('shows_stat').style.display = '';
+			query.send(handleShowsStatisticaResponse);
+		}
+		else{
+			document.getElementById('genres_stat').style.display = '';
+			query.send(handleGenresStatisticaResponse);			
+		}
+	}
+		function handleShowsStatisticaResponse(response)	{
+		if (response.isError()) {
+			alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+			return;
+		}
+		var showsData = response.getDataTable();
+		var showsChart = new google.visualization.ColumnChart(document.getElementById('shows_stat'));
+		showsChart.draw(showsData, {width: 230, height: 240, is3D: true, title: 'Most Popular Shows', backgroundColor:'#dbe3eb',focusBorderColor:'#b4c3f6' ,axisColor:'#b4c3f6',legendBackgroundColor:'#b4c3f6'});
+		
 	}
     //google.setOnLoadCallback(drawChart);
     function drawChart(){
@@ -457,7 +473,7 @@
 		<br><br>
 		<input type="button" class="btn" value="See Statistics" id="get_stat" onmouseover="this.className='btnhov'" onmouseout="this.className='btn'" onclick="getStatistics(document.getElementById('type_selection').value.toLowerCase(),document.getElementById('limit_selection').value.toLowerCase())" />
 		<div align="center"  style="display:none" id="shows_stat"></div>
-		<div align="center" style="display:none" id="shows_stat"></div>
+		<div align="center" style="display:none" id="genres_stat"></div>
 	</div>
 </body>
 </html>
