@@ -311,6 +311,7 @@
 		var newDiv = document.createElement("div");
 		newDiv.id = type+"_stat";
 		document.getElementById('sts_div').appendChild(newDiv);
+		
 		var url = 'http://epihourtesting2.appspot.com/Statistics?type='+type+'&limit='+limit;
 		//alert(url);
 		var query = new google.visualization.Query(url);
@@ -332,7 +333,7 @@
 		}
 		var showsData = response.getDataTable();
 		var showsChart = new google.visualization.BarChart(document.getElementById('shows_stat'));
-		showsChart.draw(showsData, {width: 400, height: 240, is3D: true, title: 'Most Popular Shows', backgroundColor:'#dbe3eb',focusBorderColor:'#b4c3f6' ,axisColor:'#b4c3f6',legendBackgroundColor:'#b4c3f6'});
+		showsChart.draw(showsData, {width: 350, height: 240, is3D: true, title: 'Most Popular Shows', backgroundColor:'#dbe3eb',focusBorderColor:'#b4c3f6' ,axisColor:'#b4c3f6',legendBackgroundColor:'#b4c3f6'});
 	}
 	function handleGenresStatisticsResponse(response)	{
 		if (response.isError()) {
@@ -341,34 +342,9 @@
 		}
 		var genresData = response.getDataTable();
 		var genresChart = new google.visualization.PieChart(document.getElementById('genres_stat'));
-		genresChart.draw(genresData, {width: 400, height: 240, is3D: true, title: 'Popular Genres', backgroundColor:'#dbe3eb',focusBorderColor:'#b4c3f6',legendBackgroundColor:'#b4c3f6'});
+		genresChart.draw(genresData, {width: 350, height: 240, is3D: true, title: 'Most Popular Genres', backgroundColor:'#dbe3eb',focusBorderColor:'#b4c3f6',legendBackgroundColor:'#b4c3f6'});
 	}
-    function drawChart(){
-		UnTip();
-      var data = new google.visualization.DataTable();
-      data.addColumn('string', 'Series');
-      data.addColumn('number', 'My Rank');
-      data.addColumn('number', 'Others');
-      data.addRows(5);
-      data.setValue(0, 0, 'Survivor');
-      data.setValue(0, 1, 4);
-      data.setValue(0, 2, 5);
-      data.setValue(1, 0, 'Heroes');
-      data.setValue(1, 1, 5);
-      data.setValue(1, 2, 4.7);
-      data.setValue(2, 0, 'Lost');
-      data.setValue(2, 1, 4);
-      data.setValue(2, 2, 3.5);
-      data.setValue(3, 0, 'Prison Break');
-      data.setValue(3, 1, 0);
-      data.setValue(3, 2, 4.3);
-      data.setValue(4, 0, 'Friends');
-      data.setValue(4, 1, 0);
-      data.setValue(4, 2, 4.5);
-      var chart = new google.visualization.ColumnChart(document.getElementById('sts_div'));
-      var colArr= new Array('#99aef5','#1b09a2');
-      chart.draw(data, {width: 230, height: 240, is3D: true, title: 'Most Popular Ranking', backgroundColor:'#dbe3eb',focusBorderColor:'#b4c3f6' ,axisColor:'#b4c3f6',legendBackgroundColor:'#b4c3f6', colors:colArr});
-    }
+ 
       // Call init function to initialize and display tabs.
      
     _IG_RegisterOnloadHandler(init); 
