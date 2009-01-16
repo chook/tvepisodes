@@ -331,7 +331,7 @@
 		}
 		var showsData = response.getDataTable();
 		var showsChart = new google.visualization.BarChart(document.getElementById('statistics'));
-		showsChart.draw(showsData, {width: 350, height: 240, is3D: true, title: 'Most Popular Shows', titleX:'No. Of Viewers' , titleY:'Name', backgroundColor:'#dbe3eb',focusBorderColor:'#b4c3f6' ,axisColor:'#b4c3f6',legendBackgroundColor:'#b4c3f6'});
+		showsChart.draw(showsData, {width: 350, height: 240, is3D: true, titleX:'No. Of Viewers' , titleY:'Name', backgroundColor:'#dbe3eb',focusBorderColor:'#b4c3f6' ,axisColor:'#b4c3f6',legendBackgroundColor:'#b4c3f6'});
 	}
 	function handleGenresStatisticsResponse(response)	{
 		if (response.isError()) {
@@ -340,7 +340,7 @@
 		}
 		var genresData = response.getDataTable();
 		var genresChart = new google.visualization.PieChart(document.getElementById('statistics'));
-		genresChart.draw(genresData, {width: 350, height: 240, is3D: true, title: 'Most Popular Genres', backgroundColor:'#dbe3eb',focusBorderColor:'#b4c3f6',legendBackgroundColor:'#b4c3f6'});
+		genresChart.draw(genresData, {width: 300, height: 200, is3D: true, title: 'Most Popular Genres', backgroundColor:'#dbe3eb',focusBorderColor:'#b4c3f6',legendBackgroundColor:'#b4c3f6'});
 	}
  
       // Call init function to initialize and display tabs.
@@ -444,11 +444,6 @@
 			<option value="shows" >Shows</option>
 		</select>
 		<select align="center" id="limit_selection">
-			<option value="10">10</option>
-			<option value="9">9</option>
-			<option value="8">8</option>
-			<option value="7">7</option>
-			<option value="6">6</option>
 			<option value="5">5</option>
 			<option value="4">4</option>
 			<option value="3">3</option>
