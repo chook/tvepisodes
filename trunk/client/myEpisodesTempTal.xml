@@ -50,8 +50,8 @@
 function response(data) 
 { 
 	alert('im in the response function');
-	//var owner = data.get("owner").getData();
-	//alert('owner id is: ' + owner.getId() );
+	var owner = data.get("owner").getData();
+	alert('owner id is: ' + owner.getId() );
 }
     function search_episode()    {
 		document.getElementById('no_result_div').style.display='none';
