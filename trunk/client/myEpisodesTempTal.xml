@@ -45,6 +45,7 @@
 
 function response(data) 
 { 
+	alert('im in the response function');
 	var owner = data.get("owner").getData();
 	alert('owner id is: ' + owner.getId() );
 }
