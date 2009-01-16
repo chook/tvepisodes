@@ -307,11 +307,11 @@
       }
     }
 	function getStatistics(type , limit){
-		document.getElementById('sts_div').removeChild(document.getElementById(type+'_stat'));
+		/*document.getElementById('sts_div').removeChild(document.getElementById(type+'_stat'));
 		var newDiv = document.createElement("div");
 		newDiv.id = type+"_stat";
 		document.getElementById('sta_div').appendChild(newDiv);
-		
+		*/
 		var url = 'http://epihourtesting2.appspot.com/Statistics?type='+type+'&limit='+limit;
 		//alert(url);
 		var query = new google.visualization.Query(url);
