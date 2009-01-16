@@ -328,7 +328,7 @@
 		}
 		var showsData = response.getDataTable();
 		var showsChart = new google.visualization.BarChart(document.getElementById('shows_stat'));
-		showsChart.draw(showsData, {width: 350, height: 200, is3D: true, title: 'Most Popular Shows', backgroundColor:'#dbe3eb',focusBorderColor:'#b4c3f6' ,axisColor:'#b4c3f6',legendBackgroundColor:'#b4c3f6'});
+		showsChart.draw(showsData, {width: 350, height: 240, is3D: true, title: 'Most Popular Shows', backgroundColor:'#dbe3eb',focusBorderColor:'#b4c3f6' ,axisColor:'#b4c3f6',legendBackgroundColor:'#b4c3f6'});
 		
 	}
     //google.setOnLoadCallback(drawChart);
