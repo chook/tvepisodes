@@ -331,7 +331,7 @@
 		}
 		var showsData = response.getDataTable();
 		var showsChart = new google.visualization.BarChart(document.getElementById('statistics'));
-		showsChart.draw(showsData, {width: 350, height: 150, is3D: true, titleX:'No. Of Viewers' , title:'Most Popular Shows', backgroundColor:'#dbe3eb',focusBorderColor:'#b4c3f6' ,axisColor:'#b4c3f6',legendBackgroundColor:'#b4c3f6'});
+		showsChart.draw(showsData, {width: 350, height: 200, is3D: true, titleX:'No. Of Viewers' , title:'Most Popular Shows', backgroundColor:'#dbe3eb',focusBorderColor:'#b4c3f6' ,axisColor:'#b4c3f6',legendBackgroundColor:'#b4c3f6'});
 	}
 	function handleGenresStatisticsResponse(response)	{
 		if (response.isError()) {
@@ -340,7 +340,7 @@
 		}
 		var genresData = response.getDataTable();
 		var genresChart = new google.visualization.PieChart(document.getElementById('statistics'));
-		genresChart.draw(genresData, {width: 350, height: 150, is3D: true, title: 'Most Popular Genres', backgroundColor:'#dbe3eb',focusBorderColor:'#b4c3f6',legendBackgroundColor:'#b4c3f6'});
+		genresChart.draw(genresData, {width: 350, height: 200, is3D: true, title: 'Most Popular Genres', backgroundColor:'#dbe3eb',focusBorderColor:'#b4c3f6',legendBackgroundColor:'#b4c3f6'});
 	}
  
       // Call init function to initialize and display tabs.
