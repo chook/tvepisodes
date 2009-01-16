@@ -123,6 +123,11 @@
 	  
 	function getFavorites()    {
 		UnTip();
+		document.getElementById('epsd_div').removeChild(document.getElementById('favorites'));
+		var newDiv = document.createElement("div");
+		newDiv.id = "favorites";
+		document.getElementById('epsd_div').appendChild(newDiv);
+		
 		var url = 'http://epihour.appspot.com/getFavorites?uid='+ userID;
 		document.getElementById('favorites').style.display = 'none';
 		document.getElementById('getting_fav').style.display = '' ;
