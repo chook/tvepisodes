@@ -20,7 +20,9 @@
 	 var query = null;
 	 var userID = 11111;
 	 
-	google.load("visualization", "1", {packages:["columnchart", "table"]});	 
+	google.load("visualization", "1", {packages:["columnchart", "table"]});
+	gadgets.util.registerOnLoadHandler(request);	 
+
     function init() {
         // Initialize tabs.
          var tabs = new _IG_Tabs(__MODULE_ID__ );
@@ -31,19 +33,19 @@
         tabs.addTab("Add", "add_div");
         tabs.addTab("Statistics", "sts_div", drawChart());
 
-		gadgets.util.registerOnLoadHandler(request);
+		
        }
 
 function request()
 {
-	var opt_params = { };
-	opt_params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = [ opensocial.Person.Field.PROFILE_URL ];
-	req.add(req.newFetchPersonRequest(opensocial.DataRequest.PersonId.OWNER, opt_params), "owner");
-	req.add(req.newFetchPeopleRequest(opensocial.DataRequest.Group.OWNER_FRIENDS, opt_params), "owner_friends"); 
+	//var opt_params = { };
+	//opt_params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = [ opensocial.Person.Field.PROFILE_URL ];
+	//req.add(req.newFetchPersonRequest(opensocial.DataRequest.PersonId.OWNER, opt_params), "owner");
+	//req.add(req.newFetchPeopleRequest(opensocial.DataRequest.Group.OWNER_FRIENDS, opt_params), "owner_friends"); 
 
 	alert('im in the reqest function!');
 
-	req.send(response);
+	//req.send(response);
 }
 
 function response(data) { 
