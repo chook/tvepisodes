@@ -306,8 +306,16 @@
         //document.getElementById('add_btn').disabled = true
       }
     }
-
-    google.setOnLoadCallback(drawChart);
+	function getStatistics(type , limit){
+		alert('type- '+type+'. limit- '+limit);
+		var url = 'http://epihourtesting2.appspot.com/Statistics?type='+type+'&limit='+limit';
+		//alert(url);
+		query = new google.visualization.Query(url);
+		///alert("after query");
+		// Send the query with a callback function.
+		//query.send(handleQueryResponse);
+	}
+    //google.setOnLoadCallback(drawChart);
     function drawChart(){
 		UnTip();
       var data = new google.visualization.DataTable();
@@ -428,7 +436,30 @@
 			</table>
 		</div>
 	</div>
-	<div align="center" id="sts_div" class="background"> </div>
+	<div align="center" id="sts_div" class="background">
+		<br>
+		<select align="center" id="type_selection">
+			<option value="genres">Genres</option>
+			<option value="shows" >Shows</option>
+		</select>
+		<br><br>
+		<select align="center" id="limit_selection">
+			<option value="10">10</option>
+			<option value="9">9</option>
+			<option value="8">8</option>
+			<option value="7">7</option>
+			<option value="6">6</option>
+			<option value="5">5</option>
+			<option value="4">4</option>
+			<option value="3">3</option>
+			<option value="2">2</option>
+			<option value="1">1</option>
+		</select>
+		<br><br>
+		<input type="button" class="btn" value="See Statistics" id="get_stat" onmouseover="this.className='btnhov'" onmouseout="this.className='btn'" onclick="getStatistics(document.getElementById('type_selection').value.toLowerCase(),document.getElementById('limit_selection').value.toLowerCase())" />
+		<div align="center"  style="display:none" id="shows_stat"></div>
+		<div align="center" style="display:none" id="shows_stat"></div>
+	</div>
 </body>
 </html>
     ]]>
