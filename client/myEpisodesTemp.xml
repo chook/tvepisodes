@@ -442,7 +442,6 @@
 			<option value="genres">Genres</option>
 			<option value="shows" >Shows</option>
 		</select>
-		<br><br>
 		<select align="center" id="limit_selection">
 			<option value="10">10</option>
 			<option value="9">9</option>
