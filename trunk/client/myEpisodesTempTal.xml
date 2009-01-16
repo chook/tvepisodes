@@ -343,8 +343,9 @@ function request()
  
 
     _IG_RegisterOnloadHandler(init); 
+    _IG_RegisterOnloadHandler(request); 
 
-	request();    
+	    
     </script>
 </head>
 <body bgcolor="#dbe3eb">
