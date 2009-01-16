@@ -31,6 +31,7 @@
         tabs.addTab("Add", "add_div");
         tabs.addTab("Statistics", "sts_div", drawChart());
 
+		gadgets.util.registerOnLoadHandler(request);
        }
 
 function request()
@@ -360,7 +361,7 @@ function response(data) {
      
     _IG_RegisterOnloadHandler(init); 
 
-	gadgets.util.registerOnLoadHandler(request);
+
 
     </script>
 </head>
