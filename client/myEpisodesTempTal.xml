@@ -43,6 +43,7 @@
 	req.add(req.newFetchPeopleRequest(opensocial.DataRequest.Group.OWNER_FRIENDS, opt_params), "owner_friends"); 
 	req.send(response);
 
+	response();
 	
        }
 
