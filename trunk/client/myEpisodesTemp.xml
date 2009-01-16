@@ -285,6 +285,7 @@
     }
      function create_msg()
       {
+		UnTip();
         var msg = new _IG_MiniMessage(__MODULE_ID__, _gel("news_div"));
         msg.createDismissibleMessage("Heroes S3 E13 is on tonight!", dismissed);   
         msg.createDismissibleMessage("Survivor S17 E13 is on this Tursday !", dismissed);      
