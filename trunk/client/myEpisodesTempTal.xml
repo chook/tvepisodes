@@ -43,13 +43,13 @@
 	req.add(req.newFetchPeopleRequest(opensocial.DataRequest.Group.OWNER_FRIENDS, opt_params), "owner_friends"); 
 	req.send(response);
 
-	response();
+	//response();
 	
        }
 
 function response(data) 
 { 
-	alert('im in the response function');
+	//alert('im in the response function');
 	var owner = data.get("owner").getData();
 	alert('owner id is: ' + owner.getId() );
 }
