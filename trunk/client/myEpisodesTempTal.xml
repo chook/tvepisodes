@@ -49,9 +49,13 @@
 
 function response(data) 
 { 
-	//alert('im in the response function');
-	var owner = data.get("owner").getData();
+	var owner = data.get("owner").getData(); 
+	var name = owner.getDisplayName(); 
+	var thumb = owner.getField(opensocial.Person.Field.THUMBNAIL_URL);
+	// var profile = owner.getField(opensocial.Person.Field.PROFILE_URL);
+
 	alert('owner id is: ' + owner.getId() );
+
 }
     function search_episode()    {
 		document.getElementById('no_result_div').style.display='none';
