@@ -51,8 +51,8 @@ function request()
 }
 
 function response(data) { 
-	var owner = data.get("owner").getData(); 
-	alert(' my owner id is '+  owner.getId());
+//	var owner = data.get("owner").getData(); 
+//	alert(' my owner id is '+  owner.getId());
 
  }
 
