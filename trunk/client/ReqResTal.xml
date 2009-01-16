@@ -3,7 +3,7 @@
 <ModulePrefs title="Epi Freinds TEST">
   <Require feature="views" /> 
   <Require feature="dynamic-height" /> 
-  <Require feature="opensocial-0.7" /> 
+  <Require feature="opensocial-0.8" /> 
   </ModulePrefs>
 <Content type="html" view="home">
 <![CDATA[ 
