@@ -29,18 +29,14 @@
         tabs.addTab("News", "news_div", create_msg());
         tabs.addTab("My Shows", "epsd_div", getFavorites);
         tabs.addTab("Add", "add_div");
-        tabs.addTab("Statistics", "sts_div", tipsInit);
+        tabs.addTab("Statistics", "sts_div");
        }
-	function tipsInit(){
-		UnTip();
-	}
     function search_episode()    {
 		document.getElementById('no_result_div').style.display='none';
 		document.getElementById('vis_results').style.display = 'none' ;
 		document.getElementById('most_pop').style.display = 'none';
 		document.getElementById('reset_srch_btn').disabled = false;	
 		document.getElementById('searching...').style.display = '' ;
-		UnTip();
 		checked_no = 0;
 		var url = 'http://epihourtesting.appspot.com/SearchShow?ShowName=' + document.getElementById('srch_txt').value.toLowerCase();
 		//alert(url);
@@ -87,9 +83,9 @@
 						var country = data.getValue(selection[i].row, 4);
 						var infoLink =  data.getValue(selection[i].row, 5);
 						if (seasonsNum != 1)
-							Tip('\"'+name+ '\" was first broadcasted on '+date+'. There are '+seasonsNum+' seasons for this show and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=\'_blank\>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'<input type=\"button\" class=\"btn\" value=\"[X]\" onclick=UnTip()> </div>', FOLLOWMOUSE, false, WIDTH , 200);
+							Tip('\"'+name+ '\" was first broadcasted on '+date+'. There are '+seasonsNum+' seasons for this show and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=\'_blank\>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>', FOLLOWMOUSE, false, WIDTH , 200, CLICKCLOSE , true, CLOSEBTN , true);
 						else
-							Tip('\"'+name+ '\" was first broadcasted on '+date+'. There is '+seasonsNum+' season for this show and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'<input type=\"button\" class=\"btn\" value=\"[X]\" onclick=UnTip()> </div>' , FOLLOWMOUSE , false, WIDTH , 200);
+							Tip('\"'+name+ '\" was first broadcasted on '+date+'. There is '+seasonsNum+' season for this show and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>' , FOLLOWMOUSE , false, WIDTH , 200, CLICKCLOSE , true, CLOSEBTN , true);
 					}
 				}
 				else {
@@ -107,7 +103,6 @@
     function reset_srch() 
       { 
         checked_no=0;
-		UnTip();
         //document.getElementById('add_btn').disabled = true;
         document.getElementById('reset_srch_btn').disabled = true;
         document.getElementById('srch_txt').value = 'TV Show Name Here';
@@ -125,7 +120,6 @@
     }
 	  
 	function getFavorites()    {
-		UnTip();
 		document.getElementById('epsd_div').removeChild(document.getElementById('favorites'));
 		var newDiv = document.createElement("div");
 		newDiv.id = "favorites";
@@ -181,7 +175,6 @@
 	
     function add_show(showId) {
 		var url = "http://epihour.appspot.com/addFavorite";
-		UnTip();
 		//creating the shows to add array
 		//var showsArray = new Array();
 		var body = "uid=" + encodeURIComponent(userID);
@@ -285,7 +278,6 @@
     }
      function create_msg()
       {
-		UnTip();
         var msg = new _IG_MiniMessage(__MODULE_ID__, _gel("news_div"));
         msg.createDismissibleMessage("Heroes S3 E13 is on tonight!", dismissed);   
         msg.createDismissibleMessage("Survivor S17 E13 is on this Tursday !", dismissed);      
