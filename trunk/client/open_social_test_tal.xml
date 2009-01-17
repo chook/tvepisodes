@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+ <ModulePrefs title="Profile Example" scrolling="true">
+   <Require feature="opensocial-0.7"/>
+ </ModulePrefs>
+ <Content type="html">
+
+ <![CDATA[
+
+ <script type="text/javascript">
+
+ /**
+  * Request for viewer information.
+  */
+  function getData() {    
+    var req = opensocial.newDataRequest();
+    req.add(req.newFetchPersonRequest(opensocial.DataRequest.PersonId.VIEWER), 'viewer');
+    req.send(onLoadViewer);
+  };
+
+ /**
+  * Display the viewer's thumbnail, name, ID, and location.
+  */
+  function onLoadViewer(dataResponse) {
+    var viewer = dataResponse.get('viewer').getData();
+    var thumb = viewer.getField(opensocial.Person.Field.THUMBNAIL_URL);
+    var loc = viewer.getField(opensocial.Person.Field.CURRENT_LOCATION);
+    var address = loc.getField(opensocial.Address.Field.UNSTRUCTURED_ADDRESS);
+    var html = "<img src=\"" + thumb + "\"/><br />";
+    html += "The ID for " + viewer.getDisplayName() + " is " + viewer.getId()+"<br />"; 
+    html += "The location for " + viewer.getDisplayName() + " is " + address;
+    document.getElementById('message').innerHTML = html;
+  };
+
+  gadgets.util.registerOnLoadHandler(getData);
+
+  </script>
+  <div id="message"> </div>
+  ]]>
+  </Content>
+</Module>
