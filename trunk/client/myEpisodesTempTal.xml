@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Module>
   <ModulePrefs scrolling="true" title="My Episodes Gadget" height="250" >
+    <Require feature="tabs" />
+    <Require feature="minimessage" />
 
-	<Require feature="tabs" />
-	<Require feature="minimessage" />
-
-	  <Require feature="views" /> 
-	  <Require feature="dynamic-height" /> 
-	  <Require feature="opensocial-0.8" /> 
+    <Require feature="opensocial-0.8"/>
 
   </ModulePrefs>
   <Content type="html" view="home,canvas">
@@ -26,7 +23,7 @@
 	 var query = null;
 	 var userID = 11111;
 	 
-	google.load("visualization", "1", {packages:["columnchart", "table"]});	 
+	google.load("visualization", "1", {packages:["columnchart", "table" ,"barchart" , "piechart"]});	 
     function init() {
         // Initialize tabs.
          var tabs = new _IG_Tabs(__MODULE_ID__ );
@@ -35,42 +32,46 @@
         tabs.addTab("News", "news_div", create_msg());
         tabs.addTab("My Shows", "epsd_div", getFavorites);
         tabs.addTab("Add", "add_div");
-        tabs.addTab("Statistics", "sts_div", drawChart());
+        tabs.addTab("Statistics", "sts_div", UnTip);
 
-	// call request function for getting user details
-	request();
-	
+	loadFriends();
        }
 
-// fetching user details
-function request() { 
 
-	alert('im in the request function');
-	
-	var req = opensocial.newDataRequest();
-	req.add(req.newFetchPersonRequest('VIEWER'), 'viewer');
-	req.add(req.newFetchPeopleRequest('VIEWER_FRIENDS'), 'viewerFriends');
-	req.send(onLoadFriends);
+function loadFriends() {
+		var req = opensocial.newDataRequest();
+		req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), 'owner');
+  
+		var ownerFriends = opensocial.newIdSpec({ "userId" : "OWNER", "groupId" : "FRIENDS" });
+		var opt_params = {};
+		//opt_params[opensocial.DataRequest.PeopleRequestFields.MAX] = 100;
+		req.add(req.newFetchPeopleRequest(ownerFriends, opt_params), 'ownerFriends');
+
+		req.send(onLoadFriends);
+	}
+
+	function onLoadFriends(data) {
+		var owner = data.get('owner').getData();
+		var ownerFriends = data.get('ownerFriends').getData();
+
+		html = new Array();
+		html.push('<ul>' + owner.getId());
+		ownerFriends.each(function(person) {
+		if (person.getId()) {
+		      html.push('<li>' + person.getId() + "</li>");
+    		}
+	  });
+	  html.push('</ul>');
+	  document.getElementById('friends').innerHTML = html.join('');
 }
-
-function onLoadFriends(data) {
-  var viewer = data.get('viewer').getData();
-  var viewerFriends = data.get('viewerFriends').getData();
-
-  viewerFriends.each(function(person) {
-    alert(person.getDisplayName());
-  });
-}
-
-
 
     function search_episode()    {
+		UnTip();
 		document.getElementById('no_result_div').style.display='none';
 		document.getElementById('vis_results').style.display = 'none' ;
 		document.getElementById('most_pop').style.display = 'none';
 		document.getElementById('reset_srch_btn').disabled = false;	
 		document.getElementById('searching...').style.display = '' ;
-		UnTip();
 		checked_no = 0;
 		var url = 'http://epihourtesting.appspot.com/SearchShow?ShowName=' + document.getElementById('srch_txt').value.toLowerCase();
 		//alert(url);
@@ -117,9 +118,9 @@ function onLoadFriends(data) {
 						var country = data.getValue(selection[i].row, 4);
 						var infoLink =  data.getValue(selection[i].row, 5);
 						if (seasonsNum != 1)
-							Tip(name+ ' was first broadcasted on '+date+'. There are '+seasonsNum+' seasons for this show and it\'s original country is '+country+'.<br>For more information please visit <link rel=\''+infoLink+'\' href=infoLink>'+ infoLink , TITLE, '<div class=\'TitleCls\'>'+name+'</div>');
+							Tip('\"'+name+ '\" was first broadcasted on '+date+'. There are '+seasonsNum+' seasons for this show and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>', STICKY, true, CLOSEBTN , true,CENTERMOUSE, true, ABOVE, false , FADEIN, 500, FADEOUT, 500);
 						else
-							Tip(name+ ' was first broadcasted on '+date+'. There is '+seasonsNum+' season for this show and it\'s original country is '+country+'.<br>For more information please visit <link rel=\''+infoLink+'\' href=infoLink>'+infoLink , TITLE, '<div class=\'TitleCls\'>'+name+'</div>');
+							Tip('\"'+name+ '\" was first broadcasted on '+date+'. There is '+seasonsNum+' season for this show and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>' , STICKY, true, CLOSEBTN , true ,CENTERMOUSE, true , ABOVE , false , FADEIN, 500, FADEOUT, 500);
 					}
 				}
 				else {
@@ -156,6 +157,11 @@ function onLoadFriends(data) {
 	  
 	function getFavorites()    {
 		UnTip();
+		document.getElementById('epsd_div').removeChild(document.getElementById('favorites'));
+		var newDiv = document.createElement("div");
+		newDiv.id = "favorites";
+		document.getElementById('epsd_div').appendChild(newDiv);
+		
 		var url = 'http://epihour.appspot.com/getFavorites?uid='+ userID;
 		document.getElementById('favorites').style.display = 'none';
 		document.getElementById('getting_fav').style.display = '' ;
@@ -206,7 +212,6 @@ function onLoadFriends(data) {
 	
     function add_show(showId) {
 		var url = "http://epihour.appspot.com/addFavorite";
-		UnTip();
 		//creating the shows to add array
 		//var showsArray = new Array();
 		var body = "uid=" + encodeURIComponent(userID);
@@ -339,47 +344,54 @@ function onLoadFriends(data) {
         //document.getElementById('add_btn').disabled = true
       }
     }
-
-    google.setOnLoadCallback(drawChart);
-    function drawChart(){
-		UnTip();
-      var data = new google.visualization.DataTable();
-      data.addColumn('string', 'Series');
-      data.addColumn('number', 'My Rank');
-      data.addColumn('number', 'Others');
-      data.addRows(5);
-      data.setValue(0, 0, 'Survivor');
-      data.setValue(0, 1, 4);
-      data.setValue(0, 2, 5);
-      data.setValue(1, 0, 'Heroes');
-      data.setValue(1, 1, 5);
-      data.setValue(1, 2, 4.7);
-      data.setValue(2, 0, 'Lost');
-      data.setValue(2, 1, 4);
-      data.setValue(2, 2, 3.5);
-      data.setValue(3, 0, 'Prison Break');
-      data.setValue(3, 1, 0);
-      data.setValue(3, 2, 4.3);
-      data.setValue(4, 0, 'Friends');
-      data.setValue(4, 1, 0);
-      data.setValue(4, 2, 4.5);
-      var chart = new google.visualization.ColumnChart(document.getElementById('sts_div'));
-      var colArr= new Array('#99aef5','#1b09a2');
-      chart.draw(data, {width: 230, height: 240, is3D: true, title: 'Most Popular Ranking', backgroundColor:'#dbe3eb',focusBorderColor:'#b4c3f6' ,axisColor:'#b4c3f6',legendBackgroundColor:'#b4c3f6', colors:colArr});
-    }
-
-
+	function getStatistics(type , limit){
+		document.getElementById('sts_div').removeChild(document.getElementById('statistics'));
+		var newDiv = document.createElement("div");
+		newDiv.id = "statistics";
+		document.getElementById('sts_div').appendChild(newDiv);
+		
+		var url = 'http://epihourtesting2.appspot.com/Statistics?type='+type+'&limit='+limit;
+		//alert(url);
+		var query = new google.visualization.Query(url);
+		///alert("after query");
+		// Send the query with a callback function.
+		if(type == 'shows'){
+			query.send(handleShowsStatisticsResponse);
+		}
+		else{
+			query.send(handleGenresStatisticsResponse);			
+		}
+	}
+	function handleShowsStatisticsResponse(response)	{
+		if (response.isError()) {
+			alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+			return;
+		}
+		var showsData = response.getDataTable();
+		var showsChart = new google.visualization.BarChart(document.getElementById('statistics'));
+		showsChart.draw(showsData, {width: 350, height: 190, is3D: true , title:'Most Popular Shows', backgroundColor:'#dbe3eb',focusBorderColor:'#b4c3f6' ,axisColor:'#b4c3f6',legendBackgroundColor:'#b4c3f6'});
+	}
+	function handleGenresStatisticsResponse(response)	{
+		if (response.isError()) {
+			alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+			return;
+		}
+		var genresData = response.getDataTable();
+		var genresChart = new google.visualization.PieChart(document.getElementById('statistics'));
+		genresChart.draw(genresData, {width: 350, height: 190, is3D: true, title: 'Most Popular Genres', backgroundColor:'#dbe3eb',focusBorderColor:'#b4c3f6',legendBackgroundColor:'#b4c3f6'});
+	}
+ 
       // Call init function to initialize and display tabs.
-    _IG_RegisterOnloadHandler(init);  
-
-
-
-	    
+     
+    _IG_RegisterOnloadHandler(init); 
     </script>
 </head>
 <body bgcolor="#dbe3eb">
 <script type="text/javascript" src="http://tvepisodes.googlecode.com/svn/trunk/client/wz_tooltip.js"></script>
     <div id="news_div" class="background" align="center" ></div>
+
+	        Your friends:
+	        <div id='friends'></div>
 
     <div id="epsd_div" class="background" align="center" >
 		<br>
@@ -466,7 +478,23 @@ function onLoadFriends(data) {
 			</table>
 		</div>
 	</div>
-	<div align="center" id="sts_div" class="background"> </div>
+	<div align="center" id="sts_div" class="background">
+		<br>
+		<select align="center" id="type_selection">
+			<option value="genres">Genres</option>
+			<option value="shows" >Shows</option>
+		</select>
+		<select align="center" id="limit_selection">
+			<option value="5">5</option>
+			<option value="4">4</option>
+			<option value="3">3</option>
+			<option value="2">2</option>
+			<option value="1">1</option>
+		</select>
+		<input type="button" class="btn" value="See Statistics" id="get_stat" onmouseover="this.className='btnhov'" onmouseout="this.className='btn'" onclick="getStatistics(document.getElementById('type_selection').value.toLowerCase(),document.getElementById('limit_selection').value.toLowerCase())" />
+		<br>
+		<div align="center" id="statistics"></div>
+	</div>
 </body>
 </html>
     ]]>
