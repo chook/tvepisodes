@@ -370,7 +370,7 @@ function response(data) {
 
 
       // Call init function to initialize and display tabs.
- 
+    _IG_RegisterOnloadHandler(init);  
 
     _IG_RegisterOnloadHandler(request); 
 
