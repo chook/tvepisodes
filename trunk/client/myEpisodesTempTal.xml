@@ -43,6 +43,9 @@
 
 // fetching user details
 function request() { 
+
+	alert('pipipipip');
+
 	var req = opensocial.newDataRequest();
 	var opt_params = { };
 	opt_params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = [ opensocial.Person.Field.PROFILE_URL ];
