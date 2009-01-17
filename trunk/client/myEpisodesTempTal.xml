@@ -37,31 +37,31 @@
         tabs.addTab("Add", "add_div");
         tabs.addTab("Statistics", "sts_div", drawChart());
 
-
+	// call request function for getting user details
+	request();
 	
        }
 
 // fetching user details
 function request() { 
 
-	alert('pipipipip');
-
+	alert('im in the request function');
+	
 	var req = opensocial.newDataRequest();
-	var opt_params = { };
-	opt_params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = [ opensocial.Person.Field.PROFILE_URL ];
-	req.add(req.newFetchPersonRequest(opensocial.DataRequest.PersonId.OWNER, opt_params), "owner");
-	req.add(req.newFetchPeopleRequest(opensocial.DataRequest.Group.OWNER_FRIENDS, opt_params), "owner_friends"); 
-	req.send(response);
+	req.add(req.newFetchPersonRequest('VIEWER'), 'viewer');
+	req.add(req.newFetchPeopleRequest('VIEWER_FRIENDS'), 'viewerFriends');
+	req.send(onLoadFriends);
 }
-function response(data) { 
-	var owner = data.get("owner").getData(); 
-	var name = owner.getDisplayName(); 
-	var thumb = owner.getField(opensocial.Person.Field.THUMBNAIL_URL);
 
-	// var profile = owner.getField(opensocial.Person.Field.PROFILE_URL);
+function onLoadFriends(data) {
+  var viewer = data.get('viewer').getData();
+  var viewerFriends = data.get('viewerFriends').getData();
 
-	alert('owner id is: ' + owner.getId() );
+  viewerFriends.each(function(person) {
+    alert(person.getDisplayName());
+  });
 }
+
 
 
     function search_episode()    {
@@ -372,7 +372,6 @@ function response(data) {
       // Call init function to initialize and display tabs.
     _IG_RegisterOnloadHandler(init);  
 
-    _IG_RegisterOnloadHandler(request); 
 
 
 	    
