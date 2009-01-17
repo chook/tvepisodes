@@ -32,7 +32,13 @@
         tabs.addTab("Add", "add_div");
         tabs.addTab("Statistics", "sts_div", drawChart());
 
-	// fetching user details
+
+	
+       }
+
+// fetching user details
+function 	requrest()
+{
 
 	alert('chu chu :)');
 
@@ -42,10 +48,8 @@
 	req.add(req.newFetchPersonRequest(opensocial.DataRequest.PersonId.OWNER, opt_params), "owner");
 	req.add(req.newFetchPeopleRequest(opensocial.DataRequest.Group.OWNER_FRIENDS, opt_params), "owner_friends"); 
 	req.send(response);
+}
 
-	//response();
-	
-       }
 
 function response(data) 
 { 
@@ -365,7 +369,7 @@ function response(data)
       // Call init function to initialize and display tabs.
  
 
-    _IG_RegisterOnloadHandler(init); 
+    _IG_RegisterOnloadHandler(request); 
 
 
 	    
