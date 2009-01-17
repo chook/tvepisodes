@@ -19,8 +19,10 @@ req.add(req.newFetchPeopleRequest(opensocial.DataRequest.Group.OWNER_FRIENDS, op
 req.send(response);
 }
 function response(data) { 
-var owner = data.get("owner").getData(); var name = owner.getDisplayName(); 
-var thumb = owner.getField(opensocial.Person.Field.THUMBNAIL_URL);// var profile = owner.getField(opensocial.Person.Field.PROFILE_URL);
+var owner = data.get("owner").getData(); 
+var name = owner.getDisplayName(); 
+var thumb = owner.getField(opensocial.Person.Field.THUMBNAIL_URL);
+// var profile = owner.getField(opensocial.Person.Field.PROFILE_URL);
 
 alert('owner id is: ' + owner.getId() );
 
