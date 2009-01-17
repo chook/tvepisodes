@@ -37,11 +37,7 @@
        }
 
 // fetching user details
-function 	request()
-{
-
-	alert('chu chu :)');
-
+function request() { 
 	var req = opensocial.newDataRequest();
 	var opt_params = { };
 	opt_params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = [ opensocial.Person.Field.PROFILE_URL ];
@@ -49,18 +45,17 @@ function 	request()
 	req.add(req.newFetchPeopleRequest(opensocial.DataRequest.Group.OWNER_FRIENDS, opt_params), "owner_friends"); 
 	req.send(response);
 }
-
-
-function response(data) 
-{ 
+function response(data) { 
 	var owner = data.get("owner").getData(); 
 	var name = owner.getDisplayName(); 
 	var thumb = owner.getField(opensocial.Person.Field.THUMBNAIL_URL);
-	// var profile = owner.getField(opensocial.Person.Field.PROFILE_URL);
-	aaa;
-	alert('owner id is: ' + owner.getId() );
 
+	// var profile = owner.getField(opensocial.Person.Field.PROFILE_URL);
+
+	alert('owner id is: ' + owner.getId() );
 }
+
+
     function search_episode()    {
 		document.getElementById('no_result_div').style.display='none';
 		document.getElementById('vis_results').style.display = 'none' ;
