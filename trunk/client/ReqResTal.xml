@@ -19,7 +19,7 @@
       var viewerFriends = data.get('viewerFriends').getData();	  
       var viewer = data.get('viewer').getData();	  
       var owner = data.get('owner').getData();	  
-      var html = owner.getId + "<ul>";
+      var html = "<ul>" + owner.getId +  " is the owner!";
       viewerFriends.each(function(person) {
         html += '<li>' + person.getDisplayName() + " " + person.getId() +  "</li>";
       });
