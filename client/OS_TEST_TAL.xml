@@ -19,7 +19,7 @@ function loadFriends() {
   
 		var ownerFriends = opensocial.newIdSpec({ "userId" : "OWNER", "groupId" : "FRIENDS" });
 		var opt_params = {};
-		opt_params[opensocial.DataRequest.PeopleRequestFields.MAX] = 100;
+		//opt_params[opensocial.DataRequest.PeopleRequestFields.MAX] = 100;
 		req.add(req.newFetchPeopleRequest(ownerFriends, opt_params), 'ownerFriends');
 
 		req.send(onLoadFriends);
@@ -33,7 +33,7 @@ function loadFriends() {
 		html.push('<ul>' + owner.getId());
 		ownerFriends.each(function(person) {
 		if (person.getId()) {
-		      html.push('<li>' + person.getDisplayName() + "</li>");
+		      html.push('<li>' + person.getId() + "</li>");
     		}
 	  });
 	  html.push('</ul>');
