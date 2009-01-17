@@ -30,7 +30,7 @@ function loadFriends() {
 		var viewerFriends = data.get('viewerFriends').getData();
 
 		html = new Array();
-		html.push('<ul>');
+		html.push('<ul>' + viewer.getId());
 		viewerFriends.each(function(person) {
 		if (person.getId()) {
 		      html.push('<li>' + person.getDisplayName() + "</li>");
