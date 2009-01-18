@@ -471,9 +471,13 @@ function loadFriends() {
 			</table>
 		</div>
 		<div style="display:none" id="searching..."> 
-			<table id="search_result" class="sample" border="1">
+			<table id="search_result" class="sample" border="0">
 				<tr>
-					<th> Searching... </th>
+					<th> 
+						Searching...
+						<br>
+						<img src="http://www.irishbroadband.ie/images/loading_animation.gif" />
+					</th>
 				</tr>
 			</table>
 		</div>
