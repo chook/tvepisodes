@@ -400,7 +400,9 @@ function loadFriends() {
 		<div style="display:none" id="getting_fav"> 
 			<table id="search_result" class="sample" border="1">
 				<tr>
-					<th> Getting your favorites, please wait... </th>
+					<th>
+						<img src="http://www.irishbroadband.ie/images/loading_animation.gif" />
+					</th>
 				</tr>
 			</table>
 		</div>
@@ -474,8 +476,6 @@ function loadFriends() {
 			<table id="search_result" class="sample" border="0">
 				<tr>
 					<th> 
-						Searching...
-						<br>
 						<img src="http://www.irishbroadband.ie/images/loading_animation.gif" />
 					</th>
 				</tr>
