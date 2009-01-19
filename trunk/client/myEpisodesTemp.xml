@@ -18,6 +18,7 @@
 	 var data = null;
 	 var table = null;
 	 var query = null;
+	 var favoritesData = null;
 	 var userID = '03067092798963641994';
 	 
 	google.load("visualization", "1", {packages:["columnchart", "table" ,"barchart" , "piechart"]});	 
@@ -156,7 +157,7 @@
 			alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
 			return;
 		}
-		var favoritesData = response.getDataTable();
+		favoritesData = response.getDataTable();
 		favoritesData.addColumn('string' , '');
 		for (var j=0; j<favoritesData.getNumberOfRows(); j++){
 			favoritesData.setValue(j , 11, '<input type="submit" align="center"  class="btn" value="[x]" id="delete'+j+'" onmouseover="this.className=\'btnhov\'" onmouseout="this.className=\'btn\'" onclick="remove_row('+favoritesData.getValue(j,0)+')" />');
@@ -261,8 +262,13 @@
      function create_msg()
       {
         var msg = new _IG_MiniMessage(__MODULE_ID__, _gel("news_div"));
-        msg.createDismissibleMessage("Heroes S3 E13 is on tonight!", dismissed);   
-        msg.createDismissibleMessage("Survivor S17 E13 is on this Tursday !", dismissed);      
+		var today = new Date();
+		alert(today);
+		for (var i=0; i < favoritesData.getNumberOfRows(); i++){
+			var nextAirDate = favoritesData.getValue(i,10);
+			alert(nextAirDate);
+			msg.createDismissibleMessage("Heroes S3 E13 is on tonight!", dismissed);    
+		}			
       }
     // Used as callback function when message is dismissed.
     // If callback returns false, then cancel the dismissal.
