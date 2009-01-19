@@ -168,6 +168,7 @@ function loadFriends() {
 		document.getElementById('no_result_div').style.display='none';
 		document.getElementById('vis_results').style.display = 'none' ;
 		document.getElementById('most_pop').style.display = 'none';
+		document.getElementById('most_pop_txt').style.display = 'none';			
 		document.getElementById('reset_srch_btn').disabled = false;	
 		document.getElementById('searching...').style.display = '' ;
 		checked_no = 0;
@@ -241,6 +242,7 @@ function loadFriends() {
         document.getElementById('reset_srch_btn').disabled = true;
         document.getElementById('srch_txt').value = 'TV Show Name Here';
         document.getElementById('most_pop').style.display = ''; 
+        document.getElementById('most_pop_txt').style.display = '';			
 		document.getElementById('vis_results').style.display = 'none'; 
         document.getElementById('no_result_div').style.display = 'none' ;
 		document.getElementById('searching...').style.display = 'none' ;
