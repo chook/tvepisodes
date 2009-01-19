@@ -95,7 +95,7 @@ function loadFriends() {
 		
 		checked_no = 0;
 		var url = 'http://epihourtesting.appspot.com/SearchShow?ShowName=lost';
-		alert(url);
+		//alert(url);
 		query = new google.visualization.Query(url);
 	//	alert("after query");
 		// Send the query with a callback function.
