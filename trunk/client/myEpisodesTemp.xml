@@ -191,13 +191,13 @@
 							if (status == 'Canceled/Ended')
 								Tip('\"'+name+ '\" was first broadcasted on '+date+'. There were '+seasonsNum+' seasons for this show (it was canceled/ended) and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>', STICKY, true, CLOSEBTN , true,CENTERMOUSE, true, ABOVE, false , FADEIN, 500, FADEOUT, 500);
 							else
-								Tip('\"'+name+ '\" was first broadcasted on '+date+'. There are '+seasonsNum+' seasons for this show and it\'s original country is '+country+'. The show is air on '+airDay+' , '+airTime+ '(USA time).<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>', STICKY, true, CLOSEBTN , true,CENTERMOUSE, true, ABOVE, false , FADEIN, 500, FADEOUT, 500);
+								Tip('\"'+name+ '\" was first broadcasted on '+date+'. There are '+seasonsNum+' seasons for this show and it\'s original country is '+country+'. The show is air on '+airDay+' , '+airTime+ ' (USA time).<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>', STICKY, true, CLOSEBTN , true,CENTERMOUSE, true, ABOVE, false , FADEIN, 500, FADEOUT, 500);
 						}
 						else{
 							if ((status == 'Canceled/Ended') || (status == 'Pilot Rejected'))
 								Tip('\"'+name+ '\" was first broadcasted on '+date+'. There was only '+seasonsNum+' season for this show (it was canceled/ended) and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>' , STICKY, true, CLOSEBTN , true ,CENTERMOUSE, true , ABOVE , false , FADEIN, 500, FADEOUT, 500);
 							else
-								Tip('\"'+name+ '\" was first broadcasted on '+date+'. There is '+seasonsNum+' season for this show and it\'s original country is '+country+'. The show is air on '+airDay+' , '+airTime+ '(USA time).<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>' , STICKY, true, CLOSEBTN , true ,CENTERMOUSE, true , ABOVE , false , FADEIN, 500, FADEOUT, 500);
+								Tip('\"'+name+ '\" was first broadcasted on '+date+'. There is '+seasonsNum+' season for this show and it\'s original country is '+country+'. The show is air on '+airDay+' , '+airTime+ ' (USA time).<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>' , STICKY, true, CLOSEBTN , true ,CENTERMOUSE, true , ABOVE , false , FADEIN, 500, FADEOUT, 500);
 						}
 					}
 				}
@@ -210,7 +210,7 @@
 
 	function addCallbackFunction(obj) {
 		   alert(obj.text);
-	}
+	};
 	
 	function makePOSTRequest(url, postdata) {
 		var params = {};
@@ -218,7 +218,7 @@
 		params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.POST;
 		params[gadgets.io.RequestParameters.POST_DATA]= postdata;
 		gadgets.io.makeRequest(url, addCallbackFunction, params); 
-	}
+	};
 	
     function add_show(showId) {
 		var url = "http://epihourtesting2.appspot.com/addFavorite";
