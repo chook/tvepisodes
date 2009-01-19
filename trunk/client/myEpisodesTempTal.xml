@@ -244,6 +244,7 @@ function loadFriends() {
 		var newDiv = document.createElement("div");
 		newDiv.id = "vis_results";
 		document.getElementById('main_div').appendChild(newDiv);
+		getMostPopularShows();
     }
 	  
 	function getFavorites()    {
