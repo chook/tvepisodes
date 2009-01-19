@@ -31,13 +31,19 @@
         // dynamically generated through the callback function. 
         tabs.addTab("News", "news_div", create_msg());
         tabs.addTab("My Shows", "epsd_div", getFavorites);
-        tabs.addTab("Add", "add_div");
+        
+        /* MERGE */
+        tabs.addTab("Add", "add_div",getMostPopularShows);
+        /* END OF MERGE */
+        
         tabs.addTab("Statistics", "sts_div", UnTip);
 
+/* MERGE */
 	loadFriends();
+/* END OF MERGE */
        }
 
-
+/* MERGE */
 function loadFriends() {
 		var req = opensocial.newDataRequest();
 		req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), 'owner');
@@ -64,6 +70,79 @@ function loadFriends() {
 	  html.push('</ul>');
 	  document.getElementById('friends').innerHTML = html.join('');
 }
+
+    function getMostPopularShows()    {
+		UnTip();
+		document.getElementById('no_popular_div').style.display='none';
+		document.getElementById('no_result_div').style.display='none';
+		document.getElementById('vis_results').style.display = 'none' ;
+		document.getElementById('most_pop').style.display = 'none';
+		document.getElementById('reset_srch_btn').disabled = false;	
+		document.getElementById('searching...').style.display = '' ;
+		checked_no = 0;
+		var url = 'http://epihourtesting.appspot.com/SearchShow?ShowName=' + document.getElementById('srch_txt').value.toLowerCase();
+		//alert(url);
+		query = new google.visualization.Query(url);
+		///alert("after query");
+		// Send the query with a callback function.
+		query.send(handlePopularQueryResponse);
+		//alert("after sending");
+		//document.getElementById('most_pop').style.display = 'none';
+		//document.getElementById('searching...').style.display = '' ;
+		//document.getElementById('reset_srch_btn').disabled = false;		
+	}
+  
+	function handlePopularQueryResponse(response)	{
+		if (response.isError()) {
+			alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+			return;
+		}
+		data = response.getDataTable();
+		data.addColumn('string' , '');
+		for (var j=0; j<data.getNumberOfRows(); j++){
+			data.setValue(j , 6, '<input type="submit" align="center"  class="btn" value="Add" id="add'+j+'" onmouseover="this.className=\'btnhov\'" onmouseout="this.className=\'btn\'" onclick="add_show(\'data.getValue('+j+',0)\')" />');
+		}
+		table = new google.visualization.Table(document.getElementById('most_pop'));
+		var view = new google.visualization.DataView(data);
+		view.hideColumns([0,2,3,4,5]); // show only the show name and the add buttons.
+		if (data.getNumberOfRows()<1){
+			document.getElementById('most_pop').style.display='none';
+			document.getElementById('searching...').style.display = 'none' ;
+			document.getElementById('no_popular_div').style.display='';                                    /*TOADD*/
+		}
+		else{
+			document.getElementById('most_pop').style.display = '' ;
+			document.getElementById('searching...').style.display = 'none' ;
+			table.draw(view, {showRowNumber: true, allowHtml:true, width: 210, page: 'enable', pageSize: 5});
+			google.visualization.events.addListener(table, 'select', selectHandler);
+			function selectHandler() {
+				var selection = table.getSelection();
+				if (selection.length>0){
+					for (var i = 0; i < selection.length; i++) {
+						var name = data.getValue(selection[i].row, 1);
+						var date = data.getValue(selection[i].row, 2);
+						var seasonsNum = data.getValue(selection[i].row, 3);
+						var country = data.getValue(selection[i].row, 4);
+						var infoLink =  data.getValue(selection[i].row, 5);
+						if (seasonsNum != 1)
+							Tip('\"'+name+ '\" was first broadcasted on '+date+'. There are '+seasonsNum+' seasons for this show and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>', STICKY, true, CLOSEBTN , true,CENTERMOUSE, true, ABOVE, false , FADEIN, 500, FADEOUT, 500);
+						else
+							Tip('\"'+name+ '\" was first broadcasted on '+date+'. There is '+seasonsNum+' season for this show and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>' , STICKY, true, CLOSEBTN , true ,CENTERMOUSE, true , ABOVE , false , FADEIN, 500, FADEOUT, 500);
+					}
+				}
+				else {
+					UnTip();
+				}
+			}
+		}
+	}
+
+
+
+
+
+
+/* END OF MERGE */
 
     function search_episode()    {
 		UnTip();
@@ -401,7 +480,9 @@ function loadFriends() {
 			<table id="search_result" class="sample" border="0">
 				<tr>
 					<th>
+						/* MERGE */
 						<img src="loading_animation.gif" />
+						/* END OF MERGE */
 					</th>
 				</tr>
 			</table>
@@ -432,38 +513,10 @@ function loadFriends() {
       
 		<div id="main_div">
 			<div id="vis_results"> </div>
-			<table id="most_pop" class="sample" border="1"> 
-				<tr>
-					 <td></td>
-					 <th> Most Popular </th>
-					 <th> Add </th>
-				</tr>
-				<tr>
-					 <td> 1 </td>
-					 <td> Survivor </td>
-					 <td> <input style="display:none" type="checkbox" id="survivor_check" onclick="chosen('survivor_check')"/> </td>
-				</tr>
-				<tr>
-					 <td> 2 </td>
-					 <td> Heroes </td>
-					 <td> <input style="display:none" type="checkbox" id="heroes_check" onclick="chosen('heroes_check')"/> </td>
-				</tr>
-				<tr>
-					 <td> 3 </td>
-					 <td> Lost </td>
-					 <td> <input style="display:none" type="checkbox" id="lost_check" onclick="chosen('lost_check')"/> </td>
-				</tr>
-				<tr>
-					 <td> 4 </td>
-					 <td> Prison Break </td>
-					 <td> <input type="checkbox" id="prison_check" onclick="chosen('prison_check')"/> </td>
-				</tr>
-				<tr>
-					 <td> 5 </td>
-					 <td> Friends </td>
-					 <td> <input type="checkbox" id="friends_check" onclick="chosen('friends_check')"/> </td>
-				</tr>
-			</table>
+			<div id="most_pop">
+				Most Popular Shows:
+			</div>
+
 		</div>
 		<div style="display:none" id="no_result_div"> 
 			<table id="search_result" class="sample" border="1">
@@ -472,11 +525,22 @@ function loadFriends() {
 				</tr>
 			</table>
 		</div>
+		
+		<div style="display:none" id="no_popular_div"> 
+			<table id="search_result" class="sample" border="1">
+				<tr>
+					<th> No popular shows! </th>
+				</tr>
+			</table>
+		</div>		
+		
 		<div style="display:none" id="searching..."> 
 			<table id="search_result" class="sample" border="0">
 				<tr>
 					<th> 
+						/* MERGE */
 						<img src="loading_animation.gif" />
+						/* END OF MERGE */
 					</th>
 				</tr>
 			</table>
