@@ -173,7 +173,7 @@
 		else{
 			document.getElementById('getting_fav').style.display = 'none' ;
 			document.getElementById('favorites').style.display = '';
-			favoritesTable.draw(view, {showRowNumber: true, allowHtml:true, page: 'enable', sortColumn:10, page:'enable', width: 210, pageSize: 5});
+			favoritesTable.draw(view, {showRowNumber: true, allowHtml:true, page: 'enable', sortColumn: 10, page:'enable', width: 210, pageSize: 5});
 			google.visualization.events.addListener(favoritesTable, 'select', selectHandler);
 			function selectHandler() {
 				var selection = favoritesTable.getSelection();
@@ -202,6 +202,9 @@
 								Tip('\"'+name+ '\" was first broadcasted on '+date+'. There is '+seasonsNum+' season for this show and it\'s original country is '+country+'. The show is air on '+airDay+' , '+airTime+ '(USA time).<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>' , STICKY, true, CLOSEBTN , true ,CENTERMOUSE, true , ABOVE , false , FADEIN, 500, FADEOUT, 500);
 						}
 					}
+				}
+				else {
+					UnTip();
 				}
 			}
 		}
