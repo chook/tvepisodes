@@ -267,7 +267,7 @@ function loadFriends() {
 		document.getElementById('favorites').style.display = 'none';
 		document.getElementById('getting_fav').style.display = '' ;
 		document.getElementById('no_fav').style.display = 'none' ;
-		alert(url);
+		//alert(url);
 		var favoritesQuery = new google.visualization.Query(url);
 		//alert("after query");
 		// Send the query with a callback function.
