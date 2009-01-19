@@ -179,15 +179,15 @@
 				var selection = favoritesTable.getSelection();
 				if (selection.length>0){
 					for (var i = 0; i < selection.length; i++) {
-						var name = data.getValue(selection[i].row, 1);
-						var date = data.getValue(selection[i].row, 2);
-						var seasonsNum = data.getValue(selection[i].row, 3);
-						var country = data.getValue(selection[i].row, 4);
-						var classification = data.getValue(selection[i].row, 5);
-						var status =  data.getValue(selection[i].row, 6);
-						var infoLink =  data.getValue(selection[i].row, 7);
-						var airTime =  data.getValue(selection[i].row, 8);
-						var airDay =  data.getValue(selection[i].row, 9);
+						var name = favoritesData.getValue(selection[i].row, 1);
+						var date = favoritesData.getValue(selection[i].row, 2);
+						var seasonsNum = favoritesData.getValue(selection[i].row, 3);
+						var country = favoritesData.getValue(selection[i].row, 4);
+						var classification = favoritesData.getValue(selection[i].row, 5);
+						var status =  favoritesData.getValue(selection[i].row, 6);
+						var infoLink =  favoritesData.getValue(selection[i].row, 7);
+						var airTime =  favoritesData.getValue(selection[i].row, 8);
+						var airDay =  favoritesData.getValue(selection[i].row, 9);
 						if (seasonsNum != 1){
 							if (status == 'Canceled/Ended'){
 								Tip('\"'+name+ '\" was first broadcasted on '+date+'. There were '+seasonsNum+' seasons for this show (it was canceled/ended) and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>', STICKY, true, CLOSEBTN , true,CENTERMOUSE, true, ABOVE, false , FADEIN, 500, FADEOUT, 500);
