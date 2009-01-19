@@ -77,8 +77,14 @@ function loadFriends() {
 		document.getElementById('no_result_div').style.display='none';
 		document.getElementById('vis_results').style.display = 'none' ;
 		document.getElementById('most_pop').style.display = 'none';
+		
+		// MERGE
+		document.getElementById('most_pop_txt').style.display = 'none';
+		// END OF MERGE		
+		
 		document.getElementById('reset_srch_btn').disabled = false;	
 		document.getElementById('searching...').style.display = '' ;
+		
 		checked_no = 0;
 		var url = 'http://epihourtesting.appspot.com/SearchShow?ShowName=lost';
 		alert(url);
@@ -109,9 +115,14 @@ function loadFriends() {
 			alert('there are no pop shows');
 			document.getElementById('most_pop').style.display='none';
 			document.getElementById('searching...').style.display = 'none' ;
+		
+			// MERGE			
 			document.getElementById('no_popular_div').style.display='';
+			// END OF MERGE		
+			
 		}
 		else{
+			document.getElementById('most_pop_txt').style.display = '' ;
 			document.getElementById('most_pop').style.display = '' ;
 			document.getElementById('searching...').style.display = 'none' ;
 			table.draw(view, {showRowNumber: true, allowHtml:true, width: 210, page: 'enable', pageSize: 5});
@@ -512,9 +523,12 @@ function loadFriends() {
       
 		<div id="main_div">
 			<div id="vis_results"> </div>
-			<div id="most_pop">
+			
+			<span style="display:none" id="most_pop_txt">
 				Most Popular Shows:
-			</div>
+			</span>			
+			
+			<div id="most_pop"></div>
 
 		</div>
 		<div style="display:none" id="no_result_div"> 
@@ -524,6 +538,12 @@ function loadFriends() {
 				</tr>
 			</table>
 		</div>
+		
+		
+		
+		
+		
+		
 		
 		<div style="display:none" id="no_popular_div"> 
 			<table id="search_result" class="sample" border="1">
@@ -542,6 +562,11 @@ function loadFriends() {
 				</tr>
 			</table>
 		</div>
+		
+		
+		
+		
+		
 	</div>
 	<div align="center" id="sts_div" class="background">
 		<br>
