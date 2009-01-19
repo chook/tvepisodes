@@ -80,7 +80,7 @@ function loadFriends() {
 		document.getElementById('reset_srch_btn').disabled = false;	
 		document.getElementById('searching...').style.display = '' ;
 		checked_no = 0;
-		var url = 'http://epihourtesting.appspot.com/SearchShow?ShowName=11111';
+		var url = 'http://epihourtesting.appspot.com/SearchShow?ShowName=lost';
 		alert(url);
 		query = new google.visualization.Query(url);
 		alert("after query");
@@ -109,7 +109,7 @@ function loadFriends() {
 			alert('there are no pop shows');
 			document.getElementById('most_pop').style.display='none';
 			document.getElementById('searching...').style.display = 'none' ;
-			document.getElementById('no_popular_div').style.display='';                                    /*TOADD*/
+			document.getElementById('no_popular_div').style.display='';
 		}
 		else{
 			document.getElementById('most_pop').style.display = '' ;
@@ -528,7 +528,7 @@ function loadFriends() {
 		<div style="display:none" id="no_popular_div"> 
 			<table id="search_result" class="sample" border="1">
 				<tr>
-					<th> No popular shows! </th>
+					<th> There are no popular shows! </th>
 				</tr>
 			</table>
 		</div>		
