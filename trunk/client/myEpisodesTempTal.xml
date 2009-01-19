@@ -80,7 +80,7 @@ function loadFriends() {
 		document.getElementById('reset_srch_btn').disabled = false;	
 		document.getElementById('searching...').style.display = '' ;
 		checked_no = 0;
-		var url = 'http://epihourtesting.appspot.com/SearchShow?ShowName=' + document.getElementById('srch_txt').value.toLowerCase();
+		var url = 'http://epihourtesting.appspot.com/SearchShow?ShowName=11111';
 		alert(url);
 		query = new google.visualization.Query(url);
 		alert("after query");
