@@ -18,6 +18,12 @@ handlers:
 - url: /Gadget
   script: main.py
 
+- url: /Handler
+  script: main.py
+
+- url: /Recommend
+  script: recommend.py
+
 - url: /images
   static_dir: static/images
 
