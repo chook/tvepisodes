@@ -128,7 +128,7 @@
 		newDiv.id = "favorites";
 		document.getElementById('epsd_div').appendChild(newDiv);
 		
-		var url = 'http://epihour.appspot.com/getFavorites?uid='+ userID;
+		var url = 'http://epihourtesting2.appspot.com/getFavorites?uid='+ userID;
 		document.getElementById('favorites').style.display = 'none';
 		document.getElementById('getting_fav').style.display = '' ;
 		document.getElementById('no_fav').style.display = 'none' ;
@@ -147,7 +147,7 @@
 		var favoritesData = response.getDataTable();
 		favoritesData.addColumn('string' , '');
 		for (var j=0; j<favoritesData.getNumberOfRows(); j++){
-			favoritesData.setValue(j , 2, '<input type="submit" align="center"  class="btn" value="[x]" id="delete'+j+'" onmouseover="this.className=\'btnhov\'" onmouseout="this.className=\'btn\'" onclick="remove_row(\'favoritesData.getValue('+j+',0)\')" />');
+			favoritesData.setValue(j , 11, '<input type="submit" align="center"  class="btn" value="[x]" id="delete'+j+'" onmouseover="this.className=\'btnhov\'" onmouseout="this.className=\'btn\'" onclick="remove_row(\'favoritesData.getValue('+j+',0)\')" />');
 		}
 		var favoritesTable = new google.visualization.Table(document.getElementById('favorites'));
 		var view = new google.visualization.DataView(favoritesData);
