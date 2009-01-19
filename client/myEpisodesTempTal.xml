@@ -106,6 +106,7 @@ function loadFriends() {
 		var view = new google.visualization.DataView(data);
 		view.hideColumns([0,2,3,4,5]); // show only the show name and the add buttons.
 		if (data.getNumberOfRows()<1){
+			alert('there are no pop shows');
 			document.getElementById('most_pop').style.display='none';
 			document.getElementById('searching...').style.display = 'none' ;
 			document.getElementById('no_popular_div').style.display='';                                    /*TOADD*/
