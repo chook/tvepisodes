@@ -39,7 +39,7 @@
 		document.getElementById('reset_srch_btn').disabled = false;	
 		document.getElementById('searching...').style.display = '' ;
 		checked_no = 0;
-		var url = 'http://epihourtesting2.appspot.com/SearchShow?ShowName=' + document.getElementById('srch_txt').value.toLowerCase();
+		var url = 'http://epihour.appspot.com/SearchShow?ShowName=' + document.getElementById('srch_txt').value.toLowerCase();
 		//alert(url);
 		query = new google.visualization.Query(url);
 		///alert("after query");
@@ -269,7 +269,7 @@
     function remove_row(showId){
 		var answer = confirm("Are you sure you want to delete this show?")
 		if (answer){      
-			var url = "http://epihourtesting2.appspot.com/"; //to change
+			var url = "http://epihour.appspot.com/"; //to change
 			var body = "uid=" + encodeURIComponent(userID);
 			body += "&sid=" + encodeURIComponent(showId);
 			alert(body);
