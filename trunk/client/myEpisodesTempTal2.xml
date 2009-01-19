@@ -121,7 +121,7 @@ function loadFriends() {
 		view.hideColumns([0,2,3,4,5]); // show only the show name and the add buttons.
 		if (data.getNumberOfRows()<1){
 			alert('there are no pop shows');
-			document.getElementById('most_pop_txt').value ='There are no popular shows!';
+			//document.getElementById('most_pop_txt').sty ='There are no popular shows!';
 			//document.getElementById('searching...').style.display = 'none' ;
 		
 			//document.getElementById('no_popular_div').style.display='';
@@ -532,7 +532,7 @@ function loadFriends() {
 		<div id="main_div">
 			<div id="vis_results"> </div>
 			
-			<span style="display:none" id="most_pop_txt">
+			<span  id="most_pop_txt">
 				Most Popular Shows:
 			</span>			
 			
