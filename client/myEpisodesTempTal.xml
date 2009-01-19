@@ -32,18 +32,18 @@
         tabs.addTab("News", "news_div", create_msg());
         tabs.addTab("My Shows", "epsd_div", getFavorites);
         
-        /* MERGE */
+        // MERGE
         tabs.addTab("Add", "add_div",getMostPopularShows);
-        /* END OF MERGE */
+        // END OF MERGE
         
         tabs.addTab("Statistics", "sts_div", UnTip);
 
-/* MERGE */
+// MERGE
 	loadFriends();
-/* END OF MERGE */
+// END OF MERGE 
        }
 
-/* MERGE */
+// MERGE
 function loadFriends() {
 		var req = opensocial.newDataRequest();
 		req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), 'owner');
@@ -142,7 +142,7 @@ function loadFriends() {
 
 
 
-/* END OF MERGE */
+// END OF MERGE
 
     function search_episode()    {
 		UnTip();
@@ -480,9 +480,9 @@ function loadFriends() {
 			<table id="search_result" class="sample" border="0">
 				<tr>
 					<th>
-						/* MERGE */
+						// MERGE
 						<img src="loading_animation.gif" />
-						/* END OF MERGE */
+						// END OF MERGE
 					</th>
 				</tr>
 			</table>
@@ -538,9 +538,9 @@ function loadFriends() {
 			<table id="search_result" class="sample" border="0">
 				<tr>
 					<th> 
-						/* MERGE */
+						// MERGE
 						<img src="loading_animation.gif" />
-						/* END OF MERGE */
+						// END OF MERGE
 					</th>
 				</tr>
 			</table>
