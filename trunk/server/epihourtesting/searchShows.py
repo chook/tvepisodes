@@ -45,16 +45,17 @@ class SearchShow(webapp.RequestHandler):
     showName = self.request.get('ShowName')
 
     if(showName != ""):
-      shows = build_table_for_search(showName)
-      description = {"showid": ("number", "ID"),
-                     "name":   ("string", "Name")}
+        shows = build_table_for_search(showName)
       
-      data_table = gviz_api.DataTable(description)
-      data_table.LoadData(shows)
-      self.response.out.write(data_table.ToJSonResponse(columns_order=("showid", "name")))
     else:
-      self.response.out.write("Search Show: Invalid usage")
-
+        self.response.out.write("Search Show: Invalid usage")
+      
+    description = {"showid": ("number", "ID"),
+                   "name":   ("string", "Name")}
+      
+    data_table = gviz_api.DataTable(description)
+    data_table.LoadData(shows)
+    self.response.out.write(data_table.ToJSonResponse(columns_order=("showid", "name")))  
 # Define the webapp applications and map the classes to different paths
 application = webapp.WSGIApplication([('/', MainPage),
                                      ('/SearchShow', SearchShow)],

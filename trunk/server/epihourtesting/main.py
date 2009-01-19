@@ -7,13 +7,87 @@ import cgi
 import os
 import gviz_api
 import logging
+from opensocial import *
 from google.appengine.api import urlfetch 
 from xml.dom import minidom 
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 from google.appengine.api import memcache
 
+import wsgiref
+import wsgiref.handlers
+
 __author__ = "Chen Harel"
+
+PARAM = "__PARAM__"
+
+# square = FunctionWrap("square", lambda x:x**2, "(%s)^2" % PARAM)
+
+class Handler(webapp.RequestHandler):
+	
+  def get(self):
+    self.test_friends('03067092798963641994')
+ 
+  def get_container(self):
+    config = ContainerConfig(oauth_consumer_key='orkut.com:623061448914',
+        oauth_consumer_secret='uynAeXiWTisflWX99KU1D2q5',
+        server_rest_base='http://sandbox.orkut.com/social/rest/',
+        server_rpc_base='http://sandbox.orkut.com/social/rpc/')
+    return ContainerContext(config)
+    
+  def test_friends(self, user_id):
+    container = self.get_container()
+    
+    batch = RequestBatch()
+    batch.add_request('me', request.FetchPersonRequest(user_id))
+    batch.add_request('friends',
+                      request.FetchPeopleRequest(user_id, '@friends'))
+    batch.send(container)
+    
+    me = batch.get('me')
+    friends = batch.get('friends')
+    
+    self.response.out.write('<h3>Test</h3>')
+    self.output(me, friends)
+
+  def output(self, me, friends):
+    self.response.out.write('%s\'s Friends: ' % me.get_display_name())
+    if not friends:
+      self.response.out.write('You have no friends.')
+    else:
+      self.response.out.write('<ul>')
+      for person in friends:
+        self.response.out.write('<li>%s</li>' % person.get_display_name())
+      self.response.out.write('</ul>')
+
+class FunctionWrap(object):
+	def __init__(self, name, func, rep):
+		self.name = name
+		self.func = func
+		self.rep = rep
+	
+	def __repr__(self):
+		return self.rep.replace(PARAM,"X")
+	
+	def calc(self, obj):
+		return self.func(obj)
+		
+	def pretty(self, param):
+		return self.rep.replace(PARAM,param)
+
+class Formula(object):
+	def __init__(self, name, funcs = []):
+		self.name = name
+		self.funcs = funcs
+	
+	def __repr__(self):
+		return " + ".join(["%s" % (func,) for func in self.funcs])
+		
+	def pretty(self, param_names):
+		return " + ".join([func.pretty(param) for (func,param) in zip(self.funcs, param_names)])
+		
+	def calc(self, params):
+		return sum([func.calc(param) for (func,param) in zip(self.funcs,params)])
 
 # This function parses a URL and returns a minidom object
 def parse(url):    
@@ -22,22 +96,26 @@ def parse(url):
   if result.status_code == 200:
     return minidom.parseString(result.content)
 
+def getXMLField(tag, subTagName):
+    subTag = tag.getElementsByTagName(subTagName)[0].firstChild
+    if subTag:
+        return subTag.data
+    return None
+
 # This function builds a data table for the visualizations
 def build_table_for_search(showName):
   url = 'http://www.tvrage.com/feeds/full_search.php?show=%s' % showName
   dom = parse(url)
 
-  # Init the dictionary for the data table
-  dicShows = []
-
-  # Running on the show elements in the XML  
-  for node in dom.getElementsByTagName('show'):
-    # Appending the showid as int and name as string
-    dicShows.append({ 
-        'showid': int(node.childNodes[1].firstChild.data), 
-        'name'  : node.childNodes[3].firstChild.data
-    })
-  return dicShows 
+  return [{'showid'  : int(getXMLField(node, 'showid')),
+		   'name'    : getXMLField(node, 'name'),
+		   'started' : getXMLField(node, 'started'),
+		   'seasons' : int(getXMLField(node, 'seasons')),
+		   'country' : getXMLField(node, 'country'),
+		   'link'    : getXMLField(node, 'link')}
+		    for node in dom.getElementsByTagName('show')]
+  
+#  return dicShows
 
 class Gadget(webapp.RequestHandler):
   # This function is invoked when a user sends a get request
@@ -52,7 +130,7 @@ class MainPage(webapp.RequestHandler):
   def get(self):
     showId = self.request.get('ShowId')
     con = False
-    for i in range (0,10):
+    for i in xrange(10):
         url = "http://images.tvrage.net/shows/%s/%s.jpg" % (i, showId)
         result = urlfetch.fetch(url)
         if result.status_code != 404:
@@ -92,23 +170,38 @@ class SearchShow(webapp.RequestHandler):
                 logging.error("Memcache set failed.")
         
         # Decide on the data table description
-        description = {"showid": ("number", "ID"),
-                       "name":   ("string", "Name")}
+        description = {"showid" : ("number", "ID"),
+                       "name"   : ("string", "Name"),
+                       "started": ("string", "Date Started"),
+                       "seasons": ("number", "Seasons Number"),
+                       "country": ("string", "Original Country"),
+                       "link"   : ("string", "Link")}
         
         # Build the data table object with description and shows dictionary
         data_table = gviz_api.DataTable(description)
         data_table.LoadData(dicShows)
         
         # Write the object as a JSon response back to the caller
-        self.response.out.write(data_table.ToJSonResponse(columns_order=("showid", "name"),order_by=(),req_id=reqId))
+        self.response.out.write(data_table.ToJSonResponse(columns_order=("showid",
+																		  "name",
+																		  "started",
+																		  "seasons",
+																		  "country",
+																		  "link"),
+														  order_by=(),
+														  req_id=reqId))
     else:
-        # No show name specified, return
-        self.response.out.write("Search Show: Invalid usage")
-
+        # No show name specified, return the best shows
+        self.response.out.write('Invalid')
+        
+        #shows = db.GqlQuery('SELECT * FROM Show ORDER BY showcount DESC LIMIT 5')
+        #dicGenres = [{'name' : g.name , 'count': g.showcount} for g in shows]
+        
 # Define the webapp applications and map the classes to different paths
 application = webapp.WSGIApplication([('/', MainPage),
-                                     ('/SearchShow', SearchShow),
-                                     ('/Gadget', Gadget)],
+                                      ('/SearchShow', SearchShow),
+                                      ('/Gadget', Gadget),
+                                      ('/Handler', Handler)],
                                      debug=True)
 
 # Main global function
