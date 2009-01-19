@@ -259,8 +259,8 @@
 			getFavorites();
 		}
     }
-     function create_msg()
-      {
+     function create_msg(){
+		getFavorites();
         var msg = new _IG_MiniMessage(__MODULE_ID__, _gel("news_div"));
 		var today = new Date();
 		alert(today);
@@ -269,7 +269,7 @@
 			alert(nextAirDate);
 			msg.createDismissibleMessage("Heroes S3 E13 is on tonight!", dismissed);    
 		}			
-      }
+    }
     // Used as callback function when message is dismissed.
     // If callback returns false, then cancel the dismissal.
     function dismissed() {
