@@ -259,11 +259,10 @@
 			getFavorites();
 		}
     }
-     function create_msg(){
-		getFavorites();
+    function create_msg(){
         var msg = new _IG_MiniMessage(__MODULE_ID__, _gel("news_div"));
-		var today = new Date();
-		alert(today);
+		//var today = new Date();
+		
 		for (var i=0; i < favoritesData.getNumberOfRows(); i++){
 			var nextAirDate = favoritesData.getValue(i,10);
 			alert(nextAirDate);
@@ -275,26 +274,6 @@
     function dismissed() {
        return confirm("Are you sure you want to discard?");
      }
-    function dismiss_epi(line) {
-       var answer = confirm("Are you sure you want to discard?")
-       if (answer) {
-         document.getElementById(line).style.display = 'none'
-         document.getElementById(line+'_check').style.display = ''
-         document.getElementById(line+'1_check').style.display = ''
-       }  
-     }
-	 
-    function chosen(name){ //if we are not using checkboxes, this function can be deleted
-     if ((document.getElementById(name).checked)==true){
-      ++checked_no;
-      //document.getElementById('add_btn').disabled = false
-     }
-    else{
-      --checked_no;
-      //if (checked_no ==0)
-        //document.getElementById('add_btn').disabled = true
-      }
-    }
 	function getStatistics(type , limit){
 		document.getElementById('sts_div').removeChild(document.getElementById('statistics'));
 		var newDiv = document.createElement("div");
