@@ -18,7 +18,7 @@
 	 var data = null;
 	 var table = null;
 	 var query = null;
-	 var userID = 3067092798963641994;
+	 var userID = 03067092798963641994;
 	 
 	google.load("visualization", "1", {packages:["columnchart", "table" ,"barchart" , "piechart"]});	 
     function init() {
@@ -197,7 +197,7 @@
 		}*/
 		body += "&sid=" + encodeURIComponent(showId);
 		//body += "&search=" + encodeURIComponent(document.getElementById('srch_txt').value.toLowerCase());
-		//alert(body);
+		alert(body);
 		alert("running makePOSTrequest");
 		makePOSTRequest(url, body); 
     }
