@@ -260,6 +260,7 @@
 		}
     }
     function create_msg(){
+		getFavorites();
         var msg = new _IG_MiniMessage(__MODULE_ID__, _gel("news_div"));
 		//var today = new Date();
 		if (favoritesData != null){
