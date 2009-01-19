@@ -480,9 +480,7 @@ function loadFriends() {
 			<table id="search_result" class="sample" border="0">
 				<tr>
 					<th>
-						// MERGE
 						<img src="loading_animation.gif" />
-						// END OF MERGE
 					</th>
 				</tr>
 			</table>
@@ -537,10 +535,8 @@ function loadFriends() {
 		<div style="display:none" id="searching..."> 
 			<table id="search_result" class="sample" border="0">
 				<tr>
-					<th> 
-						// MERGE
+					<th> 						
 						<img src="loading_animation.gif" />
-						// END OF MERGE
 					</th>
 				</tr>
 			</table>
