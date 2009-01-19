@@ -210,7 +210,7 @@
 
 	function addCallbackFunction(obj) {
 		   alert(obj.text);
-	};
+	}
 	
 	function makePOSTRequest(url, postdata) {
 		var params = {};
@@ -218,7 +218,7 @@
 		params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.POST;
 		params[gadgets.io.RequestParameters.POST_DATA]= postdata;
 		gadgets.io.makeRequest(url, addCallbackFunction, params); 
-	};
+	}
 	
     function add_show(showId) {
 		var url = "http://epihourtesting2.appspot.com/addFavorite";
