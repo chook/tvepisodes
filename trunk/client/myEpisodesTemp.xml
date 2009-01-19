@@ -262,12 +262,13 @@
     function create_msg(){
         var msg = new _IG_MiniMessage(__MODULE_ID__, _gel("news_div"));
 		//var today = new Date();
-		
-		for (var i=0; i < favoritesData.getNumberOfRows(); i++){
-			var nextAirDate = favoritesData.getValue(i,10);
-			alert(nextAirDate);
-			msg.createDismissibleMessage("Heroes S3 E13 is on tonight!", dismissed);    
-		}			
+		if (favoritesData != null){
+			for (var i=0; i < favoritesData.getNumberOfRows(); i++){
+				var nextAirDate = favoritesData.getValue(i,10);
+				alert(nextAirDate);
+				msg.createDismissibleMessage("Heroes S3 E13 is on tonight!", dismissed);    
+			}		
+		}		
     }
     // Used as callback function when message is dismissed.
     // If callback returns false, then cancel the dismissal.
