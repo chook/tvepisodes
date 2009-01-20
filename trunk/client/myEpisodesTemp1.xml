@@ -454,7 +454,7 @@
 </head>
 <body bgcolor="#dbe3eb">
 <script type="text/javascript" src="http://tvepisodes.googlecode.com/svn/trunk/client/wz_tooltip.js"></script>
-    <div id="news_div" class="background" align="center" ></div>
+    <div id="news_div" class="background" align="center" ><br></div>
 	        
 
 	        
