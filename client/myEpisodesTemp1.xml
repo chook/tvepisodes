@@ -597,7 +597,7 @@
 
 			<div id="most_pop"></div>
 			
-			<span  id="recmnd_txt">
+			<span style="display:none" id="recmnd_txt">
 				Recommendations:
 			</span>			
 			<div style="display:none" id="recmnd_div"></div>			
