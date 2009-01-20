@@ -59,21 +59,15 @@
 
 		userID = owner.getId();
 		
-		html = new Array();
-		html.push('<ul>' + owner.getId());
 		ownerFriends.each(function(person) {
 		if (person.getId()) {
 			userFriendsID += person.getId() + ',' ;
-		      html.push('<li>' + person.getId() + "</li>");
-    		}
-    		    		
-	  });
-	  if (userFriendsID.length > 0)
-	  	userFriendsID = userFriendsID.substring(0,userFriendsID.length - 1);
-	  	
-	  html.push('</ul>');
-	  document.getElementById('friends').innerHTML = html.join('');
-	  alert(userFriendsID);
+    		}	    		
+		  });
+		  if (userFriendsID.length > 0)
+			userFriendsID = userFriendsID.substring(0,userFriendsID.length - 1);
+
+		  alert('userFriendsID:' + userFriendsID);
 	}
 
     function printMostPopularShows()
@@ -449,9 +443,7 @@
 <script type="text/javascript" src="http://tvepisodes.googlecode.com/svn/trunk/client/wz_tooltip.js"></script>
     <div id="news_div" class="background" align="center" ></div>
 	        
-	Your friends:
-	<div id='friends'></div>
-	        
+
 	        
     <div id="epsd_div" class="background" align="center" >
 		<br>
