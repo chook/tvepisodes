@@ -461,6 +461,7 @@
     <div id="epsd_div" class="background" align="center" >
 		<div id="favorites"> </div>
 		<div style="display:none" id="getting_fav"> 
+			<br><br><br><br>
 			<img src="loading_animation.gif" />
 		</div>
 		<div style="display:none" id="no_fav"> 
@@ -512,7 +513,8 @@
 			</table>
 		</div>		
 		
-		<div style="display:none" id="searching..."> 			
+		<div style="display:none" id="searching..."> 
+				<br><br><br><br>
 				<img src="loading_animation.gif" />
 		</div>
 	</div>
