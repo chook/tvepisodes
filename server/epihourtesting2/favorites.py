@@ -69,8 +69,8 @@ def getXMLField(tag, subTagName):
     except:
         subTag = None
     if subTag:
-        if '\x96' in subTag.data:
-            return subTag.data.replace('\x96','-')
+    #    if '\x96' in subTag.data:
+        return subTag.data
     return subTag
 
 # This function builds a data table for the visualizations
