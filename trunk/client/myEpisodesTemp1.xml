@@ -87,7 +87,7 @@
 		UnTip();
 
 		checked_no = 0;
-		var url = 'http://epihourtesting2.appspot.com/recommend?user=' + userID + '&friends=' + userFreindsID ;
+		var url = 'http://epihourtesting2.appspot.com/recommend?user=' + userID + '&friends=' + userFriendsID ;
 
 		query = new google.visualization.Query(url);
 
