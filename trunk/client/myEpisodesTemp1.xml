@@ -41,7 +41,7 @@
         
         loadFriends();
 	getMostPopularShows();
-	getRecommended();
+	
        }
        
 	function loadFriends() {
@@ -578,7 +578,7 @@
             </td>
             <td>
             	<!-- input type="button" disabled class="btn" value="Reset" id="reset_srch_btn" onmouseover="this.className='btnhov'"onmouseout="this.className='btn'" onclick="reset_srch()" / -->
-            	<a class="button" href="#" onclick="this.blur(); alert('recmnd');"><span>Recommend</span></a>
+            	<a class="button" href="#" onclick="this.blur(); getRecommended();"><span>Recommend</span></a>
             </td>
           </tr>
 
