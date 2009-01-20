@@ -482,11 +482,11 @@
             <td> <input type="text" class="txt" value="TV Show Name Here" id="srch_txt" onclick="reset_srch_text()"/> </td>                        
             <td>
             	<input type="button" class="btn" value="Search" id="srch_btn" onmouseover="this.className='btnhov'"onmouseout="this.className='btn'" onclick="search_episode()" /> 
-            	<a class="button" href="#" onclick="this.blur(); id="srch_btn" search_episode();"><span>Search</span></a>
+            	<a class="button" href="#" onclick="this.blur(); search_episode();"><span>Search</span></a>
             </td>
             <td>
-            	<!-- input type="button" disabled class="btn" value="Reset" id="reset_srch_btn" onmouseover="this.className='btnhov'"onmouseout="this.className='btn'" onclick="reset_srch()" / -->
-            	<a class="button" href="#" id="reset_srch_btn" onclick="this.blur(); alert('recmnd');"><span>Recommend</span></a>
+            	<input type="button" disabled class="btn" value="Reset" id="reset_srch_btn" onmouseover="this.className='btnhov'"onmouseout="this.className='btn'" onclick="reset_srch()" />
+            	<a class="button" href="#" onclick="this.blur(); alert('recmnd');"><span>Recommend</span></a>
             </td>
           </tr>
 
