@@ -10,7 +10,7 @@
   <html>
 <head>
 	
-	<link rel="stylesheet" type="text/css" href="myEpisodesCssTal.css" /> 
+	<link rel="stylesheet" type="text/css" href="myEpisodesCss.css" /> 
     <style type="text/css">
 	//	@import "http://tvepisodes.googlecode.com/svn/trunk/client/myEpisodesCss.css";
     </style>
