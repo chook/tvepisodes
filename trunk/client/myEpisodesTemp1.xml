@@ -268,13 +268,10 @@
 			data.setValue(j , 10, '<input type="submit" align="center"  class="btn" value="Add" id="add'+j+'" onmouseover="this.className=\'btnhov\'" onmouseout="this.className=\'btn\'" onclick="add_show('+data.getValue(j,0)+')" />');
 		}
 		
-		// 'book it!' buttons
-		for (var j=0; j<data.getNumberOfRows(); j++){
-					//data.setValue(j , 8, '<input type="submit" align="center"  class="btn" value="Book it!" id="book'+j+'" onmouseover="this.className=\'btnhov\'" onmouseout="this.className=\'btn\'" onclick="book_show('+data.getValue(j,0)+')" />');
-		}
+
 		table = new google.visualization.Table(document.getElementById('vis_results'));
 		var view = new google.visualization.DataView(data);
-		view.hideColumns([0,2,3,4,5,6,7,9]); // show only the show name and the add buttons.
+		view.hideColumns([0,2,3,4,5,6,7,8,9]); // show only the show name and the add buttons.
 		if (data.getNumberOfRows()<1){
 			document.getElementById('vis_results').style.display='none';
 			document.getElementById('searching...').style.display = 'none' ;
@@ -374,6 +371,10 @@
 		favoritesData.addColumn('string' , '');
 		for (var j=0; j<favoritesData.getNumberOfRows(); j++){
 			favoritesData.setValue(j , 11, '<input type="submit" align="center"  class="btn" value="[x]" id="delete'+j+'" onmouseover="this.className=\'btnhov\'" onmouseout="this.className=\'btn\'" onclick="remove_row('+favoritesData.getValue(j,0)+')" />');
+		}
+		// 'book it!' buttons
+		for (var j=0; j<data.getNumberOfRows(); j++){
+			data.setValue(j , 10, '<input type="submit" align="center"  class="btn" value="Book it!" id="book'+j+'" onmouseover="this.className=\'btnhov\'" onmouseout="this.className=\'btn\'" onclick="book_show('+data.getValue(j,0)+')" />');
 		}
 		var favoritesTable = new google.visualization.Table(document.getElementById('favorites'));
 		var view = new google.visualization.DataView(favoritesData);
