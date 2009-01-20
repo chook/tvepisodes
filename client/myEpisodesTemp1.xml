@@ -23,6 +23,7 @@
 	 var query = null;
 	 var favoritesData = null;
 	 var userID = '03067092798963641994';
+	 var userFriendsID = '';
 	 
 	google.load("visualization", "1", {packages:["columnchart", "table" ,"barchart" , "piechart"]});	 
     function init() {
@@ -56,15 +57,20 @@
 		var owner = data.get('owner').getData();
 		var ownerFriends = data.get('ownerFriends').getData();
 
+		userID = owner.getId();
+		
 		html = new Array();
 		html.push('<ul>' + owner.getId());
 		ownerFriends.each(function(person) {
 		if (person.getId()) {
+			userFriendsID += person.getId() + ',' ;
 		      html.push('<li>' + person.getId() + "</li>");
     		}
+    		    		
 	  });
 	  html.push('</ul>');
 	  document.getElementById('friends').innerHTML = html.join('');
+	  alert(userFriendsID);
 	}
 
     function printMostPopularShows()
