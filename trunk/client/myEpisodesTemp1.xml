@@ -374,7 +374,8 @@
 		
 		// 'book it!' buttons
 		for (var j=0; j<data.getNumberOfRows(); j++){
-			favoritesData.setValue(j , 11, '<input type="submit" align="center"  class="btn" value="Book it!" id="book'+j+'" onmouseover="this.className=\'btnhov\'" onmouseout="this.className=\'btn\'" onclick="book_show('+data.getValue(j,0)+')" />');
+			favoritesData.setValue(j , 11, '<a href="http://www.google.com/calendar/event?action=TEMPLATE&text=EPI%20HOUR%20-%20Lost&dates=20090224T073000Z/20090224T080000Z&details=HAVE%20FUN!&location=TV&trp=true&sprop=&sprop=name:epi%20hour%20gadget" target="_blank">Book it!</a>');			
+			//favoritesData.setValue(j , 11, '<input type="submit" align="center"  class="btn" value="Book it!" id="book'+j+'" onmouseover="this.className=\'btnhov\'" onmouseout="this.className=\'btn\'" onclick="book_show('+data.getValue(j,0)+')" />');
 		}
 		
 		// add! buttons
@@ -559,11 +560,7 @@
 </head>
 <body bgcolor="#dbe3eb">
 <script type="text/javascript" src="http://tvepisodes.googlecode.com/svn/trunk/client/wz_tooltip.js"></script>
-    <div id="news_div" class="background" align="center" >
-    
-    <a href="http://www.google.com/calendar/event?action=TEMPLATE&text=Epi%20Hour%3A%20Lost&dates=20090123T220000Z/20051231T220000Z&details=have%20fun!!!%20%3A)&location=&trp=false&sprop=&sprop=name:epi%20hour%20gadget" target="_blank">Book it!</a>
-    
-    </div>
+    <div id="news_div" class="background" align="center" > </div>
 	        
 
 	        
