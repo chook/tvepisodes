@@ -5,13 +5,13 @@
 	  }   
       .btn {
 		  font-family: "Arial";
-		  font-size:11px;
+		  font-size: 10px;
 		  background-color: #F2F5F5;
 		  filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0,StartColorStr='#F2F5F5',EndColorStr='#E0E2E2');
 	  }
       .btnhov{
 		  font-family: "Arial";
-		  font-size:11px;
+		  font-size: 10px;
 		  cursor: pointer;
 		  border-color: 'white';
 		  background-color: #E0E2E2;
