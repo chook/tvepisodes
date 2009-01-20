@@ -9,8 +9,10 @@
     <![CDATA[
   <html>
 <head>
+	
+	<link rel="stylesheet" type="text/css" href="myEpisodesCss.css" /> 
     <style type="text/css">
-		@import "http://tvepisodes.googlecode.com/svn/trunk/client/myEpisodesCss.css";
+	//	@import "http://tvepisodes.googlecode.com/svn/trunk/client/myEpisodesCss.css";
     </style>
     <script type="text/javascript" src="http://www.google.com/jsapi"></script>
     <script type="text/javascript" >
