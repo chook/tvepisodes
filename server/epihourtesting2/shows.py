@@ -20,17 +20,27 @@ TVRAGE_SEARCH_URL = "http://www.tvrage.com/feeds/full_search.php?show="
 TVRAGE_SHOWINFO_URL = "http://www.tvrage.com/feeds/showinfo.php?sid="
 
 # This function parses a URL and returns a minidom object
-def parse(url):    
-  result = urlfetch.fetch(url)
-  
-  if result.status_code == 200:
-    return minidom.parseString(result.content)
+def parse(url):  
+  try:  
+    result = urlfetch.fetch(url)
+  #result = result.encode("utf-8")
+    if result.status_code == 200:
+        return minidom.parseString(result.content)
+  except:
+      return None
     #return
 
 def build_table_for_search(showName):
-  url = 'http://www.tvrage.com/feeds/full_search.php?show=%s' % showName
+  url = TVRAGE_SEARCH_URL + showName
+  url = url.replace(' ','%20')
+  #my_utf8.decode("utf-8")
+  try:
+      url = url.encode("utf-8")
+  except:
+      logging.debug('Can''t encode url to be utf-8')
   dom = parse(url)
-
+  if dom is None:
+      return [{'showid' : '0', 'name':'Error in search'}]
   return [{'showid'  : int(getXMLField(node, 'showid')),
            'name'    : getXMLField(node, 'name'),
            'started' : getXMLField(node, 'started'),
@@ -52,10 +62,11 @@ class SearchShow(webapp.RequestHandler):
   # This function is invoked when a user sends a get request
   def get(self):
     # The content returned is a text/plain
-    self.response.headers['Content-Type'] = 'text/plain'
-    
+    self.response.headers['Content-Type'] = 'text/plain' #; charset=utf-8'
+
     # The show name from the GET method (http://.../SearchShow?ShowName=<SHOW>)
     showName = self.request.get('name')
+    
     reqId = self.request.get('tqx')
     
     try :
@@ -69,13 +80,13 @@ class SearchShow(webapp.RequestHandler):
         showName = showName.lower()
         
         # Trying to get the data table from memcache
-        dicShows = memcache.get(showName)
-        if dicShows is None:
-            dicShows = build_table_for_search(showName)
+        #dicShows = memcache.get(showName)
+        #if dicShows is None:
+        dicShows = build_table_for_search(showName)
             
             # Add the dictionary to the memcache, log errors
-            if not memcache.add(showName, dicShows, 7200):
-                logging.error("Memcache set failed.")
+            #if not memcache.add(showName, dicShows, 7200):
+            #    logging.error("Memcache set failed.")
         
         # Decide on the data table description
         description = {"showid"         : ("number", "ID"),
@@ -95,7 +106,26 @@ class SearchShow(webapp.RequestHandler):
         data_table.LoadData(dicShows)
         
         # Write the object as a JSon response back to the caller
-        self.response.out.write(data_table.ToJSonResponse(columns_order=("showid",
+        try:
+            logging.debug('About to call ToJSonResponse from search shows')
+            self.response.out.write(data_table.ToJSonResponse(columns_order=("showid",
+                                                                         "name",
+                                                                         "started",
+                                                                         "seasons",
+                                                                         "country",
+                                                                         "classification",
+                                                                         "status",
+                                                                         "link",
+                                                                         "airtime",
+                                                                         "airday"),
+                                                          order_by=(),
+                                                          req_id=reqId))
+        except:
+            logging.error('visu in search shows failed')
+            #for show in dicShows:
+            #    show['name'] = show['name'].unicode("utf-8")
+            data_table.LoadData(dicShows)
+            self.response.out.write(data_table.ToJSonResponse(columns_order=("showid",
                                                                          "name",
                                                                          "started",
                                                                          "seasons",
@@ -134,30 +164,38 @@ class TopShows(webapp.RequestHandler):
         reqId = 0
         
     # Trying to get the data table from memcache
-    dicShows = memcache.get(FAVORITE_SHOWS_KEY)
-    if dicShows is None:
+    #dicShows = memcache.get(FAVORITE_SHOWS_KEY)
+    #if dicShows is None:
         
-        shows = db.GqlQuery('SELECT * FROM Show ORDER BY showcount DESC LIMIT %s' % limit)
-        dicShows = [{'showid' : s.showid,
-                     'name'   : s.name,
-                     'started': s.started_year,
-                     'seasons': s.seasons,
-                     'country': s.country,
-                     'link'   : s.link,
-                     'count'  : s.showcount} for s in shows]
-        
+    shows = db.GqlQuery('SELECT * FROM Show ORDER BY showcount DESC LIMIT %s' % limit)
+    dicShows = [{'showid' : s.showid,
+                 'name'   : s.name,
+                 'started': s.started_year,
+                 'seasons': s.seasons,
+                 'country': s.country,
+                 'classification' : s.classification,
+                 'status' : s.status,
+                 'link'   : s.link,
+                 'airtime': s.airtime,
+                 'airday' : s.airday,
+                 'count'  : s.showcount} for s in shows]
+               
         # Add the dictionary to the memcache, log errors
-        if not memcache.add(FAVORITE_SHOWS_KEY, dicShows, 7200):
-            logging.error("Memcache set failed.")
+        #if not memcache.add(FAVORITE_SHOWS_KEY, dicShows, 7200):
+        #    logging.error("Memcache set failed.")
     
     # Decide on the data table description
-    description = {"showid" : ("number", "ID"),
-                   "name"   : ("string", "Name"),
-                   "started": ("string", "Year Started"),
-                   "seasons": ("number", "Seasons Number"),
-                   "country": ("string", "Original Country"),
-                   "link"   : ("string", "Link"),
-                   "count"  : ("number", "Count")}
+    description = {"showid"         : ("number", "ID"),
+                   "name"           : ("string", "Name"),
+                   "started"        : ("string", "Year Started"),
+                   "seasons"        : ("number", "Seasons Number"),
+                   "country"        : ("string", "Original Country"),
+                   "classification" : ("string", "Classification"),
+                   "status"         : ("string", "Status"),
+                   "link"           : ("string", "Link"),
+                   "airtime"        : ("string", "Air Time"),
+                   "airday"         : ("string", "Air Day"),
+                   "count"          : ("number", "Count")}
     
     # Build the data table object with description and shows dictionary
     data_table = gviz_api.DataTable(description)
@@ -165,12 +203,16 @@ class TopShows(webapp.RequestHandler):
     
     # Write the object as a JSon response back to the caller
     self.response.out.write(data_table.ToJSonResponse(columns_order=("showid",
-                                                                      "name",
-                                                                      "started",
-                                                                      "seasons",
-                                                                      "country",
-                                                                      "link",
-                                                                      "count"),
+                                                                     "name",
+                                                                     "started",
+                                                                     "seasons",
+                                                                     "country",
+                                                                     "classification",
+                                                                     "status",
+                                                                     "link",
+                                                                     "airtime",
+                                                                     "airday",
+                                                                     "count"),
                                                       order_by=("count","desc"),
                                                       req_id=reqId))
 
@@ -178,9 +220,13 @@ class TopShows(webapp.RequestHandler):
 def getXMLField(tag, subTagName):
     try:
         subTag = tag.getElementsByTagName(subTagName)[0].firstChild
+        #if '\u2013' in subTag:
+        #    subTag = subTag.replace('\u2013','-')
     except:
         subTag = None
     if subTag:
+        #if chr(150) in subTag.data:
+        #    return 'bad name'
         return subTag.data
 
 def addShow(showid):
@@ -229,7 +275,8 @@ def addShow(showid):
                    network = network,
                    airtime = airtime,
                    airday = airday,
-                   timezone = timezone)
+                   timezone = timezone,
+                   nextdate = '1900-01-01')
     
     # running over the genres
     showGenres = dom.getElementsByTagName('genre')

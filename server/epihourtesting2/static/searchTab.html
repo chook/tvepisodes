@@ -1,0 +1,199 @@
+<html>
+<head>
+    <style type="text/css">
+                @import "http://tvepisodes.googlecode.com/svn/trunk/client/myEpisodesCss.css";
+    </style>
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    <script type="text/javascript" >
+     //global variables
+         var checked_no=0;
+         var data = null;
+         var table = null;
+         var query = null;
+         
+         google.load("visualization", "1", {packages:["columnchart", "table"]});         
+      function init() {
+       }
+    function search_episode()    {
+                checked_no = 0;
+                var url = 'http://epihourtesting.appspot.com/SearchShow?ShowName=' + document.getElementById('srch_txt').value.toLowerCase();
+                //alert(url);
+                query = new google.visualization.Query(url);
+                ///alert("after query");
+                // Send the query with a callback function.
+                query.send(handleQueryResponse);
+                //alert("after sending");
+                document.getElementById('most_pop').style.display = 'none';
+                document.getElementById('vis_results').style.display = '' ;
+                document.getElementById('reset_srch_btn').disabled = false;             
+        }
+  
+        function handleQueryResponse(response)  {
+                if (response.isError()) {
+                        alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+                        return;
+                }
+                data = response.getDataTable();
+                data.addColumn('string' , '');
+                for (var j=0; j<data.getNumberOfRows(); j++){
+                        data.setValue(j , 2, '<input type="checkbox" align="center" id="add'+j+'" onclick="chosen(\'add'+j+'\')" />');
+                }
+                table = new google.visualization.Table(document.getElementById('vis_results'));
+                var view = new google.visualization.DataView(data);
+                view.hideColumns([0]); // do not show the showID.
+                table.draw(view, {showRowNumber: true, allowHtml:true, page:'enable', width: 210, pageSize: 5});
+                //google.visualization.events.addListener(table, 'select', selectHandler);
+                function selectHandler() {
+                        var selection = table.getSelection();
+                        for (var i = 0; i < selection.length; i++) {
+                                var name = data.getValue(selection[i].row, 1);
+                                alert(' Row ' + selection[i].row + ' value is: ' + name);
+                                add_series( name, 1 , 1);
+                        }
+                        if (selection.length>0)
+                                document.getElementById('add_btn').disabled = false;
+                        else 
+                                document.getElementById('add_btn').disabled = true;
+                }
+        }
+        
+    function reset_srch_text() 
+      {
+        if (document.getElementById('srch_txt').value == 'TV Show Name Here')
+            document.getElementById('srch_txt').value = '';
+      }
+    function reset_srch() 
+      { 
+        checked_no=0;
+        document.getElementById('add_btn').disabled = true;
+        document.getElementById('reset_srch_btn').disabled = true;
+        document.getElementById('srch_txt').value = 'TV Show Name Here';
+        document.getElementById('most_pop').style.display = ''; 
+                document.getElementById('vis_results').style.display = 'none'; 
+        document.getElementById('no_result_div').style.display = 'none' ;
+                data = null;
+                table = null;
+                query = null;
+                document.getElementById('main_div').removeChild(document.getElementById('vis_results'));
+                var newDiv = document.createElement("div");
+                newDiv.id = "vis_results";
+                document.getElementById('main_div').appendChild(newDiv);
+    }
+          
+        function getFavorites()    {
+                var url = 'http://epihourtesting.appspot.com/SearchShow?ShowName=' //CHANGE WHEN THERE IS A VALID LINK
+                //alert(url);
+                var favoritesQuery = new google.visualization.Query(url);
+                //alert("after query");
+                // Send the query with a callback function.
+                favoritesQuery.send(handleFavoritesQueryResponse);
+                //alert("after sending");       
+        }
+        function handleFavoritesQueryResponse(response) {
+                if (response.isError()) {
+                        alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+                        return;
+                }
+                var favoritesData = response.getDataTable();
+                favoritesData.addColumn('string' , '');
+                for (var j=0; j<favoritesData.getNumberOfRows(); j++){
+                        favoritesData.setValue(j , 3, '<input type="botton" align="center" class="btn" value="[x]" id="delete'+j+'" onmouseover="this.className=\'btnhov\'" onmouseout="this.className=\'btn\'" onclick="remove_row(\'favoritesData.getValue('+j+',0)\')" />');
+                }
+                var favoritesTable = new google.visualization.Table(document.getElementById('epsd_div'));
+                var view = new google.visualization.DataView(favoritesData);
+                view.hideColumns([0]); // do not show the showID.
+                favoritesTable.draw(view, {showRowNumber: true, allowHtml:true, page: 'enable', sortColumn:2, page:'enable', width: 210, pageSize: 5});
+        }
+        
+    function add_checked_episodes() {
+                var userID = 10012009;
+                var url = 'http://epihour.appspot.com/favorites?uid=' + encodeURIComponent(userID);
+                //creating the shows to add array
+                var showsArray = new Array();
+                var j = 0;
+                alert('number of rows:'+data.getNumberOfRows());
+                for (var i=0; i<data.getNumberOfRows(); i++){
+                        alert('checking row no.'+i);
+                        if ((document.getElementById('add'+i).checked) == true){
+                                alert('true');
+                                showsArray[j] = data.getValue( i , 0); //getting the showID
+                                alert('show no. '+j+':'+showsArray[j]+' was added to the array');
+                                //var sid = 'sid'+j;
+                                //var val = JSON.stringify(showsArray[j]);
+                                url += '&' + 'sid' + '=' + encodeURIComponent(showsArray[j]);
+                                alert(url);
+                                ++j;
+                        }
+                }
+                var req = new XMLHttpRequest();
+                // Create a 'GET' request w/ an optional callback handler
+                req.open('GET', url, 'true'); 
+                req.onreadystatechange = function() {
+                        if(req.readyState == 4 && req.status == 200) {
+                                var response = null;
+                                try { 
+                                        response = JSON.parse(req.responseText);
+                                }
+                                catch (e) {
+                                        response = req.responseText;
+                                }
+                                alert(response);
+                        } 
+                }
+                // Make the actual request
+                req.send(null);
+
+    }
+
+   
+    // Used as callback function when message is dismissed.
+    // If callback returns false, then cancel the dismissal.
+    function dismissed() {
+       return confirm("Are you sure you want to discard?");
+     }
+    function dismiss_epi(line) {
+       var answer = confirm("Are you sure you want to discard?")
+       if (answer) {
+         document.getElementById(line).style.display = 'none'
+         document.getElementById(line+'_check').style.display = ''
+         document.getElementById(line+'1_check').style.display = ''
+       }  
+     }
+    function chosen(name){
+     if ((document.getElementById(name).checked)==true){
+      ++checked_no;
+      document.getElementById('add_btn').disabled = false
+     }
+    else{
+      --checked_no;
+      if (checked_no ==0)
+        document.getElementById('add_btn').disabled = true
+      }
+    }
+    </script>
+</head>
+<body bgcolor="#dbe3eb">
+      <div class="background" align="center" id="add_div" >
+         <br> 
+        <table>
+          <tr>
+            <td> <input type="text" class="txt" value="TV Show Name Here" id="srch_txt" onclick="reset_srch_text()"/> </td>
+            <td> <input type="button" class="btn" value="Search" id="srch_btn" onmouseover="this.className='btnhov'"onmouseout="this.className='btn'" onclick="search_episode()" /> </td>
+            <td> <input type="button" disabled class="btn" value="Reset" id="reset_srch_btn" onmouseover="this.className='btnhov'"onmouseout="this.className='btn'" onclick="reset_srch()" /></td>
+          </tr>
+        </table> 
+        <br>    
+ <div id="main_div">
+  <div id="vis_results"> </div>
+<div style="display:none" id="no_result_div"> 
+  <table id="search_result" class="sample" border="1">
+    <tr>
+      <th> No Results. try again! </th>
+    </tr>
+  </table>
+</div>
+  <input type="button" disabled class="btn" value="Add" id="Add_btn" onmouseover="this.className='btnhov'"onmouseout="this.className='btn'" onclick="add_checked_episodes()" />
+</div>
+<div align="center" id="sts_div" class="background"> </div>
+</body>
+</html>

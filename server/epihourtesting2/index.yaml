@@ -27,9 +27,3 @@ indexes:
   properties:
   - name: nextdate
     direction: desc
-
-# Unused in query history -- copied from input.
-- kind: Show
-  properties:
-  - name: showcound
-    direction: desc
