@@ -270,11 +270,11 @@
 		
 		// 'book it!' buttons
 		for (var j=0; j<data.getNumberOfRows(); j++){
-					data.setValue(j , 9, '<input type="submit" align="center"  class="btn" value="Book it!" id="book'+j+'" onmouseover="this.className=\'btnhov\'" onmouseout="this.className=\'btn\'" onclick="book_show('+data.getValue(j,0)+')" />');
+					data.setValue(j , 8, '<input type="submit" align="center"  class="btn" value="Book it!" id="book'+j+'" onmouseover="this.className=\'btnhov\'" onmouseout="this.className=\'btn\'" onclick="book_show('+data.getValue(j,0)+')" />');
 		}
 		table = new google.visualization.Table(document.getElementById('vis_results'));
 		var view = new google.visualization.DataView(data);
-		view.hideColumns([0,2,3,4,5,6,7,8]); // show only the show name and the add buttons.
+		view.hideColumns([0,2,3,4,5,6,7,9]); // show only the show name and the add buttons.
 		if (data.getNumberOfRows()<1){
 			document.getElementById('vis_results').style.display='none';
 			document.getElementById('searching...').style.display = 'none' ;
