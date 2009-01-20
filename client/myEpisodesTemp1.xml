@@ -103,7 +103,7 @@
 		}
 		table = new google.visualization.Table(document.getElementById('most_pop'));
 		var view = new google.visualization.DataView(data);
-		view.hideColumns([0,2,3,4,5]); // show only the show name and the add buttons.
+		view.hideColumns([0,2,3,4,5,6,7,8]); // show only the show name and the add buttons.
 		if (data.getNumberOfRows()<1){
 			alert('there are no pop shows');
 
