@@ -104,7 +104,7 @@
 		}
 		document.getElementById('searching...').style.display = 'none';	
 		document.getElementById('recmnd_div').style.display = '';	
-		document.getElementById('recmnd_').style.display = '';
+		document.getElementById('recmnd_txt').style.display = '';
 		data = response.getDataTable();
 		data.addColumn('string' , '');
 		for (var j=0; j<data.getNumberOfRows(); j++){			
