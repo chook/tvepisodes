@@ -81,7 +81,7 @@
 		UnTip();
 
 		checked_no = 0;
-		var url = 'http://epihourtesting.appspot.com/SearchShow?ShowName=lost';
+		var url = 'http://epihourtesting2.appspot.com/topShows?limit=5';
 
 		query = new google.visualization.Query(url);
 
