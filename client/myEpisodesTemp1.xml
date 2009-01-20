@@ -374,7 +374,7 @@
 		}
 		// 'book it!' buttons
 		for (var j=0; j<data.getNumberOfRows(); j++){
-			data.setValue(j , 12, '<input type="submit" align="center"  class="btn" value="Book it!" id="book'+j+'" onmouseover="this.className=\'btnhov\'" onmouseout="this.className=\'btn\'" onclick="book_show('+data.getValue(j,0)+')" />');
+			data.setValue(j , 11, '<input type="submit" align="center"  class="btn" value="Book it!" id="book'+j+'" onmouseover="this.className=\'btnhov\'" onmouseout="this.className=\'btn\'" onclick="book_show('+data.getValue(j,0)+')" />');
 		}
 		var favoritesTable = new google.visualization.Table(document.getElementById('favorites'));
 		var view = new google.visualization.DataView(favoritesData);
