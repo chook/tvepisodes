@@ -475,10 +475,12 @@
 	</div>
     <div class="background" align="center" id="add_div" >        
 
-        <table>
+        <table border="0" align="center">
 
           <tr>
-            <td> <input type="text" class="txt" value="TV Show Name Here" id="srch_txt" onclick="reset_srch_text()"/> </td>                        
+            <td> 
+            	<input type="text" class="txt" value="TV Show Name Here" id="srch_txt" onclick="reset_srch_text()"/> 
+            </td>                        
             <td>
             	<!-- input type="button" class="btn" value="Search" id="srch_btn" onmouseover="this.className='btnhov'" onmouseout="this.className='btn'" onclick="search_episode()" / --> 
             	<a class="button" href="#" onclick="this.blur(); search_episode();"><span>Search</span></a>
@@ -527,7 +529,7 @@
 	</div>
 	<div align="center" id="sts_div" class="background">
 	
-	<table border="0">
+	<table border="0" align="center">
 		<tr>
 			<td>
 				<select align="center" id="type_selection">
