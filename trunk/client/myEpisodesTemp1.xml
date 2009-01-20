@@ -10,9 +10,9 @@
   <html>
 <head>
 	
-	
-    <style type="text/css">
-		@import "http://tvepisodes.googlecode.com/svn/trunk/client/myEpisodesCss.css";
+	<link href="myEpisodesCss.css" rel="stylesheet" type="text/css" />	
+    <style type="text/css"> 
+	//	@import "http://tvepisodes.googlecode.com/svn/trunk/client/myEpisodesCss.css";
     </style>
     <script type="text/javascript" src="http://www.google.com/jsapi"></script>
     <script type="text/javascript" >
