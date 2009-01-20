@@ -6,16 +6,16 @@
       .btn {
 		  font-family: "Arial";
 		  font-size:11px;
-		  background-color: #b4c3f6;
-		  filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0,StartColorStr='#dbe3eb',EndColorStr='#b4c3f6');
+		  background-color: #F2F5F5;
+		  filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0,StartColorStr='#F2F5F5',EndColorStr='#E0E2E2');
 	  }
       .btnhov{
 		  font-family: "Arial";
 		  font-size:11px;
 		  cursor: pointer;
 		  border-color: 'white';
-		  background-color: #b4c3f6;
-		  filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0,StartColorStr='#dbe3eb',EndColorStr='#b4c3f6');
+		  background-color: #E0E2E2;
+		  filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0,StartColorStr='#E0E2E2',EndColorStr='#F2F5F5');
 	  }
       .txt {
 		  font-family: "Arial";
