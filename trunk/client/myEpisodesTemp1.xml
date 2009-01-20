@@ -514,7 +514,7 @@
 		</div>		
 		
 		<div style="display:none" id="searching..."> 
-				<br><br><br><br>
+				<br><br><br>
 				<img src="loading_animation.gif" />
 		</div>
 	</div>
