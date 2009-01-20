@@ -461,15 +461,7 @@
     <div id="epsd_div" class="background" align="center" >
 		<div id="favorites"> </div>
 		<div style="display:none" id="getting_fav"> 
-			<table id="search_result" class="sample" border="0">
-				<tr>
-					<th>
-						<br>
-						<br>
-						<img src="loading_animation.gif" />
-					</th>
-				</tr>
-			</table>
+			<img src="loading_animation.gif" />
 		</div>
 		<div style="display:none" id="no_fav"> 
 			<table id="search_result" class="sample" border="1">
@@ -520,14 +512,8 @@
 			</table>
 		</div>		
 		
-		<div style="display:none" id="searching..."> 
-			<table id="search_result" class="sample" border="0">
-				<tr>
-					<th> 						
-						<img src="loading_animation.gif" />
-					</th>
-				</tr>
-			</table>
+		<div style="display:none" id="searching..."> 			
+				<img src="loading_animation.gif" />
 		</div>
 	</div>
 	<div align="center" id="sts_div" class="background">
