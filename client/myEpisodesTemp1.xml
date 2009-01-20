@@ -459,8 +459,6 @@
 
 	        
     <div id="epsd_div" class="background" align="center" >
-		<br>
-		<br>
 		<div id="favorites"> </div>
 		<div style="display:none" id="getting_fav"> 
 			<table id="search_result" class="sample" border="0">
@@ -479,8 +477,8 @@
 			</table>
 		</div>
 	</div>
-    <div class="background" align="center" id="add_div" >
-        <br> 
+    <div class="background" align="center" id="add_div" >        
+
         <table>
 
           <tr>
