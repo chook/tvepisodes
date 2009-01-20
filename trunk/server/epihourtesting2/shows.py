@@ -32,12 +32,13 @@ def parse(url):
 
 def build_table_for_search(showName):
   url = TVRAGE_SEARCH_URL + showName
-  url = url.replace(' ','%20')
+  
   #my_utf8.decode("utf-8")
   try:
+      url = url.replace(' ','%20')
       url = url.encode("utf-8")
   except:
-      logging.debug('Can''t encode url to be utf-8')
+      logging.debug('Can''t encode url to be utf-8 ot change space to %20')
   dom = parse(url)
   if dom is None:
       return [{'showid' : '0', 'name':'Error in search'}]
