@@ -152,8 +152,7 @@
 		document.getElementById('no_result_div').style.display='none';
 		document.getElementById('vis_results').style.display = 'none' ;
 		document.getElementById('most_pop').style.display = 'none';
-		document.getElementById('most_pop_txt').style.display = 'none';	
-		document.getElementById('reset_srch_btn').disabled = false;	
+		document.getElementById('most_pop_txt').style.display = 'none';			
 		document.getElementById('searching...').style.display = '' ;
 		checked_no = 0;
 		var url = 'http://epihourtesting2.appspot.com/searchShow?name=' + document.getElementById('srch_txt').value.toLowerCase();
@@ -165,7 +164,7 @@
 		//alert("after sending");
 		document.getElementById('most_pop').style.display = 'none';
 		document.getElementById('searching...').style.display = '' ;
-		document.getElementById('reset_srch_btn').disabled = false;		
+		
 	}
   
 	function handleQueryResponse(response)	{
@@ -235,7 +234,7 @@
         checked_no=0;
 		UnTip();
         //document.getElementById('add_btn').disabled = true;
-        document.getElementById('reset_srch_btn').disabled = true;
+        
         document.getElementById('srch_txt').value = 'TV Show Name Here';
         document.getElementById('most_pop').style.display = ''; 
         document.getElementById('most_pop_txt').style.display = '';
@@ -481,11 +480,11 @@
           <tr>
             <td> <input type="text" class="txt" value="TV Show Name Here" id="srch_txt" onclick="reset_srch_text()"/> </td>                        
             <td>
-            	<input type="button" class="btn" value="Search" id="srch_btn" onmouseover="this.className='btnhov'"onmouseout="this.className='btn'" onclick="search_episode()" /> 
+            	<-- input type="button" class="btn" value="Search" id="srch_btn" onmouseover="this.className='btnhov'"onmouseout="this.className='btn'" onclick="search_episode()" / --> 
             	<a class="button" href="#" onclick="this.blur(); search_episode();"><span>Search</span></a>
             </td>
             <td>
-            	<input type="button" disabled class="btn" value="Reset" id="reset_srch_btn" onmouseover="this.className='btnhov'"onmouseout="this.className='btn'" onclick="reset_srch()" />
+            	<!-- input type="button" disabled class="btn" value="Reset" id="reset_srch_btn" onmouseover="this.className='btnhov'"onmouseout="this.className='btn'" onclick="reset_srch()" / -->
             	<a class="button" href="#" onclick="this.blur(); alert('recmnd');"><span>Recommend</span></a>
             </td>
           </tr>
