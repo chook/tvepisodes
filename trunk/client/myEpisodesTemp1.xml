@@ -99,7 +99,8 @@
 		data.addColumn('string' , '');
 		for (var j=0; j<data.getNumberOfRows(); j++){			
 			//data.setValue(j , 11, '<input type="submit" align="center"  class="btn" value="Add" id="add'+j+'" onmouseover="this.className=\'btnhov\'" onmouseout="this.className=\'btn\'" onclick="add_show('+data.getValue(j,0)+')" />');
-			<a class="button" href="#" onclick="this.blur(); id="add'+j+'" add_show('+data.getValue(j,0)+');"><span>Add</span></a>
+			data.setValue(j , 11, '<a class="button" href="#" onclick="this.blur(); id="add'+j+'" add_show('+data.getValue(j,0)+');"><span>Add</span></a>');
+			
 			
 		}
 		table = new google.visualization.Table(document.getElementById('most_pop'));
