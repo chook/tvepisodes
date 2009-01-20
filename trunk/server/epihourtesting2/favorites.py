@@ -60,7 +60,6 @@ class RemoveFavorite(webapp.RequestHandler):
             self.response.out.write("Remove unsuccessful! %s %s" % (userid, showid))
 def parse(url):    
   result = urlfetch.fetch(url)
-  
   if result.status_code == 200:
     return minidom.parseString(result.content)
 
@@ -70,14 +69,22 @@ def getXMLField(tag, subTagName):
     except:
         subTag = None
     if subTag:
-        return subTag.data
-    return None
+        if '\x96' in subTag.data:
+            return subTag.data.replace('\x96','-')
+    return subTag
 
 # This function builds a data table for the visualizations
 def build_table_for_search(showName):
   url = 'http://www.tvrage.com/feeds/episode_list.php?sid=%s' % showName
   dom = parse(url)
   return dom
+
+def stringToDate(str):
+    try:
+        return datetime.date(int(str[0:4]), int(str[5:7]), int(str[8:10]))
+    except:
+        return None
+        
 
 class GetFavorites(webapp.RequestHandler):
   
@@ -111,31 +118,37 @@ class GetFavorites(webapp.RequestHandler):
             favoriteShows = [db.get(key) for key in user.favorite_shows]
             for favoriteShow in favoriteShows:    
                 if favoriteShow.nextdate is not None :
-                    d = datetime.date(int(favoriteShow.nextdate[0:4]), int(favoriteShow.nextdate[5:7]), int(favoriteShow.nextdate[8:10]))
+                    dNextDateInDB = stringToDate(favoriteShow.nextdate)
                 else :
-                    d = datetime.date(2500,1,1)
-                    favoriteShow.nextdate = str(d)
-                    favoriteShow.put()
-                if d < datetime.date.today():
+                    dNextDateInDB = datetime.date(2500,1,1)
+                   # favoriteShow.nextdate = str(d)
+                   # favoriteShow.put()
+                
+                # If the next air date has passed (episode broadcasted)
+                foundNewDate = False
+                if dNextDateInDB < datetime.date.today():
                     showEpisodes = build_table_for_search(str(favoriteShow.showid))
                     episodeNodes = []
                     for node in showEpisodes.getElementsByTagName('episode'):
                         episodeNodes.extend([node])
                     #episodeNodes = [node for node in showEpisodes]
                     dates = [getXMLField(n, 'airdate') for n in episodeNodes]
-                    nextDate = '0000-00-00'
+                   
                     for date in dates:
                         try:
                             d = datetime.date(int(date[0:4]),int(date[5:7]), int(date[8:10]))
                             if d > datetime.date.today():
-                                nextDate = date
+                                favoriteShow.nextdate = date
+                                foundNewDate = True
                                 break
                         except:
-                            d = 0
-                    if nextDate[0:1] != '0':
-                        favoriteShow.nextdate = nextDate
+                            d = '1900-01-01'
+                    if foundNewDate:
                         favoriteShow.put()
-                    
+                if favoriteShow.nextdate == '1900-01-01':
+                    nextAirDateFixed = 'Show Ended'
+                else:
+                    nextAirDateFixed = favoriteShow.nextdate
                 # Appending the showid as int and name as string
                 dicUserFavorites.append({ 
                     'showid'         : favoriteShow.showid, 
@@ -148,7 +161,7 @@ class GetFavorites(webapp.RequestHandler):
                     'link'           : favoriteShow.link,
                     'airtime'        : favoriteShow.airtime,
                     'airday'         : favoriteShow.airday,                   
-                    'nextdate'       : favoriteShow.nextdate})
+                    'nextdate'       : nextAirDateFixed})
             # End For
         # End If
                   

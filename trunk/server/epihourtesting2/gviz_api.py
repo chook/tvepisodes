@@ -27,7 +27,7 @@ Google Visualization API.
 __author__ = "Amit Weinstein, Misha Seltzer"
 
 import datetime
-
+import logging
 
 class DataTableException(Exception):
   """The general exception object thrown by DataTable."""
@@ -185,12 +185,18 @@ class DataTable(object):
     elif value_type == "number":
       if isinstance(value, (int, long, float)):
         return str(value)
+      else:
+        return repr(value)
+        logging.debug('Problem with ' + value)
       raise DataTableException("Wrong type %s when expected number" % t_value)
 
     elif value_type == "string":
       if isinstance(value, tuple):
         raise DataTableException("Tuple is not allowed as string value.")
-      return repr(str(value))
+      try:
+        return repr(str(value))
+      except:
+        return repr(unicode(value))
 
     elif value_type == "date":
       if not isinstance(value, (datetime.date, datetime.datetime)):
