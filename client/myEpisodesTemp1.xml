@@ -531,7 +531,8 @@
 			<option value="2">2</option>
 			<option value="1">1</option>
 		</select>
-		<input type="button" class="btn" value="See Statistics" id="get_stat" onmouseover="this.className='btnhov'" onmouseout="this.className='btn'" onclick="getStatistics(document.getElementById('type_selection').value.toLowerCase(),document.getElementById('limit_selection').value.toLowerCase())" />
+		<a class="button" href="#" onclick="this.blur(); getStatistics(document.getElementById('type_selection').value.toLowerCase(),document.getElementById('limit_selection').value.toLowerCase());"><span>See Statistics</span></a>
+		<!-- input type="button" class="btn" value="See Statistics" id="get_stat" onmouseover="this.className='btnhov'" onmouseout="this.className='btn'" onclick="getStatistics(document.getElementById('type_selection').value.toLowerCase(),document.getElementById('limit_selection').value.toLowerCase())" / -->
 		<br>
 		<div align="center" id="statistics"></div>
 	</div>
