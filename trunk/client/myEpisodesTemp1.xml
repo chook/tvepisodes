@@ -68,6 +68,9 @@
     		}
     		    		
 	  });
+	  if (userFriendsID.length > 0)
+	  	userFriendsID = userFriendsID.substring(0,userFriendsID.length - 1);
+	  	
 	  html.push('</ul>');
 	  document.getElementById('friends').innerHTML = html.join('');
 	  alert(userFriendsID);
