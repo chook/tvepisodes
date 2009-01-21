@@ -445,14 +445,15 @@
 		gadgets.io.makeRequest(url, addCallbackFunction, params); 
 		
 		if (remove_or_add == 1)
+		{
 			document.getElementById(id_name).src = "http://tvepisodes.googlecode.com/svn/trunk/client/added.png";
 			document.getElementById(id_name).alt = "Added!";
 			document.getElementById(id_name).onclick = "";
+		}
 		
 	};
 	
     function add_show(showId,id_name) {
-    		alert('aaa');
     		document.getElementById(id_name).src = "http://tvepisodes.googlecode.com/svn/trunk/client/adding.gif";
 		var url = "http://epihourtesting2.appspot.com/addFavorite";
 		//creating the shows to add array
