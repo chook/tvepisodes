@@ -266,8 +266,8 @@
 		data.addColumn('string' , '');
 		for (var j=0; j<data.getNumberOfRows(); j++){
 		
-			data.setValue(j , 10, '<img src="http://tvepisodes.googlecode.com/svn/trunk/client/delete.png" />');
-			//data.setValue(j , 10, '<input type="submit" align="center"  class="btn" value="Add" id="add'+j+'" onmouseover="this.className=\'btnhov\'" onmouseout="this.className=\'btn\'" onclick="add_show('+data.getValue(j,0)+')" />');
+			//data.setValue(j , 10, '<img src="http://tvepisodes.googlecode.com/svn/trunk/client/delete.png" />');
+			data.setValue(j , 10, '<input type="submit" align="center"  class="btn" value="Add" id="add'+j+'" onmouseover="this.className=\'btnhov\'" onmouseout="this.className=\'btn\'" onclick="add_show('+data.getValue(j,0)+')" />');
 		}
 		
 
