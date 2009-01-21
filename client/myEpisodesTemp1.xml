@@ -70,7 +70,7 @@
 		  if (userFriendsID.length > 0)
 			userFriendsID = userFriendsID.substring(0,userFriendsID.length - 1);
 
-		  //alert('userFriendsID:' + userFriendsID);
+		  alert('userFriendsID:' + userFriendsID);
 	}
 
 
