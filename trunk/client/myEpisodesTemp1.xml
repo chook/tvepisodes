@@ -483,7 +483,7 @@
 		}
     }
     function create_msg(){
-		getFavorites();
+		//getFavorites();
         var msg = new _IG_MiniMessage(__MODULE_ID__, _gel("news_div"));
 		var today = new Date();
 		var year = today.getYear();
