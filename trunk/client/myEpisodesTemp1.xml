@@ -450,6 +450,8 @@
 			document.getElementById(id_name).alt = "Added!";
 			document.getElementById(id_name).onclick = "";
 		}
+		else
+			getFavorites();
 		
 	};
 	
@@ -489,8 +491,7 @@
 			body += "&sid=" + encodeURIComponent(showId);
 			//alert(body);
 			//alert("running makePOSTrequest");
-			makePOSTRequest(url, body,0,'aaa');
-			getFavorites();
+			makePOSTRequest(url, body,0,'aaa');			
 		}
     }
     function create_msg(){
