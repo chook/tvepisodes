@@ -590,11 +590,11 @@
             </td>                        
             <td>
             	<!-- input type="button" class="btn" value="Search" id="srch_btn" onmouseover="this.className='btnhov'" onmouseout="this.className='btn'" onclick="search_episode()" / --> 
-            	<a class="button" href="#" onclick="this.blur(); search_episode();"><span>Search</span></a>
+            	<a class="button" href="javascript:null;"" onclick="this.blur(); search_episode();"><span>Search</span></a>
             </td>
             <td>
             	<!-- input type="button" disabled class="btn" value="Reset" id="reset_srch_btn" onmouseover="this.className='btnhov'"onmouseout="this.className='btn'" onclick="reset_srch()" / -->
-            	<a class="button" href="#" onclick="this.blur(); getRecommended();"><span>Recommend</span></a>
+            	<a class="button" href="javascript:null;" onclick="this.blur(); getRecommended();"><span>Recommend</span></a>
             </td>
           </tr>
 
