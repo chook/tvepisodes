@@ -474,7 +474,7 @@
 		//body += "&search=" + encodeURIComponent(document.getElementById('srch_txt').value.toLowerCase());
 		//alert(body);
 		//alert("running makePOSTrequest");
-		makePOSTRequest(url, body,1);
+		makePOSTRequest(url, body,1,id_name);
     }
 	
 	// 'aaa' is default
