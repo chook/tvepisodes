@@ -433,7 +433,7 @@
 	}
 
 	function addCallbackFunction(obj) {
-		   alert(obj.text);
+		   //alert(obj.text);
 	};
 	
 	function makePOSTRequest(url, postdata) {
@@ -465,8 +465,8 @@
 		}*/
 		body += "&sid=" + encodeURIComponent(showId);
 		//body += "&search=" + encodeURIComponent(document.getElementById('srch_txt').value.toLowerCase());
-		alert(body);
-		alert("running makePOSTrequest");
+		//alert(body);
+		//alert("running makePOSTrequest");
 		makePOSTRequest(url, body); 
     }
 	
@@ -476,8 +476,8 @@
 			var url = "http://epihourtesting2.appspot.com/removeFavorite";
 			var body = "uid=" + encodeURIComponent(userID);
 			body += "&sid=" + encodeURIComponent(showId);
-			alert(body);
-			alert("running makePOSTrequest");
+			//alert(body);
+			//alert("running makePOSTrequest");
 			makePOSTRequest(url, body);
 			getFavorites();
 		}
