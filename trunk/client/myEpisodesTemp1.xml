@@ -436,12 +436,17 @@
 		   //alert(obj.text);
 	};
 	
-	function makePOSTRequest(url, postdata) {
+	// add = 1, remove = 0,id_name = the field to change in the table
+	function makePOSTRequest(url, postdata,remove_or_add,id_name) {
 		var params = {};
 		//postdata = gadgets.io.encodeValues(postdata);		// already given in the encodedValue format
 		params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.POST;
 		params[gadgets.io.RequestParameters.POST_DATA]= postdata;
 		gadgets.io.makeRequest(url, addCallbackFunction, params); 
+		
+		if (remove_or_add == 1)
+			document.getElementById(id_name).src = "http://tvepisodes.googlecode.com/svn/trunk/client/adding.gif";	
+		
 	};
 	
     function add_show(showId,id_name) {
@@ -469,9 +474,10 @@
 		//body += "&search=" + encodeURIComponent(document.getElementById('srch_txt').value.toLowerCase());
 		//alert(body);
 		//alert("running makePOSTrequest");
-		makePOSTRequest(url, body); 
+		makePOSTRequest(url, body,1);
     }
 	
+	// 'aaa' is default
     function remove_row(showId){
 		var answer = confirm("Are you sure you want to delete this show?")
 		if (answer){      
@@ -480,7 +486,7 @@
 			body += "&sid=" + encodeURIComponent(showId);
 			//alert(body);
 			//alert("running makePOSTrequest");
-			makePOSTRequest(url, body);
+			makePOSTRequest(url, body,0,'aaa');
 			getFavorites();
 		}
     }
