@@ -445,7 +445,8 @@
 	};
 	
     function add_show(showId,id_name) {
-    		alert(id_name);
+    
+    		document.getElementById(id_name).src = "http://tvepisodes.googlecode.com/svn/trunk/client/adding.gif";
 		var url = "http://epihourtesting2.appspot.com/addFavorite";
 		//creating the shows to add array
 		//var showsArray = new Array();
