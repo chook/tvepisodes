@@ -107,8 +107,9 @@
 		document.getElementById('recmnd_txt').style.display = '';
 		data = response.getDataTable();
 		data.addColumn('string' , '');
-		for (var j=0; j<data.getNumberOfRows(); j++){			
-			data.setValue(j , 12, '<input type="submit" align="center"  class="btn" value="Add" id="add'+j+'" onmouseover="this.className=\'btnhov\'" onmouseout="this.className=\'btn\'" onclick="add_show('+data.getValue(j,0)+')" />');					
+		for (var j=0; j<data.getNumberOfRows(); j++){						
+			data.setValue(j , 12, '<img style="cursor:hand" id="add'+j+'" src="http://tvepisodes.googlecode.com/svn/trunk/client/add.png" alt="Add it!" onclick="add_show('+data.getValue(j,0)+')"\>');					
+			//data.setValue(j , 12, '<input type="submit" align="center"  class="btn" value="Add" id="add'+j+'" onmouseover="this.className=\'btnhov\'" onmouseout="this.className=\'btn\'" onclick="add_show('+data.getValue(j,0)+')" />');					
 			
 		}
 		table = new google.visualization.Table(document.getElementById('recmnd_div'));
@@ -186,8 +187,8 @@
 		data = response.getDataTable();
 		data.addColumn('string' , '');
 		for (var j=0; j<data.getNumberOfRows(); j++){			
-			data.setValue(j , 11, '<input type="submit" align="center"  class="btn" value="Add" id="add'+j+'" onmouseover="this.className=\'btnhov\'" onmouseout="this.className=\'btn\'" onclick="add_show('+data.getValue(j,0)+')" />');
-			
+			data.setValue(j , 11, '<img style="cursor:hand" id="add'+j+'" src="http://tvepisodes.googlecode.com/svn/trunk/client/add.png" alt="Add it!" onclick="add_show('+data.getValue(j,0)+')"\>');
+			//data.setValue(j , 11, '<input type="submit" align="center"  class="btn" value="Add" id="add'+j+'" onmouseover="this.className=\'btnhov\'" onmouseout="this.className=\'btn\'" onclick="add_show('+data.getValue(j,0)+')" />');			
 			
 			
 		}
@@ -265,7 +266,7 @@
 		data = response.getDataTable();
 		data.addColumn('string' , '');
 		for (var j=0; j<data.getNumberOfRows(); j++){
-			data.setValue(j , 10, '<img id="add'+j+'" src="http://tvepisodes.googlecode.com/svn/trunk/client/add.png" alt="Add it!" onclick="add_show('+data.getValue(j,0)+')"\>');		
+			data.setValue(j , 10, '<img style="cursor:hand" id="add'+j+'" src="http://tvepisodes.googlecode.com/svn/trunk/client/add.png" alt="Add it!" onclick="add_show('+data.getValue(j,0)+')"\>');		
 			//data.setValue(j , 10, '<input type="submit" align="center"  class="btn" value="Add" id="add'+j+'" onmouseover="this.className=\'btnhov\'" onmouseout="this.className=\'btn\'" onclick="add_show('+data.getValue(j,0)+')" />');
 		}
 		
@@ -369,9 +370,9 @@
 			return;
 		}
 		favoritesData = response.getDataTable();
-		favoritesData.addColumn('string' , 'Book');
+		favoritesData.addColumn('string' , '');
 		
-		favoritesData.addColumn('string' , 'Remove');
+		favoritesData.addColumn('string' , '');
 		
 		// 'book it!' buttons
 		for (var j=0; j<data.getNumberOfRows(); j++){
@@ -380,7 +381,7 @@
 		
 		// remove! buttons
 		for (var j=0; j<favoritesData.getNumberOfRows(); j++){			
-			favoritesData.setValue(j , 12, '<img id="delete'+j+'" src="http://tvepisodes.googlecode.com/svn/trunk/client/delete.png" alt="Remove it!" onclick="remove_row('+favoritesData.getValue(j,0)+')" />');
+			favoritesData.setValue(j , 12, '<img style="cursor:hand" id="delete'+j+'" src="http://tvepisodes.googlecode.com/svn/trunk/client/delete.png" alt="Remove it!" onclick="remove_row('+favoritesData.getValue(j,0)+')" />');
 			//favoritesData.setValue(j , 12, '<input type="submit" align="center"  class="btn" value="[x]" id="delete'+j+'" onmouseover="this.className=\'btnhov\'" onmouseout="this.className=\'btn\'" onclick="remove_row('+favoritesData.getValue(j,0)+')" />');
 		}
 		
