@@ -265,7 +265,9 @@
 		data = response.getDataTable();
 		data.addColumn('string' , '');
 		for (var j=0; j<data.getNumberOfRows(); j++){
-			data.setValue(j , 10, '<input type="submit" align="center"  class="btn" value="Add" id="add'+j+'" onmouseover="this.className=\'btnhov\'" onmouseout="this.className=\'btn\'" onclick="add_show('+data.getValue(j,0)+')" />');
+			
+			data.setValue(j , 10, '<img src="delete.png" />');
+			//data.setValue(j , 10, '<input type="submit" align="center"  class="btn" value="Add" id="add'+j+'" onmouseover="this.className=\'btnhov\'" onmouseout="this.className=\'btn\'" onclick="add_show('+data.getValue(j,0)+')" />');
 		}
 		
 
@@ -378,10 +380,10 @@
 			//favoritesData.setValue(j , 11, '<input type="submit" align="center"  class="btn" value="Book it!" id="book'+j+'" onmouseover="this.className=\'btnhov\'" onmouseout="this.className=\'btn\'" onclick="book_show('+data.getValue(j,0)+')" />');
 		}
 		
-		// add! buttons
+		// remove! buttons
 		for (var j=0; j<favoritesData.getNumberOfRows(); j++){			
-			favoritesData.setValue(j , 12, '<a id="delete'+j+'"  href="#" onclick="remove_row('+favoritesData.getValue(j,0)+')"><img src="delete.png" /></a>');
-			//favoritesData.setValue(j , 12, '<input type="submit" align="center"  class="btn" value="[x]" id="delete'+j+'" onmouseover="this.className=\'btnhov\'" onmouseout="this.className=\'btn\'" onclick="remove_row('+favoritesData.getValue(j,0)+')" />');
+			//favoritesData.setValue(j , 12, '<a id="delete'+j+'"  href="#" onclick="remove_row('+favoritesData.getValue(j,0)+')"><img src="delete.png" /></a>');
+			favoritesData.setValue(j , 12, '<input type="submit" align="center"  class="btn" value="[x]" id="delete'+j+'" onmouseover="this.className=\'btnhov\'" onmouseout="this.className=\'btn\'" onclick="remove_row('+favoritesData.getValue(j,0)+')" />');
 		}
 		
 		var favoritesTable = new google.visualization.Table(document.getElementById('favorites'));
