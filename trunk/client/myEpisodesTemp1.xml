@@ -375,7 +375,7 @@
 		
 		// 'book it!' buttons
 		for (var j=0; j<data.getNumberOfRows(); j++){
-			favoritesData.setValue(j , 11, '<a href="http://www.google.com/calendar/event?action=TEMPLATE&text=EPI%20HOUR%20-%20Lost&dates=20090224T073000Z/20090224T080000Z&details=HAVE%20FUN!&location=TV&trp=true&sprop=&sprop=name:epi%20hour%20gadget" target="_blank"><img id="book'+j+'" src="http://tvepisodes.googlecode.com/svn/trunk/client/book.png" alt="Book it!" /></a>');						
+			favoritesData.setValue(j , 11, '<a border="0" href="http://www.google.com/calendar/event?action=TEMPLATE&text=EPI%20HOUR%20-%20Lost&dates=20090224T073000Z/20090224T080000Z&details=HAVE%20FUN!&location=TV&trp=true&sprop=&sprop=name:epi%20hour%20gadget" target="_blank"><img id="book'+j+'" src="http://tvepisodes.googlecode.com/svn/trunk/client/book.png" alt="Book it!" /></a>');						
 		}
 		
 		// remove! buttons
