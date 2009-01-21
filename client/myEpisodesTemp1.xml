@@ -445,7 +445,7 @@
 		gadgets.io.makeRequest(url, addCallbackFunction, params); 
 		
 		if (remove_or_add == 1)
-			document.getElementById(id_name).src = "http://tvepisodes.googlecode.com/svn/trunk/client/adding.gif";	
+			document.getElementById(id_name).src = "http://tvepisodes.googlecode.com/svn/trunk/client/added.png";	
 		
 	};
 	
