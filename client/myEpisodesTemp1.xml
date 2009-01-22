@@ -411,7 +411,8 @@
 						var infoLink =  favoritesData.getValue(selection[i].row, 7);
 						var airTime =  favoritesData.getValue(selection[i].row, 8);
 						var airDay =  favoritesData.getValue(selection[i].row, 9);
-											
+							
+						alert(document.getElementById('book' + j).href);
 						if (seasonsNum != 1){
 							if (status == 'Canceled/Ended')
 								Tip('\"'+name+ '\" was first broadcasted on '+date+'. There were '+seasonsNum+' seasons for this show (it was canceled/ended) and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>', STICKY, true, CLOSEBTN , true,CENTERMOUSE, true, ABOVE, false , FADEIN, 500, FADEOUT, 500);
