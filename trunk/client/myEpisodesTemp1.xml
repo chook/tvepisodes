@@ -519,13 +519,13 @@
 					if (airDateArray[1] == month){
 						var leftDays = airDateArray[2] - day;
 						if (leftDays == 0) 
-							msg.createDismissibleMessage(name + " is on today!", dismissed);
+							msg.createDismissibleMessage("\""+name + "\" is on today!", dismissed);
 						else{
 							if (leftDays < 2)
-								msg.createDismissibleMessage(name + " is on tomorrow!", dismissed);
+								msg.createDismissibleMessage("\""+name + "\" is on tomorrow!", dismissed);
 							else
 								if (leftDays < 6)
-								msg.createDismissibleMessage(name + " is on in "+ leftDays+" days!", dismissed);
+								msg.createDismissibleMessage("\""+name + "\" is on in "+ leftDays+" days!", dismissed);
 						}
 					}
 				}
