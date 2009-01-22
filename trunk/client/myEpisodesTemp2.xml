@@ -36,11 +36,11 @@
         tabs.addTab("News", "news_div", create_msg);
         tabs.addTab("My Shows", "epsd_div", getFavorites);
         tabs.addTab("Add", "add_div",getMostPopularShows);
-        tabs.addTab("Statistics", "sts_div", UnTip);
+        tabs.addTab("Statistics", "sts_div");
 
         
         loadFriends();
-	getMostPopularShows();
+		getMostPopularShows();
 	
        }
        
@@ -481,7 +481,7 @@
 		}
     }
     function create_msg(){
-		//getFavorites();
+		getFavorites();
         var msg = new _IG_MiniMessage(__MODULE_ID__, _gel("news_div"));
 		var today = new Date();
 		alert(today);
