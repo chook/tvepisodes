@@ -511,7 +511,7 @@
 		//alert("today:"+today);
 		var year = today.getFullYear();
 		//alert ("year:"+year);
-		var month = today.getMonth();
+		var month = today.getMonth() + 1;
 		//alert("month:" +month);
 		var day = today.getDate();
 		//alert("day:"+day);
@@ -527,8 +527,8 @@
 				//var showDate = new Date(nextAirDate);
 				alert(showDate);
 				alert(showDate-today);
-				if (airDateArray[0] == year){
-					if (airDateArray[1] == month){
+//				if (airDateArray[0] == year){
+//					if (airDateArray[1] == month){
 						var leftDays = (showDate - today) / oneDay;
 						alert("leftDays = " + leftDays);
 						//var leftDays = airDateArray[2] - day;
@@ -541,8 +541,8 @@
 								if (leftDays < 6)
 								msg.createDismissibleMessage("\""+name + "\" is on in "+ leftDays+" days!", dismissed);
 						}
-					}
-				}
+//					}
+//				}
 			}		
 		}		
     }
