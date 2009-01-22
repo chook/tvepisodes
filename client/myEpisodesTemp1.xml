@@ -695,11 +695,11 @@
 		  <tr>                      
 		    <td>
 			<!-- input type="button" class="btn" value="Search" id="srch_btn" onmouseover="this.className='btnhov'" onmouseout="this.className='btn'" onclick="search_episode()" / --> 
-			<a 1class="button" href="javascript:void(0);" onclick="this.blur(); getMostPopularShows();"><span><font size="10px">Get Top!</font></span></a>
+			<a 1class="button" href="javascript:void(0);" onclick="this.blur(); getMostPopularShows();"><span> <img src="recmnd.png" border="0" /> <font size="small">Get Top!</font></span></a>
 		    </td>
 		    <td>
 			<!-- input type="button" disabled class="btn" value="Reset" id="reset_srch_btn" onmouseover="this.className='btnhov'"onmouseout="this.className='btn'" onclick="reset_srch()" / -->
-			<a 1class="button" href="javascript:void(0);" onclick="this.blur(); getRecommended();"><span>font size="10px">Get Recommendations!</font></span></a>
+			<a 1class="button" href="javascript:void(0);" onclick="this.blur(); getRecommended();"><span> <img src="recmnd.png" border="0" /> <font size="x-small">Get Recommendations!</font></span></a>
 		    </td>
 		  </tr>
 
