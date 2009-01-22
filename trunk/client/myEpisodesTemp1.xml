@@ -363,6 +363,7 @@
 		// Send the query with a callback function.
 		favoritesQuery.send(handleFavoritesQueryResponse);
 		//alert("after sending");	
+		drawFavorites();
 	}
 	function handleFavoritesQueryResponse(response)	{
 		if (response.isError()) {
@@ -370,6 +371,8 @@
 			return;
 		}
 		favoritesData = response.getDataTable();
+	}
+	function drawFavorites(){
 		favoritesData.addColumn('string' , '');
 		
 		favoritesData.addColumn('string' , '');
@@ -433,7 +436,6 @@
 			}
 		}
 	}
-
 	function addCallbackFunction(obj) {
 		   //alert(obj.text);
 	};
