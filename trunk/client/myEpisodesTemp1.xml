@@ -82,8 +82,9 @@
 		document.getElementById('most_pop_txt').style.display = 'none';	
 		document.getElementById('recmnd_txt').style.display = 'none';			
 		document.getElementById('recmnd_div').style.display = 'none';					
+		document.getElementById('cool_buttons').style.display = 'none';
 		document.getElementById('searching...').style.display = '';
-		document.getElementById('cool_buttons').style.display = '';
+		
 		
 		UnTip();
 
@@ -106,6 +107,7 @@
 		document.getElementById('searching...').style.display = 'none';	
 		document.getElementById('recmnd_div').style.display = '';	
 		document.getElementById('recmnd_txt').style.display = '';
+		document.getElementById('cool_buttons').style.display = '';
 		data = response.getDataTable();
 		data.addColumn('string' , '');
 		for (var j=0; j<data.getNumberOfRows(); j++){						
@@ -166,7 +168,7 @@
 		document.getElementById('recmnd_txt').style.display = 'none';
 		document.getElementById('most_pop').style.display = '';		
 		document.getElementById('most_pop_txt').style.display = '';
-		document.getElementById('cool_buttons').style.display = '';
+		document.getElementById('cool_buttons').style.display = 'none';
     }
 	function getMostPopularShows()    {
 		UnTip();
@@ -186,6 +188,9 @@
 			alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
 			return;
 		}
+		
+		document.getElementById('cool_buttons').style.display = '';
+		
 		data = response.getDataTable();
 		data.addColumn('string' , '');
 		for (var j=0; j<data.getNumberOfRows(); j++){			
@@ -247,7 +252,7 @@
 		document.getElementById('recmnd_div').style.display = 'none';	
 		document.getElementById('recmnd_txt').style.display = 'none';
 		document.getElementById('searching...').style.display = '' ;
-		document.getElementById('cool_buttons').style.display = '';
+		document.getElementById('cool_buttons').style.display = 'none';
 		checked_no = 0;
 		var url = 'http://epihourtesting2.appspot.com/searchShow?name=' + document.getElementById('srch_txt').value.toLowerCase();
 		//alert(url);
@@ -266,6 +271,9 @@
 			alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
 			return;
 		}
+		
+		document.getElementById('cool_buttons').style.display = '';
+		
 		data = response.getDataTable();
 		data.addColumn('string' , '');
 		for (var j=0; j<data.getNumberOfRows(); j++){
@@ -687,11 +695,11 @@
 		  <tr>                      
 		    <td>
 			<!-- input type="button" class="btn" value="Search" id="srch_btn" onmouseover="this.className='btnhov'" onmouseout="this.className='btn'" onclick="search_episode()" / --> 
-			<a class="button" href="javascript:void(0);" onclick="this.blur(); getMostPopular();"><span>Get Top</span></a>
+			<a 1class="button" href="javascript:void(0);" onclick="this.blur(); getMostPopularShows();"><span>Get Top</span></a>
 		    </td>
 		    <td>
 			<!-- input type="button" disabled class="btn" value="Reset" id="reset_srch_btn" onmouseover="this.className='btnhov'"onmouseout="this.className='btn'" onclick="reset_srch()" / -->
-			<a class="button" href="javascript:void(0);" onclick="this.blur(); getRecommended();"><span>Get Recommendations</span></a>
+			<a 1class="button" href="javascript:void(0);" onclick="this.blur(); getRecommended();"><span>Get Recommendations</span></a>
 		    </td>
 		  </tr>
 
