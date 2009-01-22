@@ -453,6 +453,7 @@
 		else
 		{
 			getFavorites();
+			alert('getting favvvvolololo!');
 		}
 		
 	};
