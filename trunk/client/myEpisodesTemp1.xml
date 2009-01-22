@@ -459,7 +459,7 @@
 		else //remove show
 		{
 			//wait before refresh favorites tab
-			window.setTimeout('getFavorites()', 450);			
+			window.setTimeout('getFavorites()', 500);			
 			getFavorites()
 		}		
 
