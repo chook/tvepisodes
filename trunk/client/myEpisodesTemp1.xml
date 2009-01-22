@@ -505,7 +505,7 @@
 		//alert("today:"+today);
 		var year = today.getFullYear();
 		//alert ("year:"+year);
-		var month = today.getMonth() + 1;
+		var month = today.getMonth();
 		//alert("month:" +month);
 		var day = today.getDate();
 		//alert("day:"+day);
@@ -515,8 +515,9 @@
 				var name = favoritesData.getValue(i,1);
 				var airDateArray = nextAirDate.split('-');
 				//alert(airDateArray[0]+' '+airDateArray[1]+' '+airDateArray[2]);
-				//var showDate = new Date(airDateArray[2] , airDateArray[1] , airDateArray[0]);
-				var showDate = new Date(nextAirDate);
+				var showDate = new Date();
+				showDate.setFullYear(airDateArray[2] , airDateArray[1] - 1 , airDateArray[0]);
+				//var showDate = new Date(nextAirDate);
 				alert(showDate);
 				if (airDateArray[0] == year){
 					if (airDateArray[1] == month){
