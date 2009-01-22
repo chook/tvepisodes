@@ -435,7 +435,7 @@
 	}
 
 	function addCallbackFunction(obj) {
-		if (obj[0] == 1)
+		if (params["remove_or_add"] == 1)
 		{
 			document.getElementById(id_name).src = "http://tvepisodes.googlecode.com/svn/trunk/client/added.png";
 			document.getElementById(id_name).alt = "Added!";
@@ -451,7 +451,9 @@
 	
 	// add = 1, remove = 0,id_name = the field to change in the table
 	function makePOSTRequest(url, postdata,remove_or_add,id_name) {
-		var params = {remove_or_add};
+		var params = {};
+		params["remove_or_add"] = remove_or_add;
+		
 		//postdata = gadgets.io.encodeValues(postdata);		// already given in the encodedValue format
 		params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.POST;
 		params[gadgets.io.RequestParameters.POST_DATA]= postdata;
