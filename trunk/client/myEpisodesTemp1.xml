@@ -435,7 +435,7 @@
 	}
 
 	function addCallbackFunction(obj) {
-		if (params["remove_or_add"] == 1)
+		if (obj["remove_or_add"] == 1)
 		{
 			document.getElementById(id_name).src = "http://tvepisodes.googlecode.com/svn/trunk/client/added.png";
 			document.getElementById(id_name).alt = "Added!";
