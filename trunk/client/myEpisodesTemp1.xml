@@ -503,9 +503,11 @@
         var msg = new _IG_MiniMessage(__MODULE_ID__, _gel("news_div"));
 		var today = new Date();
 		var year = today.getYear();
+		alert ("year:"+year);
 		var month = today.getMonth();
+		alert("month:" +month);
 		var day = today.getDate();
-		alert (year+' '+month+' '+day);
+		alert("day:"+day);
 		if (favoritesData != null){
 			for (var i=0; i < favoritesData.getNumberOfRows(); i++){
 				var nextAirDate = favoritesData.getValue(i,10);
