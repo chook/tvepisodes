@@ -454,8 +454,8 @@
 		}
 		else
 		{
-			
-			getFavorites();
+			//wait before refresh favorites tab
+			window.setTimeout('getFavorites()', 1000);			
 		}
 		
 	};
