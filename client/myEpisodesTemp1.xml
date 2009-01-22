@@ -502,19 +502,19 @@
 		//getFavorites();
         var msg = new _IG_MiniMessage(__MODULE_ID__, _gel("news_div"));
 		var today = new Date();
-		alert("today:"+today);
+		//alert("today:"+today);
 		var year = today.getFullYear();
-		alert ("year:"+year);
+		//alert ("year:"+year);
 		var month = today.getMonth() + 1;
-		alert("month:" +month);
+		//alert("month:" +month);
 		var day = today.getDate();
-		alert("day:"+day);
+		//alert("day:"+day);
 		if (favoritesData != null){
 			for (var i=0; i < favoritesData.getNumberOfRows(); i++){
 				var nextAirDate = favoritesData.getValue(i,10);
 				var name = favoritesData.getValue(i,1);
 				var airDateArray = nextAirDate.split('-');
-				alert(airDateArray[0]+' '+airDateArray[1]+' '+airDateArray[2]);
+				//alert(airDateArray[0]+' '+airDateArray[1]+' '+airDateArray[2]);
 				if (airDateArray[0] == year){
 					if (airDateArray[1] == month){
 						var leftDays = airDateArray[2] - day;
