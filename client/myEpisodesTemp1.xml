@@ -695,7 +695,7 @@
 		  <tr>                      
 		    <td>
 			<!-- input type="button" class="btn" value="Search" id="srch_btn" onmouseover="this.className='btnhov'" onmouseout="this.className='btn'" onclick="search_episode()" / --> 
-			<a 1class="button" href="javascript:void(0);" onclick="this.blur(); printMostPopularShows();"><span> <img src="recmnd.png" border="0" /> <font size="2">Get Top!</font></span></a>
+			<a 1class="button" href="javascript:void(0);" onclick="this.blur(); printMostPopularShows();"><span> <img src="top.png" border="0" /> <font size="2">Get Top!</font></span></a>
 		    </td>
 		    <td>
 			<!-- input type="button" disabled class="btn" value="Reset" id="reset_srch_btn" onmouseover="this.className='btnhov'"onmouseout="this.className='btn'" onclick="reset_srch()" / -->
@@ -705,6 +705,7 @@
 
 		</table>
         </div>
+        
 	<div align="center" id="sts_div" class="background">
 	
 	<table border="0" align="center">
