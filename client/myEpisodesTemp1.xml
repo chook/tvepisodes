@@ -520,7 +520,7 @@
 				var nextAirDate = favoritesData.getValue(i,10);
 				var name = favoritesData.getValue(i,1);
 				var airDateArray = nextAirDate.split('-');
-				alert(airDateArray[0]+' '+airDateArray[1]+' '+airDateArray[2]);
+				//alert(airDateArray[0]+' '+airDateArray[1]+' '+airDateArray[2]);
 				
 				var showDate = new Date();
 				showDate.setFullYear(airDateArray[0] , airDateArray[1] - 1 , airDateArray[2]);
@@ -530,7 +530,7 @@
 //				if (airDateArray[0] == year){
 //					if (airDateArray[1] == month){
 						var leftDays = Math.floor((showDate - today) / oneDay);
-						alert("leftDays = " + leftDays);
+						//alert("leftDays = " + leftDays);
 						//var leftDays = airDateArray[2] - day;
 						if (leftDays < 1) 
 							msg.createDismissibleMessage("\""+name + "\" is on today!", dismissed);
