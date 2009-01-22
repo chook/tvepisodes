@@ -455,7 +455,7 @@
 		else
 		{
 			//wait before refresh favorites tab
-			window.setTimeout('getFavorites()', 1000);			
+			window.setTimeout('getFavorites()', 200);			
 		}
 		
 	};
