@@ -370,11 +370,20 @@
 			return;
 		}
 		favoritesData = response.getDataTable();
-		
-		favoritesData.addColumn('string' , '');		
 		favoritesData.addColumn('string' , '');
 		
-
+		favoritesData.addColumn('string' , '');
+		
+		// 'book it!' buttons
+		for (var j=0; j<favoritesData.getNumberOfRows(); j++){
+			favoritesData.setValue(j , 11, '<a id="book' + j +'" onclick="UnTip()" href="http://www.google.com/calendar/event?action=TEMPLATE&text=EPI%20HOUR%20-%20Lost&dates=20090224T073000Z/20090224T080000Z&details=HAVE%20FUN!&location=TV&trp=true&sprop=&sprop=name:epi%20hour%20gadget" target="_blank"><img id="book'+j+'" src="http://tvepisodes.googlecode.com/svn/trunk/client/book.png" alt="Book it!" border="0" /></a>');						
+		}
+		
+		// remove! buttons
+		for (var j=0; j<favoritesData.getNumberOfRows(); j++){			
+			favoritesData.setValue(j , 12, '<img style="cursor:hand" id="delete'+j+'" src="http://tvepisodes.googlecode.com/svn/trunk/client/delete.png" alt="Remove it!" onclick="UnTip(); remove_row('+favoritesData.getValue(j,0)+');" />');
+			//favoritesData.setValue(j , 12, '<input type="submit" align="center"  class="btn" value="[x]" id="delete'+j+'" onmouseover="this.className=\'btnhov\'" onmouseout="this.className=\'btn\'" onclick="UnTip(); remove_row('+favoritesData.getValue(j,0)+');" />');
+		}
 		
 		var favoritesTable = new google.visualization.Table(document.getElementById('favorites'));
 		var view = new google.visualization.DataView(favoritesData);
@@ -392,18 +401,6 @@
 			function selectFavHandler() {
 				var selection = favoritesTable.getSelection();
 				if (selection.length>0){
-				
-					// 'book it!' buttons
-					for (var j=0; j<favoritesData.getNumberOfRows(); j++){
-						favoritesData.setValue(j , 11, '<a onclick="UnTip()" href="http://www.google.com/calendar/event?action=TEMPLATE&text=EPI%20HOUR%20-%20Lost&dates=20090224T073000Z/20090224T080000Z&details=HAVE%20FUN!&location=TV&trp=true&sprop=&sprop=name:epi%20hour%20gadget" target="_blank"><img id="book'+j+'" src="http://tvepisodes.googlecode.com/svn/trunk/client/book.png" alt="Book it!" border="0" /></a>');						
-					}
-
-					// remove! buttons
-					for (var j=0; j<favoritesData.getNumberOfRows(); j++){			
-						favoritesData.setValue(j , 12, '<img style="cursor:hand" id="delete'+j+'" src="http://tvepisodes.googlecode.com/svn/trunk/client/delete.png" alt="Remove it!" onclick="UnTip(); remove_row('+favoritesData.getValue(j,0)+');" />');
-						//favoritesData.setValue(j , 12, '<input type="submit" align="center"  class="btn" value="[x]" id="delete'+j+'" onmouseover="this.className=\'btnhov\'" onmouseout="this.className=\'btn\'" onclick="UnTip(); remove_row('+favoritesData.getValue(j,0)+');" />');
-					}
-				
 					for (var i = 0; i < selection.length; i++) {
 						var name = favoritesData.getValue(selection[i].row, 1);
 						var date = favoritesData.getValue(selection[i].row, 2);
@@ -414,6 +411,9 @@
 						var infoLink =  favoritesData.getValue(selection[i].row, 7);
 						var airTime =  favoritesData.getValue(selection[i].row, 8);
 						var airDay =  favoritesData.getValue(selection[i].row, 9);
+						
+						document.getElementById('book' + j).href = 'walla.co.il';
+						
 						if (seasonsNum != 1){
 							if (status == 'Canceled/Ended')
 								Tip('\"'+name+ '\" was first broadcasted on '+date+'. There were '+seasonsNum+' seasons for this show (it was canceled/ended) and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>', STICKY, true, CLOSEBTN , true,CENTERMOUSE, true, ABOVE, false , FADEIN, 500, FADEOUT, 500);
