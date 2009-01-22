@@ -514,7 +514,7 @@
 				var nextAirDate = favoritesData.getValue(i,10);
 				var name = favoritesData.getValue(i,1);
 				var airDateArray = nextAirDate.split('-');
-				//alert(airDateArray[0]+' '+airDateArray[1]+' '+airDateArray[2]);
+				alert(airDateArray[0]+' '+airDateArray[1]+' '+airDateArray[2]);
 				var showDate = new Date();
 				showDate.setFullYear(airDateArray[2] , airDateArray[1] - 1 , airDateArray[0]);
 				//var showDate = new Date(nextAirDate);
