@@ -54,7 +54,6 @@ def go_to_ds(self):
             userid = '03067092798963641994'
             useFriends = 'False'
         
-        
         reqId = self.request.get('tqx')
     
         try :
@@ -68,11 +67,11 @@ def go_to_ds(self):
         query = User.all()
         query.filter("userid = ", userid)
         user = query.get()
-        
+        logging.debug('Recommend to user ' + userid)
         #2. Get user favorite shows from DS
         userFavShows = []
         userFavShows.extend([db.get(k) for k in user.favorite_shows])
-        
+        logging.debug('His shows are ' + str([t.showid for t in userFavShows]))
         listFavGenres = []
         for temp in userFavShows:
             listFavGenres.extend([k for k in temp.genres])
@@ -84,17 +83,6 @@ def go_to_ds(self):
         #3.1.1
         if useFriends == 'True':
             try:
-#                config = ContainerConfig(oauth_consumer_key='orkut.com:623061448914',
-#                oauth_consumer_secret='uynAeXiWTisflWX99KU1D2q5',
-#                server_rest_base='http://sandbox.orkut.com/social/rest/',
-#                server_rpc_base='http://sandbox.orkut.com/social/rpc/')
-#                container = ContainerContext(config)
-#                
-#                batch = RequestBatch()
-#                batch.add_request('friends',
-#                                  request.FetchPeopleRequest(userid, '@friends'))
-#                batch.send(container)
-#                friends = batch.get('friends')
                 friends = friendsString.split(',')
                 friendsList = []
                 for friend in friends:
@@ -108,6 +96,7 @@ def go_to_ds(self):
                 for f in friendsList:
                     if f != None:
                         favShows.extend([db.get(k).showid for k in f.favorite_shows])
+                logging.debug('Friends like ' + str(favShows))
             except:
                 useFriends = 'False';
              
@@ -119,7 +108,7 @@ def go_to_ds(self):
                 possibleRecommendShows.append(tempShow)
                 listOfGenres.extend([k for k in tempShow.genres])
                     #self.response.out.write(genrename)
-        
+        logging.debug('Possible recommendations are ' + str([x.showid for x in possibleRecommendShows]))
         oldestGrade = -9999
         listForVisualization = []
         if len(possibleRecommendShows) > 0:
@@ -139,41 +128,41 @@ def go_to_ds(self):
                             bestGenreName = g
                     else:
                         mismatch += 1
-                genresGrade = ((3*match) - (mismatch*1.5)) * user.similar_profiles_influence / 100
-                
+                genresGrade = ((3*match) - (mismatch*2)) * user.similar_profiles_influence / 100
+                logging.debug('Genres grade before friends: ' + str(genresGrade))
                 if useFriends == 'True':
                     if show.showid in favShows:
                         genresGrade = max(1, (1.5 * favShows.count(show.showid) * user.friends_influence / 100)  + genresGrade)
                         sentence += ' ' + str(favShows.count(show.showid)) + ' of your friends are watching it'
                         if bestGenreCounter > 0:
                             sentence += ' and because you like ' + bestGenreName + ' shows so much. (We know. don''t deny it)'
+                        logging.debug('Genres grade after friends: ' + str(genresGrade))
+                    else:
+                        genresGrade -= (user.friends_influence * 2.5 / 10)
+                        if bestGenreCounter > 0:
+                            sentence += ' you like ' + bestGenreName + ' shows so much. (We know. don''t deny it)'
+                        else:
+                            sentence = 'Count on us, this show is right for you.'
                 else:
                     if bestGenreCounter > 0:
                         sentence += ' you like ' + bestGenreName + ' shows so much. (We know. don''t deny it)'
                     else:
                         sentence = 'Count on us, this show is right for you.'
+                
                 listForVisualization.extend([{
-                        'showid'         : show.showid, 
-                        'name'           : show.name,
-                        'started'        : show.started_year,
-                        'seasons'        : show.seasons,
-                        'country'        : show.country,
-                        'classification' : show.classification,
-                        'status'         : show.status,
-                        'link'           : show.link,
-                        'airtime'        : show.airtime,
-                        'airday'         : show.airday,
-                        'sentence'       : sentence, 
-                        'grade'          : genresGrade}])
+                            'showid'         : show.showid, 
+                            'name'           : show.name,
+                            'started'        : show.started_year,
+                            'seasons'        : show.seasons,
+                            'country'        : show.country,
+                            'classification' : show.classification,
+                            'status'         : show.status,
+                            'link'           : show.link,
+                            'airtime'        : show.airtime,
+                            'airday'         : show.airday,
+                            'sentence'       : sentence, 
+                            'grade'          : genresGrade}])
             
-#        description = {"showid"  : ("number", "ID"),
-#                       "name"    : ("string", "Name"),
-#                       "nextdate": ("string", "Next Date"),
-#                       "started" : ("string", "Year Started"),
-#                       "seasons" : ("number", "Seasons Number"),
-#                       "country" : ("string", "Original Country"),
-#                       "link"    : ("string", "Link"),
-#                       "grade"  : ("number", "Grade")}
         description = {"showid"         : ("number", "ID"),
                        "name"           : ("string", "Name"),
                        "started"        : ("string", "Year Started"),
@@ -189,6 +178,10 @@ def go_to_ds(self):
         
         # Build the data table object with description and shows dictionary
         data_table = gviz_api.DataTable(description)
+        
+        if len(listForVisualization) > 3:
+            listForVisualization = listForVisualization[0:3]
+        
         data_table.LoadData(listForVisualization)
         
         # Write the object as a JSon response back to the caller
