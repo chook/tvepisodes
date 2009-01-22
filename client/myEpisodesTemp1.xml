@@ -503,9 +503,9 @@
         var msg = new _IG_MiniMessage(__MODULE_ID__, _gel("news_div"));
 		var today = new Date();
 		alert("today:"+today);
-		var year = today.getYear();
+		var year = today.getFullYear();
 		alert ("year:"+year);
-		var month = today.getMonth();
+		var month = today.getMonth() + 1;
 		alert("month:" +month);
 		var day = today.getDate();
 		alert("day:"+day);
