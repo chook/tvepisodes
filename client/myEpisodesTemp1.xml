@@ -412,7 +412,7 @@
 						var airTime =  favoritesData.getValue(selection[i].row, 8);
 						var airDay =  favoritesData.getValue(selection[i].row, 9);
 						
-						alert(document.getElementById('book' + j).href);
+						alert('aa');
 						
 						if (seasonsNum != 1){
 							if (status == 'Canceled/Ended')
