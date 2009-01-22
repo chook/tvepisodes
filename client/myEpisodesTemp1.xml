@@ -363,7 +363,7 @@
 		// Send the query with a callback function.
 		favoritesQuery.send(handleFavoritesQueryResponse);
 		//alert("after sending");
-		while (favoriteData == null){}
+		while (favoritesData == null){}
 		drawFavorites();
 	}
 	function handleFavoritesQueryResponse(response)	{
