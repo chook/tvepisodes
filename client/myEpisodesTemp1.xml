@@ -451,7 +451,9 @@
 			document.getElementById(id_name).onclick = "";
 		}
 		else
+		{
 			getFavorites();
+		}
 		
 	};
 	
