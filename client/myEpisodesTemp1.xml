@@ -521,7 +521,7 @@
 							if (leftDays < 2)
 								msg.createDismissibleMessage(name + " is on tomorrow!", dismissed);
 							else
-								if (leftDays < 4)
+								if (leftDays < 6)
 								msg.createDismissibleMessage(name + " is on in "+ leftDays+" days!", dismissed);
 						}
 					}
