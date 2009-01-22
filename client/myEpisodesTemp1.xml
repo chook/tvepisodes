@@ -82,7 +82,8 @@
 		document.getElementById('most_pop_txt').style.display = 'none';	
 		document.getElementById('recmnd_txt').style.display = 'none';			
 		document.getElementById('recmnd_div').style.display = 'none';					
-		document.getElementById('searching...').style.display = '';	
+		document.getElementById('searching...').style.display = '';
+		document.getElementById('cool_buttons').style.display = '';
 		
 		UnTip();
 
@@ -165,6 +166,7 @@
 		document.getElementById('recmnd_txt').style.display = 'none';
 		document.getElementById('most_pop').style.display = '';		
 		document.getElementById('most_pop_txt').style.display = '';
+		document.getElementById('cool_buttons').style.display = '';
     }
 	function getMostPopularShows()    {
 		UnTip();
@@ -245,6 +247,7 @@
 		document.getElementById('recmnd_div').style.display = 'none';	
 		document.getElementById('recmnd_txt').style.display = 'none';
 		document.getElementById('searching...').style.display = '' ;
+		document.getElementById('cool_buttons').style.display = '';
 		checked_no = 0;
 		var url = 'http://epihourtesting2.appspot.com/searchShow?name=' + document.getElementById('srch_txt').value.toLowerCase();
 		//alert(url);
@@ -357,6 +360,8 @@
 		document.getElementById('favorites').style.display = 'none';
 		document.getElementById('getting_fav').style.display = '' ;
 		document.getElementById('no_fav').style.display = 'none' ;
+		document.getElementById('cool_buttons').style.display = 'none';
+		
 		//alert(url);
 		var favoritesQuery = new google.visualization.Query(url);
 		//alert("after query");
@@ -632,10 +637,6 @@
             	<!-- input type="button" class="btn" value="Search" id="srch_btn" onmouseover="this.className='btnhov'" onmouseout="this.className='btn'" onclick="search_episode()" / --> 
             	<a class="button" href="javascript:void(0);" onclick="this.blur(); search_episode();"><span>Search</span></a>
             </td>
-            <td>
-            	<!-- input type="button" disabled class="btn" value="Reset" id="reset_srch_btn" onmouseover="this.className='btnhov'"onmouseout="this.className='btn'" onclick="reset_srch()" / -->
-            	<a class="button" href="javascript:void(0);" onclick="this.blur(); getRecommended();"><span>Recommend</span></a>
-            </td>
           </tr>
 
         </table>
@@ -679,6 +680,23 @@
 				<img src="loading_animation.gif" />
 		</div>
 	</div>
+	
+	<div id="cool_buttons" style="display:none">
+		<table border="0" align="center">
+
+		  <tr>                      
+		    <td>
+			<!-- input type="button" class="btn" value="Search" id="srch_btn" onmouseover="this.className='btnhov'" onmouseout="this.className='btn'" onclick="search_episode()" / --> 
+			<a class="button" href="javascript:void(0);" onclick="this.blur(); getMostPopular();"><span>Get Top</span></a>
+		    </td>
+		    <td>
+			<!-- input type="button" disabled class="btn" value="Reset" id="reset_srch_btn" onmouseover="this.className='btnhov'"onmouseout="this.className='btn'" onclick="reset_srch()" / -->
+			<a class="button" href="javascript:void(0);" onclick="this.blur(); getRecommended();"><span>Get Recommendations</span></a>
+		    </td>
+		  </tr>
+
+		</table>
+        </div>
 	<div align="center" id="sts_div" class="background">
 	
 	<table border="0" align="center">
