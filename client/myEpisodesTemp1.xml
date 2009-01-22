@@ -454,6 +454,7 @@
 		}
 		else
 		{
+			alert('aa');
 			getFavorites();
 		}
 		
