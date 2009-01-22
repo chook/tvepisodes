@@ -460,7 +460,7 @@
 		{
 			//wait before refresh favorites tab
 			window.setTimeout('getFavorites()', 500);			
-			getFavorites()
+
 		}		
 
 		
