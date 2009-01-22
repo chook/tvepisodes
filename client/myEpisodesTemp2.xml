@@ -484,6 +484,7 @@
 		//getFavorites();
         var msg = new _IG_MiniMessage(__MODULE_ID__, _gel("news_div"));
 		var today = new Date();
+		alert(today);
 		var year = today.getYear();
 		var month = today.getMonth();
 		var day = today.getDate();
