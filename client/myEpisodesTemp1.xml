@@ -529,7 +529,7 @@
 				//alert(showDate-today);
 //				if (airDateArray[0] == year){
 //					if (airDateArray[1] == month){
-						var leftDays = (int) (showDate - today) / oneDay;
+						var leftDays = Math.floor((showDate - today) / oneDay);
 						alert("leftDays = " + leftDays);
 						//var leftDays = airDateArray[2] - day;
 						if (leftDays < 1) 
