@@ -519,6 +519,7 @@
 				showDate.setFullYear(airDateArray[0] , airDateArray[1] - 1 , airDateArray[2]);
 				//var showDate = new Date(nextAirDate);
 				alert(showDate);
+				alert(showDate-today);
 				if (airDateArray[0] == year){
 					if (airDateArray[1] == month){
 						var leftDays = airDateArray[2] - day;
