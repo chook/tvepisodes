@@ -515,6 +515,9 @@
 				var name = favoritesData.getValue(i,1);
 				var airDateArray = nextAirDate.split('-');
 				//alert(airDateArray[0]+' '+airDateArray[1]+' '+airDateArray[2]);
+				//var showDate = new Date(airDateArray[2] , airDateArray[1] , airDateArray[0]);
+				var showDate = new Date(nextAirDate);
+				alert(showDate);
 				if (airDateArray[0] == year){
 					if (airDateArray[1] == month){
 						var leftDays = airDateArray[2] - day;
