@@ -168,7 +168,7 @@
 		document.getElementById('recmnd_txt').style.display = 'none';
 		document.getElementById('most_pop').style.display = '';		
 		document.getElementById('most_pop_txt').style.display = '';
-		document.getElementById('cool_buttons').style.display = 'none';
+		document.getElementById('cool_buttons').style.display = '';
     }
 	function getMostPopularShows()    {
 		UnTip();
@@ -188,8 +188,7 @@
 			alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
 			return;
 		}
-		
-		document.getElementById('cool_buttons').style.display = '';
+				
 		
 		data = response.getDataTable();
 		data.addColumn('string' , '');
