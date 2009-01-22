@@ -499,6 +499,12 @@
 		}
     }
     function create_msg(){
+		// date variables used for date arithmetic
+		var oneMinute = 60 * 1000  // milliseconds in a minute
+		var oneHour = oneMinute * 60
+		var oneDay = oneHour * 24
+		var oneWeek = oneDay * 7
+
 		//getFavorites();
         var msg = new _IG_MiniMessage(__MODULE_ID__, _gel("news_div"));
 		var today = new Date();
@@ -515,6 +521,7 @@
 				var name = favoritesData.getValue(i,1);
 				var airDateArray = nextAirDate.split('-');
 				alert(airDateArray[0]+' '+airDateArray[1]+' '+airDateArray[2]);
+				
 				var showDate = new Date();
 				showDate.setFullYear(airDateArray[0] , airDateArray[1] - 1 , airDateArray[2]);
 				//var showDate = new Date(nextAirDate);
@@ -522,8 +529,10 @@
 				alert(showDate-today);
 				if (airDateArray[0] == year){
 					if (airDateArray[1] == month){
-						var leftDays = airDateArray[2] - day;
-						if (leftDays == 0) 
+						var leftDays = (showDate - today) / oneDay;
+						alert("leftDays = " + leftDays);
+						//var leftDays = airDateArray[2] - day;
+						if (leftDays < 1) 
 							msg.createDismissibleMessage("\""+name + "\" is on today!", dismissed);
 						else{
 							if (leftDays < 2)
