@@ -166,6 +166,7 @@
 		document.getElementById('recmnd_txt').style.display = 'none';
 		document.getElementById('most_pop').style.display = '';		
 		document.getElementById('most_pop_txt').style.display = '';
+		document.getElementById('bottom_buttons').style.display = '';
     }
 	function getMostPopularShows()    {
 		UnTip();
