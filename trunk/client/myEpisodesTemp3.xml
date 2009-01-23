@@ -105,6 +105,7 @@
 		document.getElementById('searching...').style.display = 'none';	
 		document.getElementById('recmnd_div').style.display = '';	
 		document.getElementById('recmnd_txt').style.display = '';
+		document.getElementById('bottom_buttons').style.display = '';
 		data = response.getDataTable();
 		data.addColumn('string' , '');
 		for (var j=0; j<data.getNumberOfRows(); j++){						
@@ -632,10 +633,6 @@
             	<!-- input type="button" class="btn" value="Search" id="srch_btn" onmouseover="this.className='btnhov'" onmouseout="this.className='btn'" onclick="search_episode()" / --> 
             	<a class="button" href="javascript:void(0);" onclick="this.blur(); search_episode();"><span>Search</span></a>
             </td>
-            <td>
-            	<!-- input type="button" disabled class="btn" value="Reset" id="reset_srch_btn" onmouseover="this.className='btnhov'"onmouseout="this.className='btn'" onclick="reset_srch()" / -->
-            	<a class="button" href="javascript:void(0);" onclick="this.blur(); getRecommended();"><span>Recommend</span></a>
-            </td>
           </tr>
 
         </table>
@@ -706,6 +703,22 @@
 	</table>
 		<div align="center" id="statistics"></div>
 	</div>
+	
+	<div id="bottom_buttons" style="display:none:">
+	        <table border="0" align="center">
+	
+	          <tr>
+	            <td>	            	
+			<a class="button" href="javascript:void(0);" onclick="this.blur(); getRecommended();"><span><font size="1">Get Recommendations!</font></span></a>
+	            </td>
+	            <td>	            	
+	            	<a class="button" href="javascript:void(0);" onclick="this.blur(); getRecommended();"><span><font size="1">Get Top!</font></span></a>
+	            </td>
+	          </tr>
+	
+        	</table>
+        </div>
+        
 </body>
 </html>
     ]]>
