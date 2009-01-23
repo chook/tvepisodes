@@ -39,7 +39,7 @@
         //tabs.addTab("Statistics", "sts_div", UnTip);
         tabs.addTab("Statistics", "sts_div", getStat);
 
-        
+        UnTip();
         loadFriends();
 	getMostPopularShows();
 	
