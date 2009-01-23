@@ -111,7 +111,7 @@
 		data = response.getDataTable();
 		data.addColumn('string' , '');
 		for (var j=0; j<data.getNumberOfRows(); j++){						
-			data.setValue(j , 12, '<img style="cursor:hand" id="add'+j+'" src="/images/add.png" alt="Add it!" onclick="UnTip(); add_show('+data.getValue(j,0)+',id);" />');					
+			data.setValue(j , 12, '<img style="cursor:hand" id="add'+j+'" src="images/add.png" alt="Add it!" onclick="UnTip(); add_show('+data.getValue(j,0)+',id);" />');					
 			//data.setValue(j , 12, '<input type="submit" align="center"  class="btn" value="Add" id="add'+j+'" onmouseover="this.className=\'btnhov\'" onmouseout="this.className=\'btn\'" onclick="add_show('+data.getValue(j,0)+')" />');					
 			
 		}
@@ -191,7 +191,7 @@
 		data = response.getDataTable();
 		data.addColumn('string' , '');
 		for (var j=0; j<data.getNumberOfRows(); j++){			
-			data.setValue(j , 11, '<img style="cursor:hand" id="add'+j+'" src="/images/add.png" alt="Add it!" onclick="UnTip(); add_show('+data.getValue(j,0)+',id);"\>');
+			data.setValue(j , 11, '<img style="cursor:hand" id="add'+j+'" src="images/add.png" alt="Add it!" onclick="UnTip(); add_show('+data.getValue(j,0)+',id);"\>');
 			//data.setValue(j , 11, '<input type="submit" align="center"  class="btn" value="Add" id="add'+j+'" onmouseover="this.className=\'btnhov\'" onmouseout="this.className=\'btn\'" onclick="add_show('+data.getValue(j,0)+')" />');			
 			
 			
@@ -270,7 +270,7 @@
 		data = response.getDataTable();
 		data.addColumn('string' , '');
 		for (var j=0; j<data.getNumberOfRows(); j++){
-			data.setValue(j , 10, '<img style="cursor:hand" id="add'+j+'" src="/images/add.png" alt="Add it!" onclick="UnTip(); add_show('+data.getValue(j,0)+',id)"\>');		
+			data.setValue(j , 10, '<img style="cursor:hand" id="add'+j+'" src="images/add.png" alt="Add it!" onclick="UnTip(); add_show('+data.getValue(j,0)+',id)"\>');		
 			//data.setValue(j , 10, '<input type="submit" align="center"  class="btn" value="Add" id="add'+j+'" onmouseover="this.className=\'btnhov\'" onmouseout="this.className=\'btn\'" onclick="add_show('+data.getValue(j,0)+')" />');
 		}
 		
@@ -382,12 +382,12 @@
 		
 		// 'book it!' buttons
 		for (var j=0; j<favoritesData.getNumberOfRows(); j++){
-			favoritesData.setValue(j , 11, '<a id="book' + j +'" onclick="UnTip()" href="http://www.google.com/calendar/event?action=TEMPLATE&text=EPI%20HOUR%20-%20Lost&dates=20090224T073000Z/20090224T080000Z&details=HAVE%20FUN!&location=TV&trp=true&sprop=&sprop=name:epi%20hour%20gadget" target="_blank"><img id="book'+j+'" src="/images/book.png" alt="Book it!" border="0" /></a>');						
+			favoritesData.setValue(j , 11, '<a id="book' + j +'" onclick="UnTip()" href="http://www.google.com/calendar/event?action=TEMPLATE&text=EPI%20HOUR%20-%20Lost&dates=20090224T073000Z/20090224T080000Z&details=HAVE%20FUN!&location=TV&trp=true&sprop=&sprop=name:epi%20hour%20gadget" target="_blank"><img id="book'+j+'" src="images/book.png" alt="Book it!" border="0" /></a>');						
 		}
 		
 		// remove! buttons
 		for (var j=0; j<favoritesData.getNumberOfRows(); j++){			
-			favoritesData.setValue(j , 12, '<img style="cursor:hand" id="delete'+j+'" src="/images/delete.png" alt="Remove it!" onclick="UnTip(); remove_row('+favoritesData.getValue(j,0)+');" />');
+			favoritesData.setValue(j , 12, '<img style="cursor:hand" id="delete'+j+'" src="images/delete.png" alt="Remove it!" onclick="UnTip(); remove_row('+favoritesData.getValue(j,0)+');" />');
 			//favoritesData.setValue(j , 12, '<input type="submit" align="center"  class="btn" value="[x]" id="delete'+j+'" onmouseover="this.className=\'btnhov\'" onmouseout="this.className=\'btn\'" onclick="UnTip(); remove_row('+favoritesData.getValue(j,0)+');" />');
 		}
 		
@@ -610,7 +610,7 @@
     </script>
 </head>
 <body bgcolor="#dbe3eb">
-<script type="text/javascript" src="/js/wz_tooltip.js"></script>
+<script type="text/javascript" src="js/wz_tooltip.js"></script>
     <div id="news_div" class="background" align="center" > </div>
 	        
 
@@ -619,7 +619,7 @@
 		<div id="favorites"> </div>
 		<div style="display:none" id="getting_fav"> 
 			<br><br><br><br>
-			<img src="/images/loading_animation.gif" />
+			<img src="images/loading_animation.gif" />
 		</div>
 		<div style="display:none" id="no_fav"> 
 			<table id="search_result" class="sample" border="1">
@@ -681,7 +681,7 @@
 		
 		<div style="display:none" id="searching..."> 
 				<br><br><br>
-				<img src="/images/loading_animation.gif" />
+				<img src="images/loading_animation.gif" />
 		</div>
 
 		<div id="bottom_buttons" 1style="display:none">
@@ -689,10 +689,10 @@
 
 			  <tr>
 			    <td>	            	
-				<a 1class="button" href="javascript:void(0);" onclick="this.blur(); getRecommended();"><span><img src="/images/recmnd.png" border="0" /><font size="1">Get Recommendations!</font></span></a>
+				<a 1class="button" href="javascript:void(0);" onclick="this.blur(); getRecommended();"><span><img src="images/recmnd.png" border="0" /><font size="1">Get Recommendations!</font></span></a>
 			    </td>
 			    <td>	            	
-				<a 1class="button" href="javascript:void(0);" onclick="this.blur(); printMostPopularShows();"><span><img src="/images/top.png" border="0" /><font size="1">Get Top!</font></span></a>
+				<a 1class="button" href="javascript:void(0);" onclick="this.blur(); printMostPopularShows();"><span><img src="images/top.png" border="0" /><font size="1">Get Top!</font></span></a>
 			    </td>
 			  </tr>
 
