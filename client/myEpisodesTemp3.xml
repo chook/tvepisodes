@@ -166,7 +166,7 @@
     function printMostPopularShows()
     {
 		document.getElementById('no_result_div').style.display='none';
-		docume5nt.getElementById('vis_results').style.display = 'none';
+		document.getElementById('vis_results').style.display = 'none';
 		document.getElementById('recmnd_div').style.display = 'none';	
 		document.getElementById('recmnd_txt').style.display = 'none';
 		document.getElementById('most_pop').style.display = '';		
