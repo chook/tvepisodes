@@ -167,6 +167,7 @@
 		document.getElementById('most_pop').style.display = '';		
 		document.getElementById('most_pop_txt').style.display = '';
 		document.getElementById('bottom_buttons').style.display = '';
+		alert('wipi ho!');
     }
 	function getMostPopularShows()    {
 		UnTip();
