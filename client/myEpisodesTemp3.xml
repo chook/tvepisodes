@@ -47,7 +47,7 @@
        
        function GetStat()
        {
-       		document.getElementById('bottom_buttons').style.display = 'none';
+       		//document.getElementById('bottom_buttons').style.display = 'none';
        }
 	function loadFriends() {
 		var req = opensocial.newDataRequest();
@@ -290,7 +290,7 @@
 		else{
 			document.getElementById('vis_results').style.display = '' ;
 			document.getElementById('searching...').style.display = 'none' ;
-			document.getElementById('bottom_buttons').style.display = '';
+			//document.getElementById('bottom_buttons').style.display = '';
 			table.draw(view, {showRowNumber: true, allowHtml:true, width: 210, page: 'enable', pageSize: 5});
 			google.visualization.events.addListener(table, 'select', selectHandler);
 			function selectHandler() {
@@ -366,7 +366,7 @@
 		document.getElementById('favorites').style.display = 'none';
 		document.getElementById('getting_fav').style.display = '' ;
 		document.getElementById('no_fav').style.display = 'none' ;
-		document.getElementById('bottom_buttons').style.display = 'none';
+		//document.getElementById('bottom_buttons').style.display = 'none';
 		//alert(url);
 		var favoritesQuery = new google.visualization.Query(url);
 		//alert("after query");
@@ -517,7 +517,7 @@
     }
     function create_msg(){
 		
-		document.getElementById('bottom_buttons').style.display = 'none';
+		//document.getElementById('bottom_buttons').style.display = 'none';
 		
 		// date variables used for date arithmetic
 		var oneMinute = 60 * 1000  // milliseconds in a minute
