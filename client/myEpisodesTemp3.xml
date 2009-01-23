@@ -166,7 +166,7 @@
 		document.getElementById('recmnd_txt').style.display = 'none';
 		document.getElementById('most_pop').style.display = '';		
 		document.getElementById('most_pop_txt').style.display = '';
-		document.getElementById('bottom_buttons').style.display = '';
+//		document.getElementById('bottom_buttons').style.display = '';
 		alert('wipi ho!');
     }
 	function getMostPopularShows()    {
@@ -285,6 +285,7 @@
 		else{
 			document.getElementById('vis_results').style.display = '' ;
 			document.getElementById('searching...').style.display = 'none' ;
+			document.getElementById('bottom_buttons').style.display = '';
 			table.draw(view, {showRowNumber: true, allowHtml:true, width: 210, page: 'enable', pageSize: 5});
 			google.visualization.events.addListener(table, 'select', selectHandler);
 			function selectHandler() {
