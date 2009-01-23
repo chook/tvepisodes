@@ -166,7 +166,7 @@
     function printMostPopularShows()
     {
 		document.getElementById('no_result_div').style.display='none';
-		document.getElementById('vis_results').style.display = 'none';
+		docume5nt.getElementById('vis_results').style.display = 'none';
 		document.getElementById('recmnd_div').style.display = 'none';	
 		document.getElementById('recmnd_txt').style.display = 'none';
 		document.getElementById('most_pop').style.display = '';		
@@ -687,6 +687,21 @@
 				<br><br><br>
 				<img src="loading_animation.gif" />
 		</div>
+
+		<div id="bottom_buttons" 1style="display:none">
+			<table border="0" align="center">
+
+			  <tr>
+			    <td>	            	
+				<a class="button" href="javascript:void(0);" onclick="this.blur(); getRecommended();"><span><font size="1">Get Recommendations!</font></span></a>
+			    </td>
+			    <td>	            	
+				<a class="button" href="javascript:void(0);" onclick="this.blur(); getRecommended();"><span><font size="1">Get Top!</font></span></a>
+			    </td>
+			  </tr>
+
+			</table>
+        	</div>		
 	</div>
 	<div align="center" id="sts_div" class="background">
 	
@@ -716,20 +731,7 @@
 		<div align="center" id="statistics"></div>
 	</div>
 	
-	<div id="bottom_buttons" style="display:none">
-	        <table border="0" align="center">
-	
-	          <tr>
-	            <td>	            	
-			<a class="button" href="javascript:void(0);" onclick="this.blur(); getRecommended();"><span><font size="1">Get Recommendations!</font></span></a>
-	            </td>
-	            <td>	            	
-	            	<a class="button" href="javascript:void(0);" onclick="this.blur(); getRecommended();"><span><font size="1">Get Top!</font></span></a>
-	            </td>
-	          </tr>
-	
-        	</table>
-        </div>
+
         
 </body>
 </html>
