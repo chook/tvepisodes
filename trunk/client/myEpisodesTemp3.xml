@@ -521,7 +521,9 @@
 		var oneHour = oneMinute * 60
 		var oneDay = oneHour * 24
 		var oneWeek = oneDay * 7
-		var tvImg = '<img src="' + currLink + 'images/tv.png" />'
+		var tvImg1 = '<img src="' + currLink + 'images/tv1.png" />'
+		var tvImg2 = '<img src="' + currLink + 'images/tv2.png" />'
+		var tvImg3 = '<img src="' + currLink + 'images/tv3.png" />'
 
 		//getFavorites();
         var msg = new _IG_MiniMessage(__MODULE_ID__, _gel("news_div"));
@@ -551,13 +553,13 @@
 						//alert("leftDays = " + leftDays);
 						//var leftDays = airDateArray[2] - day;
 						if (leftDays < 1) 
-							msg.createDismissibleMessage(tvImg + " \""+name + "\" is on today!", dismissed);
+							msg.createDismissibleMessage(tvImg2 + " \""+name + "\" is on today!", dismissed);
 						else{
 							if (leftDays < 2)
-								msg.createDismissibleMessage(tvImg + " \""+name + "\" is on tomorrow!", dismissed);
+								msg.createDismissibleMessage(tvImg3 + " \""+name + "\" is on tomorrow!", dismissed);
 							else
 								if (leftDays < 6)
-								msg.createDismissibleMessage(tvImg + " \""+name + "\" is on in "+ leftDays+" days!", dismissed);
+								msg.createDismissibleMessage(tvImg1 + " \""+name + "\" is on in "+ leftDays+" days!", dismissed);
 						}
 //					}
 //				}
