@@ -171,8 +171,7 @@
 		document.getElementById('recmnd_txt').style.display = 'none';
 		document.getElementById('most_pop').style.display = '';		
 		document.getElementById('most_pop_txt').style.display = '';
-//		document.getElementById('bottom_buttons').style.display = '';
-		alert('wipi ho!');
+
     }
 	function getMostPopularShows()    {
 		UnTip();
@@ -693,10 +692,10 @@
 
 			  <tr>
 			    <td>	            	
-				<a class="button" href="javascript:void(0);" onclick="this.blur(); getRecommended();"><span><font size="1">Get Recommendations!</font></span></a>
+				<a 1class="button" href="javascript:void(0);" onclick="this.blur(); getRecommended();"><span><img src="recmnd.png" border="0" /><font size="1">Get Recommendations!</font></span></a>
 			    </td>
 			    <td>	            	
-				<a class="button" href="javascript:void(0);" onclick="this.blur(); getRecommended();"><span><font size="1">Get Top!</font></span></a>
+				<a 1class="button" href="javascript:void(0);" onclick="this.blur(); printMostPopularShows();"><span><img src="top.png" border="0" /><font size="1">Get Top!</font></span></a>
 			    </td>
 			  </tr>
 
