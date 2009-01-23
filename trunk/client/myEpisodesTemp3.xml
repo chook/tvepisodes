@@ -37,15 +37,15 @@
         tabs.addTab("My Shows", "epsd_div", getFavorites);
         tabs.addTab("Add", "add_div");
         //tabs.addTab("Statistics", "sts_div", UnTip);
-        tabs.addTab("Statistics", "sts_div", getStat);
+        tabs.addTab("Statistics", "sts_div", GetStat);
 
-        UnTip();
+        
         loadFriends();
 	getMostPopularShows();
 	
        }
        
-       function getStat()
+       function GetStat()
        {
        		document.getElementById('bottom_buttons').style.display = 'none';
        }
@@ -717,7 +717,18 @@
 	</div>
 	
 	<div id="bottom_buttons" style="display:none">
-
+	        <table border="0" align="center">
+	
+	          <tr>
+	            <td>	            	
+			<a class="button" href="javascript:void(0);" onclick="this.blur(); getRecommended();"><span><font size="1">Get Recommendations!</font></span></a>
+	            </td>
+	            <td>	            	
+	            	<a class="button" href="javascript:void(0);" onclick="this.blur(); getRecommended();"><span><font size="1">Get Top!</font></span></a>
+	            </td>
+	          </tr>
+	
+        	</table>
         </div>
         
 </body>
