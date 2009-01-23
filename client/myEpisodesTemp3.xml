@@ -521,9 +521,9 @@
 		var oneHour = oneMinute * 60
 		var oneDay = oneHour * 24
 		var oneWeek = oneDay * 7
-		var tvImg1 = '<img src="' + currLink + 'images/tv1.png" />'
-		var tvImg2 = '<img src="' + currLink + 'images/tv2.png" />'
-		var tvImg3 = '<img src="' + currLink + 'images/tv3.png" />'
+		var tvImg1 = '<img src="' + currLink + 'images/tv1.png" />';
+		var tvImg2 = '<img src="' + currLink + 'images/tv2.png" />';
+		var tvImg3 = '<img src="' + currLink + 'images/tv3.png" />';
 
 		//getFavorites();
         var msg = new _IG_MiniMessage(__MODULE_ID__, _gel("news_div"));
