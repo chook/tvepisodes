@@ -612,9 +612,7 @@
 </head>
 <body bgcolor="#dbe3eb">
 <script type="text/javascript" src="js/wz_tooltip.js"></script>
-    <div id="news_div" class="background" align="center" style="height:200px;overflow:auto;background: fixed url(images/g_logo.gif) no-repeat top right;"> > 
-    	
-    </div>
+    <div id="news_div" class="background" align="center"></div>
 	        
 
 	        
