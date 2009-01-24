@@ -612,8 +612,8 @@
 </head>
 <body bgcolor="#dbe3eb">
 <script type="text/javascript" src="js/wz_tooltip.js"></script>
-    <div id="news_div" class="background" align="center" > 
-    	<img src="images/g_logo.jpg" alt="Epi Hour!!!" />
+    <div id="news_div" class="background" align="center" style="background-image: url(images/g_logo.jpg);background-position: 0 0;background-repeat: no-repeat;background-attachment: fixed;" > 
+    	
     </div>
 	        
 
