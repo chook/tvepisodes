@@ -511,7 +511,7 @@
     }
     function create_msg(){
 		
-		//document.getElementById('bottom_buttons').style.display = 'none';
+		
 		
 		// date variables used for date arithmetic
 		var oneMinute = 60 * 1000  // milliseconds in a minute
@@ -612,7 +612,9 @@
 </head>
 <body bgcolor="#dbe3eb">
 <script type="text/javascript" src="js/wz_tooltip.js"></script>
-    <div id="news_div" class="background" align="center" > </div>
+    <div id="news_div" class="background" align="center" > 
+    	<img src="images/g_logo.jpg" alt="Epi Hour!!!" />
+    </div>
 	        
 
 	        
