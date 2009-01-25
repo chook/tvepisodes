@@ -617,7 +617,7 @@
 	
 		loadFriends();
 		getMostPopularShows();
-		getFavorites();
+	
 	
 		
 	        // Initialize tabs.
@@ -629,9 +629,9 @@
 	        tabs.addTab("Add", "add_div");
 	        tabs.addTab("Statistics", "sts_div");
 	        
-	
-		//loadFriends();
-		//getFavorites();	
+	        create_msg();
+	        
+	[
 	
 		
        }
