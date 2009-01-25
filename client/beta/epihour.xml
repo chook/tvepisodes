@@ -24,10 +24,12 @@
 	 var favoritesData = null;
 	 var userID = '03067092798963641994';
 	 var userFriendsID = '';
-	 var currLink = "http://tvepisodes.googlecode.com/svn/trunk/client/milestone2"
+	 var currLink = "http://tvepisodes.googlecode.com/svn/trunk/client/milestone2/"
 	 
 	google.load("visualization", "1", {packages:["columnchart", "table" ,"barchart" , "piechart"]});	 
     function init() {
+		loadFriends();
+		getMostPopularShows();
         // Initialize tabs.
          var tabs = new _IG_Tabs(__MODULE_ID__ );
         // When you use addDynamicTab, the tab's content is 
@@ -38,9 +40,7 @@
         tabs.addTab("Statistics", "sts_div");
         
 
-        
-        loadFriends();
-	getMostPopularShows();
+   
 	
        }
        
@@ -511,9 +511,22 @@
 		}
     }
     function create_msg(){
+		loadFriends();
+		document.getElementById('news_div').removeChild(document.getElementById('news'));
+		var newDiv = document.createElement("div");
+		newDiv.id = "news";
+		document.getElementById('news_div').appendChild(newDiv);
 		
+		var url = 'http://epihourtesting2.appspot.com/getFavorites?uid='+ userID;
 		
-		
+		var favoritesQuery = new google.visualization.Query(url);
+		//alert("after query");
+		// Send the query with a callback function.
+		favoritesQuery.send(createMessagesFromFav);
+		//alert("after sending");	
+	}
+	function createMessagesFromFav(response)	{
+		var msg = new _IG_MiniMessage(__MODULE_ID__, _gel("news"));
 		// date variables used for date arithmetic
 		var oneMinute = 60 * 1000  // milliseconds in a minute
 		var oneHour = oneMinute * 60
@@ -522,9 +535,12 @@
 		var tvImg1 = '<img src="' + currLink + 'images/tv1.png" />';
 		var tvImg2 = '<img src="' + currLink + 'images/tv2.png" />';
 		var tvImg3 = '<img src="' + currLink + 'images/tv3.png" />';
-
+		if (response.isError()) {
+			alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+			return;
+		}
+		favoritesData = response.getDataTable();
 		//getFavorites();
-        var msg = new _IG_MiniMessage(__MODULE_ID__, _gel("news_div"));
 		var today = new Date();
 		//alert("today:"+today);
 		var year = today.getFullYear();
@@ -554,10 +570,10 @@
 							msg.createDismissibleMessage(tvImg2 + " \""+name + "\" is on today!", dismissed);
 						else{
 							if (leftDays < 2)
-								msg.createDismissibleMessage(tvImg3 + " \""+name + "\" is on tomorrow!", dismissed);
+								msg.createDismissibleMessage(tvImg3 + " \""+name + "\" is just a day away!", dismissed);
 							else
 								if (leftDays < 6)
-								msg.createDismissibleMessage(tvImg1 + " \""+name + "\" is on in "+ leftDays+" days!", dismissed);
+								msg.createDismissibleMessage(tvImg1 + " \""+name + "\" will be broadcast in "+ leftDays+" days!", dismissed);
 						}
 //					}
 //				}
@@ -613,9 +629,10 @@
 </head>
 <body bgcolor="#dbe3eb">
 <script type="text/javascript" src="js/wz_tooltip.js"></script>
-    <div id="news_div" class="background" align="center"></div>
-	        
 
+    <div id="news_div" class="background" align="center">
+		<div id="news"></div>
+	</div>
 	        
     <div id="epsd_div" class="background" align="center" >
 		<div id="favorites"> </div>
@@ -631,6 +648,7 @@
 			</table>
 		</div>
 	</div>
+	
     <div class="background" align="center" id="add_div" >        
 
         <table border="0" align="center">
