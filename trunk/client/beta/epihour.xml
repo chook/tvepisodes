@@ -30,20 +30,22 @@
     function init() {
 
 	loadFriends();
-	
+	getMostPopularShows();
 	
 	
         // Initialize tabs.
          var tabs = new _IG_Tabs(__MODULE_ID__ );
         // When you use addDynamicTab, the tab's content is 
         // dynamically generated through the callback function. 
-        tabs.addTab("News", "news_div",create_msg);
+        tabs.addTab("News", "news_div");
         tabs.addTab("My Shows", "epsd_div", getFavorites);
         tabs.addTab("Add", "add_div");
         tabs.addTab("Statistics", "sts_div");
         
 
-   
+	loadFreinds();
+	getFavorites();
+	create_msg();
 	
        }
        
@@ -65,9 +67,7 @@
 		var ownerFriends = data.get('ownerFriends').getData();
 
 		userID = owner.getId();
-		
-	
-		create_msg();
+				
 		
 		ownerFriends.each(function(person) {
 		if (person.getId()) {
@@ -77,8 +77,7 @@
 		  if (userFriendsID.length > 0)
 			userFriendsID = userFriendsID.substring(0,userFriendsID.length - 1);
 
-		  
-	
+		  create_msg();
 		  
 		  
 		  //alert('userFriendsID:' + userFriendsID);
@@ -521,9 +520,6 @@
 		}
     }
     function create_msg(){
-		
-			
-		getMostPopularShows();
 		
 		document.getElementById('news_div').removeChild(document.getElementById('news'));
 		var newDiv = document.createElement("div");
