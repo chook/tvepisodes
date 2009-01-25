@@ -510,7 +510,7 @@
 		}
     }
     function create_msg(){
-		document.getElementById('new_div').removeChild(document.getElementById('news'));
+		document.getElementById('news_div').removeChild(document.getElementById('news'));
 		var newDiv = document.createElement("div");
 		newDiv.id = "news";
 		document.getElementById('news_div').appendChild(newDiv);
