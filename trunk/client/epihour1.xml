@@ -11,7 +11,7 @@
   <html>
 <head>
 	
-    <link href="css/myEpisodesCss.css" rel="stylesheet" type="text/css" />	
+    <link href="myEpisodesCss.css" rel="stylesheet" type="text/css" />	
 
 
     <script type="text/javascript" src="http://www.google.com/jsapi"></script>
