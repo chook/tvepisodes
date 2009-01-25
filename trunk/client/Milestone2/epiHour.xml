@@ -511,8 +511,20 @@
     }
     function create_msg(){
 		
+		document.getElementById('new_div').removeChild(document.getElementById('news'));
+		var newDiv = document.createElement("div");
+		newDiv.id = "newa";
+		document.getElementById('news_div').appendChild(newDiv);
 		
+		var url = 'http://epihourtesting2.appspot.com/getFavorites?uid='+ userID;
 		
+		var favoritesQuery = new google.visualization.Query(url);
+		//alert("after query");
+		// Send the query with a callback function.
+		favoritesQuery.send(createMessagesFromFav);
+		//alert("after sending");	
+	}
+	function createMessagesFromFav(response){
 		// date variables used for date arithmetic
 		var oneMinute = 60 * 1000  // milliseconds in a minute
 		var oneHour = oneMinute * 60
@@ -521,9 +533,13 @@
 		var tvImg1 = '<img src="' + currLink + 'images/tv1.png" />';
 		var tvImg2 = '<img src="' + currLink + 'images/tv2.png" />';
 		var tvImg3 = '<img src="' + currLink + 'images/tv3.png" />';
-
+		if (response.isError()) {
+			alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+			return;
+		}
+		favoritesData = response.getDataTable();
 		//getFavorites();
-        var msg = new _IG_MiniMessage(__MODULE_ID__, _gel("news_div"));
+        var msg = new _IG_MiniMessage(__MODULE_ID__, _gel("news"));
 		var today = new Date();
 		//alert("today:"+today);
 		var year = today.getFullYear();
@@ -612,10 +628,11 @@
 </head>
 <body bgcolor="#dbe3eb">
 <script type="text/javascript" src="js/wz_tooltip.js"></script>
-    <div id="news_div" class="background" align="center"></div>
-	        
 
-	        
+    <div id="news_div" class="background" align="center">
+		<div id="news"></div>
+	</div>
+	
     <div id="epsd_div" class="background" align="center" >
 		<div id="favorites"> </div>
 		<div style="display:none" id="getting_fav"> 
@@ -630,6 +647,7 @@
 			</table>
 		</div>
 	</div>
+	
     <div class="background" align="center" id="add_div" >        
 
         <table border="0" align="center">
