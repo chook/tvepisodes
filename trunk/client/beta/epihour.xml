@@ -29,8 +29,8 @@
 	google.load("visualization", "1", {packages:["columnchart", "table" ,"barchart" , "piechart"]});	 
     function init() {
 
-	loadFriends();
-	getMostPopularShows();
+	//loadFriends();
+	//getMostPopularShows();
 	
 	
         // Initialize tabs.
