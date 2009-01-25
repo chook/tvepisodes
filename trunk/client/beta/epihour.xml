@@ -525,7 +525,7 @@
     }
     function create_msg(){
 		
-		alert('aa');
+		
 		document.getElementById('searching...').style.display = '';
 		
 		if (userID == "not_defined")
