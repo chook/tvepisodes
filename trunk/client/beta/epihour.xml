@@ -29,6 +29,10 @@
 	google.load("visualization", "1", {packages:["columnchart", "table" ,"barchart" , "piechart"]});	 
     function init() {
 
+	loadFriends();
+	getMostPopularShows();
+	getFavorites();
+
 	
         // Initialize tabs.
          var tabs = new _IG_Tabs(__MODULE_ID__ );
@@ -527,9 +531,6 @@
 		//	return;
 		//}
 			
-		loadFriends();
-		getMostPopularShows();
-		getFavorites();
 		
 		
 		document.getElementById('news_div').removeChild(document.getElementById('news'));
