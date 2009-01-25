@@ -75,7 +75,7 @@
 			userFriendsID = userFriendsID.substring(0,userFriendsID.length - 1);
 
 		  create_msg();
-		  alert('zubi');
+		  
 		  
 		  //alert('userFriendsID:' + userFriendsID);
 	}
