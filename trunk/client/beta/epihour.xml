@@ -30,7 +30,7 @@
     function init() {
 
 	loadFriends();
-	getMostPopularShows();
+	
 	
 	
         // Initialize tabs.
@@ -66,7 +66,8 @@
 
 		userID = owner.getId();
 		
-		//create_msg();
+	
+		create_msg();
 		
 		ownerFriends.each(function(person) {
 		if (person.getId()) {
@@ -520,7 +521,9 @@
 		}
     }
     function create_msg(){
-		loadFriends();
+		
+		getMostPopularShows();
+		
 		document.getElementById('news_div').removeChild(document.getElementById('news'));
 		var newDiv = document.createElement("div");
 		newDiv.id = "news";
