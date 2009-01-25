@@ -31,7 +31,7 @@
 
 	loadFriends();
 	getMostPopularShows();
-	getFavorites();
+	//getFavorites();
 
 	
         // Initialize tabs.
@@ -47,6 +47,7 @@
 	//loadFriends();
 	//getFavorites();	
 
+	create_msg();
 	
        }
        
@@ -521,7 +522,11 @@
     }
     function create_msg(){
 		
-		
+		if (userID == "not_defined")
+		{
+			return;
+		}
+	
 		getFavorites();
 		
 		document.getElementById('news_div').removeChild(document.getElementById('news'));
