@@ -22,7 +22,7 @@
 	 var table = null;
 	 var query = null;
 	 var favoritesData = null;
-	 var userID = '';
+	 var userID = 'not_defined';
 	 var userFriendsID = '';
 	 var currLink = "http://tvepisodes.googlecode.com/svn/trunk/client/beta/"
 	 
@@ -522,8 +522,10 @@
     function create_msg(){
 		
 		//case user id is empty
-		if (!(StrComp(userID,"")))
+		if (!(StrComp(userID,"not_defined")))
+		{
 			loadFreinds();
+		}
 			
 		getFavorites();
 		document.getElementById('news_div').removeChild(document.getElementById('news'));
