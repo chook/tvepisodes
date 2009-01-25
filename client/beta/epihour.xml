@@ -43,7 +43,7 @@
         tabs.addTab("Statistics", "sts_div");
         
 
-	//loadFreinds();
+	//loadFriends();
 	//getFavorites();	
 	create_msg();
 	
@@ -522,12 +522,12 @@
     function create_msg(){
 		
 		//case user id is empty
-		//if (!(StrComp(userID,"not_defined")))
-		//{
-		//	loadFreinds();
-		//}
+		if (!(StrComp(userID,"not_defined")))
+		{
+			loadFriends();
+		}
 			
-		alert(userID);
+		
 		
 		getFavorites();
 		document.getElementById('news_div').removeChild(document.getElementById('news'));
