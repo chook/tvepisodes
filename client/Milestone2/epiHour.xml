@@ -27,6 +27,8 @@
 	 
 	google.load("visualization", "1", {packages:["columnchart", "table" ,"barchart" , "piechart"]});	 
     function init() {
+		loadFriends();
+		getMostPopularShows();
         // Initialize tabs.
          var tabs = new _IG_Tabs(__MODULE_ID__ );
         // When you use addDynamicTab, the tab's content is 
@@ -37,9 +39,7 @@
         tabs.addTab("Statistics", "sts_div");
         
 
-        
-        loadFriends();
-	getMostPopularShows();
+   
 	
        }
        
@@ -568,10 +568,10 @@
 							msg.createDismissibleMessage(tvImg2 + " \""+name + "\" is on today!", dismissed);
 						else{
 							if (leftDays < 2)
-								msg.createDismissibleMessage(tvImg3 + " \""+name + "\" is on tomorrow!", dismissed);
+								msg.createDismissibleMessage(tvImg3 + " \""+name + "\" only a day away!", dismissed);
 							else
 								if (leftDays < 6)
-								msg.createDismissibleMessage(tvImg1 + " \""+name + "\" is on in "+ leftDays+" days!", dismissed);
+								msg.createDismissibleMessage(tvImg1 + " \""+name + "\" is broadcast in "+ leftDays+" days!", dismissed);
 						}
 //					}
 //				}
