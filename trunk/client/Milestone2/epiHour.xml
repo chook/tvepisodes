@@ -23,7 +23,7 @@
 	 var favoritesData = null;
 	 var userID = '03067092798963641994';
 	 var userFriendsID = '';
-	 var currLink = "http://tvepisodes.googlecode.com/svn/trunk/client/milestone2"
+	 var currLink = "http://tvepisodes.googlecode.com/svn/trunk/client/Milestone2/"
 	 
 	google.load("visualization", "1", {packages:["columnchart", "table" ,"barchart" , "piechart"]});	 
     function init() {
@@ -568,10 +568,10 @@
 							msg.createDismissibleMessage(tvImg2 + " \""+name + "\" is on today!", dismissed);
 						else{
 							if (leftDays < 2)
-								msg.createDismissibleMessage(tvImg3 + " \""+name + "\" only a day away!", dismissed);
+								msg.createDismissibleMessage(tvImg3 + " \""+name + "\" is just a day away!", dismissed);
 							else
 								if (leftDays < 6)
-								msg.createDismissibleMessage(tvImg1 + " \""+name + "\" is broadcast in "+ leftDays+" days!", dismissed);
+								msg.createDismissibleMessage(tvImg1 + " \""+name + "\" will be broadcast in "+ leftDays+" days!", dismissed);
 						}
 //					}
 //				}
