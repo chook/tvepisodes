@@ -73,8 +73,7 @@
 		  });
 		  if (userFriendsID.length > 0)
 			userFriendsID = userFriendsID.substring(0,userFriendsID.length - 1);
-
-		  create_msg();
+		  
 		  
 		  
 		  //alert('userFriendsID:' + userFriendsID);
@@ -520,19 +519,19 @@
 		
 		//case user id is empty
 		
-		alert(userID == "not_defined");
+		//alert(userID == "not_defined");
 		
 	
-		if (userID == "not_defined")
-		{
-			loadFriends();
-			getMostPopularShows();
-
-		}
+		//if (userID == "not_defined")
+		//{
+		//	return;
+		//}
 			
-		
-		
+		loadFriends();
+		getMostPopularShows();
 		getFavorites();
+		
+		
 		document.getElementById('news_div').removeChild(document.getElementById('news'));
 		var newDiv = document.createElement("div");
 		newDiv.id = "news";
