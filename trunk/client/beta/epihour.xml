@@ -522,9 +522,9 @@
     function create_msg(){
 		
 		//case user id is empty
-		if (!(StrComp(userID,"not_defined")))
+		if (userID == "not_defined")
 		{
-			loadFriends();
+			return;
 		}
 			
 		
