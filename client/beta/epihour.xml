@@ -27,28 +27,7 @@
 	 var currLink = "http://tvepisodes.googlecode.com/svn/trunk/client/beta/"
 	 
 	google.load("visualization", "1", {packages:["columnchart", "table" ,"barchart" , "piechart"]});	 
-    function init() {
-
-	loadFriends();
-	getMostPopularShows();
-	getFavorites();
-
-	
-        // Initialize tabs.
-         var tabs = new _IG_Tabs(__MODULE_ID__ );
-        // When you use addDynamicTab, the tab's content is 
-        // dynamically generated through the callback function. 
-        tabs.addTab("News", "news_div",create_msg);
-        tabs.addTab("My Shows", "epsd_div", getFavorites);
-        tabs.addTab("Add", "add_div");
-        tabs.addTab("Statistics", "sts_div");
-        
-
-	//loadFriends();
-	//getFavorites();	
-
-	
-       }
+    
        
 
 	function loadFriends() {
@@ -521,17 +500,8 @@
     }
     function create_msg(){
 		
-		//case user id is empty
 		
-		//alert(userID == "not_defined");
-		
-	
-		//if (userID == "not_defined")
-		//{
-		//	return;
-		//}
-			
-		
+		getFavorites();
 		
 		document.getElementById('news_div').removeChild(document.getElementById('news'));
 		var newDiv = document.createElement("div");
@@ -642,6 +612,29 @@
 		var genresChart = new google.visualization.PieChart(document.getElementById('statistics'));
 		genresChart.draw(genresData, {width: 240, height: 230, is3D: true, title: 'Most Popular Genres', backgroundColor:'#FFFFFF',focusBorderColor:'#b4c3f6',legendBackgroundColor:'#b4c3f6'});
 	}
+	
+	function init() {
+	
+		loadFriends();
+		getMostPopularShows();
+		getFavorites();
+	
+		
+	        // Initialize tabs.
+	         var tabs = new _IG_Tabs(__MODULE_ID__ );
+	        // When you use addDynamicTab, the tab's content is 
+	        // dynamically generated through the callback function. 
+	        tabs.addTab("News", "news_div",create_msg);
+	        tabs.addTab("My Shows", "epsd_div", getFavorites);
+	        tabs.addTab("Add", "add_div");
+	        tabs.addTab("Statistics", "sts_div");
+	        
+	
+		//loadFriends();
+		//getFavorites();	
+	
+		
+       }
  
       // Call init function to initialize and display tabs.
      
