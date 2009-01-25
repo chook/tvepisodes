@@ -531,7 +531,7 @@
 		if (userID == "not_defined")
 		{			
 			return;
-		}
+			}
 	
 		getFavorites();
 		
