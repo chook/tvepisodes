@@ -533,8 +533,7 @@
 		document.getElementById('searching...').style.display = '';
 		
 		if (userID == "not_defined")
-		{
-			alert("return-ed");
+		{			
 			return;
 		}
 	
