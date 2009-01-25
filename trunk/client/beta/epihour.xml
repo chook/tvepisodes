@@ -629,7 +629,7 @@
 	        tabs.addTab("Add", "add_div");
 	        tabs.addTab("Statistics", "sts_div");
 	        
-	        create_msg();
+	        //create_msg();
 	        
 	[
 	
