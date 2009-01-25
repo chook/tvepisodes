@@ -24,7 +24,7 @@
 	 var favoritesData = null;
 	 var userID = '03067092798963641994';
 	 var userFriendsID = '';
-	 var currLink = "http://tvepisodes.googlecode.com/svn/trunk/client/milestone2/"
+	 var currLink = "http://tvepisodes.googlecode.com/svn/trunk/client/beta/"
 	 
 	google.load("visualization", "1", {packages:["columnchart", "table" ,"barchart" , "piechart"]});	 
     function init() {
