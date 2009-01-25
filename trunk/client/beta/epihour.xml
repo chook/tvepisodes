@@ -22,7 +22,7 @@
 	 var table = null;
 	 var query = null;
 	 var favoritesData = null;
-	 var userID = 'not_defined';
+	 var userID = 'ndef';
 	 var userFriendsID = '';
 	 var currLink = "http://tvepisodes.googlecode.com/svn/trunk/client/beta/"
 	 
@@ -31,7 +31,7 @@
 
 	loadFriends();
 	getMostPopularShows();
-	
+	getFavorites();	
 
 	
         // Initialize tabs.
@@ -56,6 +56,8 @@
 		document.getElementById('sts_div').style.display = '';
 	}
 	function loadFriends() {
+		
+			
 		var req = opensocial.newDataRequest();
 		req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), 'owner');
   
@@ -72,7 +74,7 @@
 		var ownerFriends = data.get('ownerFriends').getData();
 
 		userID = owner.getId();
-				
+		create_msg();
 		
 		ownerFriends.each(function(person) {
 		if (person.getId()) {
@@ -526,16 +528,6 @@
     function create_msg(){
 		
 		
-		document.getElementById('searching...').style.display = '';
-		
-		if (userID == "not_defined")
-		{			
-			return;
-			}
-	
-		getFavorites();
-		
-		document.getElementById('searching...').style.display = 'none';	
 		
 		document.getElementById('news_div').removeChild(document.getElementById('news'));
 		var newDiv = document.createElement("div");
