@@ -176,7 +176,7 @@ class GetFavorites(webapp.RequestHandler):
                        "link"           : ("string", "Link"),
                        "airtime"        : ("string", "Air Time"),
                        "airday"         : ("string", "Air Day"),
-                       "nextdate"       : ("string", "Next Date")}
+                       "nextdate"       : ("string", "Next")}
         
         # Build the data table object with description and shows dictionary
         data_table = gviz_api.DataTable(description)
