@@ -43,8 +43,8 @@
         tabs.addTab("Statistics", "sts_div");
         
 
-	loadFreinds();
-	getFavorites();
+	//loadFreinds();
+	//getFavorites();	
 	create_msg();
 	
        }
@@ -521,6 +521,11 @@
     }
     function create_msg(){
 		
+		//case user id is empty
+		if (userID == '')
+			loadFreinds();
+			
+		getFavorites();
 		document.getElementById('news_div').removeChild(document.getElementById('news'));
 		var newDiv = document.createElement("div");
 		newDiv.id = "news";
