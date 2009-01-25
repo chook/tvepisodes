@@ -524,6 +524,7 @@
 		
 		if (userID == "not_defined")
 		{
+			alert("return-ed");
 			return;
 		}
 	
