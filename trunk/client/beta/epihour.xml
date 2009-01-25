@@ -527,7 +527,7 @@
 		//	loadFreinds();
 		//}
 			
-		alert((!(StrComp(userID,"not_defined"))));
+		alert(userID);
 		
 		getFavorites();
 		document.getElementById('news_div').removeChild(document.getElementById('news'));
