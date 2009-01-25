@@ -510,6 +510,7 @@
 		}
     }
     function create_msg(){
+		loadFriends();
 		document.getElementById('news_div').removeChild(document.getElementById('news'));
 		var newDiv = document.createElement("div");
 		newDiv.id = "news";
