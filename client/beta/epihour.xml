@@ -41,7 +41,7 @@
         tabs.addTab("News", "news_div",create_msg);
         tabs.addTab("My Shows", "epsd_div", getFavorites);
         tabs.addTab("Add", "add_div");
-        tabs.addTab("Statistics", "sts_div");
+        tabs.addTab("Statistics", "sts_div",showSts);
         
 
 	//loadFriends();
@@ -51,7 +51,10 @@
 	
        }
        
-
+	function showSts()	
+	{
+		document.getElementById('sts_div').style.display = '';
+	}
 	function loadFriends() {
 		var req = opensocial.newDataRequest();
 		req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), 'owner');
@@ -522,6 +525,7 @@
     }
     function create_msg(){
 		
+		document.getElementById('searching...').style.display = '';
 		document.getElementById('searching...').style.display = '';	
 		if (userID == "not_defined")
 		{
@@ -740,7 +744,7 @@
 			</table>
         	</div>		
 	</div>
-	<div align="center" id="sts_div" class="background">
+	<div align="center" style="display:none" id="sts_div" class="background">
 	
 	<table border="0" align="center">
 		<tr>
