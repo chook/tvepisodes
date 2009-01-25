@@ -1,8 +1,8 @@
-      .background {
+      /*.background {
 		  font-family:"Arial";
 		  background-color: #FFFFFF;
 		  font-size: 14px;
-	  }   
+	  }   */
       .btn {
 		  font-family: "Arial";
 		  font-size: 8px;
@@ -24,7 +24,8 @@
       .tablib_table {
 		  background-color: #c7d5e2;
 		  width: 100%;
-		  border-collapse: separate; border-spacing: 0px;
+		  border-collapse: separate;
+		  border-spacing: 0px;
 		  empty-cells: show;
 		  font-size: 10px;
 		  text-align: rih;
@@ -42,6 +43,7 @@
 		  font-family: "Arial";
 		  font-style: italic;
 		  background-color: #FFFFFF;
+		  /*background-color: #dbe3eb;*/
 		  padding: 2px 0px;
 		  border: 1.5px solid #676767;
 		  border-bottom-width: 0px;
@@ -174,5 +176,7 @@
 	    padding: 6px 0 4px 18px; /* push text down 1px */
 	}
 	body{
-		background-color:#F2F5F5;
+		font-family:"Arial";
+		font-size: 14px;
+		/*background-color:#dbe3eb;*/
 	}
