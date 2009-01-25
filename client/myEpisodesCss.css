@@ -42,7 +42,8 @@
       .tablib_selected {
 		  font-family: "Arial";
 		  font-style: italic;
-		  background-color: #dbe3eb;
+		  background-color: #FFFFFF;
+		  /*background-color: #dbe3eb;*/
 		  padding: 2px 0px;
 		  border: 1.5px solid #676767;
 		  border-bottom-width: 0px;
