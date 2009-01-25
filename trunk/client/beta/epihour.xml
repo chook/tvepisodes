@@ -22,7 +22,7 @@
 	 var table = null;
 	 var query = null;
 	 var favoritesData = null;
-	 var userID = '03067092798963641994';
+	 var userID = '';
 	 var userFriendsID = '';
 	 var currLink = "http://tvepisodes.googlecode.com/svn/trunk/client/beta/"
 	 
@@ -37,7 +37,7 @@
          var tabs = new _IG_Tabs(__MODULE_ID__ );
         // When you use addDynamicTab, the tab's content is 
         // dynamically generated through the callback function. 
-        tabs.addTab("News", "news_div");
+        tabs.addTab("News", "news_div",create_msg);
         tabs.addTab("My Shows", "epsd_div", getFavorites);
         tabs.addTab("Add", "add_div");
         tabs.addTab("Statistics", "sts_div");
@@ -522,6 +522,9 @@
     }
     function create_msg(){
 		
+		if (userId == '')
+			onLoadFriends();
+			
 		getMostPopularShows();
 		
 		document.getElementById('news_div').removeChild(document.getElementById('news'));
