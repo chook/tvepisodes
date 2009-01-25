@@ -522,10 +522,10 @@
     function create_msg(){
 		
 		//case user id is empty
-		if (!(StrComp(userID,"not_defined")))
-		{
-			loadFreinds();
-		}
+		//if (!(StrComp(userID,"not_defined")))
+		//{
+		//	loadFreinds();
+		//}
 			
 		getFavorites();
 		document.getElementById('news_div').removeChild(document.getElementById('news'));
