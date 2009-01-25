@@ -39,7 +39,7 @@
         // When you use addDynamicTab, the tab's content is 
         // dynamically generated through the callback function. 
         tabs.addTab("News", "news_div",create_msg);
-        tabs.addTab("My Shows", "epsd_div", getFavorites);
+        tabs.addTab("My Shows", "epsd_div", showFavorites);
         tabs.addTab("Add", "add_div");
         tabs.addTab("Statistics", "sts_div",showSts);
         
@@ -51,6 +51,11 @@
 	
        }
        
+       function showFavorites()
+       {
+		getFavorites();       	
+       		document.getElementById('favorites').style.display = '';
+       }
 	function showSts()	
 	{
 		document.getElementById('sts_div').style.display = '';
@@ -526,7 +531,7 @@
     function create_msg(){
 		
 		document.getElementById('searching...').style.display = '';
-		document.getElementById('searching...').style.display = '';	
+		
 		if (userID == "not_defined")
 		{
 			alert("return-ed");
@@ -660,7 +665,7 @@
 	</div>
 	        
     <div id="epsd_div" class="background" align="center" >
-		<div id="favorites"> </div>
+		<div style="display:none" id="favorites"> </div>
 		<div style="display:none" id="getting_fav"> 
 			<br><br><br><br>
 			<img src="images/loading_animation.gif" />
