@@ -522,10 +522,13 @@
     function create_msg(){
 		
 		//case user id is empty
-		if (userID == "not_defined")
-		{
-			return;
-		}
+		
+		alert(userID == "not_defined");
+		
+		//if (userID == "not_defined")
+		//{
+		//	return;
+		//}
 			
 		
 		
