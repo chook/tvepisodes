@@ -31,7 +31,7 @@
 
 	loadFriends();
 	getMostPopularShows();
-	//getFavorites();
+	
 
 	
         // Initialize tabs.
@@ -43,11 +43,6 @@
         tabs.addTab("Add", "add_div");
         tabs.addTab("Statistics", "sts_div",showSts);
         
-
-	//loadFriends();
-	//getFavorites();	
-
-	create_msg();
 	
        }
        
@@ -530,6 +525,7 @@
     }
     function create_msg(){
 		
+		alert('aa');
 		document.getElementById('searching...').style.display = '';
 		
 		if (userID == "not_defined")
