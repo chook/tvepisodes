@@ -522,7 +522,7 @@
     function create_msg(){
 		
 		//case user id is empty
-		if (userID == "")
+		if (!(StrComp(userID,"")))
 			loadFreinds();
 			
 		getFavorites();
