@@ -5,12 +5,10 @@
     <Require feature="minimessage" />
     <Require feature="opensocial-0.8"/>
   </ModulePrefs>
-  <Content type="html" view="home,profile,canvas">
+  <Content type="html" view="home,canvas">
     <![CDATA[
   <html>
 <head>
-	
-    <link href="css/myEpisodesCss.css" rel="stylesheet" type="text/css" />	
 
 
     <script type="text/javascript" src="http://www.google.com/jsapi"></script>
