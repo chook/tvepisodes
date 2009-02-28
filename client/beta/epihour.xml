@@ -721,15 +721,15 @@
 				<img src="images/loading_animation.gif" />
 		</div>
 
-		<div id="bottom_buttons" 1style="display:none">
+		<div id="bottom_buttons">
 			<table border="0" align="center">
 
 			  <tr>
 			    <td>	            	
-				<a 1class="button" href="javascript:void(0);" onclick="this.blur(); getRecommended();"><span><img src="images/recmnd.png" border="0" /><font size="1">Get Recommendations!</font></span></a>
+				<a href="javascript:void(0);" onclick="this.blur(); getRecommended();"><span><img src="images/recmnd.png" border="0" /><font size="1">Get Recommendations!</font></span></a>
 			    </td>
 			    <td>	            	
-				<a 1class="button" href="javascript:void(0);" onclick="this.blur(); printMostPopularShows();"><span><img src="images/top.png" border="0" /><font size="1">Get Top!</font></span></a>
+				<a href="javascript:void(0);" onclick="this.blur(); printMostPopularShows();"><span><img src="images/top.png" border="0" /><font size="1">Get Top!</font></span></a>
 			    </td>
 			  </tr>
 
