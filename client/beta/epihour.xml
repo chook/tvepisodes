@@ -6,7 +6,7 @@
     <Require feature="minimessage" />
     <Require feature="opensocial-0.8"/>
   </ModulePrefs>
-  <Content type="html" view="home,canvas">
+  <Content type="html" view="home,profile,canvas">
     <![CDATA[
   <html>
 <head>
