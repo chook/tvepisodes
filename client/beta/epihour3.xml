@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Module>
-  <ModulePrefs author="Chen Harel, Nadav Shamgar, Maayan Shani, Tal Moran" scrolling="true" title="Epi Hour (Beta)" height="300" description="Get familiar with new shows your friends are watching and be up-to-date!" author_email="myEpiGadget@gmail.com" thumbnail="http://tvepisodes.googlecode.com/svn/trunk/client/beta/images/thumbnail.png" screenshot="http://tvepisodes.googlecode.com/svn/trunk/client/beta/images/screenshot.png">	
+  <ModulePrefs title="epihour">	
     <Require feature="tabs" />
     <Require feature="minimessage" />
     <Require feature="opensocial-0.8"/>
@@ -10,6 +10,7 @@
   <html>
 <head>
 
+    <link href="css/myEpisodesCss.css" rel="stylesheet" type="text/css" />	
 
     <script type="text/javascript" src="http://www.google.com/jsapi"></script>
     <script type="text/javascript" >
