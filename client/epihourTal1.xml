@@ -432,7 +432,15 @@
 						var airTime =  favoritesData.getValue(selection[i].row, 8);
 						var airDay =  favoritesData.getValue(selection[i].row, 9);
 						
-						document.getElementById('book' + i).href = "http://www.google.com/calendar/event?action=TEMPLATE&text=EPI%20HOUR%20-%20Lost&dates=20090224T073000Z/20090224T080000Z&details=HAVE%20FUN!&location=TV&trp=true&sprop=&sprop=name:epi%20hour%20gadget"
+						alert("name - " + name);
+						alert("date - " + date);
+						alert("seasonsNum - " + seasonsNum);
+						alert("classification - " + classification);
+						alert("status - " + status);
+						alert("airTime - " + airTime);
+						alert("airDay - " + airDay);
+						
+						document.getElementById('book' + i).href = "http://www.google.com/calendar/event?action=TEMPLATE&text=EPI%20HOUR%20-%20" + name + " season " + seasonsNum + "&dates=20090224T073000Z/20090224T080000Z&details=HAVE%20FUN!&location=TV&trp=true&sprop=&sprop=name:epi%20hour%20gadget"
 						
 						if (seasonsNum != 1){
 							if (status == 'Canceled/Ended')
