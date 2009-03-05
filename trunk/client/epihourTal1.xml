@@ -404,6 +404,10 @@
 			favoritesData.setValue(j , 12, '<img style="cursor:hand" id="delete'+j+'" src="' + currLink + 'images/delete.png" alt="Remove it!" onclick="UnTip(); remove_row('+favoritesData.getValue(j,0)+');" />');
 			//favoritesData.setValue(j , 12, '<input type="submit" align="center"  class="btn" value="[x]" id="delete'+j+'" onmouseover="this.className=\'btnhov\'" onmouseout="this.className=\'btn\'" onclick="UnTip(); remove_row('+favoritesData.getValue(j,0)+');" />');
 		}
+
+		
+		// ??? document.getElementById('book' + i).href = "http://www.google.com/calendar/event?action=TEMPLATE&text=EPI%20HOUR%20-%20" + name + " season " + seasonsNum + "&dates=20090224T073000Z/20090224T080000Z&details=HAVE%20FUN!&location=TV&trp=true&sprop=&sprop=name:epi%20hour%20gadget"		
+		
 		
 		var favoritesTable = new google.visualization.Table(document.getElementById('favorites'));
 		var view = new google.visualization.DataView(favoritesData);
@@ -417,30 +421,26 @@
 			document.getElementById('getting_fav').style.display = 'none' ;
 			document.getElementById('favorites').style.display = '';
 			favoritesTable.draw(view, {showRowNumber: true, allowHtml:true, page: 'enable', page:'enable', width: 210, pageSize: 5});
+			
+			//add to calendar
+			var selection = favoritesTable.getSelection();
+			alert(favoritesData.getValue(selection[i].row, 1));
+			
 			google.visualization.events.addListener(favoritesTable, 'select', selectFavHandler);
 			function selectFavHandler() {
 				var selection = favoritesTable.getSelection();
 				if (selection.length>0){
 					for (var i = 0; i < selection.length; i++) {
-						var name = favoritesData.getValue(selection[i].row, 1);
-						var date = favoritesData.getValue(selection[i].row, 2);
-						var seasonsNum = favoritesData.getValue(selection[i].row, 3);
-						var country = favoritesData.getValue(selection[i].row, 4);
+						var name = favoritesData.getValue(selection[i].row, 1); // epi name
+						var date = favoritesData.getValue(selection[i].row, 2); // epi year
+						var seasonsNum = favoritesData.getValue(selection[i].row, 3); // epi season
+						var country = favoritesData.getValue(selection[i].row, 4); 
 						var classification = favoritesData.getValue(selection[i].row, 5);
 						var status =  favoritesData.getValue(selection[i].row, 6);
 						var infoLink =  favoritesData.getValue(selection[i].row, 7);
-						var airTime =  favoritesData.getValue(selection[i].row, 8);
-						var airDay =  favoritesData.getValue(selection[i].row, 9);
-						
-						alert("name - " + name);
-						alert("date - " + date);
-						alert("seasonsNum - " + seasonsNum);
-						alert("classification - " + classification);
-						alert("status - " + status);
-						alert("airTime - " + airTime);
-						alert("airDay - " + airDay);
-						
-						document.getElementById('book' + i).href = "http://www.google.com/calendar/event?action=TEMPLATE&text=EPI%20HOUR%20-%20" + name + " season " + seasonsNum + "&dates=20090224T073000Z/20090224T080000Z&details=HAVE%20FUN!&location=TV&trp=true&sprop=&sprop=name:epi%20hour%20gadget"
+						var airTime =  favoritesData.getValue(selection[i].row, 8); // epi time
+						var airDay =  favoritesData.getValue(selection[i].row, 9); // epi day
+
 						
 						if (seasonsNum != 1){
 							if (status == 'Canceled/Ended')
