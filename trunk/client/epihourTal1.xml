@@ -424,7 +424,7 @@
 			
 			//add to calendar
 			var selection = favoritesTable.getSelection();
-			alert(favoritesData.getValue(selection[0].row, 1));
+			alert(selection.length);
 			
 			google.visualization.events.addListener(favoritesTable, 'select', selectFavHandler);
 			function selectFavHandler() {
