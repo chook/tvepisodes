@@ -12,4 +12,5 @@
 <path>D:\Utils\Programming\Google AppEngine\lib\django</path>
 <path>D:\Utils\Programming\Google AppEngine</path>
 </pydev_pathproperty>
+<pydev_property name="org.python.pydev.PYTHON_PROJECT_INTERPRETER">Default</pydev_property>
 </pydev_project>

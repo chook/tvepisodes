@@ -16,8 +16,8 @@ from datastore import *
 
 __author__ = "Chen Harel"
 
-TVRAGE_SEARCH_URL = "http://www.tvrage.com/feeds/full_search.php?show="
-TVRAGE_SHOWINFO_URL = "http://www.tvrage.com/feeds/showinfo.php?sid="
+TVRAGE_SEARCH_URL = "http://www.tvrage.com/feeds/full_search.php?private_feed=yes&show="
+TVRAGE_SHOWINFO_URL = "http://www.tvrage.com/feeds/showinfo.php?private_feed=yes&sid="
 
 # This function parses a URL and returns a minidom object
 def parse(url):  
