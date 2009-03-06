@@ -118,12 +118,12 @@
 		
 		checked_no = 0;
 		
-		friendsinf = document.getElementById('slider-converted-value');
-		genresinf = document.getElementById('slider-value');
+		friendsinf = document.getElementById('slider-converted-value').innerText;
+		genresinf = document.getElementById('slider-value').innerText;
 		
 		var url = 'http://epihourtesting2.appspot.com/recommend?user=' + userID + 
-				  '&friends=' + userFriendsID + '&showscount=36&friendsinf=' + friendsinf.innerText +
-				  '&genresinf=' + genresinf.innerText;
+				  '&friends=' + userFriendsID + '&showscount=36&friendsinf=' + friendsinf +
+				  '&genresinf=' + genresinf;
 		
 		query = new google.visualization.Query(url);
 
