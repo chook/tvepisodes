@@ -623,8 +623,9 @@
 		newDiv.id = "statistics";
 		document.getElementById('sts_div').appendChild(newDiv);
 		
-		var url = 'http://epihourtesting2.appspot.com/statistics?type='+type+'&limit='+limit;
-		//alert(url);
+		var url = 'http://epihourtesting2.appspot.com/statistics?type='+type+
+		'&limit='+limit+'&friends='+userFriendsID;
+		alert(url);
 		var query = new google.visualization.Query(url);
 		///alert("after query");
 		// Send the query with a callback function.
