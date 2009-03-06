@@ -75,7 +75,7 @@ def getXMLField(tag, subTagName):
 
 # This function builds a data table for the visualizations
 def build_table_for_search(showName):
-  url = 'http://www.tvrage.com/feeds/episode_list.php?sid=%s' % showName
+  url = 'http://www.tvrage.com/feeds/episode_list.php?private_feed=yes&sid=%s' % showName
   dom = parse(url)
   return dom
 
