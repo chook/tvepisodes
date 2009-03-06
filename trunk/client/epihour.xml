@@ -122,7 +122,7 @@
 		genresinf = document.getElementById('slider-value');
 		
 		var url = 'http://epihourtesting2.appspot.com/recommend?user=' + userID + 
-				  '&friends=' + userFriendsID + '&showscount=9&friendsinf=' + friendsinf.innerText +
+				  '&friends=' + userFriendsID + '&showscount=36&friendsinf=' + friendsinf.innerText +
 				  '&genresinf=' + genresinf.innerText;
 		
 		query = new google.visualization.Query(url);
