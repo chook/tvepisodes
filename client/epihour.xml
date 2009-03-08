@@ -520,7 +520,7 @@
 			alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
 			return;
 		}
-		alert(response.getDataTable());
+
 		favoritesData = response.getDataTable();
 		var today = new Date();
 		
