@@ -43,42 +43,38 @@
 	 
 	google.load("visualization", "1", {packages:["columnchart", "table" ,"barchart" , "piechart"]});	 
     function init() {
+		loadFriends();
+		getMostPopularShows();
+		getFavorites();	
 
-	loadFriends();
-	getMostPopularShows();
-	getFavorites();	
-
-	
         // Initialize tabs.
          var tabs = new _IG_Tabs(__MODULE_ID__ );
-        // When you use addDynamicTab, the tab's content is 
+        
+		// When you use addDynamicTab, the tab's content is 
         // dynamically generated through the callback function. 
-        tabs.addTab("News", "news_div",create_msg);
+        tabs.addTab("News", "news_div", create_msg);
         tabs.addTab("My Shows", "epsd_div", showFavorites);
         tabs.addTab("Add", "add_div");
         tabs.addTab("Statistics", "sts_div",showSts);
         
 	
-       }
+	}
        
-       function showFavorites()
-       {
+	function showFavorites() {
 		getFavorites();       	
-       		document.getElementById('favorites').style.display = '';
-       }
+		document.getElementById('favorites').style.display = '';
+	}
 	function showSts()	
 	{
 		document.getElementById('sts_div').style.display = '';
 	}
-	function loadFriends() {
-		
-			
+	function loadFriends() {	
 		var req = opensocial.newDataRequest();
 		req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), 'owner');
   
 		var ownerFriends = opensocial.newIdSpec({ "userId" : "OWNER", "groupId" : "FRIENDS" });
 		var opt_params = {};
-		//opt_params[opensocial.DataRequest.PeopleRequestFields.MAX] = 100;
+		
 		req.add(req.newFetchPeopleRequest(ownerFriends, opt_params), 'ownerFriends');
 
 		req.send(onLoadFriends);
@@ -93,16 +89,13 @@
 		create_msg();
 		alert("after create_msg");
 		ownerFriends.each(function(person) {
-		if (person.getId()) {
-			userFriendsID += person.getId() + ',' ;
+			if (person.getId()) {
+				userFriendsID += person.getId() + ',' ;
     		}	    		
-		  });
-		  if (userFriendsID.length > 0)
+		});
+		if (userFriendsID.length > 0)
 			userFriendsID = userFriendsID.substring(0,userFriendsID.length - 1);
-		  
-		  //alert('userFriendsID:' + userFriendsID);
 	}
-
 
 	function getRecommended()    {
 		document.getElementById('no_result_div').style.display='none';
@@ -119,7 +112,7 @@
 		
 		friendsinf = document.getElementById('slider-converted-value').innerHTML;
 		genresinf = document.getElementById('slider-value').innerHTML;
-		//alert(friendsinf + " @@ " + genresinf);
+
 		var url = 'http://epihourtesting2.appspot.com/recommend?user=' + userID + 
 				  '&friends=' + userFriendsID + '&showscount=36&friendsinf=' + friendsinf +
 				  '&genresinf=' + genresinf;
@@ -128,7 +121,6 @@
 
 		// Send the query with a callback function.
 		query.send(handleRecommendedQueryResponse);
-	
 	}
 
 	function handleRecommendedQueryResponse(response)	{
@@ -144,16 +136,13 @@
 		data.addColumn('string' , '');
 		for (var j=0; j<data.getNumberOfRows(); j++){						
 			data.setValue(j , 12, '<img style="cursor:hand" id="add'+j+'" src="' + currLink + 'images/add.png" alt="Add it!" onclick="UnTip(); add_show('+data.getValue(j,0)+',id);" />');					
-			//data.setValue(j , 12, '<input type="submit" align="center"  class="btn" value="Add" id="add'+j+'" onmouseover="this.className=\'btnhov\'" onmouseout="this.className=\'btn\'" onclick="add_show('+data.getValue(j,0)+')" />');					
-			
 		}
 		table = new google.visualization.Table(document.getElementById('recmnd_div'));
 		var view = new google.visualization.DataView(data);
 		view.hideColumns([0,2,3,4,5,6,7,8,9,10,11]); // show only the show name and the add buttons.
 		if (data.getNumberOfRows()<1){
 			alert('We could not find any show for you at the moment');
-		}
-		else{
+		} else {
 			table.draw(view, {showRowNumber: false, allowHtml:true, width: 210, page: 'enable', pageSize: 3});
 			google.visualization.events.addListener(table, 'select', selectHandler);
 			function selectHandler() {
@@ -183,8 +172,7 @@
 								Tip(recmnd + ' \"'+name+ '\" was first broadcasted on '+date+'. There is '+seasonsNum+' season for this show and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>' , STICKY, true, CLOSEBTN , true ,CENTERMOUSE, true , ABOVE , false , FADEIN, 500, FADEOUT, 500);
 						}
 					}
-				}
-				else {
+				} else {
 					UnTip();
 				}
 			}
@@ -199,8 +187,8 @@
 		document.getElementById('recmnd_txt').style.display = 'none';
 		document.getElementById('most_pop').style.display = '';		
 		document.getElementById('most_pop_txt').style.display = '';
-
     }
+	
 	function getMostPopularShows()    {
 		UnTip();
 
@@ -232,9 +220,7 @@
 		view.hideColumns([0,2,3,4,5,6,7,8,9,10]); // show only the show name and the add buttons.
 		if (data.getNumberOfRows()<1){
 			alert('there are no pop shows');
-
-		}
-		else{
+		} else {
 			table.draw(view, {showRowNumber: true, allowHtml:true, width: 210, page: 'enable', pageSize: 5});
 			google.visualization.events.addListener(table, 'select', selectHandler);
 			function selectHandler() {
@@ -263,15 +249,14 @@
 								Tip('\"'+name+ '\" was first broadcasted on '+date+'. There is '+seasonsNum+' season for this show and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>' , STICKY, true, CLOSEBTN , true ,CENTERMOUSE, true , ABOVE , false , FADEIN, 500, FADEOUT, 500);
 						}
 					}
-				}
-				else {
+				} else {
 					UnTip();
 				}
 			}
 		}
 	}
        
-    function search_episode()    {
+    function search_episode() {
 		UnTip();
 		document.getElementById('no_result_div').style.display='none';
 		document.getElementById('vis_results').style.display = 'none' ;
@@ -282,15 +267,14 @@
 		document.getElementById('searching...').style.display = '' ;
 		checked_no = 0;
 		var url = 'http://epihourtesting2.appspot.com/searchShow?name=' + document.getElementById('srch_txt').value.toLowerCase();
-		//alert(url);
+		
 		query = new google.visualization.Query(url);
-		///alert("after query");
+		
 		// Send the query with a callback function.
 		query.send(handleQueryResponse);
-		//alert("after sending");
+
 		document.getElementById('most_pop').style.display = 'none';
 		document.getElementById('searching...').style.display = '' ;
-		
 	}
   
 	function handleQueryResponse(response)	{
@@ -301,11 +285,9 @@
 		data = response.getDataTable();
 		data.addColumn('string' , '');
 		for (var j=0; j<data.getNumberOfRows(); j++){
-			data.setValue(j , 10, '<img style="cursor:hand" id="add'+j+'" src="' + currLink + 'images/add.png" alt="Add it!" onclick="UnTip(); add_show('+data.getValue(j,0)+',id)"\>');		
-			//data.setValue(j , 10, '<input type="submit" align="center"  class="btn" value="Add" id="add'+j+'" onmouseover="this.className=\'btnhov\'" onmouseout="this.className=\'btn\'" onclick="add_show('+data.getValue(j,0)+')" />');
+			data.setValue(j , 10, '<img style="cursor:hand" id="add'+j+'" src="' + currLink + 'images/add.png" alt="Add it!" onclick="UnTip(); add_show('+data.getValue(j,0)+',id)"\>');
 		}
 		
-
 		table = new google.visualization.Table(document.getElementById('vis_results'));
 		var view = new google.visualization.DataView(data);
 		view.hideColumns([0,2,3,4,5,6,7,8,9]); // show only the show name and the add buttons.
@@ -313,16 +295,15 @@
 			document.getElementById('vis_results').style.display='none';
 			document.getElementById('searching...').style.display = 'none' ;
 			document.getElementById('no_result_div').style.display='';
-		}
-		else{
+		} else {
 			document.getElementById('vis_results').style.display = '' ;
 			document.getElementById('searching...').style.display = 'none' ;
-			//document.getElementById('bottom_buttons').style.display = '';
+			
 			table.draw(view, {showRowNumber: true, allowHtml:true, width: 210, page: 'enable', pageSize: 5});
 			google.visualization.events.addListener(table, 'select', selectHandler);
 			function selectHandler() {
 				var selection = table.getSelection();
-				if (selection.length>0){
+				if (selection.length>0) {
 					for (var i = 0; i < selection.length; i++) {
 						var name = data.getValue(selection[i].row, 1);
 						var date = data.getValue(selection[i].row, 2);
@@ -338,51 +319,46 @@
 								Tip('\"'+name+ '\" was first broadcasted on '+date+'. There were '+seasonsNum+' seasons for this show (it was canceled/ended) and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>', STICKY, true, CLOSEBTN , true,CENTERMOUSE, true, ABOVE, false , FADEIN, 500, FADEOUT, 500);
 							else
 								Tip('\"'+name+ '\" was first broadcasted on '+date+'. There are '+seasonsNum+' seasons for this show and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>', STICKY, true, CLOSEBTN , true,CENTERMOUSE, true, ABOVE, false , FADEIN, 500, FADEOUT, 500);
-						}
-						else{
+						} else {
 							if ((status == 'Canceled/Ended') || (status == 'Pilot Rejected'))
 								Tip('\"'+name+ '\" was first broadcasted on '+date+'. There was only '+seasonsNum+' season for this show (it was canceled/ended) and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>' , STICKY, true, CLOSEBTN , true ,CENTERMOUSE, true , ABOVE , false , FADEIN, 500, FADEOUT, 500);
 							else
 								Tip('\"'+name+ '\" was first broadcasted on '+date+'. There is '+seasonsNum+' season for this show and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>' , STICKY, true, CLOSEBTN , true ,CENTERMOUSE, true , ABOVE , false , FADEIN, 500, FADEOUT, 500);
 						}
 					}
-				}
-				else {
+				} else {
 					UnTip();
 				}
 			}
 		}
 	}
 	
-    function reset_srch_text() 
-      {
+    function reset_srch_text() {
         if (document.getElementById('srch_txt').value == 'TV Show Name Here')
             document.getElementById('srch_txt').value = '';
-      }
-    function reset_srch() 
-      { 
-        checked_no=0;
+    }
+    function reset_srch() { 
+        checked_no = 0;
 		UnTip();
-        //document.getElementById('add_btn').disabled = true;
-        
+
         document.getElementById('srch_txt').value = 'TV Show Name Here';
         document.getElementById('most_pop').style.display = ''; 
         document.getElementById('most_pop_txt').style.display = '';
-	document.getElementById('vis_results').style.display = 'none'; 
-        document.getElementById('no_result_div').style.display = 'none' ;
-	document.getElementById('searching...').style.display = 'none' ;
-	document.getElementById('recmnd_div').style.display = 'none';	
-	document.getElementById('recmnd_txt').style.display = 'none';
-	data = null;
-	table = null;
-	query = null;
-	document.getElementById('main_div').removeChild(document.getElementById('vis_results'));
-	var newDiv = document.createElement("div");
-	newDiv.id = "vis_results";
-	document.getElementById('main_div').appendChild(newDiv);
+		document.getElementById('vis_results').style.display = 'none'; 
+		document.getElementById('no_result_div').style.display = 'none';
+		document.getElementById('searching...').style.display = 'none';
+		document.getElementById('recmnd_div').style.display = 'none';	
+		document.getElementById('recmnd_txt').style.display = 'none';
+		data = null;
+		table = null;
+		query = null;
+		document.getElementById('main_div').removeChild(document.getElementById('vis_results'));
+		var newDiv = document.createElement("div");
+		newDiv.id = "vis_results";
+		document.getElementById('main_div').appendChild(newDiv);
     }
 	  
-	function getFavorites()    {
+	function getFavorites() {
 		UnTip();
 		document.getElementById('epsd_div').removeChild(document.getElementById('favorites'));
 		var newDiv = document.createElement("div");
@@ -393,13 +369,12 @@
 		document.getElementById('favorites').style.display = 'none';
 		document.getElementById('getting_fav').style.display = '' ;
 		document.getElementById('no_fav').style.display = 'none' ;
-		//document.getElementById('bottom_buttons').style.display = 'none';
-		//alert(url);
+
 		var favoritesQuery = new google.visualization.Query(url);
-		//alert("after query");
+
 		// Send the query with a callback function.
 		favoritesQuery.send(handleFavoritesQueryResponse);
-		//alert("after sending");	
+	
 	}
 	function handleFavoritesQueryResponse(response)	{
 		if (response.isError()) {
@@ -408,7 +383,6 @@
 		}
 		favoritesData = response.getDataTable();
 		favoritesData.addColumn('string' , '');
-		
 		favoritesData.addColumn('string' , '');
 		
 		// 'book it!' buttons
@@ -419,7 +393,6 @@
 		// remove! buttons
 		for (var j=0; j<favoritesData.getNumberOfRows(); j++){			
 			favoritesData.setValue(j , 12, '<img style="cursor:hand" id="delete'+j+'" src="' + currLink + 'images/delete.png" alt="Remove it!" onclick="UnTip(); remove_row('+favoritesData.getValue(j,0)+');" />');
-			//favoritesData.setValue(j , 12, '<input type="submit" align="center"  class="btn" value="[x]" id="delete'+j+'" onmouseover="this.className=\'btnhov\'" onmouseout="this.className=\'btn\'" onclick="UnTip(); remove_row('+favoritesData.getValue(j,0)+');" />');
 		}
 		
 		var favoritesTable = new google.visualization.Table(document.getElementById('favorites'));
@@ -472,14 +445,12 @@
 	}
 
 	function addCallbackFunction(obj) {
-	 
 	};
 	
 	// add = 1, remove = 0,id_name = the field to change in the table
 	function makePOSTRequest(url, postdata,remove_or_add,id_name) {
 		var params = {};
-		
-		
+
 		//postdata = gadgets.io.encodeValues(postdata);		// already given in the encodedValue format
 		params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.POST;
 		params[gadgets.io.RequestParameters.POST_DATA]= postdata;
@@ -496,34 +467,17 @@
 		{
 			//wait before refresh favorites tab
 			window.setTimeout('getFavorites()', 500);			
-
 		}		
 	};
 	
     function add_show(showId,id_name) {
     		document.getElementById(id_name).src = "http://tvepisodes.googlecode.com/svn/trunk/client/adding.gif";
 		var url = "http://epihourtesting2.appspot.com/addFavorite";
+		
 		//creating the shows to add array
-		//var showsArray = new Array();
 		var body = "uid=" + encodeURIComponent(userID);
-		//var j = 0;
-		//alert('number of rows:'+data.getNumberOfRows());
-		/*for (var i=0; i<data.getNumberOfRows(); i++){ //IF PAGE:'ENABLE' WE NEED TO TO DO I<5!
-			//alert('checking row no.'+i);
-			if ((document.getElementById('add'+i).checked) == true){
-				//alert('true');
-				showsArray[j] = data.getValue( i , 0); //getting the showID
-				//alert('show no. '+j+':'+showsArray[j]+' was added to the array');
-				//var sid = 'sid'+j;
-				body += "&sid=" + encodeURIComponent(showsArray[j]);
-				//alert(body);
-				++j;
-			}
-		}*/
 		body += "&sid=" + encodeURIComponent(showId);
-		//body += "&search=" + encodeURIComponent(document.getElementById('srch_txt').value.toLowerCase());
-		//alert(body);
-		//alert("running makePOSTrequest");
+
 		makePOSTRequest(url, body,1,id_name);
     }
 	
@@ -534,27 +488,25 @@
 			var url = "http://epihourtesting2.appspot.com/removeFavorite";
 			var body = "uid=" + encodeURIComponent(userID);
 			body += "&sid=" + encodeURIComponent(showId);
-			//alert(body);
-			//alert("running makePOSTrequest");
+
 			makePOSTRequest(url, body,0,'aaa');			
 		}
     }
-    function create_msg(){
-		
-		
-		
+    function create_msg() {
+		alert("In create msg");
 		document.getElementById('news_div').removeChild(document.getElementById('news'));
 		var newDiv = document.createElement("div");
 		newDiv.id = "news";
 		document.getElementById('news_div').appendChild(newDiv);
+		//if (userID == "ndef")
+		//	alert("create msg user is ndef!");
 		
 		var url = 'http://epihourtesting2.appspot.com/getFavorites?uid='+ userID;
-		alert(url);
 		var favoritesQuery = new google.visualization.Query(url);
-		//alert("after query");
+		
 		// Send the query with a callback function.
 		favoritesQuery.send(createMessagesFromFav);
-		//alert("after sending");	
+	
 	}
 	function createMessagesFromFav(response)	{
 		var msg = new _IG_MiniMessage(__MODULE_ID__, _gel("news"));
