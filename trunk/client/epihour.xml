@@ -569,44 +569,31 @@
 			alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
 			return;
 		}
+		alert(response);
 		favoritesData = response.getDataTable();
-		//getFavorites();
 		var today = new Date();
-		//alert("today:"+today);
+		
 		var year = today.getFullYear();
-		//alert ("year:"+year);
 		var month = today.getMonth() + 1;
-		//alert("month:" +month);
 		var day = today.getDate();
-		//alert("day:"+day);
-		if (favoritesData != null){
-			for (var i=0; i < favoritesData.getNumberOfRows(); i++){
+		if (favoritesData != null) {
+			for (var i=0; i < favoritesData.getNumberOfRows(); i++) {
 				var nextAirDate = favoritesData.getValue(i,10);
 				var name = favoritesData.getValue(i,1);
 				var airDateArray = nextAirDate.split('-');
-				//alert(airDateArray[0]+' '+airDateArray[1]+' '+airDateArray[2]);
-				
+
 				var showDate = new Date();
 				showDate.setFullYear(airDateArray[0] , airDateArray[1] - 1 , airDateArray[2]);
-				//var showDate = new Date(nextAirDate);
-				//alert(showDate);
-				//alert(showDate-today);
-//				if (airDateArray[0] == year){
-//					if (airDateArray[1] == month){
-						var leftDays = Math.floor((showDate - today) / oneDay);
-						//alert("leftDays = " + leftDays);
-						//var leftDays = airDateArray[2] - day;
-						if (leftDays < 1) 
-							msg.createDismissibleMessage(tvImg2 + " \""+name + "\" is on today!", dismissed);
-						else{
-							if (leftDays < 2)
-								msg.createDismissibleMessage(tvImg3 + " \""+name + "\" is just a day away!", dismissed);
-							else
-								if (leftDays < 6)
-								msg.createDismissibleMessage(tvImg1 + " \""+name + "\" will be broadcast in "+ leftDays+" days!", dismissed);
-						}
-//					}
-//				}
+
+				var leftDays = Math.floor((showDate - today) / oneDay);
+				if (leftDays < 1) {
+					msg.createDismissibleMessage(tvImg2 + " \""+name + "\" is on today!", dismissed);
+				} else if (leftDays < 2) {
+						msg.createDismissibleMessage(tvImg3 + " \""+name + "\" is just a day away!", dismissed);
+				} else if (leftDays < 4) {
+						msg.createDismissibleMessage(tvImg1 + " \""+name + "\" will be broadcast in "+ leftDays+" days!", dismissed);
+				}
+				alert("Message created");
 			}		
 		} else { // No favorites data --> Move to Add tab
 			alert("No fav data");
