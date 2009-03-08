@@ -527,7 +527,9 @@
 		var year = today.getFullYear();
 		var month = today.getMonth() + 1;
 		var day = today.getDate();
+		alert("About to check favorites data");
 		if (favoritesData != null) {
+			alert(favoritesData.getNumberOfRows());
 			if (favoritesData.getNumberOfRows() <= 0) {
 				tabs.setSelectedTab(2);
 			} else {
