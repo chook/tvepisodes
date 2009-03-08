@@ -87,10 +87,11 @@
 	function onLoadFriends(data) {
 		var owner = data.get('owner').getData();
 		var ownerFriends = data.get('ownerFriends').getData();
-
+		alert("About to load friends");
 		userID = owner.getId();
+		alert("user id: " + userID);
 		create_msg();
-		
+		alert("after create_msg");
 		ownerFriends.each(function(person) {
 		if (person.getId()) {
 			userFriendsID += person.getId() + ',' ;
