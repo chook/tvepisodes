@@ -548,7 +548,7 @@
 		document.getElementById('news_div').appendChild(newDiv);
 		
 		var url = 'http://epihourtesting2.appspot.com/getFavorites?uid='+ userID;
-		
+		alert(url);
 		var favoritesQuery = new google.visualization.Query(url);
 		//alert("after query");
 		// Send the query with a callback function.
@@ -569,7 +569,7 @@
 			alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
 			return;
 		}
-		alert(response);
+		alert(response.getDataTable());
 		favoritesData = response.getDataTable();
 		var today = new Date();
 		
