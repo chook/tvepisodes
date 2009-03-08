@@ -593,7 +593,7 @@
 				} else if (leftDays < 4) {
 						msg.createDismissibleMessage(tvImg1 + " \""+name + "\" will be broadcast in "+ leftDays+" days!", dismissed);
 				}
-				alert("Message created");
+				alert("Message created, name: " + name + " date " + nextAirDate);
 			}		
 		} else { // No favorites data --> Move to Add tab
 			alert("No fav data");
