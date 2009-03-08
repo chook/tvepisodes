@@ -99,8 +99,6 @@
 		  if (userFriendsID.length > 0)
 			userFriendsID = userFriendsID.substring(0,userFriendsID.length - 1);
 		  
-		  
-		  
 		  //alert('userFriendsID:' + userFriendsID);
 	}
 
@@ -624,10 +622,10 @@
 		document.getElementById('sts_div').appendChild(newDiv);
 		
 		var url = 'http://epihourtesting2.appspot.com/statistics?type='+type+
-		'&limit='+limit+'&friends='+userFriendsID;
-		alert(url);
+				  '&limit='+limit+'&friends='+userFriendsID;
+
 		var query = new google.visualization.Query(url);
-		///alert("after query");
+
 		// Send the query with a callback function.
 		if(type == 'shows'){
 			query.send(handleShowsStatisticsResponse);
