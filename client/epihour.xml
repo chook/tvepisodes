@@ -608,6 +608,8 @@
 //					}
 //				}
 			}		
+		} else { // No favorites data --> Move to Add tab
+			alert("No fav data");
 		}		
     }
     // Used as callback function when message is dismissed.
