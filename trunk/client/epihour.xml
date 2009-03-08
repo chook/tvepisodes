@@ -27,29 +27,29 @@
 <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.7.0/build/slider/assets/skins/sam/slider.css" />
 
 
-    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-    <script type="text/javascript" >
-     //global variables
-	 var checked_no=0;
-	 var data = null;
-	 var table = null;
-	 var query = null;
-	 var favoritesData = null;
-	 var userID = 'ndef';
-	 var userFriendsID = '';
-	 var currLink = "http://tvepisodes.googlecode.com/svn/trunk/client/"
-	 var friendsinf = 40;
-	 var genresinf = 60;
-	 
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<script type="text/javascript" >
+	//global variables
+	var checked_no=0;
+	var data = null;
+	var table = null;
+	var query = null;
+	var favoritesData = null;
+	var userID = 'ndef';
+	var userFriendsID = '';
+	var currLink = "http://tvepisodes.googlecode.com/svn/trunk/client/"
+	var friendsinf = 40;
+	var genresinf = 60;
+	
+	// Tabs
+	var tabs = new _IG_Tabs(__MODULE_ID__ );
+        
 	google.load("visualization", "1", {packages:["columnchart", "table" ,"barchart" , "piechart"]});	 
     function init() {
 		loadFriends();
 		getMostPopularShows();
 		getFavorites();	
-
-        // Initialize tabs.
-         var tabs = new _IG_Tabs(__MODULE_ID__ );
-        
+		
 		// When you use addDynamicTab, the tab's content is 
         // dynamically generated through the callback function. 
         tabs.addTab("News", "news_div", create_msg);
