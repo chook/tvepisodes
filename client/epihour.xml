@@ -528,24 +528,28 @@
 		var month = today.getMonth() + 1;
 		var day = today.getDate();
 		if (favoritesData != null) {
-			for (var i=0; i < favoritesData.getNumberOfRows(); i++) {
-				var nextAirDate = favoritesData.getValue(i,10);
-				var name = favoritesData.getValue(i,1);
-				var airDateArray = nextAirDate.split('-');
+			if (favoritesData.getNumberOfRows() <= 0) {
+				tabs.setSelectedTab(2);
+			} else {
+				for (var i=0; i < favoritesData.getNumberOfRows(); i++) {
+					var nextAirDate = favoritesData.getValue(i,10);
+					var name = favoritesData.getValue(i,1);
+					var airDateArray = nextAirDate.split('-');
 
-				var showDate = new Date();
-				showDate.setFullYear(airDateArray[0] , airDateArray[1] - 1 , airDateArray[2]);
+					var showDate = new Date();
+					showDate.setFullYear(airDateArray[0] , airDateArray[1] - 1 , airDateArray[2]);
 
-				var leftDays = Math.floor((showDate - today) / oneDay);
-				if (leftDays < 1) {
-					msg.createDismissibleMessage(tvImg2 + " \""+name + "\" is on today!", dismissed);
-				} else if (leftDays < 2) {
-						msg.createDismissibleMessage(tvImg3 + " \""+name + "\" is just a day away!", dismissed);
-				} else if (leftDays < 4) {
-						msg.createDismissibleMessage(tvImg1 + " \""+name + "\" will be broadcast in "+ leftDays+" days!", dismissed);
-				}
-				alert("Message created, name: " + name + " date " + nextAirDate);
-			}		
+					var leftDays = Math.floor((showDate - today) / oneDay);
+					if (leftDays < 1) {
+						msg.createDismissibleMessage(tvImg2 + " \""+name + "\" is on today!", dismissed);
+					} else if (leftDays < 2) {
+							msg.createDismissibleMessage(tvImg3 + " \""+name + "\" is just a day away!", dismissed);
+					} else if (leftDays < 4) {
+							msg.createDismissibleMessage(tvImg1 + " \""+name + "\" will be broadcast in "+ leftDays+" days!", dismissed);
+					}
+					alert("Message created, name: " + name + " date " + nextAirDate);
+				}		
+			}
 		} else { // No favorites data --> Move to Add tab
 			alert("No fav data");
 		}		
