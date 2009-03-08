@@ -493,20 +493,18 @@
 		}
     }
     function create_msg() {
-		alert("In create msg");
-		document.getElementById('news_div').removeChild(document.getElementById('news'));
-		var newDiv = document.createElement("div");
-		newDiv.id = "news";
-		document.getElementById('news_div').appendChild(newDiv);
-		//if (userID == "ndef")
-		//	alert("create msg user is ndef!");
-		
-		var url = 'http://epihourtesting2.appspot.com/getFavorites?uid='+ userID;
-		var favoritesQuery = new google.visualization.Query(url);
-		
-		// Send the query with a callback function.
-		favoritesQuery.send(createMessagesFromFav);
-	
+		if (userID != "ndef") {
+			document.getElementById('news_div').removeChild(document.getElementById('news'));
+			var newDiv = document.createElement("div");
+			newDiv.id = "news";
+			document.getElementById('news_div').appendChild(newDiv);
+			
+			var url = 'http://epihourtesting2.appspot.com/getFavorites?uid='+ userID;
+			var favoritesQuery = new google.visualization.Query(url);
+			
+			// Send the query with a callback function.
+			favoritesQuery.send(createMessagesFromFav);
+		}
 	}
 	function createMessagesFromFav(response)	{
 		var msg = new _IG_MiniMessage(__MODULE_ID__, _gel("news"));
