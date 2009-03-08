@@ -57,8 +57,6 @@
         tabs.addTab("My Shows", "epsd_div", showFavorites);
         tabs.addTab("Add", "add_div");
         tabs.addTab("Statistics", "sts_div",showSts);
-        
-	
 	}
        
 	function showFavorites() {
@@ -87,7 +85,7 @@
 		
 		// Set the user Id
 		userID = owner.getId();
-		alert("user id is: " + userID);
+
 		create_msg();
 		ownerFriends.each(function(person) {
 			if (person.getId()) {
@@ -403,8 +401,7 @@
 		if (favoritesData.getNumberOfRows() < 1){
 			document.getElementById('getting_fav').style.display = 'none' ;
 			document.getElementById('no_fav').style.display = '' ;
-		}
-		else{
+		} else {
 			document.getElementById('getting_fav').style.display = 'none' ;
 			document.getElementById('favorites').style.display = '';
 			favoritesTable.draw(view, {showRowNumber: true, allowHtml:true, page: 'enable', page:'enable', width: 210, pageSize: 5});
@@ -423,7 +420,6 @@
 						var airTime =  favoritesData.getValue(selection[i].row, 8);
 						var airDay =  favoritesData.getValue(selection[i].row, 9);
 							
-						
 						if (seasonsNum != 1){
 							if (status == 'Canceled/Ended')
 								Tip('\"'+name+ '\" was first broadcasted on '+date+'. There were '+seasonsNum+' seasons for this show (it was canceled/ended) and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>', STICKY, true, CLOSEBTN , true,CENTERMOUSE, true, ABOVE, false , FADEIN, 500, FADEOUT, 500);
@@ -437,8 +433,7 @@
 								Tip('\"'+name+ '\" was first broadcasted on '+date+'. There is '+seasonsNum+' season for this show and it\'s original country is '+country+'. The show is air on '+airDay+' , '+airTime+ ' (USA time).<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>' , STICKY, true, CLOSEBTN , true ,CENTERMOUSE, true , ABOVE , false , FADEIN, 500, FADEOUT, 500);
 						}
 					}
-				}
-				else {
+				} else {
 					UnTip();
 				}
 			}
@@ -493,6 +488,7 @@
 			makePOSTRequest(url, body,0,'aaa');			
 		}
     }
+	
     function create_msg() {
 		if (userID != "ndef") {
 			document.getElementById('news_div').removeChild(document.getElementById('news'));
@@ -528,9 +524,8 @@
 		var year = today.getFullYear();
 		var month = today.getMonth() + 1;
 		var day = today.getDate();
-		alert("About to check favorites data");
+
 		if (favoritesData != null) {
-			alert(favoritesData.getNumberOfRows());
 			if (favoritesData.getNumberOfRows() <= 0) {
 				tabs.setSelectedTab(2);
 			} else {
@@ -550,12 +545,9 @@
 					} else if (leftDays < 4) {
 							msg.createDismissibleMessage(tvImg1 + " \""+name + "\" will be broadcast in "+ leftDays+" days!", dismissed);
 					}
-					alert("Message created, name: " + name + " date " + nextAirDate);
 				}		
 			}
-		} else { // No favorites data --> Move to Add tab
-			alert("No fav data");
-		}		
+		}	
     }
     // Used as callback function when message is dismissed.
     // If callback returns false, then cancel the dismissal.
@@ -813,7 +805,7 @@
             });
     });
 })();
-	</script>
+</script>
 </body>
 </html>
     ]]>
