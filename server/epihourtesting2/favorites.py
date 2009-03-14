@@ -1,6 +1,5 @@
 from google.appengine.ext import webapp
 from google.appengine.ext import db
-
 from django.utils import simplejson as json
 from datastore import *
 from shows import *
@@ -10,8 +9,7 @@ import logging
 __author__ = "Nadav Shamgar"
 
 class AddFavorite(webapp.RequestHandler):
-  
-# this function is invoked when a user sends a POST request
+    # this function is invoked when a user sends a POST request
     def post(self):
         
         self.response.headers['Content-Type'] = 'text/plain'
@@ -76,7 +74,12 @@ def getXMLField(tag, subTagName):
 # This function builds a data table for the visualizations
 def build_table_for_search(showName):
   url = 'http://www.tvrage.com/feeds/episode_list.php?private_feed=yes&sid=%s' % showName
-  dom = parse(url)
+  
+  try:
+      logging.debug('about to get: ' + url)
+      dom = parse(url)
+  except:
+      dom = None
   return dom
 
 def stringToDate(str):
@@ -86,6 +89,7 @@ def stringToDate(str):
         return None
         
 
+# This class handles the fetching of favorites
 class GetFavorites(webapp.RequestHandler):
   
     # This function is invoked when a user sends a get request
@@ -121,9 +125,7 @@ class GetFavorites(webapp.RequestHandler):
                     dNextDateInDB = stringToDate(favoriteShow.nextdate)
                 else :
                     dNextDateInDB = datetime.date(2500,1,1)
-                   # favoriteShow.nextdate = str(d)
-                   # favoriteShow.put()
-                
+
                 # If the next air date has passed (episode broadcasted)
                 foundNewDate = False
                 if dNextDateInDB < datetime.date.today():
@@ -196,57 +198,49 @@ class GetFavorites(webapp.RequestHandler):
                                                                          "nextdate"),
                                                           order_by=("nextdate","asc"),
                                                           req_id=reqId))
-def addFavorite(userid, showid):
-    
-        # making sure data was received properly
-        if not (userid == "" or showid == ""):
-    
-            # checking if the shows exists
+
+# This function links a user and a show
+# If the user / show doesn't exist, they are added to the datastore
+def addFavorite(userid, showid): 
+    # making sure data was received properly
+    if not (userid == "" or showid == ""):
+
+        # checking if the shows exists
+        query = Show.all()
+        query.filter("showid = ", int(showid))
+        show = query.get()
+        
+        if not show:
+            # if the show isn't in the DS,
+            addShow(showid)
+            
             query = Show.all()
             query.filter("showid = ", int(showid))
             show = query.get()
+            if show is None:
+                return
             
-            if show:
-                print "show exists<br>"
-            else:
-                print "show doesn't exist on DS, adding it to the DS<br>"
-                # if the show isn't in the DS,
-                addShow(showid)
-                
-                query = Show.all()
-                query.filter("showid = ", int(showid))
-                show = query.get()
-                if show is None:
-                    return
-                
-            # checking if the user exists
-            query = User.all()
-            query.filter("userid = ", userid)
-            user = query.get()
-            
-            if not user:
-                print "user doesn't exist, creating it<br>"
-                # adding the user to the DS
-                newRecord = User(userid = userid,
-                                 friends_influence = 40,
-                                 main_stats_influence = 10,
-                                 similar_profiles_influence = 50)
-                newRecord.put()
-                user = newRecord
-            else:
-                print "user exists<br>"
-            
-            if show.key() not in user.favorite_shows:
-                print "show isn't in user's favorites list, adding it<br>"
-                # adding the show as a favorite for this user
-                user.favorite_shows.append(show.key())
-                show.inc()
-                user.put()
-            else:
-                print "show is already in user's favorites list<br>"
-        else:
-            # No show name specified, return
-            print "get information missing (needs uid, sid)<br>"
+        # checking if the user exists
+        query = User.all()
+        query.filter("userid = ", userid)
+        user = query.get()
+        
+        if not user:
+            # adding the user to the DS
+            newRecord = User(userid = userid,
+                             friends_influence = 40,
+                             main_stats_influence = 10,
+                             similar_profiles_influence = 50)
+            newRecord.put()
+            user = newRecord
+        
+        if show.key() not in user.favorite_shows:
+            # adding the show as a favorite for this user
+            user.favorite_shows.append(show.key())
+            show.inc()
+            user.put()
+
+# This function disconnected the link between a user and a show
 def removeFavorite(userid, showid):
     # Remove from reference list
     # decrease counters
