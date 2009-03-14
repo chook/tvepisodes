@@ -23,25 +23,41 @@ TVRAGE_SHOWINFO_URL = "http://www.tvrage.com/feeds/showinfo.php?private_feed=yes
 def parse(url):  
   try:  
     result = urlfetch.fetch(url)
-  #result = result.encode("utf-8")
+
     if result.status_code == 200:
         return minidom.parseString(result.content)
   except:
       return None
-    #return
-
+    
 def build_table_for_search(showName):
   url = TVRAGE_SEARCH_URL + showName
-  
-  #my_utf8.decode("utf-8")
+
   try:
       url = url.replace(' ','%20')
       url = url.encode("utf-8")
   except:
       logging.debug('Can''t encode url to be utf-8 ot change space to %20')
-  dom = parse(url)
-  if dom is None:
-      return [{'showid' : '0', 'name':'Error in search'}]
+  
+  try:
+      logging.debug('about to get: ' + url)
+      dom = parse(url)
+  
+  # Handling parsing errors
+  except:
+      dom = None
+      
+  if dom is None :
+      return [{'showid'  : 0,
+               'name'    : 'Error In Search',
+               'started' : '',
+               'seasons' : 0,
+               'country' : '',
+               'classification' : '',
+               'status' : '',
+               'link'    : '',
+               'airtime' : '',
+               'airday' : ''}]
+  
   return [{'showid'  : int(getXMLField(node, 'showid')),
            'name'    : getXMLField(node, 'name'),
            'started' : getXMLField(node, 'started'),
@@ -53,21 +69,15 @@ def build_table_for_search(showName):
            'airtime' : getXMLField(node, 'airtime'),
            'airday' : getXMLField(node, 'airday')}
             for node in dom.getElementsByTagName('show')]
-  
-class MainPage(webapp.RequestHandler):
-  # This function is invoked when a user sends a get request
-  def get(self):
-    self.response.out.write("Invalid usage")
 
 class SearchShow(webapp.RequestHandler):
   # This function is invoked when a user sends a get request
   def get(self):
     # The content returned is a text/plain
-    self.response.headers['Content-Type'] = 'text/plain' #; charset=utf-8'
+    self.response.headers['Content-Type'] = 'text/plain'
 
     # The show name from the GET method (http://.../SearchShow?ShowName=<SHOW>)
     showName = self.request.get('name')
-    
     reqId = self.request.get('tqx')
     
     try :
@@ -81,13 +91,13 @@ class SearchShow(webapp.RequestHandler):
         showName = showName.lower()
         
         # Trying to get the data table from memcache
-        #dicShows = memcache.get(showName)
-        #if dicShows is None:
-        dicShows = build_table_for_search(showName)
+        dicShows = memcache.get(showName)
+        if dicShows is None:
+            dicShows = build_table_for_search(showName)
             
             # Add the dictionary to the memcache, log errors
-            #if not memcache.add(showName, dicShows, 7200):
-            #    logging.error("Memcache set failed.")
+            if not memcache.add(showName, dicShows, 7200):
+                logging.error("Memcache set failed.")
         
         # Decide on the data table description
         description = {"showid"         : ("number", "ID"),
@@ -142,12 +152,12 @@ class SearchShow(webapp.RequestHandler):
         # No show name specified, return the best shows
         self.response.out.write('Invalid')
 
+# Gets the top shows
 class TopShows(webapp.RequestHandler):
   def get(self):
     # The content returned is a text/plain
     self.response.headers['Content-Type'] = 'text/plain'
     FAVORITE_SHOWS_KEY = "favoriteshows"
-    # The show name from the GET method (http://.../SearchShow?ShowName=<SHOW>)
     reqId = self.request.get('tqx')
     
     try:
@@ -165,25 +175,24 @@ class TopShows(webapp.RequestHandler):
         reqId = 0
         
     # Trying to get the data table from memcache
-    #dicShows = memcache.get(FAVORITE_SHOWS_KEY)
-    #if dicShows is None:
-        
-    shows = db.GqlQuery('SELECT * FROM Show ORDER BY showcount DESC LIMIT %s' % limit)
-    dicShows = [{'showid' : s.showid,
-                 'name'   : s.name,
-                 'started': s.started_year,
-                 'seasons': s.seasons,
-                 'country': s.country,
-                 'classification' : s.classification,
-                 'status' : s.status,
-                 'link'   : s.link,
-                 'airtime': s.airtime,
-                 'airday' : s.airday,
-                 'count'  : s.showcount} for s in shows]
-               
+    dicShows = memcache.get(FAVORITE_SHOWS_KEY)
+    if dicShows is None:
+        shows = db.GqlQuery('SELECT * FROM Show ORDER BY showcount DESC LIMIT %s' % limit)
+        dicShows = [{'showid' : s.showid,
+                     'name'   : s.name,
+                     'started': s.started_year,
+                     'seasons': s.seasons,
+                     'country': s.country,
+                     'classification' : s.classification,
+                     'status' : s.status,
+                     'link'   : s.link,
+                     'airtime': s.airtime,
+                     'airday' : s.airday,
+                     'count'  : s.showcount} for s in shows]
+                   
         # Add the dictionary to the memcache, log errors
-        #if not memcache.add(FAVORITE_SHOWS_KEY, dicShows, 7200):
-        #    logging.error("Memcache set failed.")
+        if not memcache.add(FAVORITE_SHOWS_KEY, dicShows, 7200):
+            logging.error("Memcache set failed.")
     
     # Decide on the data table description
     description = {"showid"         : ("number", "ID"),
@@ -221,15 +230,14 @@ class TopShows(webapp.RequestHandler):
 def getXMLField(tag, subTagName):
     try:
         subTag = tag.getElementsByTagName(subTagName)[0].firstChild
-        #if '\u2013' in subTag:
-        #    subTag = subTag.replace('\u2013','-')
     except:
         subTag = None
     if subTag:
-        #if chr(150) in subTag.data:
-        #    return 'bad name'
         return subTag.data
+    else:
+        return None
 
+# This function retrieves information from TVRAGE and enters it to the DS
 def addShow(showid):
     #print "Entering information into the datastore<br>"
     # url = url.encode("utf-8")
@@ -304,15 +312,13 @@ def addShow(showid):
     
     dom.unlink();
     return
-      
+
+## TODO: Remove this functions
 def clearAllShows():
-    
     query = db.GqlQuery("SELECT * FROM Show")
     results = query.fetch(1000)
     db.delete(results)
-
 def clearAllGenres():
-    
     query = db.GqlQuery("SELECT * FROM Genre")
     results = query.fetch(1000)
     db.delete(results)
