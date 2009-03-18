@@ -375,6 +375,39 @@
 		favoritesQuery.send(handleFavoritesQueryResponse);
 	
 	}
+
+	//convert data time format to google calendar format
+	function getGoogleTimeFormat(iTime,iDate,iAddMinutes)
+	{
+		var myDate = new Date();
+		var oStr = "";
+
+		myDate.setHours(iTime.substr(0,2));
+		myDate.setMinutes(iTime.substr(3,2));
+
+		myDate.setDate(iDate.substr(8,2)); //set day
+		myDate.setMonth(iDate.substr(5,2));
+		myDate.setFullYear(iDate.substr(0,4));
+
+		// add minutes
+		myDate.setMinutes(myDate.getMinutes() + iAddMinutes);
+
+		oStr = myDate.getFullYear() +  fixTime(myDate.getMonth()) + fixTime(myDate.getDate()) + "T" + fixTime(myDate.getHours()) + fixTime(myDate.getMinutes()) + "00Z";
+
+		return oStr;
+
+	}
+
+	//add zero to time par
+	function fixTime(iPar)
+	{
+		if (iPar < 10)
+			return "0" + iPar;
+		else
+			return iPar;
+	}	
+
+
 	function handleFavoritesQueryResponse(response)	{
 		if (response.isError()) {
 			alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
@@ -385,10 +418,22 @@
 		favoritesData.addColumn('string' , '');
 		
 		// 'book it!' buttons
-		for (var j=0; j<favoritesData.getNumberOfRows(); j++){
-			favoritesData.setValue(j , 11, '<a id="book' + j +'" onclick="UnTip()" href="http://www.google.com/calendar/event?action=TEMPLATE&text=EPI%20HOUR%20-%20Lost&dates=20090224T073000Z/20090224T080000Z&details=HAVE%20FUN!&location=TV&trp=true&sprop=&sprop=name:epi%20hour%20gadget" target="_blank"><img id="book'+j+'" src="' + currLink + 'images/book.png" alt="Book it!" border="0" /></a>');						
+		var epiName;
+		var epiStartDate;
+		var epiEndDate;
+		for (var j=0; j<favoritesData.getNumberOfRows(); j++){			
+		{		
+			epiName = favoritesData.getValue(j,1);
+			epiStartDate = getGoogleTimeFormat(favoritesData.getValue(j,8),favoritesData.getValue(j,10),0);
+			epiEndDate = getGoogleTimeFormat(favoritesData.getValue(j,8),favoritesData.getValue(j,10),60);			
+			
+			if (favoritesData.getValue(j,10) == "Show Ended")
+				favoritesData.setValue(j , 11, '<img onclick="UnTip() id="book'+j+'" src="' + currLink + 'images/book_off.png" alt="Show Ended!" border="0" />');						
+			else
+				favoritesData.setValue(j , 11, '<a id="book' + j +'" onclick="UnTip()" href="http://www.google.com/calendar/event?action=TEMPLATE&text=EPI%20HOUR%20-%20' + epiName + '&dates=' + epiStartDate + '/' + epiEndDate + '&details=HAVE%20FUN!&location=TV&trp=true&sprop=&sprop=name:epi%20hour%20gadget" target="_blank"><img id="book'+j+'" src="' + currLink + 'images/book.png" alt="Book it!" border="0" /></a>');						
+
 		}
-		
+			
 		// remove! buttons
 		for (var j=0; j<favoritesData.getNumberOfRows(); j++){			
 			favoritesData.setValue(j , 12, '<img style="cursor:hand" id="delete'+j+'" src="' + currLink + 'images/delete.png" alt="Remove it!" onclick="UnTip(); remove_row('+favoritesData.getValue(j,0)+');" />');
