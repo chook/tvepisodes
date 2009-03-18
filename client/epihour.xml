@@ -588,11 +588,10 @@
 
 					var leftDays = Math.floor((showDate - today) / oneDay);
 					if (leftDays == 0) {
-						alert(leftDays);
 						msg.createStaticMessage(tvImg2 + " \""+name + "\" is on today!");
 					} else if (leftDays == 1) {
 							msg.createStaticMessage(tvImg3 + " \""+name + "\" is just a day away!");
-					} else if (leftDays < 3) {
+					} else if (leftDays == 2) {
 							msg.createStaticMessage(tvImg1 + " \""+name + "\" will be broadcast in "+ leftDays+" days!");
 					}
 				}		
