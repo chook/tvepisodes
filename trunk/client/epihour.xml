@@ -757,24 +757,25 @@
 
 			</table>
         </div>		
+		<font face="arial"> <b>+</b> Options </font>
 		<div id="recommendations_slider">
-		<table border="0" align="center">
-			<tr>
-			<td>F</td>
-			<td> </td>
-			<td>G</td>
-			</tr>
-			<tr>
-			<td width=30><p><span id="slider-converted-value">100</span></p></td>
-			<td>	            	
-			<div id="slider-bg" class="yui-h-slider" tabindex="-1" title="Slider">
-				<div id="slider-thumb" class="yui-slider-thumb"><img src="http://yui.yahooapis.com/2.7.0/build/slider/assets/thumb-n.gif"></div>
-			</div>
-			</td>
-			<td width=30>
-			<p><span id="slider-value">0</span></p>
-			</td>
-			</tr>
+			<table border="0" align="center">
+				<tr>
+					<td>F</td>
+					<td> </td>
+					<td>G</td>
+				</tr>
+				<tr>
+					<td width=30><p><span id="slider-converted-value">100</span></p></td>
+					<td>	            	
+						<div id="slider-bg" class="yui-h-slider" tabindex="-1" title="Slider">
+						<div id="slider-thumb" class="yui-slider-thumb"><img src="http://yui.yahooapis.com/2.7.0/build/slider/assets/thumb-n.gif"></div>
+						</div>
+					</td>
+					<td width=30>
+						<p><span id="slider-value">0</span></p>
+					</td>
+				</tr>
 			</table>
 		</div>
 	</div>
