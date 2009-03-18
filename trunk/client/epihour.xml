@@ -375,6 +375,41 @@
 		favoritesQuery.send(handleFavoritesQueryResponse);
 	
 	}
+	
+	
+	//convert data time format to google calendar format
+	function getGoogleTimeFormat(iTime,iDate,iAddMinutes)
+	{
+		var myDate = new Date();
+		var oStr = "";
+
+		myDate.setHours(iTime.substr(0,2));
+		myDate.setMinutes(iTime.substr(3,2));
+
+		myDate.setDate(iDate.substr(8,2)); //set day
+		myDate.setMonth(iDate.substr(5,2));
+		myDate.setFullYear(iDate.substr(0,4));
+
+		// add minutes
+		myDate.setMinutes(myDate.getMinutes() + iAddMinutes);
+
+		oStr = myDate.getFullYear() +  fixTime(myDate.getMonth()) + fixTime(myDate.getDate()) + "T" + fixTime(myDate.getHours()) + fixTime(myDate.getMinutes()) + "00Z";
+
+		return oStr;
+
+	}
+
+	//add zero to time par
+	function fixTime(iPar)
+	{
+		if (iPar < 10)
+			return "0" + iPar;
+		else
+			return iPar;
+	}	
+	
+	
+	
 	function handleFavoritesQueryResponse(response)	{
 		if (response.isError()) {
 			alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
