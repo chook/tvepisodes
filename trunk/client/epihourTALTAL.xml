@@ -425,8 +425,8 @@
 		for (var j=0; j<favoritesData.getNumberOfRows(); j++){			
 		{	
 			epiName = favoritesData.getValue(j,1);
-			epiStartDate = getGoogleTimeFormat(favoritesData.getValue(j,8),favoritesData.getValue(j,10),0);
-			epiEndDate = getGoogleTimeFormat(favoritesData.getValue(j,8),favoritesData.getValue(j,10),60);
+			epiStartDate = getGoogleTimeFormat(favoritesData.getValue(j,8),favoritesData.getValue(j,2),0);
+			epiEndDate = getGoogleTimeFormat(favoritesData.getValue(j,8),favoritesData.getValue(j,2),60);
 			alert("http://www.google.com/calendar/event?action=TEMPLATE&text=EPI%20HOUR%20-%20" + epiName + "&dates=" + epiStartDate + "/" + epiEndDate + "&details=HAVE%20FUN!&location=TV&trp=true&sprop=&sprop=name:epi%20hour%20gadget");
 			
 			//if (favoritesData.getValue(j,10) == "Show Ended")
