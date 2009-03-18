@@ -657,11 +657,11 @@
 	function Options()	{
 	
 		if (document.getElementById('recommendations_sliderset').style.display == 'none') {
-			document.getElementById('optId').value = "<b>-</b> Options";
+			document.getElementById('optId').innerHTML  = "<b>-</b> Options";
 			document.getElementById('recommendations_sliderset').style.display == '';
 		}
 		else	{
-			document.getElementById('optId').value = "<b>+</b> Options";
+			document.getElementById('optId').innerHTML = "<b>+</b> Options";
 			document.getElementById('recommendations_sliderset').style.display == 'none';
 		}
 	}
@@ -781,7 +781,7 @@
 			<tr>
 				<td>
 				
-		<div id="recommendations_slider">
+		<div id="recommendations_slider" style="display:none">
 		<table border="0" align="center">
 			<tr>
 			<td>F</td>
