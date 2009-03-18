@@ -655,7 +655,8 @@
 	}
 	
 	function setOptions()	{
-	
+		alert(document.getElementById('recommendations_slider').style.display == 'none');
+		
 		if (document.getElementById('recommendations_slider').style.display == 'none') {
 			alert("on");
 			document.getElementById('optId').innerHTML  = "<b>-</b> Options";
