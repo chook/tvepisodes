@@ -657,12 +657,12 @@
 	function setOptions()	{
 	
 		if (document.getElementById('recommendations_sliderset').style.display == 'none') {
-			//document.getElementById('optId').innerHTML  = "<b>-</b> Options";
-			document.getElementById('recommendations_sliderset').style.display == '';
+			document.getElementById('optId').innerHTML  = "<b>-</b> Options";
+			document.getElementById('recommendations_slider').style.display == '';
 		}
 		else	{
-			//document.getElementById('optId').innerHTML = "<b>+</b> Options";
-			document.getElementById('recommendations_sliderset').style.display == 'none';
+			document.getElementById('optId').innerHTML = "<b>+</b> Options";
+			document.getElementById('recommendations_slider').style.display == 'none';
 		}
 	}
  
