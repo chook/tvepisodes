@@ -392,9 +392,6 @@
 		// add minutes
 		myDate.setMinutes(myDate.getMinutes() + iAddMinutes);
 
-		alert(iDate.substr(8,2));
-		alert(myDate.getDate());
-
 		oStr = myDate.getFullYear() +  fixTime(myDate.getMonth()) + fixTime(myDate.getDate()) + "T" + fixTime(myDate.getHours()) + fixTime(myDate.getMinutes()) + "00Z";
 
 		return oStr;
