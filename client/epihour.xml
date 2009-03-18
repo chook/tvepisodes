@@ -104,7 +104,8 @@
 		document.getElementById('most_pop_txt').style.display = 'none';	
 		document.getElementById('recmnd_txt').style.display = 'none';			
 		document.getElementById('recmnd_div').style.display = 'none';					
-		document.getElementById('searching...').style.display = '';	
+		document.getElementById('searching...').style.display = '';
+		document.getElementById('bottom_buttons').style.display = 'none';
 		
 		UnTip();
 		
@@ -128,7 +129,8 @@
 			alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
 			return;
 		}
-		document.getElementById('searching...').style.display = 'none';	
+		document.getElementById('searching...').style.display = 'none';
+		document.getElementById('bottom_buttons').style.display = '';
 		document.getElementById('recmnd_div').style.display = '';	
 		document.getElementById('recmnd_txt').style.display = '';
 		document.getElementById('bottom_buttons').style.display = '';
@@ -267,6 +269,7 @@
 		document.getElementById('recmnd_div').style.display = 'none';	
 		document.getElementById('recmnd_txt').style.display = 'none';
 		document.getElementById('searching...').style.display = '' ;
+		document.getElementById('bottom_buttons').style.display = 'none';
 		checked_no = 0;
 		var url = 'http://epihourtesting2.appspot.com/searchShow?name=' + document.getElementById('srch_txt').value.toLowerCase();
 		
@@ -277,6 +280,7 @@
 
 		document.getElementById('most_pop').style.display = 'none';
 		document.getElementById('searching...').style.display = '' ;
+		document.getElementById('bottom_buttons').style.display = 'none';
 	}
   
 	function handleQueryResponse(response)	{
@@ -296,15 +300,18 @@
 		if (data.getNumberOfRows()<1){
 			document.getElementById('vis_results').style.display='none';
 			document.getElementById('searching...').style.display = 'none' ;
+			document.getElementById('bottom_buttons').style.display = '';
 			document.getElementById('no_result_div').style.display='';
 		} else {
 			if ((data.getNumberOfRows() == 1) && (data.getValue(0,0) == 0)){
 				document.getElementById('vis_results').style.display='none';
 				document.getElementById('searching...').style.display = 'none' ;
+				document.getElementById('bottom_buttons').style.display = '';
 				document.getElementById('search_error_div').style.display='';
 			} else {
 				document.getElementById('vis_results').style.display = '' ;
 				document.getElementById('searching...').style.display = 'none' ;
+				document.getElementById('bottom_buttons').style.display = '';
 				
 				table.draw(view, {showRowNumber: true, allowHtml:true, width: 210, page: 'enable', pageSize: 5});
 				google.visualization.events.addListener(table, 'select', selectHandler);
@@ -356,6 +363,7 @@
 		document.getElementById('no_result_div').style.display = 'none';
 		document.getElementById('search_error_div').style.display = 'none';		
 		document.getElementById('searching...').style.display = 'none';
+		document.getElementById('bottom_buttons').style.display = '';
 		document.getElementById('recmnd_div').style.display = 'none';	
 		document.getElementById('recmnd_txt').style.display = 'none';
 		data = null;
