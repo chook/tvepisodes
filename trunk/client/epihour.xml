@@ -654,18 +654,16 @@
 		genresChart.draw(genresData, {legend:'label', width: 240, height: 230, is3D: true, title: 'Most Popular Genres', backgroundColor:'#FFFFFF',focusBorderColor:'#b4c3f6',legendBackgroundColor:'#b4c3f6'});
 	}
 	
-	function setOptions()	{
-		alert(document.getElementById('recommendations_slider').style.display == 'none');
-		
+	function setOptions()	{				
 		if (document.getElementById('recommendations_slider').style.display == 'none') {
 			alert("on");
 			document.getElementById('optId').innerHTML  = "<b>-</b> Options";
-			document.getElementById('recommendations_slider').style.display == '';
+			document.getElementById('recommendations_slider').style.display = '';
 		}
 		else	{
 			alert("off");
 			document.getElementById('optId').innerHTML = "<b>+</b> Options";
-			document.getElementById('recommendations_slider').style.display == 'none';
+			document.getElementById('recommendations_slider').style.display = 'none';
 		}
 	}
  
