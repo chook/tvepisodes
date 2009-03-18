@@ -404,7 +404,7 @@
 		} else {
 			document.getElementById('getting_fav').style.display = 'none' ;
 			document.getElementById('favorites').style.display = '';
-			favoritesTable.draw(view, {showRowNumber: true, allowHtml:true, page: 'enable', page:'enable', width: 210, pageSize: 5});
+			favoritesTable.draw(view, {showRowNumber: true, allowHtml:true, page: 'enable', page:'enable', width: 250, pageSize: 5});
 			google.visualization.events.addListener(favoritesTable, 'select', selectFavHandler);
 			function selectFavHandler() {
 				var selection = favoritesTable.getSelection();
