@@ -656,7 +656,7 @@
 	
 	function setOptions()	{
 	
-		if (document.getElementById('recommendations_sliderset').style.display == 'none') {
+		if (document.getElementById('recommendations_slider').style.display == 'none') {
 			document.getElementById('optId').innerHTML  = "<b>-</b> Options";
 			document.getElementById('recommendations_slider').style.display == '';
 		}
@@ -769,14 +769,14 @@
 
 			</table>
         </div>		
-		<table border="0">
+		<table border="1">
 			<tr>
-				<td align="left">
-					<font onclick="setOptions()">
+				<td align="left" onclick="setOptions()">
+					
 						<span id="optId">
 							<b>+</b> Options
 						</span>
-					</font>
+				
 				</td>
 			<tr>
 				<td>
