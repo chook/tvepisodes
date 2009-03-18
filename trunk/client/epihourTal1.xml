@@ -422,10 +422,6 @@
 			document.getElementById('favorites').style.display = '';
 			favoritesTable.draw(view, {showRowNumber: true, allowHtml:true, page: 'enable', page:'enable', width: 210, pageSize: 5});
 			
-			//add to calendar
-			var selection = favoritesTable.getSelection();
-			alert(selection.length);
-			
 			google.visualization.events.addListener(favoritesTable, 'select', selectFavHandler);
 			function selectFavHandler() {
 				var selection = favoritesTable.getSelection();

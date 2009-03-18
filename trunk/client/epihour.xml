@@ -756,47 +756,28 @@
 			  </tr>
 
 			</table>
-		</div>		
-		
-		<table border="0">
+        </div>		
+		<div id="recommendations_slider">
+		<table border="0" align="center">
 			<tr>
-				<td>
-					<span onclick="recommendations_slider.style.display=''" >
-						<font face="arial"> 
-							<b>+</b> Options
-						</font>
-					</span>
-				</td>
+			<td>F</td>
+			<td> </td>
+			<td>G</td>
 			</tr>
 			<tr>
-				<td>
-					<div id="recommendations_slider" style="display:none">
-						<table border="0" align="center">
-							<tr>
-								<td>F</td>
-								<td> </td>
-								<td>G</td>
-							</tr>
-							<tr>
-								<td width=30><p><span id="slider-converted-value">100</span></p></td>
-								<td>	            	
-									<div id="slider-bg" class="yui-h-slider" tabindex="-1" title="Slider">
-									<div id="slider-thumb" class="yui-slider-thumb"><img src="http://yui.yahooapis.com/2.7.0/build/slider/assets/thumb-n.gif"></div>
-									</div>
-								</td>
-								<td width=30>
-									<p><span id="slider-value">0</span></p>
-								</td>
-							</tr>
-						</table>
-					</div>				
-				
-				</td>
+			<td width=30><p><span id="slider-converted-value">100</span></p></td>
+			<td>	            	
+			<div id="slider-bg" class="yui-h-slider" tabindex="-1" title="Slider">
+				<div id="slider-thumb" class="yui-slider-thumb"><img src="http://yui.yahooapis.com/2.7.0/build/slider/assets/thumb-n.gif"></div>
+			</div>
+			</td>
+			<td width=30>
+			<p><span id="slider-value">0</span></p>
+			</td>
 			</tr>
-		<table>
-
+			</table>
+		</div>
 	</div>
-	
 	<div align="center" style="display:none" id="sts_div" class="background">
 	
 	<table border="0" align="center">
