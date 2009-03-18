@@ -98,6 +98,7 @@
 
 	function getRecommended()    {
 		document.getElementById('no_result_div').style.display='none';
+		document.getElementById('search_error_div').style.display='none';
 		document.getElementById('vis_results').style.display = 'none' 
 		document.getElementById('most_pop').style.display = 'none';		
 		document.getElementById('most_pop_txt').style.display = 'none';	
@@ -181,6 +182,7 @@
     function printMostPopularShows()
     {
 		document.getElementById('no_result_div').style.display='none';
+		document.getElementById('search_error_div').style.display='none';
 		document.getElementById('vis_results').style.display = 'none';
 		document.getElementById('recmnd_div').style.display = 'none';	
 		document.getElementById('recmnd_txt').style.display = 'none';
@@ -258,6 +260,7 @@
     function search_episode() {
 		UnTip();
 		document.getElementById('no_result_div').style.display='none';
+		document.getElementById('search_error_div').style.display='none';
 		document.getElementById('vis_results').style.display = 'none' ;
 		document.getElementById('most_pop').style.display = 'none';
 		document.getElementById('most_pop_txt').style.display = 'none';			
@@ -295,8 +298,10 @@
 			document.getElementById('searching...').style.display = 'none' ;
 			document.getElementById('no_result_div').style.display='';
 		} else {
-			if ((data.getNumberOfRows() == 1) && (data.getValue(0,1) == "Error in search")){
-				alert("Error in search, please try a different search");
+			if ((data.getNumberOfRows() == 1) && (data.getValue(0,0) == 0)){
+				document.getElementById('vis_results').style.display='none';
+				document.getElementById('searching...').style.display = 'none' ;
+				document.getElementById('search_error_div').style.display='';
 			} else {
 				document.getElementById('vis_results').style.display = '' ;
 				document.getElementById('searching...').style.display = 'none' ;
@@ -349,6 +354,7 @@
         document.getElementById('most_pop_txt').style.display = '';
 		document.getElementById('vis_results').style.display = 'none'; 
 		document.getElementById('no_result_div').style.display = 'none';
+		document.getElementById('search_error_div').style.display = 'none';		
 		document.getElementById('searching...').style.display = 'none';
 		document.getElementById('recmnd_div').style.display = 'none';	
 		document.getElementById('recmnd_txt').style.display = 'none';
@@ -520,7 +526,7 @@
 	};
 	
     function add_show(showId,id_name) {
-    		document.getElementById(id_name).src = "http://tvepisodes.googlecode.com/svn/trunk/client/adding.gif";
+    	document.getElementById(id_name).src = "http://tvepisodes.googlecode.com/svn/trunk/client/adding.gif";
 		var url = "http://epihourtesting2.appspot.com/addFavorite";
 		
 		//creating the shows to add array
@@ -706,6 +712,13 @@
 			<table id="search_result" class="sample" border="1">
 				<tr>
 					<th> No Results. try again! </th>
+				</tr>
+			</table>
+		</div>
+		<div style="display:none" id="search_error_div"> 
+			<table id="search_result" class="sample" border="1">
+				<tr>
+					<th> Error in search, please try a different search! </th>
 				</tr>
 			</table>
 		</div>
