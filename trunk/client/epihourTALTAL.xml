@@ -385,12 +385,10 @@
 		favoritesData.addColumn('string' , '');
 		
 		// 'book it!' buttons
-		for (var j=0; j<favoritesData.getNumberOfRows(); j++){
-			alert(favoritesData.getValue(j,8).substr(0,2) + favoritesData.getValue(j,8).substr(3,2));
+		for (var j=0; j<favoritesData.getNumberOfRows(); j++){			
+			alert(favoritesData.getValue(j,8)) + ' ------- ' + alert(favoritesData.getValue(j,10));
 			
-			//alert(favoritesData.getValue(j,10));
-			
-			//favoritesData.setValue(j , 11, '<a id="book' + j +'" onclick="UnTip()" href="http://www.google.com/calendar/event?action=TEMPLATE&text=EPI%20HOUR%20-%20" + favoritesData.getValue(j,1) + "&dates=20090224T" + favoritesData.getValue(j,8) + "073000Z/20090224T080000Z&details=HAVE%20FUN!&location=TV&trp=true&sprop=&sprop=name:epi%20hour%20gadget" target="_blank"><img id="book'+j+'" src="' + currLink + 'images/book.png" alt="Book it!" border="0" /></a>');						
+			//favoritesData.setValue(j , 11, '<a id="book' + j +'" onclick="UnTip()" href="http://www.google.com/calendar/event?action=TEMPLATE&text=EPI%20HOUR%20-%20" + favoritesData.getValue(j,1) + "&dates=20090224T" + bTime + "00Z/20090224T" + bTime + "00Z&details=HAVE%20FUN!&location=TV&trp=true&sprop=&sprop=name:epi%20hour%20gadget" target="_blank"><img id="book'+j+'" src="' + currLink + 'images/book.png" alt="Book it!" border="0" /></a>');						
 		}
 		
 		// remove! buttons
