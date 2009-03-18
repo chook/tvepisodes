@@ -386,7 +386,7 @@
 		
 		// 'book it!' buttons
 		for (var j=0; j<favoritesData.getNumberOfRows(); j++){
-			alert(favoritesData.getValue(j,8).substr(0,2) + favoritesData.getValue(j,8).substr(4,6));
+			alert(favoritesData.getValue(j,8).substr(0,2) + favoritesData.getValue(j,8).substr(3,2));
 			
 			//alert(favoritesData.getValue(j,10));
 			
