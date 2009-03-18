@@ -653,6 +653,18 @@
 		var genresChart = new google.visualization.PieChart(document.getElementById('statistics'));
 		genresChart.draw(genresData, {legend:'label', width: 240, height: 230, is3D: true, title: 'Most Popular Genres', backgroundColor:'#FFFFFF',focusBorderColor:'#b4c3f6',legendBackgroundColor:'#b4c3f6'});
 	}
+	
+	function Options()	{
+	
+		if (document.getElementById('recommendations_sliderset').style.display == 'none') {
+			document.getElementById('optId').value = "<b>-</b> Options";
+			document.getElementById('recommendations_sliderset').style.display == '';
+		}
+		else	{
+			document.getElementById('optId').value = "<b>+</b> Options";
+			document.getElementById('recommendations_sliderset').style.display == 'none';
+		}
+	}
  
       // Call init function to initialize and display tabs.
     _IG_RegisterOnloadHandler(init); 
@@ -759,8 +771,12 @@
         </div>		
 		<table border="0">
 			<tr>
-				<td align="right">
-					<b>+</b> Options
+				<td align="left">
+					<font onclick="setOptions()">
+						<span id="optId">
+							<b>+</b> Options
+						</span>
+					</font>
 				</td>
 			<tr>
 				<td>
