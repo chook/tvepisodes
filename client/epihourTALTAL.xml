@@ -424,24 +424,15 @@
 		var epiStartDate;
 		var epiEndDate;
 		for (var j=0; j<favoritesData.getNumberOfRows(); j++){			
-		{	
-			alert(favoritesData.getValue(j,10));
-			alert(getGoogleTimeFormat(favoritesData.getValue(j,8),favoritesData.getValue(j,10),0));
-			
+		{		
 			epiName = favoritesData.getValue(j,1);
 			epiStartDate = getGoogleTimeFormat(favoritesData.getValue(j,8),favoritesData.getValue(j,10),0);
-			epiEndDate = getGoogleTimeFormat(favoritesData.getValue(j,8),favoritesData.getValue(j,10),60);
-			alert("http://www.google.com/calendar/event?action=TEMPLATE&text=EPI%20HOUR%20-%20" + epiName + "&dates=" + epiStartDate + "/" + epiEndDate + "&details=HAVE%20FUN!&location=TV&trp=true&sprop=&sprop=name:epi%20hour%20gadget");
+			epiEndDate = getGoogleTimeFormat(favoritesData.getValue(j,8),favoritesData.getValue(j,10),60);			
 			
-			//if (favoritesData.getValue(j,10) == "Show Ended")
-			//	favoritesData.setValue(j , 11, '~');						
-			//else
+			if (favoritesData.getValue(j,10) == "Show Ended")
+				favoritesData.setValue(j , 11, '<img onclick="UnTip() id="book'+j+'" src="' + currLink + 'images/book_off.png" alt="Show Ended!" border="0" />');						
+			else
 				favoritesData.setValue(j , 11, '<a id="book' + j +'" onclick="UnTip()" href="http://www.google.com/calendar/event?action=TEMPLATE&text=EPI%20HOUR%20-%20' + epiName + '&dates=' + epiStartDate + '/' + epiEndDate + '&details=HAVE%20FUN!&location=TV&trp=true&sprop=&sprop=name:epi%20hour%20gadget" target="_blank"><img id="book'+j+'" src="' + currLink + 'images/book.png" alt="Book it!" border="0" /></a>');						
-			
-			
-			//alert(getGoogleTimeFormat(favoritesData.getValue(j,8),favoritesData.getValue(j,10),0));
-			//alert(getGoogleTimeFormat(favoritesData.getValue(j,8),favoritesData.getValue(j,10),60));
-			//favoritesData.setValue(j , 11, '<a id="book' + j +'" onclick="UnTip()" href="http://www.google.com/calendar/event?action=TEMPLATE&text=EPI%20HOUR%20-%20" + favoritesData.getValue(j,1) + "&dates=20090224T" + bTime + "00Z/20090224T" + bTime + "00Z&details=HAVE%20FUN!&location=TV&trp=true&sprop=&sprop=name:epi%20hour%20gadget" target="_blank"><img id="book'+j+'" src="' + currLink + 'images/book.png" alt="Book it!" border="0" /></a>');						
 
 		}
 			
