@@ -420,7 +420,8 @@
 		
 		// 'book it!' buttons
 		for (var j=0; j<favoritesData.getNumberOfRows(); j++){			
-		{
+		{	
+			alert(favoritesData.getValue(j,10));
 			alert(getGoogleTimeFormat(favoritesData.getValue(j,8),favoritesData.getValue(j,10),0));
 			alert(getGoogleTimeFormat(favoritesData.getValue(j,8),favoritesData.getValue(j,10),60));
 		}
