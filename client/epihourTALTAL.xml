@@ -375,6 +375,40 @@
 		favoritesQuery.send(handleFavoritesQueryResponse);
 	
 	}
+	
+	//convert data time format to google calendar format
+	function getGoogleTimeFormat(iTime,iDate,iAddMinutes)
+	{
+		var myDate = new Date();
+		var oStr = "";
+
+		myDate.setHours(iTime.substr(0,2));
+		myDate.setMinutes(iTime.substr(3,2));
+
+		myDate.setDate(iDate.substr(8,2)); //set day
+		myDate.setMonth(iDate.substr(5,2) - 1);
+		myDate.setYear(iDate.substr(0,4));
+
+		// add minutes
+		myDate.setMinutes(myDate.getMinutes() + iAddMinutes);
+
+
+
+		oStr = myDate.getYear() +  fixTime(myDate.getMonth()) + fixTime(myDate.getDay()) + "T" + fixTime(myDate.getHours()) + fixTime(myDate.getMinutes()) + "00Z";
+
+		return oStr;
+
+	}
+
+	//add zero to time par
+	function fixTime(iPar)
+	{
+		if (iPar < 10)
+			return "0" + iPar;
+		else
+			return iPar;
+	}	
+	
 	function handleFavoritesQueryResponse(response)	{
 		if (response.isError()) {
 			alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
@@ -386,8 +420,10 @@
 		
 		// 'book it!' buttons
 		for (var j=0; j<favoritesData.getNumberOfRows(); j++){			
-			alert(favoritesData.getValue(j,8) + ' ------- ' + favoritesData.getValue(j,10));
-			
+		{
+			alert(getGoogleTimeFormat(favoritesData.getValue(j,8),favoritesData.getValue(j,10),0));
+			alert(getGoogleTimeFormat(favoritesData.getValue(j,8),favoritesData.getValue(j,10),60));
+		}
 			//favoritesData.setValue(j , 11, '<a id="book' + j +'" onclick="UnTip()" href="http://www.google.com/calendar/event?action=TEMPLATE&text=EPI%20HOUR%20-%20" + favoritesData.getValue(j,1) + "&dates=20090224T" + bTime + "00Z/20090224T" + bTime + "00Z&details=HAVE%20FUN!&location=TV&trp=true&sprop=&sprop=name:epi%20hour%20gadget" target="_blank"><img id="book'+j+'" src="' + currLink + 'images/book.png" alt="Book it!" border="0" /></a>');						
 		}
 		
