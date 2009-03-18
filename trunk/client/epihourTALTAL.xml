@@ -386,15 +386,16 @@
 		myDate.setMinutes(iTime.substr(3,2));
 
 		myDate.setDate(iDate.substr(8,2)); //set day
-		myDate.setMonth(iDate.substr(5,2) - 1);
-		myDate.setYear(iDate.substr(0,4));
+		myDate.setMonth(iDate.substr(5,2));
+		myDate.setFullYear(iDate.substr(0,4));
 
 		// add minutes
 		myDate.setMinutes(myDate.getMinutes() + iAddMinutes);
 
+		alert(iDate.substr(8,2));
+		alert(myDate.getDate());
 
-
-		oStr = myDate.getYear() +  fixTime(myDate.getMonth()) + fixTime(myDate.getDay()) + "T" + fixTime(myDate.getHours()) + fixTime(myDate.getMinutes()) + "00Z";
+		oStr = myDate.getFullYear() +  fixTime(myDate.getMonth()) + fixTime(myDate.getDate()) + "T" + fixTime(myDate.getHours()) + fixTime(myDate.getMinutes()) + "00Z";
 
 		return oStr;
 
