@@ -657,10 +657,12 @@
 	function setOptions()	{
 	
 		if (document.getElementById('recommendations_slider').style.display == 'none') {
+			alert("on");
 			document.getElementById('optId').innerHTML  = "<b>-</b> Options";
 			document.getElementById('recommendations_slider').style.display == '';
 		}
 		else	{
+			alert("off");
 			document.getElementById('optId').innerHTML = "<b>+</b> Options";
 			document.getElementById('recommendations_slider').style.display == 'none';
 		}
@@ -769,7 +771,7 @@
 
 			</table>
         </div>		
-		<table border="1">
+		<table border="0">
 			<tr>
 				<td align="left" onclick="setOptions()">
 					
