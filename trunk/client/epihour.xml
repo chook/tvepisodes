@@ -587,22 +587,17 @@
 					showDate.setFullYear(airDateArray[0] , airDateArray[1] - 1 , airDateArray[2]);
 
 					var leftDays = Math.floor((showDate - today) / oneDay);
-					if (leftDays < 1) {
+					if (leftDays == 0) {
 						msg.createStaticMessage(tvImg2 + " \""+name + "\" is on today!");
-					} else if (leftDays < 2) {
+					} else if (leftDays == 1) {
 							msg.createStaticMessage(tvImg3 + " \""+name + "\" is just a day away!");
-					} else if (leftDays < 4) {
+					} else if (leftDays < 3) {
 							msg.createStaticMessage(tvImg1 + " \""+name + "\" will be broadcast in "+ leftDays+" days!");
 					}
 				}		
 			}
 		}	
     }
-    // Used as callback function when message is dismissed.
-    // If callback returns false, then cancel the dismissal.
-  //  function dismissed() {
-  //     return confirm("Are you sure you want to discard?");
-  //   }
 	function getStatistics(type , limit){
 		document.getElementById('sts_div').removeChild(document.getElementById('statistics'));
 		var newDiv = document.createElement("div");
