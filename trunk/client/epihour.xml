@@ -654,7 +654,7 @@
 		genresChart.draw(genresData, {legend:'label', width: 240, height: 230, is3D: true, title: 'Most Popular Genres', backgroundColor:'#FFFFFF',focusBorderColor:'#b4c3f6',legendBackgroundColor:'#b4c3f6'});
 	}
 	
-	function Options()	{
+	function setOptions()	{
 	
 		if (document.getElementById('recommendations_sliderset').style.display == 'none') {
 			document.getElementById('optId').innerHTML  = "<b>-</b> Options";
