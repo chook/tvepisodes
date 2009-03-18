@@ -453,7 +453,7 @@
 		} else {
 			document.getElementById('getting_fav').style.display = 'none' ;
 			document.getElementById('favorites').style.display = '';
-			favoritesTable.draw(view, {showRowNumber: true, allowHtml:true, page: 'enable', page:'enable', pageSize: 5});
+			favoritesTable.draw(view, {showRowNumber: true, allowHtml:true, page: 'enable', page:'enable', width: 300, pageSize: 5});
 			google.visualization.events.addListener(favoritesTable, 'select', selectFavHandler);
 			function selectFavHandler() {
 				var selection = favoritesTable.getSelection();
