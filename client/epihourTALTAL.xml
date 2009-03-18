@@ -426,7 +426,7 @@
 			//if (favoritesData.getValue(j,10) == "Show Ended")
 			//	favoritesData.setValue(j , 11, '~');						
 			//else
-			//	favoritesData.setValue(j , 11, '<a id="book' + j +'" onclick="UnTip()" href="http://www.google.com/calendar/event?action=TEMPLATE&text=EPI%20HOUR%20-%20" + favoritesData.getValue(j,1) + "&dates=" + getGoogleTimeFormat(favoritesData.getValue(j,8),favoritesData.getValue(j,10),0) + "/" + getGoogleTimeFormat(favoritesData.getValue(j,8),favoritesData.getValue(j,10),60) + "&details=HAVE%20FUN!&location=TV&trp=true&sprop=&sprop=name:epi%20hour%20gadget" target="_blank"><img id="book'+j+'" src="' + currLink + 'images/book.png" alt="Book it!" border="0" /></a>');						
+				favoritesData.setValue(j , 11, '<a id="book' + j +'" onclick="UnTip()" href="http://www.google.com/calendar/event?action=TEMPLATE&text=EPI%20HOUR%20-%20" + favoritesData.getValue(j,1) + "&dates=" + getGoogleTimeFormat(favoritesData.getValue(j,8),favoritesData.getValue(j,10),0) + "/" + getGoogleTimeFormat(favoritesData.getValue(j,8),favoritesData.getValue(j,10),60) + "&details=HAVE%20FUN!&location=TV&trp=true&sprop=&sprop=name:epi%20hour%20gadget" target="_blank"><img id="book'+j+'" src="' + currLink + 'images/book.png" alt="Book it!" border="0" /></a>');						
 			
 			
 			//alert(getGoogleTimeFormat(favoritesData.getValue(j,8),favoritesData.getValue(j,10),0));
