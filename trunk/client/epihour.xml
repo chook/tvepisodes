@@ -756,7 +756,7 @@
 			  </tr>
 
 			</table>
-        </div>		
+		</div>		
 		
 		<table border="0">
 			<tr>
@@ -796,6 +796,7 @@
 		<table>
 
 	</div>
+	
 	<div align="center" style="display:none" id="sts_div" class="background">
 	
 	<table border="0" align="center">
