@@ -757,6 +757,14 @@
 
 			</table>
         </div>		
+		<table border="0">
+			<tr>
+				<td align="right">
+					<b>+</b> Options
+				</td>
+			<tr>
+				<td>
+				
 		<div id="recommendations_slider">
 		<table border="0" align="center">
 			<tr>
@@ -777,6 +785,9 @@
 			</tr>
 			</table>
 		</div>
+				</td>
+			</tr>
+		</table>
 	</div>
 	<div align="center" style="display:none" id="sts_div" class="background">
 	
