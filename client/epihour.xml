@@ -128,7 +128,7 @@
 		data = response.getDataTable();
 		data.addColumn('string' , '');
 		for (var j=0; j<data.getNumberOfRows(); j++){						
-			data.setValue(j , 12, '<img style="cursor:hand" id="add'+j+'" src="' + currLink + 'images/add.png" alt="Add it!" onclick="UnTip(); add_show('+data.getValue(j,0)+',id);" />');					
+			data.setValue(j , 12, '<img style="cursor:hand" id="add'+data.getValue(j,0)+'" src="' + currLink + 'images/add.png" alt="Add it!" onclick="UnTip(); add_show('+data.getValue(j,0)+',id);" />');					
 		}
 		table = new google.visualization.Table(document.getElementById('recmnd_div'));
 		var view = new google.visualization.DataView(data);
@@ -206,11 +206,11 @@
 		for (var j=0; j<data.getNumberOfRows(); j++){
 			if (data.getValue(j,11) == '0')
 				//this show is not in the user's favorites shows
-				data.setValue(j , 12, '<img style="cursor:hand" id="add'+j+'" src="' + currLink + 'images/add.png" alt="Add it!" onclick="UnTip(); add_show('+data.getValue(j,0)+',id);"\>');
+				data.setValue(j , 12, '<img style="cursor:hand" id="add'+data.getValue(j,0)+'" src="' + currLink + 'images/add.png" alt="Add it!" onclick="UnTip(); add_show('+data.getValue(j,0)+',id);"\>');
 			//else
 				//this show is in the user's favorites shows
-				//data.setValue(j , 12, '<img style="cursor:hand" id="add'+j+'" src="' + currLink + 'images/add.png" alt="Add it!" onclick="UnTip(); add_show('+data.getValue(j,0)+',id);"\>');
-			//data.setValue(j , 11, '<input type="submit" align="center"  class="btn" value="Add" id="add'+j+'" onmouseover="this.className=\'btnhov\'" onmouseout="this.className=\'btn\'" onclick="add_show('+data.getValue(j,0)+')" />');			
+				//data.setValue(j , 12, '<img style="cursor:hand" id="add'+data.getValue(j,0)+'" src="' + currLink + 'images/add.png" alt="Add it!" onclick="UnTip(); add_show('+data.getValue(j,0)+',id);"\>');
+			//data.setValue(j , 12, '<input type="submit" align="center"  class="btn" value="Add" id="add'+data.getValue(j,0)+'" onmouseover="this.className=\'btnhov\'" onmouseout="this.className=\'btn\'" onclick="add_show('+data.getValue(j,0)+')" />');			
 			
 			
 		}
@@ -288,7 +288,7 @@
 		data.addColumn('string' , '');
 		for (var j=0; j<data.getNumberOfRows(); j++){
 			if (data.getValue(j,10) == '0')
-				data.setValue(j , 11, '<img style="cursor:hand" id="add'+j+'" src="' + currLink + 'images/add.png" alt="Add it!" onclick="UnTip(); add_show('+data.getValue(j,0)+',id)"\>');
+				data.setValue(j , 11, '<img style="cursor:hand" id="add'+data.getValue(j,0)+'" src="' + currLink + 'images/add.png" alt="Add it!" onclick="UnTip(); add_show('+data.getValue(j,0)+',id)"\>');
 		}
 		
 		table = new google.visualization.Table(document.getElementById('vis_results'));
@@ -508,9 +508,9 @@
 		var answer = obj.text.split(" ");
 		if (answer[0] == "Add"){
 			if (answer[1] != "0"){
-				document.getElementById(answer[1]).src = "http://tvepisodes.googlecode.com/svn/trunk/client/added.png";
-				document.getElementById(answer[1]).alt = "Added!";
-				document.getElementById(answer[1]).onclick = "";
+				document.getElementById('add'+answer[1]).src = "http://tvepisodes.googlecode.com/svn/trunk/client/added.png";
+				document.getElementById('add'+answer[1]).alt = "Added!";
+				document.getElementById('add'+answer[1]).onclick = "";
 			}
 		}
 		else{
