@@ -656,7 +656,7 @@
 	
 	function saveOptions()	{
 		document.getElementById('txtDone').style.display = '';
-		window.setTimeout('getFavorites()', 800);
+		window.setTimeout('hideDone()', 800);
 	}
 	
 	function hideDone()	{
@@ -831,7 +831,7 @@
 									</a>
 									
 									<span style="display:none" id="txtDone">
-										<font color="red">
+										<font size="1" color="red">
 											(done)
 										</font>
 									</span>
