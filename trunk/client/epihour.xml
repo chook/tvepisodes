@@ -767,6 +767,7 @@
 			<tr>			
 				<td>
 					<div id="recommendations_slider" style="display:none">
+						<hr />
 						<font size="1" color="blue">
 							Recommendations Ratio (My Friends vs My preferred Genres) :
 						</font>
@@ -790,7 +791,9 @@
 							</tr>
 							<tr  align="center">
 								<td>
+									<font size="1" color="blue">
 									F
+									</font>
 								</td>
 								<td>
 									<div class="carpe_slider_display_holder" >
@@ -806,7 +809,9 @@
 
 								</td>
 								<td>
+									<font size="1" color="blue">
 									G
+									</font>
 								</td>
 							</tr>
 
