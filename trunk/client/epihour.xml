@@ -35,7 +35,18 @@
         
 	google.load("visualization", "1", {packages:["columnchart", "table" ,"barchart" , "piechart"]});	 
     function init() {
-		loadFriends();
+		var req = opensocial.newDataRequest();
+		req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), 'owner');
+  
+		var ownerFriends = opensocial.newIdSpec({ "userId" : "OWNER", "groupId" : "FRIENDS" });
+		var opt_params = {};
+		
+		req.add(req.newFetchPeopleRequest(ownerFriends, opt_params), 'ownerFriends');
+
+		req.send(onLoadFriends);
+		
+	}
+	function loadAll(){
 		getMostPopularShows();
 		getFavorites();	
 		
@@ -56,17 +67,6 @@
 	{
 		document.getElementById('sts_div').style.display = '';
 	}
-	function loadFriends() {	
-		var req = opensocial.newDataRequest();
-		req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), 'owner');
-  
-		var ownerFriends = opensocial.newIdSpec({ "userId" : "OWNER", "groupId" : "FRIENDS" });
-		var opt_params = {};
-		
-		req.add(req.newFetchPeopleRequest(ownerFriends, opt_params), 'ownerFriends');
-
-		req.send(onLoadFriends);
-	}
 
 	function onLoadFriends(data) {
 		var owner = data.get('owner').getData();
@@ -83,6 +83,9 @@
 		});
 		if (userFriendsID.length > 0)
 			userFriendsID = userFriendsID.substring(0,userFriendsID.length - 1);
+		
+		//init all the other stuff
+		loadAll();
 	}
 
 	function getRecommended()    {
@@ -505,14 +508,14 @@
 	function addCallbackFunction(obj) {
 		var answer = obj.text.split(" ");
 		if (answer[0] == "Add"){
-			if (answer[1] == "True"){
-		//		document.getElementById(id_name).src = "http://tvepisodes.googlecode.com/svn/trunk/client/added.png";
-		//		document.getElementById(id_name).alt = "Added!";
-		//		document.getElementById(id_name).onclick = "";
+			if (answer[1] != "0"){
+				document.getElementById(answer[1]).src = "http://tvepisodes.googlecode.com/svn/trunk/client/added.png";
+				document.getElementById(answer[1]).alt = "Added!";
+				document.getElementById(answer[1]).onclick = "";
 			}
 		}
 		else{
-			if (answer[1] == "True"){
+			if (answer[1] != "0"){
 				getFavorites();
 			}
 		}
