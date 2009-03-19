@@ -819,7 +819,11 @@
 
 							<tr>
 								<td colspan="3" align="center">
-									<input type="button" value="Save" />
+									<a href="javascript:void(0);" onclick="this.blur();">
+										<font size="1">
+											Get Top!
+										</font>
+									</a>
 								</td>
 							</tr>
 						</table>				
