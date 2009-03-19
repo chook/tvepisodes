@@ -756,7 +756,7 @@
 			<tr align="left">
 				<td align="left" onclick="setOptions()" style="cursor:hand">
 					
-						<font size="2">
+						<font size="1">
 							<span id="optId">
 								<b>+</b> Recommendations Options:
 							</span>
