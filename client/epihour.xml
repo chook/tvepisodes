@@ -656,6 +656,11 @@
 	
 	function saveOptions()	{
 		document.getElementById('txtDone').style.display = '';
+		window.setTimeout('getFavorites()', 800);
+	}
+	
+	function hideDone()	{
+		document.getElementById('txtDone').style.display = 'none';
 	}
 	
  
@@ -821,9 +826,16 @@
 								<td colspan="3" align="center">
 									<a href="javascript:void(0);" onclick="this.blur(); saveOptions();">
 										<font size="1">
-											<b>Save</b> <span style="display:none" id="txtDone"><font color="red">(done)</font></span>
+											<b>Save</b> 
 										</font>
 									</a>
+									
+									<span style="display:none" id="txtDone">
+										<font color="red">
+											(done)
+										</font>
+									</span>
+									
 								</td>
 							</tr>
 						</table>				
