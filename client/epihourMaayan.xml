@@ -1,0 +1,882 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+  <ModulePrefs author="Chen Harel, Nadav Shamgar, Maayan Shani, Tal Moran" scrolling="true" title="Epi Hour" height="300" description="Get familiar with new shows your friends are watching and be up-to-date!" author_email="myEpiGadget@gmail.com" thumbnail="http://tvepisodes.googlecode.com/svn/trunk/client/images/thumbnail.png" screenshot="http://tvepisodes.googlecode.com/svn/trunk/client/images/screenshot.png">
+	<Require feature="dynamic-height" /> 
+    <Require feature="tabs" />
+    <Require feature="minimessage" />
+    <Require feature="opensocial-0.8"/>
+  </ModulePrefs>
+  <Content type="html" view="home,profile,canvas">
+    <![CDATA[
+  <html>
+<head>
+
+	<link href="css/myEpisodesCss.css" rel="stylesheet" type="text/css" />	
+	<script language="JavaScript" src="js/slider.js" ></script>
+	<link href="css/slider.css" rel="stylesheet" type="text/css" />
+
+
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<script type="text/javascript" >
+	//global variables
+	var checked_no=0;
+	var data = null;
+	var table = null;
+	var query = null;
+	var favoritesData = null;
+	var userID = 'ndef';
+	var userFriendsID = '';
+	var currLink = "http://tvepisodes.googlecode.com/svn/trunk/client/"
+	var friendsinf = 40;
+	var genresinf = 60;
+	
+	// Tabs
+	var tabs = null;
+        
+	google.load("visualization", "1", {packages:["columnchart", "table" ,"barchart" , "piechart"]});	 
+    function init() {
+		loadFriends();
+		getMostPopularShows();
+		getFavorites();	
+		
+		tabs = new _IG_Tabs(__MODULE_ID__ );
+		// When you use addDynamicTab, the tab's content is 
+        // dynamically generated through the callback function. 
+        tabs.addTab("News", "news_div", create_msg);
+        tabs.addTab("My Shows", "epsd_div", showFavorites);
+        tabs.addTab("Add", "add_div");
+        tabs.addTab("Statistics", "sts_div",showSts);
+	}
+       
+	function showFavorites() {
+		getFavorites();       	
+		document.getElementById('favorites').style.display = '';
+	}
+	function showSts()	
+	{
+		document.getElementById('sts_div').style.display = '';
+	}
+	function loadFriends() {	
+		var req = opensocial.newDataRequest();
+		req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), 'owner');
+  
+		var ownerFriends = opensocial.newIdSpec({ "userId" : "OWNER", "groupId" : "FRIENDS" });
+		var opt_params = {};
+		
+		req.add(req.newFetchPeopleRequest(ownerFriends, opt_params), 'ownerFriends');
+
+		req.send(onLoadFriends);
+	}
+
+	function onLoadFriends(data) {
+		var owner = data.get('owner').getData();
+		var ownerFriends = data.get('ownerFriends').getData();
+		
+		// Set the user Id
+		userID = owner.getId();
+
+		create_msg();
+		ownerFriends.each(function(person) {
+			if (person.getId()) {
+				userFriendsID += person.getId() + ',' ;
+    		}	    		
+		});
+		if (userFriendsID.length > 0)
+			userFriendsID = userFriendsID.substring(0,userFriendsID.length - 1);
+	}
+
+	function getRecommended()    {
+		document.getElementById('no_result_div').style.display='none';
+		document.getElementById('search_error_div').style.display='none';
+		document.getElementById('vis_results').style.display = 'none' 
+		document.getElementById('most_pop').style.display = 'none';		
+		document.getElementById('most_pop_txt').style.display = 'none';	
+		document.getElementById('recmnd_txt').style.display = 'none';			
+		document.getElementById('recmnd_div').style.display = 'none';					
+		document.getElementById('searching...').style.display = '';
+		document.getElementById('bottom_buttons').style.display = 'none';
+		
+		UnTip();
+		
+		checked_no = 0;
+		
+		friendsinf = document.getElementById('slider-converted-value').innerHTML;
+		genresinf = document.getElementById('slider-value').innerHTML;
+
+		var url = 'http://epihourtesting2.appspot.com/recommend?user=' + userID + 
+				  '&friends=' + userFriendsID + '&showscount=36&friendsinf=' + friendsinf +
+				  '&genresinf=' + genresinf;
+		
+		query = new google.visualization.Query(url);
+
+		// Send the query with a callback function.
+		query.send(handleRecommendedQueryResponse);
+	}
+
+	function handleRecommendedQueryResponse(response)	{
+		if (response.isError()) {
+			alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+			return;
+		}
+		document.getElementById('searching...').style.display = 'none';
+		document.getElementById('bottom_buttons').style.display = '';
+		document.getElementById('recmnd_div').style.display = '';	
+		document.getElementById('recmnd_txt').style.display = '';
+		document.getElementById('bottom_buttons').style.display = '';
+		data = response.getDataTable();
+		data.addColumn('string' , '');
+		for (var j=0; j<data.getNumberOfRows(); j++){						
+			data.setValue(j , 12, '<img style="cursor:hand" id="add'+j+'" src="' + currLink + 'images/add.png" alt="Add it!" onclick="UnTip(); add_show('+data.getValue(j,0)+',id);" />');					
+		}
+		table = new google.visualization.Table(document.getElementById('recmnd_div'));
+		var view = new google.visualization.DataView(data);
+		view.hideColumns([0,2,3,4,5,6,7,8,9,10,11]); // show only the show name and the add buttons.
+		if (data.getNumberOfRows()<1){
+			alert('We could not find any show for you at the moment');
+		} else {
+			table.draw(view, {showRowNumber: false, allowHtml:true, width: 210, page: 'enable', pageSize: 3});
+			google.visualization.events.addListener(table, 'select', selectHandler);
+			function selectHandler() {
+				var selection = table.getSelection();
+				if (selection.length>0){
+					for (var i = 0; i < selection.length; i++) {
+						var name = data.getValue(selection[i].row, 1);
+						var date = data.getValue(selection[i].row, 2);
+						var seasonsNum = data.getValue(selection[i].row, 3);
+						var country = data.getValue(selection[i].row, 4);
+						var classification = data.getValue(selection[i].row, 5);
+						var status =  data.getValue(selection[i].row, 6);
+						var infoLink =  data.getValue(selection[i].row, 7);
+						var airTime =  data.getValue(selection[i].row, 8);
+						var airDay =  data.getValue(selection[i].row, 9);
+						var recmnd =  data.getValue(selection[i].row, 10);
+						if (seasonsNum != 1){
+							if (status == 'Canceled/Ended')
+								Tip(recmnd + ' &quot;'+name+ '&quot; was first broadcasted on '+date+'. There were '+seasonsNum+' seasons for this show (it was canceled/ended) and it&quot;s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=&quot;_blank&quot;>'+infoLink+'</a>' , TITLE, '<div class=&quot;TitleCls&quot;>'+name+'</div>', STICKY, true, CLOSEBTN , true,CENTERMOUSE, true, ABOVE, false , FADEIN, 500, FADEOUT, 500);
+							else
+								Tip(recmnd + ' &quot;'+name+ '&quot; was first broadcasted on '+date+'. There are '+seasonsNum+' seasons for this show and it&quot;s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=&quot;_blank&quot;>'+infoLink+'</a>' , TITLE, '<div class=&quot;TitleCls&quot;>'+name+'</div>', STICKY, true, CLOSEBTN , true,CENTERMOUSE, true, ABOVE, false , FADEIN, 500, FADEOUT, 500);
+						}
+						else{
+							if ((status == 'Canceled/Ended') || (status == 'Pilot Rejected'))
+								Tip(recmnd + ' \"'+name+ '\" was first broadcasted on '+date+'. There was only '+seasonsNum+' season for this show (it was canceled/ended) and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>' , STICKY, true, CLOSEBTN , true ,CENTERMOUSE, true , ABOVE , false , FADEIN, 500, FADEOUT, 500);
+							else
+								Tip(recmnd + ' \"'+name+ '\" was first broadcasted on '+date+'. There is '+seasonsNum+' season for this show and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>' , STICKY, true, CLOSEBTN , true ,CENTERMOUSE, true , ABOVE , false , FADEIN, 500, FADEOUT, 500);
+						}
+					}
+				} else {
+					UnTip();
+				}
+			}
+		}
+	}
+
+    function printMostPopularShows()
+    {
+		document.getElementById('no_result_div').style.display='none';
+		document.getElementById('search_error_div').style.display='none';
+		document.getElementById('vis_results').style.display = 'none';
+		document.getElementById('recmnd_div').style.display = 'none';	
+		document.getElementById('recmnd_txt').style.display = 'none';
+		document.getElementById('most_pop').style.display = '';		
+		document.getElementById('most_pop_txt').style.display = '';
+    }
+	
+	function getMostPopularShows()    {
+		UnTip();
+
+		checked_no = 0;
+		var url = 'http://epihourtesting2.appspot.com/topShows?limit=5';
+
+		query = new google.visualization.Query(url);
+
+		// Send the query with a callback function.
+		query.send(handlePopularQueryResponse);
+	
+	}
+  
+	function handlePopularQueryResponse(response)	{
+		if (response.isError()) {
+			alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+			return;
+		}
+		data = response.getDataTable();
+		data.addColumn('string' , '');
+		for (var j=0; j<data.getNumberOfRows(); j++){			
+			data.setValue(j , 11, '<img style="cursor:hand" id="add'+j+'" src="' + currLink + 'images/add.png" alt="Add it!" onclick="UnTip(); add_show('+data.getValue(j,0)+',id);"\>');
+			//data.setValue(j , 11, '<input type="submit" align="center"  class="btn" value="Add" id="add'+j+'" onmouseover="this.className=\'btnhov\'" onmouseout="this.className=\'btn\'" onclick="add_show('+data.getValue(j,0)+')" />');			
+			
+			
+		}
+		table = new google.visualization.Table(document.getElementById('most_pop'));
+		var view = new google.visualization.DataView(data);
+		view.hideColumns([0,2,3,4,5,6,7,8,9,10]); // show only the show name and the add buttons.
+		if (data.getNumberOfRows()<1){
+			alert('there are no pop shows');
+		} else {
+			table.draw(view, {showRowNumber: true, allowHtml:true, width: 210, page: 'enable', pageSize: 5});
+			google.visualization.events.addListener(table, 'select', selectHandler);
+			function selectHandler() {
+				var selection = table.getSelection();
+				if (selection.length>0){
+					for (var i = 0; i < selection.length; i++) {
+						var name = data.getValue(selection[i].row, 1);
+						var date = data.getValue(selection[i].row, 2);
+						var seasonsNum = data.getValue(selection[i].row, 3);
+						var country = data.getValue(selection[i].row, 4);
+						var classification = data.getValue(selection[i].row, 5);
+						var status =  data.getValue(selection[i].row, 6);
+						var infoLink =  data.getValue(selection[i].row, 7);
+						var airTime =  data.getValue(selection[i].row, 8);
+						var airDay =  data.getValue(selection[i].row, 9);
+						if (seasonsNum != 1){
+							if (status == 'Canceled/Ended')
+								Tip('\"'+name+ '\" was first broadcasted on '+date+'. There were '+seasonsNum+' seasons for this show (it was canceled/ended) and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>', STICKY, true, CLOSEBTN , true,CENTERMOUSE, true, ABOVE, false , FADEIN, 500, FADEOUT, 500);
+							else
+								Tip('\"'+name+ '\" was first broadcasted on '+date+'. There are '+seasonsNum+' seasons for this show and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>', STICKY, true, CLOSEBTN , true,CENTERMOUSE, true, ABOVE, false , FADEIN, 500, FADEOUT, 500);
+						}
+						else{
+							if ((status == 'Canceled/Ended') || (status == 'Pilot Rejected'))
+								Tip('\"'+name+ '\" was first broadcasted on '+date+'. There was only '+seasonsNum+' season for this show (it was canceled/ended) and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>' , STICKY, true, CLOSEBTN , true ,CENTERMOUSE, true , ABOVE , false , FADEIN, 500, FADEOUT, 500);
+							else
+								Tip('\"'+name+ '\" was first broadcasted on '+date+'. There is '+seasonsNum+' season for this show and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>' , STICKY, true, CLOSEBTN , true ,CENTERMOUSE, true , ABOVE , false , FADEIN, 500, FADEOUT, 500);
+						}
+					}
+				} else {
+					UnTip();
+				}
+			}
+		}
+	}
+       
+    function search_episode() {
+		UnTip();
+		document.getElementById('no_result_div').style.display='none';
+		document.getElementById('search_error_div').style.display='none';
+		document.getElementById('vis_results').style.display = 'none' ;
+		document.getElementById('most_pop').style.display = 'none';
+		document.getElementById('most_pop_txt').style.display = 'none';			
+		document.getElementById('recmnd_div').style.display = 'none';	
+		document.getElementById('recmnd_txt').style.display = 'none';
+		document.getElementById('searching...').style.display = '' ;
+		document.getElementById('bottom_buttons').style.display = 'none';
+		checked_no = 0;
+		var url = 'http://epihourtesting2.appspot.com/searchShow?name=' + document.getElementById('srch_txt').value.toLowerCase();
+		
+		query = new google.visualization.Query(url);
+		
+		// Send the query with a callback function.
+		query.send(handleQueryResponse);
+
+		document.getElementById('most_pop').style.display = 'none';
+		document.getElementById('searching...').style.display = '' ;
+		document.getElementById('bottom_buttons').style.display = 'none';
+	}
+  
+	function handleQueryResponse(response)	{
+		if (response.isError()) {
+			alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+			return;
+		}
+		data = response.getDataTable();
+		data.addColumn('string' , '');
+		for (var j=0; j<data.getNumberOfRows(); j++){
+			data.setValue(j , 10, '<img style="cursor:hand" id="add'+j+'" src="' + currLink + 'images/add.png" alt="Add it!" onclick="UnTip(); add_show('+data.getValue(j,0)+',id)"\>');
+		}
+		
+		table = new google.visualization.Table(document.getElementById('vis_results'));
+		var view = new google.visualization.DataView(data);
+		view.hideColumns([0,2,3,4,5,6,7,8,9]); // show only the show name and the add buttons.
+		if (data.getNumberOfRows()<1){
+			document.getElementById('vis_results').style.display='none';
+			document.getElementById('searching...').style.display = 'none' ;
+			document.getElementById('bottom_buttons').style.display = '';
+			document.getElementById('no_result_div').style.display='';
+		} else {
+			if ((data.getNumberOfRows() == 1) && (data.getValue(0,0) == 0)){
+				document.getElementById('vis_results').style.display='none';
+				document.getElementById('searching...').style.display = 'none' ;
+				document.getElementById('bottom_buttons').style.display = '';
+				document.getElementById('search_error_div').style.display='';
+			} else {
+				document.getElementById('vis_results').style.display = '' ;
+				document.getElementById('searching...').style.display = 'none' ;
+				document.getElementById('bottom_buttons').style.display = '';
+				
+				table.draw(view, {showRowNumber: true, allowHtml:true, width: 210, page: 'enable', pageSize: 5});
+				google.visualization.events.addListener(table, 'select', selectHandler);
+				function selectHandler() {
+					var selection = table.getSelection();
+					if (selection.length>0) {
+						for (var i = 0; i < selection.length; i++) {
+							var name = data.getValue(selection[i].row, 1);
+							var date = data.getValue(selection[i].row, 2);
+							var seasonsNum = data.getValue(selection[i].row, 3);
+							var country = data.getValue(selection[i].row, 4);
+							var classification = data.getValue(selection[i].row, 5);
+							var status =  data.getValue(selection[i].row, 6);
+							var infoLink =  data.getValue(selection[i].row, 7);
+							var airTime =  data.getValue(selection[i].row, 8);
+							var airDay =  data.getValue(selection[i].row, 9);
+							if (seasonsNum != 1){
+								if (status == 'Canceled/Ended')
+									Tip('\"'+name+ '\" was first broadcasted on '+date+'. There were '+seasonsNum+' seasons for this show (it was canceled/ended) and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>', STICKY, true, CLOSEBTN , true,CENTERMOUSE, true, ABOVE, false , FADEIN, 500, FADEOUT, 500);
+								else
+									Tip('\"'+name+ '\" was first broadcasted on '+date+'. There are '+seasonsNum+' seasons for this show and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>', STICKY, true, CLOSEBTN , true,CENTERMOUSE, true, ABOVE, false , FADEIN, 500, FADEOUT, 500);
+							} else {
+								if ((status == 'Canceled/Ended') || (status == 'Pilot Rejected'))
+									Tip('\"'+name+ '\" was first broadcasted on '+date+'. There was only '+seasonsNum+' season for this show (it was canceled/ended) and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>' , STICKY, true, CLOSEBTN , true ,CENTERMOUSE, true , ABOVE , false , FADEIN, 500, FADEOUT, 500);
+								else
+									Tip('\"'+name+ '\" was first broadcasted on '+date+'. There is '+seasonsNum+' season for this show and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>' , STICKY, true, CLOSEBTN , true ,CENTERMOUSE, true , ABOVE , false , FADEIN, 500, FADEOUT, 500);
+							}
+						}
+					} else {
+						UnTip();
+					}
+				}
+			}
+		}
+	}
+	
+    function reset_srch_text() {
+        if (document.getElementById('srch_txt').value == 'TV Show Name Here')
+            document.getElementById('srch_txt').value = '';
+    }
+    function reset_srch() { 
+        checked_no = 0;
+		UnTip();
+
+        document.getElementById('srch_txt').value = 'TV Show Name Here';
+        document.getElementById('most_pop').style.display = ''; 
+        document.getElementById('most_pop_txt').style.display = '';
+		document.getElementById('vis_results').style.display = 'none'; 
+		document.getElementById('no_result_div').style.display = 'none';
+		document.getElementById('search_error_div').style.display = 'none';		
+		document.getElementById('searching...').style.display = 'none';
+		document.getElementById('bottom_buttons').style.display = '';
+		document.getElementById('recmnd_div').style.display = 'none';	
+		document.getElementById('recmnd_txt').style.display = 'none';
+		data = null;
+		table = null;
+		query = null;
+		document.getElementById('main_div').removeChild(document.getElementById('vis_results'));
+		var newDiv = document.createElement("div");
+		newDiv.id = "vis_results";
+		document.getElementById('main_div').appendChild(newDiv);
+    }
+	  
+	function getFavorites() {
+		UnTip();
+		document.getElementById('epsd_div').removeChild(document.getElementById('favorites'));
+		var newDiv = document.createElement("div");
+		newDiv.id = "favorites";
+		document.getElementById('epsd_div').appendChild(newDiv);
+		
+		var url = 'http://epihourtesting2.appspot.com/getFavorites?uid='+ userID;
+		document.getElementById('favorites').style.display = 'none';
+		document.getElementById('getting_fav').style.display = '' ;
+		document.getElementById('no_fav').style.display = 'none' ;
+
+		var favoritesQuery = new google.visualization.Query(url);
+
+		// Send the query with a callback function.
+		favoritesQuery.send(handleFavoritesQueryResponse);
+	
+	}
+	
+	
+	//convert data time format to google calendar format
+	function getGoogleTimeFormat(iTime,iDate,iAddMinutes)
+	{
+		var myDate = new Date();
+		var oStr = "";
+
+		myDate.setHours(iTime.substr(0,2));
+		myDate.setMinutes(iTime.substr(3,2));
+
+		myDate.setDate(iDate.substr(8,2)); //set day
+		myDate.setMonth(iDate.substr(5,2));
+		myDate.setFullYear(iDate.substr(0,4));
+
+		// add minutes
+		myDate.setMinutes(myDate.getMinutes() + iAddMinutes);
+
+		oStr = myDate.getFullYear() +  fixTime(myDate.getMonth()) + fixTime(myDate.getDate()) + "T" + fixTime(myDate.getHours()) + fixTime(myDate.getMinutes()) + "00Z";
+
+		return oStr;
+
+	}
+
+	//add zero to time par
+	function fixTime(iPar)
+	{
+		if (iPar < 10)
+			return "0" + iPar;
+		else
+			return iPar;
+	}	
+	
+	
+	
+	function handleFavoritesQueryResponse(response)	{
+		if (response.isError()) {
+			alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+			return;
+		}
+		favoritesData = response.getDataTable();
+		favoritesData.addColumn('string' , '');
+		favoritesData.addColumn('string' , '');
+		
+		// 'book it!' buttons
+		var epiName;
+		var epiStartDate;
+		var epiEndDate;
+		for (var j=0; j<favoritesData.getNumberOfRows(); j++){			
+				
+			epiName = favoritesData.getValue(j,1);
+			epiStartDate = getGoogleTimeFormat(favoritesData.getValue(j,8),favoritesData.getValue(j,10),0);
+			epiEndDate = getGoogleTimeFormat(favoritesData.getValue(j,8),favoritesData.getValue(j,10),60);			
+			
+			if (favoritesData.getValue(j,10) == "Show Ended")
+				favoritesData.setValue(j , 11, '<img onclick="UnTip();" id="book'+j+'" src="' + currLink + 'images/book_off.png" alt="Show Ended!" border="0" />');						
+			else
+				favoritesData.setValue(j , 11, '<a id="book' + j +'" onclick="UnTip()" href="http://www.google.com/calendar/event?action=TEMPLATE&text=EPI%20HOUR%20-%20' + epiName + '&dates=' + epiStartDate + '/' + epiEndDate + '&details=HAVE%20FUN!&location=TV&trp=true&sprop=&sprop=name:epi%20hour%20gadget" target="_blank"><img id="book'+j+'" src="' + currLink + 'images/book.png" alt="Book it!" border="0" /></a>');						
+
+		
+			
+		}
+		
+		// remove! buttons
+		for (var j=0; j<favoritesData.getNumberOfRows(); j++){			
+			favoritesData.setValue(j , 12, '<img style="cursor:hand" id="delete'+j+'" src="' + currLink + 'images/delete.png" alt="Remove it!" onclick="UnTip(); remove_row('+favoritesData.getValue(j,0)+');" />');
+		}
+		
+		var favoritesTable = new google.visualization.Table(document.getElementById('favorites'));
+		var view = new google.visualization.DataView(favoritesData);
+		view.hideColumns([0,2,3,4,5,6,7,8,9]); // show only name and next air date.
+		document.getElementById('getting_fav').style.display = 'none' ;
+		if (favoritesData.getNumberOfRows() < 1){
+			document.getElementById('getting_fav').style.display = 'none' ;
+			document.getElementById('no_fav').style.display = '' ;
+		} else {
+			document.getElementById('getting_fav').style.display = 'none' ;
+			document.getElementById('favorites').style.display = '';
+			favoritesTable.draw(view, {showRowNumber: true, allowHtml:true, page: 'enable', page:'enable', width: 300, pageSize: 5});
+			google.visualization.events.addListener(favoritesTable, 'select', selectFavHandler);
+			function selectFavHandler() {
+				var selection = favoritesTable.getSelection();
+				if (selection.length>0){
+					for (var i = 0; i < selection.length; i++) {
+						var name = favoritesData.getValue(selection[i].row, 1);
+						var date = favoritesData.getValue(selection[i].row, 2);
+						var seasonsNum = favoritesData.getValue(selection[i].row, 3);
+						var country = favoritesData.getValue(selection[i].row, 4);
+						var classification = favoritesData.getValue(selection[i].row, 5);
+						var status =  favoritesData.getValue(selection[i].row, 6);
+						var infoLink =  favoritesData.getValue(selection[i].row, 7);
+						var airTime =  favoritesData.getValue(selection[i].row, 8);
+						var airDay =  favoritesData.getValue(selection[i].row, 9);
+							
+						if (seasonsNum != 1){
+							if (status == 'Canceled/Ended')
+								Tip('\"'+name+ '\" was first broadcasted on '+date+'. There were '+seasonsNum+' seasons for this show (it was canceled/ended) and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>', STICKY, true, CLOSEBTN , true,CENTERMOUSE, true, ABOVE, false , FADEIN, 500, FADEOUT, 500);
+							else
+								Tip('\"'+name+ '\" was first broadcasted on '+date+'. There are '+seasonsNum+' seasons for this show and it\'s original country is '+country+'. The show is air on '+airDay+' , '+airTime+ ' (USA time).<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>', STICKY, true, CLOSEBTN , true,CENTERMOUSE, true, ABOVE, false , FADEIN, 500, FADEOUT, 500);
+						}
+						else{
+							if ((status == 'Canceled/Ended') || (status == 'Pilot Rejected'))
+								Tip('\"'+name+ '\" was first broadcasted on '+date+'. There was only '+seasonsNum+' season for this show (it was canceled/ended) and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>' , STICKY, true, CLOSEBTN , true ,CENTERMOUSE, true , ABOVE , false , FADEIN, 500, FADEOUT, 500);
+							else
+								Tip('\"'+name+ '\" was first broadcasted on '+date+'. There is '+seasonsNum+' season for this show and it\'s original country is '+country+'. The show is air on '+airDay+' , '+airTime+ ' (USA time).<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>' , STICKY, true, CLOSEBTN , true ,CENTERMOUSE, true , ABOVE , false , FADEIN, 500, FADEOUT, 500);
+						}
+					}
+				} else {
+					UnTip();
+				}
+			}
+		}
+	}
+
+	function addCallbackFunction(obj) {
+	};
+	
+	// add = 1, remove = 0,id_name = the field to change in the table
+	function makePOSTRequest(url, postdata,remove_or_add,id_name) {
+		var params = {};
+
+		//postdata = gadgets.io.encodeValues(postdata);		// already given in the encodedValue format
+		params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.POST;
+		params[gadgets.io.RequestParameters.POST_DATA]= postdata;
+		gadgets.io.makeRequest(url, addCallbackFunction, params); 
+		
+		//add show
+		if (remove_or_add == 1)
+		{
+			document.getElementById(id_name).src = "http://tvepisodes.googlecode.com/svn/trunk/client/added.png";
+			document.getElementById(id_name).alt = "Added!";
+			document.getElementById(id_name).onclick = "";
+		}
+		else //remove show
+		{
+			//wait before refresh favorites tab
+			window.setTimeout('getFavorites()', 500);			
+		}		
+	};
+	
+    function add_show(showId,id_name) {
+    	document.getElementById(id_name).src = "http://tvepisodes.googlecode.com/svn/trunk/client/adding.gif";
+		var url = "http://epihourtesting2.appspot.com/addFavorite";
+		
+		//creating the shows to add array
+		var body = "uid=" + encodeURIComponent(userID);
+		body += "&sid=" + encodeURIComponent(showId);
+
+		makePOSTRequest(url, body,1,id_name);
+    }
+	
+	// 'aaa' is default
+    function remove_row(showId){
+		var answer = confirm("Are you sure you want to delete this show?")
+		if (answer){      
+			var url = "http://epihourtesting2.appspot.com/removeFavorite";
+			var body = "uid=" + encodeURIComponent(userID);
+			body += "&sid=" + encodeURIComponent(showId);
+
+			makePOSTRequest(url, body,0,'aaa');			
+		}
+    }
+	
+    function create_msg() {
+		if (userID != "ndef") {
+			document.getElementById('news_div').removeChild(document.getElementById('news'));
+			var newDiv = document.createElement("div");
+			newDiv.id = "news";
+			document.getElementById('news_div').appendChild(newDiv);
+			
+			var url = 'http://epihourtesting2.appspot.com/getFavorites?uid='+ userID;
+			var favoritesQuery = new google.visualization.Query(url);
+			
+			// Send the query with a callback function.
+			favoritesQuery.send(createMessagesFromFav);
+		}
+	}
+	function createMessagesFromFav(response)	{
+		var msg = new _IG_MiniMessage(__MODULE_ID__, _gel("news"));
+		// date variables used for date arithmetic
+		var oneMinute = 60 * 1000  // milliseconds in a minute
+		var oneHour = oneMinute * 60
+		var oneDay = oneHour * 24
+		var oneWeek = oneDay * 7
+		var tvImg1 = '<img src="' + currLink + 'images/tv1.png" />';
+		var tvImg2 = '<img src="' + currLink + 'images/tv2.png" />';
+		var tvImg3 = '<img src="' + currLink + 'images/tv3.png" />';
+		if (response.isError()) {
+			alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+			return;
+		}
+
+		favoritesData = response.getDataTable();
+		var today = new Date();
+		
+		var year = today.getFullYear();
+		var month = today.getMonth() + 1;
+		var day = today.getDate();
+
+		if (favoritesData != null) {
+			if (favoritesData.getNumberOfRows() <= 0) {
+				tabs.setSelectedTab(2);
+			} else {
+				for (var i=0; i < favoritesData.getNumberOfRows(); i++) {
+					var nextAirDate = favoritesData.getValue(i,10);
+					var name = favoritesData.getValue(i,1);
+					var airDateArray = nextAirDate.split('-');
+
+					var showDate = new Date();
+					showDate.setFullYear(airDateArray[0] , airDateArray[1] - 1 , airDateArray[2]);
+
+					var leftDays = Math.floor((showDate - today) / oneDay);
+					if (leftDays == 0) {
+						msg.createStaticMessage(tvImg2 + " \""+name + "\" is on today!");
+					} else if (leftDays == 1) {
+							msg.createStaticMessage(tvImg3 + " \""+name + "\" is just a day away!");
+					} else if (leftDays == 2) {
+							msg.createStaticMessage(tvImg1 + " \""+name + "\" will be broadcast in "+ leftDays+" days!");
+					}
+				}		
+			}
+		}	
+    }
+	function getStatistics(type , limit){
+		document.getElementById('sts_div').removeChild(document.getElementById('statistics'));
+		var newDiv = document.createElement("div");
+		newDiv.id = "statistics";
+		document.getElementById('sts_div').appendChild(newDiv);
+		
+		var url = 'http://epihourtesting2.appspot.com/statistics?type='+type+
+				  '&limit='+limit+'&friends='+userFriendsID;
+
+		var query = new google.visualization.Query(url);
+
+		// Send the query with a callback function.
+		if(type == 'shows'){
+			query.send(handleShowsStatisticsResponse);
+		}
+		else{
+			query.send(handleGenresStatisticsResponse);			
+		}
+	}
+	function handleShowsStatisticsResponse(response)	{
+		if (response.isError()) {
+			alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+			return;
+		}
+		var showsData = response.getDataTable();
+		var showsChart = new google.visualization.BarChart(document.getElementById('statistics'));
+		showsChart.draw(showsData, {legend:'none', colors :['#007FFF','#333399'], width: 240, height: 230, is3D: false , title:'Most Popular Shows', backgroundColor:'#FFFFFF',focusBorderColor:'#b4c3f6' ,axisColor:'#b4c3f6',legendBackgroundColor:'#b4c3f6'});
+	}
+	function handleGenresStatisticsResponse(response)	{
+		if (response.isError()) {
+			alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+			return;
+		}
+		var genresData = response.getDataTable();
+		var genresChart = new google.visualization.PieChart(document.getElementById('statistics'));
+		genresChart.draw(genresData, {legend:'label', width: 240, height: 230, is3D: true, title: 'Most Popular Genres', backgroundColor:'#FFFFFF',focusBorderColor:'#b4c3f6',legendBackgroundColor:'#b4c3f6'});
+	}
+	
+	function setOptions()	{				
+		if (document.getElementById('recommendations_slider').style.display == 'none') {
+			document.getElementById('optId').innerHTML  = "<b>-</b> Recommendations Options:";
+			document.getElementById('recommendations_slider').style.display = '';
+		}
+		else	{
+			document.getElementById('optId').innerHTML = "<b>+</b> Recommendations Options:";
+			document.getElementById('recommendations_slider').style.display = 'none';
+		}
+	}
+	
+	function saveOptions()	{
+		document.getElementById('txtDone').style.display = '';
+		window.setTimeout('hideDone()', 800);
+	}
+	
+	function hideDone()	{
+		document.getElementById('txtDone').style.display = 'none';
+	}
+	
+ 
+      // Call init function to initialize and display tabs.
+    _IG_RegisterOnloadHandler(init); 
+	
+</script>
+
+
+<body bgcolor="#dbe3eb">
+<script type="text/javascript" src="js/wz_tooltip.js"></script>
+
+    <div id="news_div" class="background" align="center">
+		<div id="news"></div>
+	</div>
+	        
+    <div id="epsd_div" class="background" align="center" >
+		<div style="display:none" id="favorites"> </div>
+		<div style="display:none" id="getting_fav"> 
+			<br><br><br><br>
+			<img src="images/loading_animation.gif" />
+		</div>
+		<div style="display:none" id="no_fav"> 
+			<table id="search_result" class="sample" border="1">
+				<tr>
+					<th> You currently don't have favorites shows. Click "Add" tab to add shows.</th>
+				</tr>
+			</table>
+		</div>
+	</div>
+	
+    <div class="background" align="center" id="add_div" >        
+        <table border="0" align="center">
+          <tr>
+            <td> 
+            	<input type="text" class="txt" value="TV Show Name Here" id="srch_txt" onclick="reset_srch_text()"/> 
+            </td>                        
+            <td>
+            	<!-- input type="button" class="btn" value="Search" id="srch_btn" onmouseover="this.className='btnhov'" onmouseout="this.className='btn'" onclick="search_episode()" / --> 
+            	<a class="button" href="javascript:void(0);" onclick="this.blur(); search_episode();"><span>Search</span></a>
+            </td>
+          </tr>
+
+        </table>
+      
+		<div id="main_div">
+			<div id="vis_results"> </div>
+
+			<span  id="most_pop_txt">
+				<font size="2">Most Popular Shows:</font>
+			</span>				
+
+			<div id="most_pop"></div>
+			
+			<span style="display:none" id="recmnd_txt">
+				<font size="2">Recommendations:</font>
+			</span>			
+			<div style="display:none" id="recmnd_div"></div>			
+			
+		</div>
+		<div style="display:none" id="no_result_div"> 
+			<table id="search_result" class="sample" border="1">
+				<tr>
+					<th> No Results. try again! </th>
+				</tr>
+			</table>
+		</div>
+		<div style="display:none" id="search_error_div"> 
+			<table id="search_result" class="sample" border="1">
+				<tr>
+					<th> Error in search, please try a different search! </th>
+				</tr>
+			</table>
+		</div>
+		<div style="display:none" id="no_popular_div"> 
+			<table id="search_result" class="sample" border="1">
+				<tr>
+					<th> There are no popular shows! </th>
+				</tr>
+			</table>
+		</div>		
+		
+		<div style="display:none" id="searching..."> 
+				<br><br><br>
+				<img src="images/loading_animation.gif" />
+		</div>
+
+		<div id="bottom_buttons">
+			<table border="0" align="center">
+
+			  <tr>
+			    <td>	            	
+				<a href="javascript:void(0);" onclick="this.blur(); getRecommended();"><span><img src="images/recmnd.png" border="0" /><font size="1">Get Recommendations!</font></span></a>
+			    </td>
+			    <td>	            	
+				<a href="javascript:void(0);" onclick="this.blur(); printMostPopularShows();"><span><img src="images/top.png" border="0" /><font size="1">Get Top!</font></span></a>
+			    </td>
+			  </tr>
+
+			</table>
+        </div>		
+		<table border="0" width="100%">
+			<tr align="left">
+				<td align="left" onclick="setOptions()" style="cursor:hand">
+					
+						<font size="1">
+							<span id="optId">
+								<b>+</b> Recommendations Options:
+							</span>
+						</font>
+				
+				</td>
+			</tr>						
+			<tr>			
+				<td>
+					<div id="recommendations_slider" style="display:none">
+						<hr>
+						
+						<!-- slider -->			
+						<table align="center" border="0" width="120px">
+
+							<tr>
+								<td colspan="3">
+
+										<div class="carpe_horizontal_slider_track">
+											<div class="carpe_slider_slit">&nbsp;</div>
+											<div class="carpe_slider"
+												id="your_slider_id"
+												orientation="horizontal"
+												distance="100"
+												display="your_display_id"
+												style="left: 80px;">&nbsp;</div>
+										</div>
+								</td>
+							</tr>
+							<tr  align="center">
+								<td>
+									<font size="1">
+									<b>Freinds</b>
+									</font>
+								</td>
+								<td>
+									<div style="display:none" class="carpe_slider_display_holder" >
+										<input class="carpe_slider_display"
+											id="your_display_id"
+											name="your_var_name"
+											type="text"
+											from="-50"
+											to="50"
+											valuecount="101"
+											value="30"
+											typelock="off" /></div>
+
+								</td>
+								<td>
+									<font size="1">
+									<b>Genres</b>
+									</font>
+								</td>
+							</tr>
+
+							<tr>
+								<td colspan="3" align="center">
+									<a href="javascript:void(0);" onclick="this.blur(); saveOptions();">
+										<font size="1">
+											<b>Save</b> 
+										</font>
+									</a>
+									
+									<span style="display:none" id="txtDone">
+										<font size="1" color="red">
+											(done)
+										</font>
+									</span>
+									
+								</td>
+							</tr>
+						</table>				
+
+						<!-- slider -->
+					</div>
+				</td>
+			</tr>
+			
+		</table>
+	</div>
+	<div align="center" style="display:none" id="sts_div" class="background">
+	
+	<table border="0" align="center">
+		<tr>
+			<td>
+				<select align="center" id="type_selection">
+					<option value="genres">Genres</option>
+					<option value="shows" >Shows</option>
+				</select>
+			</td>
+			<td>
+				<select align="center" id="limit_selection">
+					<option value="5">5</option>
+					<option value="4">4</option>
+					<option value="3">3</option>
+					<option value="2">2</option>
+					<option value="1">1</option>
+				</select>
+			</td>
+			<td>
+				<a class="button" href="javascript:void(0);" onclick="this.blur(); getStatistics(document.getElementById('type_selection').value.toLowerCase(),document.getElementById('limit_selection').value.toLowerCase());"><span id="get_stat">See Statistics</span></a>
+				<!-- input type="button" class="btn" value="See Statistics" id="get_stat" onmouseover="this.className='btnhov'" onmouseout="this.className='btn'" onclick="getStatistics(document.getElementById('type_selection').value.toLowerCase(),document.getElementById('limit_selection').value.toLowerCase())" / -->
+			</td>
+		</tr>				
+	</table>
+		<div align="center" id="statistics"></div>
+	</div>
+
+</body>
+</html>
+    ]]>
+  </Content>
+</Module>
