@@ -767,7 +767,7 @@
 			<tr>			
 				<td>
 					<div id="recommendations_slider" style="display:none">
-						<hr />
+						<hr>
 						<font size="1" color="blue">
 							Recommendations Ratio (My Friends vs My preferred Genres) :
 						</font>
