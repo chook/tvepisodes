@@ -436,13 +436,13 @@
 		for (var j=0; j<favoritesData.getNumberOfRows(); j++){			
 				
 			epiName = favoritesData.getValue(j,1);
-			epiStartDate = getGoogleTimeFormat(favoritesData.getValue(j,8),favoritesData.getValue(j,10),0);
-			epiEndDate = getGoogleTimeFormat(favoritesData.getValue(j,8),favoritesData.getValue(j,10),60);			
+			epiStartDate = getGoogleTimeFormat(favoritesData.getValue(j,8),favoritesData.getValue(j,11),0);
+			epiEndDate = getGoogleTimeFormat(favoritesData.getValue(j,8),favoritesData.getValue(j,11),60);			
 			
-			if (favoritesData.getValue(j,10) == "Show Ended")
-				favoritesData.setValue(j , 11, '<img onclick="UnTip();" id="book'+j+'" src="' + currLink + 'images/book_off.png" alt="Show Ended!" border="0" />');						
+			if (favoritesData.getValue(j,11) == "Show Ended")
+				favoritesData.setValue(j , 12, '<img onclick="UnTip();" id="book'+j+'" src="' + currLink + 'images/book_off.png" alt="Show Ended!" border="0" />');						
 			else
-				favoritesData.setValue(j , 11, '<a id="book' + j +'" onclick="UnTip()" href="http://www.google.com/calendar/event?action=TEMPLATE&text=EPI%20HOUR%20-%20' + epiName + '&dates=' + epiStartDate + '/' + epiEndDate + '&details=HAVE%20FUN!&location=TV&trp=true&sprop=&sprop=name:epi%20hour%20gadget" target="_blank"><img id="book'+j+'" src="' + currLink + 'images/book.png" alt="Book it!" border="0" /></a>');						
+				favoritesData.setValue(j , 12, '<a id="book' + j +'" onclick="UnTip()" href="http://www.google.com/calendar/event?action=TEMPLATE&text=EPI%20HOUR%20-%20' + epiName + '&dates=' + epiStartDate + '/' + epiEndDate + '&details=HAVE%20FUN!&location=TV&trp=true&sprop=&sprop=name:epi%20hour%20gadget" target="_blank"><img id="book'+j+'" src="' + currLink + 'images/book.png" alt="Book it!" border="0" /></a>');						
 
 		
 			
@@ -450,7 +450,7 @@
 		
 		// remove! buttons
 		for (var j=0; j<favoritesData.getNumberOfRows(); j++){			
-			favoritesData.setValue(j , 12, '<img style="cursor:hand" id="delete'+j+'" src="' + currLink + 'images/delete.png" alt="Remove it!" onclick="UnTip(); remove_row('+favoritesData.getValue(j,0)+');" />');
+			favoritesData.setValue(j , 13, '<img style="cursor:hand" id="delete'+j+'" src="' + currLink + 'images/delete.png" alt="Remove it!" onclick="UnTip(); remove_row('+favoritesData.getValue(j,0)+');" />');
 		}
 		
 		var favoritesTable = new google.visualization.Table(document.getElementById('favorites'));
