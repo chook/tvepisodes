@@ -47,9 +47,6 @@
 		
 	}
 	function loadAll(){
-		getMostPopularShows();
-		//getFavorites();	
-		
 		tabs = new _IG_Tabs(__MODULE_ID__ );
 		// When you use addDynamicTab, the tab's content is 
         // dynamically generated through the callback function. 
@@ -57,6 +54,8 @@
         tabs.addTab("My Shows", "epsd_div", showFavorites);
         tabs.addTab("Add", "add_div");
         tabs.addTab("Statistics", "sts_div",showSts);
+		getMostPopularShows();
+		//getFavorites();	
 	}
        
 	function showFavorites() {
