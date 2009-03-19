@@ -103,7 +103,7 @@
 		friendsinf = document.getElementById('slider-converted-value').innerHTML;
 		genresinf = document.getElementById('slider-value').innerHTML;
 
-		var url = 'http://epihourtesting2.appspot.com/recommend?user=' + userID + 
+		var url = 'http://epihourtesting2.appspot.com/recommend?uid=' + userID + 
 				  '&friends=' + userFriendsID + '&showscount=36&friendsinf=' + friendsinf +
 				  '&genresinf=' + genresinf;
 		
@@ -185,7 +185,7 @@
 		UnTip();
 
 		checked_no = 0;
-		var url = 'http://epihourtesting2.appspot.com/topShows?limit=5' + '&user=' + userID;
+		var url = 'http://epihourtesting2.appspot.com/topShows?limit=5' + '&uid=' + userID;
 
 		query = new google.visualization.Query(url);
 
@@ -265,7 +265,7 @@
 		document.getElementById('searching...').style.display = '' ;
 		document.getElementById('bottom_buttons').style.display = 'none';
 		checked_no = 0;
-		var url = 'http://epihourtesting2.appspot.com/searchShow?name=' + document.getElementById('srch_txt').value.toLowerCase() + '&user='+userID;
+		var url = 'http://epihourtesting2.appspot.com/searchShow?name=' + document.getElementById('srch_txt').value.toLowerCase() + '&uid='+userID;
 		
 		query = new google.visualization.Query(url);
 		
