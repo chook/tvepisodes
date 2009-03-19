@@ -787,7 +787,7 @@
 												orientation="horizontal"
 												distance="100"
 												display="your_display_id"
-												style="left: 0px;">&nbsp;</div>
+												style="left: 80px;">&nbsp;</div>
 										</div>
 								</td>
 							</tr>
