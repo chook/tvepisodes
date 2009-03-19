@@ -54,7 +54,7 @@
         tabs.addTab("My Shows", "epsd_div", showFavorites);
         tabs.addTab("Add", "add_div");
         tabs.addTab("Statistics", "sts_div",showSts);
-		getMostPopularShows();
+		//getMostPopularShows();
 		//getFavorites();	
 	}
        
