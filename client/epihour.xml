@@ -201,15 +201,18 @@
 		}
 		data = response.getDataTable();
 		data.addColumn('string' , '');
-		for (var j=0; j<data.getNumberOfRows(); j++){			
-			data.setValue(j , 11, '<img style="cursor:hand" id="add'+j+'" src="' + currLink + 'images/add.png" alt="Add it!" onclick="UnTip(); add_show('+data.getValue(j,0)+',id);"\>');
+		for (var j=0; j<data.getNumberOfRows(); j++){
+			if (data.getValue(j , 11) == '0')
+				data.setValue(j , 12, '<img style="cursor:hand" id="add'+j+'" src="' + currLink + 'images/add.png" alt="Add it!" onclick="UnTip(); add_show('+data.getValue(j,0)+',id);"\>');
+			//else
+				//data.setValue(j , 12, '<img style="cursor:hand" id="add'+j+'" src="' + currLink + 'images/add.png" alt="Add it!" onclick="UnTip(); add_show('+data.getValue(j,0)+',id);"\>');
 			//data.setValue(j , 11, '<input type="submit" align="center"  class="btn" value="Add" id="add'+j+'" onmouseover="this.className=\'btnhov\'" onmouseout="this.className=\'btn\'" onclick="add_show('+data.getValue(j,0)+')" />');			
 			
 			
 		}
 		table = new google.visualization.Table(document.getElementById('most_pop'));
 		var view = new google.visualization.DataView(data);
-		view.hideColumns([0,2,3,4,5,6,7,8,9,10]); // show only the show name and the add buttons.
+		view.hideColumns([0,2,3,4,5,6,7,8,9,10,11]); // show only the show name and the add buttons.
 		if (data.getNumberOfRows()<1){
 			alert('there are no pop shows');
 		} else {
@@ -285,7 +288,7 @@
 		
 		table = new google.visualization.Table(document.getElementById('vis_results'));
 		var view = new google.visualization.DataView(data);
-		view.hideColumns([0,2,3,4,5,6,7,8,9]); // show only the show name and the add buttons.
+		view.hideColumns([0,2,3,4,5,6,7,8,9,10]); // show only the show name and the add buttons.
 		if (data.getNumberOfRows()<1){
 			document.getElementById('vis_results').style.display='none';
 			document.getElementById('searching...').style.display = 'none' ;
