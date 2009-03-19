@@ -821,7 +821,7 @@
 								<td colspan="3" align="center">
 									<a href="javascript:void(0);" onclick="this.blur();">
 										<font size="1">
-											Get Top!
+											<b>Save</b>
 										</font>
 									</a>
 								</td>
