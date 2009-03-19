@@ -772,9 +772,11 @@
 			<tr align="left">
 				<td align="left" onclick="setOptions()" style="cursor:hand">
 					
-						<span id="optId">
-							<b>+</b> Options
-						</span>
+						<font size="2">
+							<span id="optId">
+								<b>+</b> Options
+							</span>
+						</font>
 				
 				</td>
 			<tr>
@@ -784,7 +786,9 @@
 		<table border="0" align="center">
 			<tr>
 				<td colspan="3">
-					Choose your Genres\Freinds ratio:
+					<font size="1">
+						Choose your Genres\Freinds ratio:
+					</font>
 				</td>
 			</tr>
 			<tr>
@@ -799,9 +803,9 @@
 			</td>
 			</tr>
 			<tr>
-				<td>F</td>
+				<td><font size="1">F</font></td>
 				<td> </td>
-				<td>G</td>
+				<td><font size="1">G</font></td>
 			</tr>			
 			</table>
 		</div>
