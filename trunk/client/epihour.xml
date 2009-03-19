@@ -763,18 +763,22 @@
 						</font>
 				
 				</td>
+			</tr>
+			
+			<div id="recommendations_slider" style="display:none">
+			<tr>
+				<td colspan="3">
+					<font size="1">
+						Recommendations Ratio (My Friends vs My preferred Genres) :
+					</font>
+				</td>
+			</tr>			
 			<tr>
 				<td>
-					<div id="recommendations_slider" style="display:none">
+					
 						<!-- slider -->
 						<table border="0">
-							<tr>
-								<td colspan="3">
-									<font size="2">
-										Recommendations Ratio (My Friends vs My preferred Genres) :
-									</font>
-								</td>
-							</tr>
+
 							<tr>
 								<td colspan="3">
 
@@ -819,9 +823,10 @@
 						</table>				
 
 						<!-- slider -->
-					</div>
+					
 				</td>
 			</tr>
+			</div>
 		</table>
 	</div>
 	<div align="center" style="display:none" id="sts_div" class="background">
