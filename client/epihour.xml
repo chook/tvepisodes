@@ -48,7 +48,7 @@
 	}
 	function loadAll(){
 		getMostPopularShows();
-		getFavorites();	
+		//getFavorites();	
 		
 		tabs = new _IG_Tabs(__MODULE_ID__ );
 		// When you use addDynamicTab, the tab's content is 
