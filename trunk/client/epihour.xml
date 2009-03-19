@@ -768,8 +768,8 @@
 
 			</table>
         </div>		
-		<table border="0">
-			<tr>
+		<table border="0" width="100%">
+			<tr align="left">
 				<td align="left" onclick="setOptions()" style="hand:cursor">
 					
 						<span id="optId">
@@ -794,9 +794,9 @@
 			</td>
 			</tr>
 			<tr>
-				<td>F</td>
+				<td>Freinds</td>
 				<td> </td>
-				<td>G</td>
+				<td>Genres</td>
 			</tr>			
 			</table>
 		</div>
