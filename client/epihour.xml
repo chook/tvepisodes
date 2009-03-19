@@ -773,7 +773,7 @@
 						</font>
 						
 						<!-- slider -->			
-						<table border="0" width="150">
+						<table border="0" width="120">
 
 							<tr>
 								<td colspan="3">
@@ -791,8 +791,8 @@
 							</tr>
 							<tr  align="center">
 								<td>
-									<font size="1" color="blue">
-									F
+									<font size="1">
+									<b>F</b>
 									</font>
 								</td>
 								<td>
@@ -809,8 +809,8 @@
 
 								</td>
 								<td>
-									<font size="1" color="blue">
-									G
+									<font size="1">
+									<b>G</b>
 									</font>
 								</td>
 							</tr>
