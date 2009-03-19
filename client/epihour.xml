@@ -765,53 +765,54 @@
 				</td>
 			<tr>
 				<td>
-					<!-- slider -->
-					<table border="1">
-						<tr>
-							<td colspan="3">
+					<div id="recommendations_slider" style="display:none">
+						<!-- slider -->
+						<table border="1">
+							<tr>
+								<td colspan="3">
 
-									<div class="carpe_horizontal_slider_track">
-										<div class="carpe_slider_slit">&nbsp;</div>
-										<div class="carpe_slider"
-											id="your_slider_id"
-											orientation="horizontal"
-											distance="100"
-											display="your_display_id"
-											style="left: 0px;">&nbsp;</div>
-									</div>
-							</td>
-						</tr>
-						<tr  align="center">
-							<td>
-								F
-							</td>
-							<td>
-								<div class="carpe_slider_display_holder" >
-									<input class="carpe_slider_display"
-										id="your_display_id"
-										name="your_var_name"
-										type="text"
-										from="-50"
-										to="50"
-										valuecount="101"
-										value="-50"
-										typelock="off" /></div>
+										<div class="carpe_horizontal_slider_track">
+											<div class="carpe_slider_slit">&nbsp;</div>
+											<div class="carpe_slider"
+												id="your_slider_id"
+												orientation="horizontal"
+												distance="100"
+												display="your_display_id"
+												style="left: 0px;">&nbsp;</div>
+										</div>
+								</td>
+							</tr>
+							<tr  align="center">
+								<td>
+									F
+								</td>
+								<td>
+									<div class="carpe_slider_display_holder" >
+										<input class="carpe_slider_display"
+											id="your_display_id"
+											name="your_var_name"
+											type="text"
+											from="-50"
+											to="50"
+											valuecount="101"
+											value="-50"
+											typelock="off" /></div>
 
-							</td>
-							<td>
-								G
-							</td>
-						</tr>
+								</td>
+								<td>
+									G
+								</td>
+							</tr>
 
-						<tr>
-							<td colspan="3" align="center">
-								<input type="button" value="Save" />
-							</td>
-						</tr>
-					</table>				
-	
-					<!-- slider -->
-				
+							<tr>
+								<td colspan="3" align="center">
+									<input type="button" value="Save" />
+								</td>
+							</tr>
+						</table>				
+
+						<!-- slider -->
+					</div>
 				</td>
 			</tr>
 		</table>
