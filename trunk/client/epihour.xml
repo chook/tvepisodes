@@ -503,7 +503,7 @@
 	}
 
 	function addCallbackFunction(obj) {
-		alert(obj.getText);
+		alert(obj.text);
 	};
 	
 	// add = 1, remove = 0,id_name = the field to change in the table
