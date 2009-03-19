@@ -503,9 +503,19 @@
 	}
 
 	function addCallbackFunction(obj) {
-		var string = obj.text.split(" ");
-		
-		alert(string[0] + "," + string[1]);
+		var answer = obj.text.split(" ");
+		if (answer[0] == "Add"){
+			if (answer[1] == "True"){
+				document.getElementById(id_name).src = "http://tvepisodes.googlecode.com/svn/trunk/client/added.png";
+				document.getElementById(id_name).alt = "Added!";
+				document.getElementById(id_name).onclick = "";
+			}
+		}
+		else{
+			if (answer[1] == "True"){
+				getFavorites();
+			}
+		}
 	};
 	
 	// add = 1, remove = 0,id_name = the field to change in the table
@@ -515,20 +525,7 @@
 		//postdata = gadgets.io.encodeValues(postdata);		// already given in the encodedValue format
 		params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.POST;
 		params[gadgets.io.RequestParameters.POST_DATA]= postdata;
-		gadgets.io.makeRequest(url, addCallbackFunction, params); 
-		
-		//add show
-		if (remove_or_add == 1)
-		{
-			document.getElementById(id_name).src = "http://tvepisodes.googlecode.com/svn/trunk/client/added.png";
-			document.getElementById(id_name).alt = "Added!";
-			document.getElementById(id_name).onclick = "";
-		}
-		else //remove show
-		{
-			//wait before refresh favorites tab
-			window.setTimeout('getFavorites()', 500);			
-		}		
+		gadgets.io.makeRequest(url, addCallbackFunction, params); 		
 	};
 	
     function add_show(showId,id_name) {
