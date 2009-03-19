@@ -653,6 +653,11 @@
 			document.getElementById('recommendations_slider').style.display = 'none';
 		}
 	}
+	
+	function saveOptions()	{
+		document.getElementById('txtDone').style.display = '';
+	}
+	
  
       // Call init function to initialize and display tabs.
     _IG_RegisterOnloadHandler(init); 
@@ -814,9 +819,9 @@
 
 							<tr>
 								<td colspan="3" align="center">
-									<a href="javascript:void(0);" onclick="this.blur();">
+									<a href="javascript:void(0);" onclick="this.blur(); saveOptions();">
 										<font size="1">
-											<b>Save</b>
+											<b>Save</b> <span style="display:none" id="txtDone"><font color="red">(done)</font></span>
 										</font>
 									</a>
 								</td>
