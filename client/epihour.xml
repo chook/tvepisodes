@@ -770,7 +770,7 @@
         </div>		
 		<table border="0" width="100%">
 			<tr align="left">
-				<td align="left" onclick="setOptions()" style="hand:cursor">
+				<td align="left" onclick="setOptions()" style="cursor:hand">
 					
 						<span id="optId">
 							<b>+</b> Options
@@ -783,6 +783,11 @@
 		<div id="recommendations_slider" style="display:none">
 		<table border="0" align="center">
 			<tr>
+				<td colspan="3">
+					Choose your Genres\Freinds ratio:
+				</td>
+			</tr>
+			<tr>
 			<td width=30><p><span id="slider-converted-value">100</span></p></td>
 			<td>	            	
 			<div id="slider-bg" class="yui-h-slider" tabindex="-1" title="Slider">
@@ -794,9 +799,9 @@
 			</td>
 			</tr>
 			<tr>
-				<td>Freinds</td>
+				<td>F</td>
 				<td> </td>
-				<td>Genres</td>
+				<td>G</td>
 			</tr>			
 			</table>
 		</div>
