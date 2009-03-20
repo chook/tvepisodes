@@ -665,7 +665,7 @@
 		}
 	}
 	
-	
+	//merge	
 	function saveCallbackFunction(obj) {
 		document.getElementById('txtDone').style.display = '';
 		window.setTimeout('hideDone()', 800);
@@ -816,7 +816,7 @@
 
 							<tr>
 								<td colspan="3">
-
+																<!-- merge -->
 										<div class="carpe_horizontal_slider_track">
 											<div class="carpe_slider_slit">&nbsp;</div>
 											<div class="carpe_slider"
@@ -824,18 +824,19 @@
 												orientation="horizontal"
 												distance="100"
 												display="your_display_id"
-												style="left: 80px;">&nbsp;</div>
+												style="left: 50px;">&nbsp;</div>
 										</div>
 								</td>
 							</tr>
 							<tr  align="center">
 								<td>
 									<font size="1">
-									<b>Freinds</b>
+									<b>Friends</b> <!-- merge -->
 									</font>
 								</td>
 								<td>
 									<div style="display:none" class="carpe_slider_display_holder" >
+										<!-- merge -->
 										<input class="carpe_slider_display"
 											id="mySlider"
 											name="mySlider"
