@@ -252,6 +252,9 @@
 				}
 			}
 		}
+		
+		//get slider value
+		getOptions();
 	}
        
     function search_episode() {
@@ -687,6 +690,20 @@
 	}
 	
 	function getOptions()	{
+		var params = {};
+		var url = 'http://epihourtesting2.appspot.com/fetchUserPrefs';
+		params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.POST;
+		params[gadgets.io.RequestParameters.POST_DATA]= 'uid=' + encodeURIComponent(userID); ;
+		gadgets.io.makeRequest(url, getOptCallbackFunction, params); 		
+	
+	}
+	
+	//get friends-genres ratio value
+	function getOptCallbackFunction(obj)	{
+		var answer = obj.text.split(" ");
+
+		alert(answer[0]);
+			
 	
 	}
 	
