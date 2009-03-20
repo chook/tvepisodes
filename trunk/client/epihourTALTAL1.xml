@@ -666,6 +666,29 @@
 	}
 	
 	
+	function saveCallbackFunction(obj) {
+		document.getElementById('txtDone').style.display = '';
+		window.setTimeout('hideDone()', 800);
+	}
+	
+	
+	function postReqSaveOpt(url, postdata) {
+		var params = {};
+
+		//postdata = gadgets.io.encodeValues(postdata);		// already given in the encodedValue format
+		params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.POST;
+		params[gadgets.io.RequestParameters.POST_DATA]= postdata;
+		gadgets.io.makeRequest(url, saveCallbackFunction, params); 		
+	}
+	
+	function saveOptions()	{
+
+		var url = 'http://epihourtesting2.appspot.com/assignUserPrefs';
+		var body = 'user=' + encodeURIComponent(userID); 
+		body += '&inf=' + encodeURIComponent(document.getElementById('mySlider').value)';
+		postReqSaveOpt(url, body)
+		
+	}
 	
 	
 	function hideDone()	{
