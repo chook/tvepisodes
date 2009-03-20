@@ -138,27 +138,7 @@ class SearchShow(webapp.RequestHandler):
         data_table.LoadData(dicShows)
         
         # Write the object as a JSon response back to the caller
-        try:
-            logging.debug('About to call ToJSonResponse from search shows')
-            self.response.out.write(data_table.ToJSonResponse(columns_order=("showid",
-                                                                         "name",
-                                                                         "started",
-                                                                         "seasons",
-                                                                         "country",
-                                                                         "classification",
-                                                                         "status",
-                                                                         "link",
-                                                                         "airtime",
-                                                                         "airday",
-                                                                         "favorite"),
-                                                          order_by=(),
-                                                          req_id=reqId))
-        except:
-            logging.error('visu in search shows failed')
-            #for show in dicShows:
-            #    show['name'] = show['name'].unicode("utf-8")
-            data_table.LoadData(dicShows)
-            self.response.out.write(data_table.ToJSonResponse(columns_order=("showid",
+        self.response.out.write(data_table.ToJSonResponse(columns_order=("showid",
                                                                          "name",
                                                                          "started",
                                                                          "seasons",
@@ -172,7 +152,6 @@ class SearchShow(webapp.RequestHandler):
                                                           order_by=(),
                                                           req_id=reqId))
     else:
-        # No show name specified, return the best shows
         self.response.out.write('Invalid')
 
 # Gets the top shows
