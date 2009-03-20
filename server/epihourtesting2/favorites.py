@@ -30,10 +30,10 @@ def build_table_for_search(showName):
   url = 'http://www.tvrage.com/feeds/episode_list.php?private_feed=yes&sid=%s' % showName
   
   try:
-      logging.debug('about to get: ' + url)
       dom = parse(url)
   except:
       dom = None
+      logging.error('Error getting in favorites: ' + url)
   return dom
 
 def stringToDate(str):
@@ -120,9 +120,10 @@ class GetFavorites(webapp.RequestHandler):
                 if dNextDateInDB < datetime.date.today():
                     showEpisodes = build_table_for_search(str(favoriteShow.showid))
                     episodeNodes = []
-                    for node in showEpisodes.getElementsByTagName('episode'):
-                        episodeNodes.extend([node])
-                    #episodeNodes = [node for node in showEpisodes]
+                    if showEpisodes is not None:
+                        for node in showEpisodes.getElementsByTagName('episode'):
+                            episodeNodes.extend([node])
+                    
                     dates = [getXMLField(n, 'airdate') for n in episodeNodes]
                    
                     for date in dates:

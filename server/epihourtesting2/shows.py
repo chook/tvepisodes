@@ -40,12 +40,12 @@ def build_table_for_search(showName):
       logging.debug('Can''t encode url to be utf-8 ot change space to %20')
   
   try:
-      logging.debug('about to get: ' + url)
       dom = parse(url)
   
   # Handling parsing errors
   except:
       dom = None
+      logging.error('Error getting in shows: ' + url)
       
   if dom is None :
       return [{'showid'  : 0,
