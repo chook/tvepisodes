@@ -3,59 +3,13 @@ from google.appengine.ext import db
 from django.utils import simplejson as json
 from datastore import *
 from shows import *
+from datetime import *
 import time
 import datetime
 import logging
 __author__ = "Nadav Shamgar"
 
-class AddFavorite(webapp.RequestHandler):
-    # this function is invoked when a user sends a POST request
-    def post(self):
-        
-        self.response.headers['Content-Type'] = 'text/plain'
-
-        userid = self.request.get('uid')
-        showid = self.request.get('sid')
-        logging.error('userid %s showid %s' % (userid, showid))
-        addFavorite(userid, showid)
-
-    # This function is invoked when a user sends a get request
-    def get(self):
-        self.response.headers['Content-Type'] = 'text/plain'
             
-        # get userid & showid to add to the favorites table
-        userid = self.request.get('uid')
-        showid = self.request.get('sid')
-    
-        addFavorite(userid, showid)
-
-class RemoveFavorite(webapp.RequestHandler):
-    def post(self):
-        
-        self.response.headers['Content-Type'] = 'text/plain'
-
-        userid = self.request.get('uid')
-        showid = self.request.get('sid')
-        
-        rval = removeFavorite(userid, showid)
-        if rval:
-            self.response.out.write("Removed Success")
-        else:
-            self.response.out.write("Remove unsuccessful! %s %s" % (userid, showid))
-
-    # This function is invoked when a user sends a get request
-    def get(self):
-        self.response.headers['Content-Type'] = 'text/plain'
-            
-        # get userid & showid to add to the favorites table
-        userid = self.request.get('uid')
-        showid = self.request.get('sid')
-    
-        rval = removeFavorite(userid, showid)
-        if rval:
-            self.response.out.write("Removed Success")
-        else:
-            self.response.out.write("Remove unsuccessful! %s %s" % (userid, showid))
 def parse(url):    
   result = urlfetch.fetch(url)
   if result.status_code == 200:
@@ -88,6 +42,41 @@ def stringToDate(str):
     except:
         return None
         
+
+class AddFavorite(webapp.RequestHandler):
+    # this function is invoked when a user sends a POST request
+    def post(self):
+        
+        self.response.headers['Content-Type'] = 'text/plain'
+
+        userid = self.request.get('uid')
+        showid = self.request.get('sid')
+        logging.error('userid %s showid %s' % (userid, showid))
+        
+        if addFavorite(userid, showid):
+            self.response.out.write("Add " + showid)
+        else:
+            self.response.out.write("Add 0")
+
+    # This function is invoked when a user sends a get request
+    def get(self):
+        self.post()
+
+class RemoveFavorite(webapp.RequestHandler):
+    def post(self):
+        self.response.headers['Content-Type'] = 'text/plain'
+
+        userid = self.request.get('uid')
+        showid = self.request.get('sid')
+
+        if removeFavorite(userid, showid):
+            self.response.out.write("Remove " + showid)
+        else:
+            self.response.out.write("Remove 0")
+
+    # This function is invoked when a user sends a get request
+    def get(self):
+        self.post()
 
 # This class handles the fetching of favorites
 class GetFavorites(webapp.RequestHandler):
@@ -140,6 +129,7 @@ class GetFavorites(webapp.RequestHandler):
                         try:
                             d = datetime.date(int(date[0:4]),int(date[5:7]), int(date[8:10]))
                             if d > datetime.date.today():
+                                favoriteShow.prevdate = favoriteShow.nextdate
                                 favoriteShow.nextdate = date
                                 foundNewDate = True
                                 break
@@ -163,6 +153,7 @@ class GetFavorites(webapp.RequestHandler):
                     'link'           : favoriteShow.link,
                     'airtime'        : favoriteShow.airtime,
                     'airday'         : favoriteShow.airday,                   
+                    'prevdate'       : favoriteShow.prevdate,
                     'nextdate'       : nextAirDateFixed})
             # End For
         # End If
@@ -178,7 +169,8 @@ class GetFavorites(webapp.RequestHandler):
                        "link"           : ("string", "Link"),
                        "airtime"        : ("string", "Air Time"),
                        "airday"         : ("string", "Air Day"),
-                       "nextdate"       : ("string", "Next")}
+                       "prevdate"       : ("string", "Prev Date"),
+                       "nextdate"       : ("string", "Next Date")}
         
         # Build the data table object with description and shows dictionary
         data_table = gviz_api.DataTable(description)
@@ -195,6 +187,7 @@ class GetFavorites(webapp.RequestHandler):
                                                                          "link",
                                                                          "airtime",
                                                                          "airday",
+                                                                         "prevdate",
                                                                          "nextdate"),
                                                           order_by=("nextdate","asc"),
                                                           req_id=reqId))
@@ -214,11 +207,12 @@ def addFavorite(userid, showid):
             # if the show isn't in the DS,
             addShow(showid)
             
+            # Make sure the show was actually added
             query = Show.all()
             query.filter("showid = ", int(showid))
             show = query.get()
             if show is None:
-                return
+                return False
             
         # checking if the user exists
         query = User.all()
@@ -228,9 +222,7 @@ def addFavorite(userid, showid):
         if not user:
             # adding the user to the DS
             newRecord = User(userid = userid,
-                             friends_influence = 40,
-                             main_stats_influence = 10,
-                             similar_profiles_influence = 50)
+                             friends_influence = 50)
             newRecord.put()
             user = newRecord
         
@@ -239,6 +231,8 @@ def addFavorite(userid, showid):
             user.favorite_shows.append(show.key())
             show.inc()
             user.put()
+            return True
+    return False
 
 # This function disconnected the link between a user and a show
 def removeFavorite(userid, showid):

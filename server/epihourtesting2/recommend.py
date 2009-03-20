@@ -31,7 +31,7 @@ class Recommend(webapp.RequestHandler):
      def get(self): 
         # The following code handles the get request
         try:
-            userid = self.request.get('user') #int(self.request.get('userid'))
+            userid = self.request.get('uid') #int(self.request.get('userid'))
             
             friendsString = self.request.get('friends')
             if friendsString == None or friendsString == '':
@@ -40,7 +40,7 @@ class Recommend(webapp.RequestHandler):
                 useFriends = 'True'
             showscount = self.request.get('showscount')
         except:
-            userid = '03067092798963641994'
+            userid = 'ndef'
             useFriends = 'False'
             showscount = 21
     
@@ -52,38 +52,25 @@ class Recommend(webapp.RequestHandler):
         except :
             reqId = 0
         
-        try :
-            friendsinf = int(self.request.get('friendsinf'))
-            genresinf = int(self.request.get('genresinf'))
-        except : 
-            friendsinf = 40
-            genresinf = 50
-        
         listForVisualization = []
-        changedInf = False
-        
+
         # 1. Get user from DataStore
         query = User.all()
         query.filter("userid = ", userid)
         user = query.get()
         
-        if user is not None:
-            if not user.similar_profiles_influence == genresinf :
-                user.similar_profiles_influence = genresinf
-                changedInf = True
-            if not user.friends_influence == friendsinf :
-                user.friends_influence = friendsinf
-                changedInf = True
-            
-            logging.debug('Recommend to user ' + userid)
-            
+        friendsinf = user.friends_influence
+        genresinf = 100 - friendsinf
+        
+        if user is not None:            
             #2. Get user favorite shows and favorite genres from DS
             userFavShows = []
             userFavShows.extend([db.get(k) for k in user.favorite_shows])
-            logging.debug('His shows are ' + str([t.showid for t in userFavShows]))
+            #logging.debug('His shows are ' + str([t.showid for t in userFavShows]))
             listFavGenres = []
             for temp in userFavShows:
-                listFavGenres.extend([k for k in temp.genres])
+                if temp is not None:
+                    listFavGenres.extend([k for k in temp.genres])
     
             #3. Get top show that he is not watching
             #3.1 Get shows from DS
@@ -96,7 +83,7 @@ class Recommend(webapp.RequestHandler):
                     friendsList = []
                     for friend in friends:
                         query = User.all()
-                        #query.filter("userid = ", friend.fields['id'])
+                        
                         query.filter("userid = ", friend)
                         fuser = query.get()
                         if fuser:
@@ -106,7 +93,6 @@ class Recommend(webapp.RequestHandler):
                     for f in friendsList:
                         if f != None:
                             favShows.extend([db.get(k).showid for k in f.favorite_shows])
-                    logging.debug('Friends like ' + str(favShows))
                 except:
                     useFriends = 'False';
                  
@@ -114,13 +100,10 @@ class Recommend(webapp.RequestHandler):
             possibleRecommendShows = []
             listOfGenres = []
             for tempShow in globalTopShows:
-                if not tempShow.showid in [show.showid for show in userFavShows]:
+                if not tempShow.showid in [show.showid for show in userFavShows if show is not None]:
                     possibleRecommendShows.append(tempShow)
                     listOfGenres.extend([k for k in tempShow.genres])
-                        #self.response.out.write(genrename)
-            logging.debug('Possible recommendations are ' + 
-                          str([x.showid for x in possibleRecommendShows]))
-            
+                    
             # 4. Start processing the possibly recommended shows for grading
             oldestGrade = -9999
             
@@ -162,8 +145,7 @@ class Recommend(webapp.RequestHandler):
                             sentence += ' you like ' + bestGenreName + ' shows so much. (We know. don''t deny it)'
                         else:
                             sentence = 'Count on us, this show is right for you.'
-                    sentence += ". GRADE DEBUG: " + str(genresGrade)
-                    
+
                     listForVisualization.extend([{
                                 'showid'         : show.showid, 
                                 'name'           : show.name,
@@ -188,7 +170,7 @@ class Recommend(webapp.RequestHandler):
                        "link"           : ("string", "Link"),
                        "airtime"        : ("string", "Air Time"),
                        "airday"         : ("string", "Air Day"),
-                       "sentence"       : ("string", "Sentence"),
+                       "sentence"       : ("string", "Recommendation Sentence"),
                        "grade"          : ("number", "Grade")}
         
         # 5. Build the data table object with description and shows dictionary
@@ -210,6 +192,4 @@ class Recommend(webapp.RequestHandler):
                                                                          "grade"),
                                                         order_by=("grade","desc"),
                                                         req_id=reqId))
-        
-        if changedInf:
-            user.put()
+        return

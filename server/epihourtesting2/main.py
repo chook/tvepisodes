@@ -5,6 +5,7 @@ from shows import *
 from favorites import *
 from recommend import *
 from statistics import *
+from users import *
 def clearAll():
     clearAllShows()
     clearAllGenres()
@@ -23,9 +24,12 @@ application = webapp.WSGIApplication([('/', MainPage),
                                      ('/clearAllShows',clearAllShows),
                                      ('/clearAllGenres',clearAllGenres),
                                      ('/clearAll',clearAll),
+                                     ('/clearCache',ClearCache),
                                      ('/recommend',Recommend),
                                      ('/statistics',Statistics),
-                                     ('/topShows',TopShows)],
+                                     ('/topShows',TopShows),
+                                     ('/fetchUserPrefs',FetchUserPrefs),
+                                     ('/assignUserPrefs',AssignUserPrefs)],
                                      debug=True)
 
 # Main global function

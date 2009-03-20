@@ -3,8 +3,8 @@ from google.appengine.ext import db
 class User(db.Model):
 	userid = db.StringProperty(required=True)
 	friends_influence = db.RatingProperty(required=True)
-	main_stats_influence = db.RatingProperty(required=True)
-	similar_profiles_influence = db.RatingProperty(required=True)
+#	main_stats_influence = db.RatingProperty(required=True)
+#	similar_profiles_influence = db.RatingProperty(required=True)
 	
 	# a list of the user's favorite and removed_from_favorite shows
 	favorite_shows = db.ListProperty(db.Key)
@@ -29,6 +29,7 @@ class Show(db.Model):
 	timezone = db.StringProperty()
 	is_show_over = db.BooleanProperty()#required=True)
 	nextdate = db.StringProperty()
+	prevdate = db.StringProperty()
 	showcount = db.IntegerProperty(default=0)
 	
 	@property
