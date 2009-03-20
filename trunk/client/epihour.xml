@@ -291,7 +291,7 @@
 			if (data.getValue(j,10) == '0')
 				data.setValue(j , 11, '<img style="cursor:hand" id="add'+data.getValue(j,0)+'" src="' + currLink + 'images/add.png" alt="Add it!" onclick="UnTip(); add_show('+data.getValue(j,0)+',id)"\>');
 			else	//this show is in the user's favorites shows		
-				data.setValue(j , 12, '<img id="added'+data.getValue(j,0)+'" src="' + currLink + 'images/added.png" alt="Added!" onclick="UnTip();"\>');				
+				data.setValue(j , 11, '<img id="added'+data.getValue(j,0)+'" src="' + currLink + 'images/added.png" alt="Added!" onclick="UnTip();"\>');				
 		}
 		
 		table = new google.visualization.Table(document.getElementById('vis_results'));
