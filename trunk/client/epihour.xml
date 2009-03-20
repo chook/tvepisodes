@@ -712,8 +712,7 @@
 		document.getElementById('mySliderBox').value = answer[0];	
 	}
 	
-	function saveOptions()	{
-		alert(document.getElementById('mySlider').value);
+	function saveOptions()	{		
 		var url = 'http://epihourtesting2.appspot.com/assignUserPrefs';
 		var body = 'uid=' + encodeURIComponent(userID); 
 		body += '&inf=' + encodeURIComponent(document.getElementById('mySlider').value);
