@@ -665,20 +665,6 @@
 		}
 	}
 
-	function saveCallbackFunction(obj) {
-		document.getElementById('txtDone').style.display = '';
-		window.setTimeout('hideDone()', 800);
-	};
-	
-	// add = 1, remove = 0,id_name = the field to change in the table
-	function postReqSaveOpt(url, postdata) {
-		var params = {};
-
-		//postdata = gadgets.io.encodeValues(postdata);		// already given in the encodedValue format
-		params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.POST;
-		params[gadgets.io.RequestParameters.POST_DATA]= postdata;
-		gadgets.io.makeRequest(url, saveCallbackFunction, params); 		
-	};
 	
 	function saveOptions()	{
 
