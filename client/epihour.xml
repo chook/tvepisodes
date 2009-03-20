@@ -828,7 +828,7 @@
 												id="mySliderBox"
 												orientation="horizontal"
 												distance="100"
-												display="your_display_id"
+												display="mySlider"
 												style="left: 50px;">&nbsp;</div>
 										</div>
 								</td>
