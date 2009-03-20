@@ -820,7 +820,7 @@
 										<div class="carpe_horizontal_slider_track">
 											<div class="carpe_slider_slit">&nbsp;</div>
 											<div class="carpe_slider"
-												id="your_slider_id"
+												id="mySliderBox"
 												orientation="horizontal"
 												distance="100"
 												display="your_display_id"
@@ -837,13 +837,13 @@
 								<td>
 									<div style="display:none" class="carpe_slider_display_holder" >
 										<input class="carpe_slider_display"
-											id="your_display_id"
-											name="your_var_name"
+											id="mySlider"
+											name="mySlider"
 											type="text"
-											from="-50"
-											to="50"
+											from="0"
+											to="100"
 											valuecount="101"
-											value="30"
+											value="50"
 											typelock="off" /></div>
 
 								</td>
