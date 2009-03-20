@@ -702,7 +702,9 @@
 	function getOptCallbackFunction(obj)	{
 		var answer = obj.text.split(" ");
 
-		alert(answer[0]);
+		document.getElementById('mySliderBox').style= "left: " + answer[0] + "px;";
+		document.getElementById('mySliderBox').value = answer[0];
+		
 			
 	
 	}
