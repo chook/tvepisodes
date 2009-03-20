@@ -45,8 +45,9 @@ class AssignUserPrefs(webapp.RequestHandler):
     
     # The following code handles the get request
     try:
-        userid = self.request.get('uid') #int(self.request.get('userid'))
+        userid = self.request.get('uid')
         inf = int(self.request.get('inf'))
+
         query = User.all()
         query.filter("userid = ", userid)
         user = query.get()
