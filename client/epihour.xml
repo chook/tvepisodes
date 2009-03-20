@@ -107,7 +107,7 @@
 		
 		
 		var url = 'http://epihourtesting2.appspot.com/recommend?uid=' + userID + 
-				  '&friends=' + userFriendsID + '&showscount=36;
+				  '&friends=' + userFriendsID + '&showscount=36';
 		
 		query = new google.visualization.Query(url);
 
