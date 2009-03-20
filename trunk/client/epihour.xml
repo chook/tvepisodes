@@ -103,9 +103,6 @@
 		
 		checked_no = 0;
 		
-		friendsinf = document.getElementById('mySlider').value;
-		
-		
 		var url = 'http://epihourtesting2.appspot.com/recommend?uid=' + userID + 
 				  '&friends=' + userFriendsID + '&showscount=36';
 		
@@ -690,7 +687,7 @@
 	}
 	
 	function saveOptions()	{
-
+		alert(document.getElementById('mySlider').value);
 		var url = 'http://epihourtesting2.appspot.com/assignUserPrefs';
 		var body = 'user=' + encodeURIComponent(userID); 
 		body += '&inf=' + encodeURIComponent(document.getElementById('mySlider').value);
