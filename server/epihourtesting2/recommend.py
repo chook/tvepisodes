@@ -57,13 +57,13 @@ class Recommend(webapp.RequestHandler):
         # 1. Get user from DataStore
         query = User.all()
         query.filter("userid = ", userid)
-        user = query.get()
+        user = query.get()        
         
-        friendsinf = user.friends_influence
-        genresinf = 100 - friendsinf
-        
-        if user is not None:            
-            #2. Get user favorite shows and favorite genres from DS
+        if user is not None:
+	    friendsinf = user.friends_influence
+            genresinf = 100 - friendsinf  
+            
+	    #2. Get user favorite shows and favorite genres from DS
             userFavShows = []
             userFavShows.extend([db.get(k) for k in user.favorite_shows])
             
@@ -124,16 +124,16 @@ class Recommend(webapp.RequestHandler):
                                 bestGenreName = g
                         else:
                             mismatch += 1
-                    genresGrade = ((2*match) - (7*mismatch)) * user.similar_profiles_influence / 100
+                    genresGrade = ((2*match) - (7*mismatch)) * genresinf / 100
                     
                     if useFriends == 'True':
                         if show.showid in favShows:
-                            genresGrade += (favShows.count(show.showid) * min(len(friendsList),8) * user.friends_influence / 100)
+                            genresGrade += (favShows.count(show.showid) * min(len(friendsList),8) * friendsinf / 100)
                             sentence += ' ' + str(favShows.count(show.showid)) + ' of your friends are watching it'
                             if bestGenreCounter > 0:
                                 sentence += ' and because you like ' + bestGenreName + ' shows so much. (We know. don''t deny it)'
                         else:
-                            genresGrade -= (max(len(friendsList),8) * user.friends_influence / 100)
+                            genresGrade -= (max(len(friendsList),8) * friendsinf / 100)
                             if bestGenreCounter > 0:
                                 sentence += ' you like ' + bestGenreName + ' shows so much. (We know. don''t deny it)'
                             else:
