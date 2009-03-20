@@ -105,9 +105,9 @@
 		
 		friendsinf = document.getElementById('mySlider').value;
 		
-		<!-- fix -->
+		
 		var url = 'http://epihourtesting2.appspot.com/recommend?uid=' + userID + 
-				  '&friends=' + userFriendsID + '&showscount=36&friendsinf=' + friendsinf ;				  
+				  '&friends=' + userFriendsID + '&showscount=36;
 		
 		query = new google.visualization.Query(url);
 
