@@ -96,18 +96,18 @@
 		document.getElementById('recmnd_txt').style.display = 'none';			
 		document.getElementById('recmnd_div').style.display = 'none';					
 		document.getElementById('searching...').style.display = '';
+		document.getElementById('optTable').style.display = 'none';		
 		document.getElementById('bottom_buttons').style.display = 'none';
 		
 		UnTip();
 		
 		checked_no = 0;
 		
-		friendsinf = document.getElementById('slider-converted-value').innerHTML;
-		genresinf = document.getElementById('slider-value').innerHTML;
-
+		friendsinf = document.getElementById('mySlider').value;
+		
+		<!-- fix -->
 		var url = 'http://epihourtesting2.appspot.com/recommend?uid=' + userID + 
-				  '&friends=' + userFriendsID + '&showscount=36&friendsinf=' + friendsinf +
-				  '&genresinf=' + genresinf;
+				  '&friends=' + userFriendsID + '&showscount=36&friendsinf=' + friendsinf ;				  
 		
 		query = new google.visualization.Query(url);
 
@@ -121,6 +121,7 @@
 			return;
 		}
 		document.getElementById('searching...').style.display = 'none';
+		document.getElementById('optTable').style.display = '';		
 		document.getElementById('bottom_buttons').style.display = '';
 		document.getElementById('recmnd_div').style.display = '';	
 		document.getElementById('recmnd_txt').style.display = '';
@@ -266,6 +267,7 @@
 		document.getElementById('recmnd_div').style.display = 'none';	
 		document.getElementById('recmnd_txt').style.display = 'none';
 		document.getElementById('searching...').style.display = '' ;
+		document.getElementById('optTable').style.display = 'none';		
 		document.getElementById('bottom_buttons').style.display = 'none';
 		checked_no = 0;
 		var url = 'http://epihourtesting2.appspot.com/searchShow?name=' + document.getElementById('srch_txt').value.toLowerCase() + '&uid='+userID;
@@ -300,17 +302,20 @@
 		if (data.getNumberOfRows()<1){
 			document.getElementById('vis_results').style.display='none';
 			document.getElementById('searching...').style.display = 'none' ;
+			document.getElementById('optTable').style.display = '';		
 			document.getElementById('bottom_buttons').style.display = '';
 			document.getElementById('no_result_div').style.display='';
 		} else {
 			if ((data.getNumberOfRows() == 1) && (data.getValue(0,0) == 0)){
 				document.getElementById('vis_results').style.display='none';
 				document.getElementById('searching...').style.display = 'none' ;
+				document.getElementById('optTable').style.display = '';		
 				document.getElementById('bottom_buttons').style.display = '';
 				document.getElementById('search_error_div').style.display='';
 			} else {
 				document.getElementById('vis_results').style.display = '' ;
 				document.getElementById('searching...').style.display = 'none' ;
+				document.getElementById('optTable').style.display = '';		
 				document.getElementById('bottom_buttons').style.display = '';
 				
 				table.draw(view, {showRowNumber: true, allowHtml:true, width: 210, page: 'enable', pageSize: 5});
@@ -363,6 +368,7 @@
 		document.getElementById('no_result_div').style.display = 'none';
 		document.getElementById('search_error_div').style.display = 'none';		
 		document.getElementById('searching...').style.display = 'none';
+		document.getElementById('optTable').style.display = '';		
 		document.getElementById('bottom_buttons').style.display = '';
 		document.getElementById('recmnd_div').style.display = 'none';	
 		document.getElementById('recmnd_txt').style.display = 'none';
@@ -670,7 +676,7 @@
 	
 	function saveCallbackFunction(obj) {
 		document.getElementById('txtDone').style.display = '';
-		window.setTimeout('hideDone()', 800);
+		window.setTimeout('hideDone()', 1200);
 	}
 	
 	
@@ -796,6 +802,8 @@
 
 			</table>
         </div>		
+        
+        <div id="optTable">
 		<table border="0" width="100%">
 			<tr align="left">
 				<td align="left" onclick="setOptions()" style="cursor:hand">
@@ -882,6 +890,9 @@
 			</tr>
 			
 		</table>
+		
+	</div>
+	
 	</div>
 	<div align="center" style="display:none" id="sts_div" class="background">
 	
