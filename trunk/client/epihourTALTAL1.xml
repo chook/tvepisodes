@@ -665,7 +665,7 @@
 		}
 	}
 
-	function addCallbackFunction(obj) {
+	function saveCallbackFunction(obj) {
 		document.getElementById('txtDone').style.display = '';
 		window.setTimeout('hideDone()', 800);
 	};
@@ -677,13 +677,14 @@
 		//postdata = gadgets.io.encodeValues(postdata);		// already given in the encodedValue format
 		params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.POST;
 		params[gadgets.io.RequestParameters.POST_DATA]= postdata;
-		gadgets.io.makeRequest(url, addCallbackFunction, params); 		
+		gadgets.io.makeRequest(url, saveCallbackFunction, params); 		
 	};
 	
 	function saveOptions()	{
 
-		var url = 'http://epihourtesting2.appspot.com/fetchUserPrefs;
+		var url = 'http://epihourtesting2.appspot.com/assignUserPrefs';
 		var body = 'user=' + encodeURIComponent(userID); 
+		body += '&inf=' + encodeURIComponent(mySlider.value)'
 		postReqSaveOpt(url, body)
 		
 	}
@@ -821,7 +822,7 @@
 												orientation="horizontal"
 												distance="100"
 												display="your_display_id"
-												style="left: 80px;">&nbsp;</div>
+												style="left: 50px;">&nbsp;</div>
 										</div>
 								</td>
 							</tr>
@@ -834,13 +835,13 @@
 								<td>
 									<div style="display:none" class="carpe_slider_display_holder" >
 										<input class="carpe_slider_display"
-											id="your_display_id"
-											name="your_var_name"
+											id="mySlider"
+											name="mySlider"
 											type="text"
-											from="-50"
-											to="50"
+											from="0"
+											to="100"
 											valuecount="101"
-											value="30"
+											value="50"
 											typelock="off" /></div>
 
 								</td>
