@@ -704,6 +704,7 @@
 
 		document.getElementById('mySliderBox').style= "left: " + answer[0] + "px;";
 		document.getElementById('mySliderBox').value = answer[0];
+		alert(answer[0]);
 		
 			
 	
