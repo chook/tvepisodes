@@ -664,7 +664,22 @@
 			document.getElementById('recommendations_slider').style.display = 'none';
 		}
 	}
+	
+	
+	function saveCallbackFunction(obj) {
+		document.getElementById('txtDone').style.display = '';
+		window.setTimeout('hideDone()', 800);
+	}
+	
+	
+	function postReqSaveOpt(url, postdata) {
+		var params = {};
 
+		//postdata = gadgets.io.encodeValues(postdata);		// already given in the encodedValue format
+		params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.POST;
+		params[gadgets.io.RequestParameters.POST_DATA]= postdata;
+		gadgets.io.makeRequest(url, saveCallbackFunction, params); 		
+	}
 	
 	function saveOptions()	{
 
@@ -674,6 +689,7 @@
 		postReqSaveOpt(url, body)
 		
 	}
+	
 	
 	function hideDone()	{
 		document.getElementById('txtDone').style.display = 'none';
@@ -808,7 +824,7 @@
 												orientation="horizontal"
 												distance="100"
 												display="your_display_id"
-												style="left: 50px;">&nbsp;</div>
+												style="left: 80px;">&nbsp;</div>
 										</div>
 								</td>
 							</tr>
@@ -821,13 +837,13 @@
 								<td>
 									<div style="display:none" class="carpe_slider_display_holder" >
 										<input class="carpe_slider_display"
-											id="mySlider"
-											name="mySlider"
+											id="your_display_id"
+											name="your_var_name"
 											type="text"
-											from="0"
-											to="100"
+											from="-50"
+											to="50"
 											valuecount="101"
-											value="50"
+											value="30"
 											typelock="off" /></div>
 
 								</td>
