@@ -685,7 +685,7 @@
 
 		var url = 'http://epihourtesting2.appspot.com/assignUserPrefs';
 		var body = 'user=' + encodeURIComponent(userID); 
-		body += '&inf=' + encodeURIComponent(document.getElementById('mySlider').value)';
+		body += '&inf=' + encodeURIComponent(document.getElementById('mySlider').value);
 		postReqSaveOpt(url, body)
 		
 	}
