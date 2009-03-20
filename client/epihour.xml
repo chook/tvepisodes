@@ -168,6 +168,9 @@
 				}
 			}
 		}
+	
+		//get slider value
+		getOptions();
 	}
 
     function printMostPopularShows()
@@ -351,6 +354,9 @@
 				}
 			}
 		}
+		
+		//get slider value
+		getOptions();
 	}
 	
     function reset_srch_text() {
@@ -703,11 +709,7 @@
 		var answer = obj.text.split(" ");
 
 		document.getElementById('mySliderBox').style.left = answer[0] ;
-		document.getElementById('mySliderBox').value = answer[0];
-		alert(answer[0]);
-		
-			
-	
+		document.getElementById('mySliderBox').value = answer[0];	
 	}
 	
 	function saveOptions()	{
