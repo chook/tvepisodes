@@ -152,6 +152,7 @@
 		getOptions();
 	}
 	function selectRecHandler(e) {
+		alert(e['select']);
 		var selection = e['select'].getSelection();
 			if (selection.length>0){
 				for (var i = 0; i < selection.length; i++) {
