@@ -618,7 +618,7 @@
 						var prevDateArray = prevAirDate.split('-');
 						var prevDate = new Date();
 						prevDate.setFullYear(prevDateArray[0], prevDateArray[1]-1, prevDateArray[2]);
-						if (Math.floor((yesterday - prevDate)/oneDay) == 0){
+						if (Math.ceil((yesterday - prevDate)/oneDay) == 0){
 							msg.createStaticMessage(tvImg2 + " \""+name + "\" was yesterday!");
 							msgCount++;
 						}
