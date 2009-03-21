@@ -624,6 +624,8 @@
 				document.getElementById('divNewUser').style.display = '';	
 				//tabs.setSelectedTab(2);
 			} else {
+				document.getElementById('divNewUser').style.display = 'none';	
+				
 				for (var i=0; i < favoritesData.getNumberOfRows(); i++) {
 					var nextAirDate = favoritesData.getValue(i,11);
 					var prevAirDate = favoritesData.getValue(i,10);
@@ -785,7 +787,7 @@
 
     <div id="news_div" class="background" align="center">
 		<div id="news"></div>
-		<div id="divNewUser">
+		<div style="display:none" id="divNewUser">
 		<span align="center">			
 			<b>W</b>elcome !!!
 			<br>
