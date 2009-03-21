@@ -466,8 +466,7 @@
 			epiName = favoritesData.getValue(j,1);
 			epiTime = favoritesData.getValue(j,12);
 			
-			if (!(isNumber(epiTime)))
-				epiTime =60; //default time
+			alert(epiTime);
 				
 			epiStartDate = getGoogleTimeFormat(favoritesData.getValue(j,8),favoritesData.getValue(j,11),0);
 			epiEndDate = getGoogleTimeFormat(favoritesData.getValue(j,8),favoritesData.getValue(j,11),60);			
