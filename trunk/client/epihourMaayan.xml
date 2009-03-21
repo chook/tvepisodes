@@ -29,7 +29,8 @@
 	var currLink = "http://tvepisodes.googlecode.com/svn/trunk/client/"
 	var friendsinf = 40;
 	var genresinf = 60;
-	
+	var browser = navigator.appCodeName;
+	alert(browser);
 	// Tabs
 	var tabs = null;
         
