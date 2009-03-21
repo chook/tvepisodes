@@ -29,6 +29,8 @@
 	var currLink = "http://tvepisodes.googlecode.com/svn/trunk/client/"
 	var friendsinf = 40;
 	var genresinf = 60;
+	var browser = navigator.appName;
+
 	
 	// Tabs
 	var tabs = null;
@@ -53,7 +55,7 @@
         tabs.addTab("News", "news_div", create_msg);
         tabs.addTab("My Shows", "epsd_div", showFavorites);
         tabs.addTab("Add", "add_div" , showAddDiv());
-        tabs.addTab("Statistics", "sts_div",showSts);
+        tabs.addTab("Statistics", "sts_div",showSts());
 		getMostPopularShows();
 		//getFavorites();	
 	}
@@ -65,6 +67,7 @@
 	function showSts()	
 	{
 		document.getElementById('sts_div').style.display = '';
+		getStatistics('genres' , 5);
 	}
 
 	function onLoadFriends(data) {
@@ -755,7 +758,22 @@
 		document.getElementById('txtDone').style.display = 'none';
 	}
 	
- 
+	function entsub(event) {
+	//pressing Enter will perform a search
+		if (browser == "Microsoft Internet Explorer") {
+			if (window.event && window.event.keyCode == 13)
+				search_episode();
+			else
+				return true;
+		}
+		else{
+			if (event && event.which == 13)
+				search_episode();
+			else
+				return true;
+		}
+	}
+  
       // Call init function to initialize and display tabs.
     _IG_RegisterOnloadHandler(init); 
 	
@@ -800,7 +818,7 @@
         <table border="0" id="search_buttons" style="display:none" align="center">
           <tr>
             <td> 
-            	<input type="text" class="txt" value="TV Show Name Here" id="srch_txt" onclick="reset_srch_text()"/> 
+            	<input type="text" class="txt" value="TV Show Name Here" id="srch_txt" onclick="reset_srch_text()" onkeypress="return entsub(event)" /> 
             </td>                        
             <td>
             	<!-- input type="button" class="btn" value="Search" id="srch_btn" onmouseover="this.className='btnhov'" onmouseout="this.className='btn'" onclick="search_episode()" / --> 
