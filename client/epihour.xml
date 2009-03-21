@@ -643,6 +643,7 @@
 						}
 				}
 				if (msgCount == 0)
+				// no messages
 					msg.createStaticMessage("No news for your favorites shows.");
 			}
 		}	
