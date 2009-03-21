@@ -136,7 +136,7 @@
 		data = response.getDataTable();
 		data.addColumn('string' , '');
 		for (var j=0; j<data.getNumberOfRows(); j++){						
-			data.setValue(j , 12, '<img style="cursor:hand" id="add'+data.getValue(j,0)+'" src="' + currLink + 'images/add.png" alt="Add it!" onclick="UnTip(); add_show('+recData.getValue(j,0)+',id);" />');					
+			data.setValue(j , 12, '<img style="cursor:hand" id="add'+data.getValue(j,0)+'" src="' + currLink + 'images/add.png" alt="Add it!" onclick="UnTip(); add_show('+data.getValue(j,0)+',id);" />');					
 		}
 		table = new google.visualization.Table(document.getElementById('recmnd_div'));
 		var view = new google.visualization.DataView(data);
@@ -153,33 +153,33 @@
 	}
 	function selectRecHandler(e) {
 		var selection = table.getSelection();
-			if (selection.length>0){
-				for (var i = 0; i < selection.length; i++) {
-					var name = data.getValue(selection[i].row, 1);
-					var date = data.getValue(selection[i].row, 2);
-					var seasonsNum = data.getValue(selection[i].row, 3);
-					var country = data.getValue(selection[i].row, 4);
-					var classification = data.getValue(selection[i].row, 5);
-					var status =  data.getValue(selection[i].row, 6);
-					var infoLink =  data.getValue(selection[i].row, 7);
-					var airTime =  data.getValue(selection[i].row, 8);
-					var airDay =  data.getValue(selection[i].row, 9);
-					var recmnd =  data.getValue(selection[i].row, 10);
-					if (seasonsNum != 1){
-						if (status == 'Canceled/Ended')
-							Tip(recmnd + ' \"'+name+ '\" was first broadcasted on '+date+'. There were '+seasonsNum+' seasons for this show (it was canceled/ended) and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>', STICKY, true, CLOSEBTN , true,CENTERMOUSE, true, ABOVE, false , FADEIN, 500, FADEOUT, 500);
-						else
-							Tip(recmnd + ' \"'+name+ '\" was first broadcasted on '+date+'. There are '+seasonsNum+' seasons for this show and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>', STICKY, true, CLOSEBTN , true,CENTERMOUSE, true, ABOVE, false , FADEIN, 500, FADEOUT, 500);						}
-					else{
-						if ((status == 'Canceled/Ended') || (status == 'Pilot Rejected'))
-							Tip(recmnd + ' \"'+name+ '\" was first broadcasted on '+date+'. There was only '+seasonsNum+' season for this show (it was canceled/ended) and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>' , STICKY, true, CLOSEBTN , true ,CENTERMOUSE, true , ABOVE , false , FADEIN, 500, FADEOUT, 500);
-						else
-							Tip(recmnd + ' \"'+name+ '\" was first broadcasted on '+date+'. There is '+seasonsNum+' season for this show and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>' , STICKY, true, CLOSEBTN , true ,CENTERMOUSE, true , ABOVE , false , FADEIN, 500, FADEOUT, 500);
-					}
+		if (selection.length>0){
+			for (var i = 0; i < selection.length; i++) {
+				var name = data.getValue(selection[i].row, 1);
+				var date = data.getValue(selection[i].row, 2);
+				var seasonsNum = data.getValue(selection[i].row, 3);
+				var country = data.getValue(selection[i].row, 4);
+				var classification = data.getValue(selection[i].row, 5);
+				var status =  data.getValue(selection[i].row, 6);
+				var infoLink =  data.getValue(selection[i].row, 7);
+				var airTime =  data.getValue(selection[i].row, 8);
+				var airDay =  data.getValue(selection[i].row, 9);
+				var recmnd =  data.getValue(selection[i].row, 10);
+				if (seasonsNum != 1){
+					if (status == 'Canceled/Ended')
+						Tip(recmnd + ' \"'+name+ '\" was first broadcasted on '+date+'. There were '+seasonsNum+' seasons for this show (it was canceled/ended) and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>', STICKY, true, CLOSEBTN , true,CENTERMOUSE, true, ABOVE, false , FADEIN, 500, FADEOUT, 500);
+					else
+						Tip(recmnd + ' \"'+name+ '\" was first broadcasted on '+date+'. There are '+seasonsNum+' seasons for this show and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>', STICKY, true, CLOSEBTN , true,CENTERMOUSE, true, ABOVE, false , FADEIN, 500, FADEOUT, 500);						}
+				else{
+					if ((status == 'Canceled/Ended') || (status == 'Pilot Rejected'))
+						Tip(recmnd + ' \"'+name+ '\" was first broadcasted on '+date+'. There was only '+seasonsNum+' season for this show (it was canceled/ended) and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>' , STICKY, true, CLOSEBTN , true ,CENTERMOUSE, true , ABOVE , false , FADEIN, 500, FADEOUT, 500);
+					else
+						Tip(recmnd + ' \"'+name+ '\" was first broadcasted on '+date+'. There is '+seasonsNum+' season for this show and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>' , STICKY, true, CLOSEBTN , true ,CENTERMOUSE, true , ABOVE , false , FADEIN, 500, FADEOUT, 500);
 				}
-			} else {
-				UnTip();
 			}
+		} else {
+			UnTip();
+		}
 	}
     function printMostPopularShows()
     {
