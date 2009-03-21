@@ -601,7 +601,8 @@
 
 		favoritesData = response.getDataTable();
 		var today = new Date();
-		
+		var yesterday = (new Date()) - 1;
+		alert(yesterday);
 		var year = today.getFullYear();
 		var month = today.getMonth() + 1;
 		var day = today.getDate();
@@ -615,11 +616,16 @@
 					var prevAirDate = favoritesData.getValue(i,10);
 					var name = favoritesData.getValue(i,1);
 					var airDateArray = nextAirDate.split('-');
-
+					var prevDateArray = prevAirDate.split('-');
+					
 					var showDate = new Date();
 					showDate.setFullYear(airDateArray[0] , airDateArray[1] - 1 , airDateArray[2]);
-
+					var prevDate = new Date();
+					prevDate.setFullYear(prevDateArray[0], prevDateArray[1]-1, prevDateArray[2]);
+					
 					var leftDays = Math.floor((showDate - today) / oneDay);
+					if ((((showDate - yesterday)/oneDay) == 0 ) || ((prevDate - yesterday)/oneDay == 0)
+						msg.createStaticMessage(tvImg2 + " \""+name + "\" was yesterday!");
 					if (leftDays == 0) {
 						msg.createStaticMessage(tvImg2 + " \""+name + "\" is on today!");
 					} else if (leftDays == 1) {
