@@ -31,6 +31,7 @@
 	var genresinf = 60;
 	var browser = navigator.appName;
 
+	
 	// Tabs
 	var tabs = null;
         
@@ -66,7 +67,7 @@
 	function showSts()	
 	{
 		document.getElementById('sts_div').style.display = '';
-		getStatistics('genres' , 5)
+		getStatistics('genres' , 5);
 	}
 
 	function onLoadFriends(data) {
@@ -184,6 +185,7 @@
 
     function printMostPopularShows()
     {
+    		getMostPopularShows();
 		document.getElementById('no_result_div').style.display='none';
 		document.getElementById('search_error_div').style.display='none';
 		document.getElementById('vis_results').style.display = 'none';
@@ -442,7 +444,11 @@
 			return iPar;
 	}	
 	
-	
+	function isNumber(x) 
+	{ 
+	  return ( (typeof x === typeof 1) && (null !== x) && isFinite(x) );
+	}
+
 	
 	function handleFavoritesQueryResponse(response)	{
 		if (response.isError()) {
@@ -457,16 +463,18 @@
 		var epiName;
 		var epiStartDate;
 		var epiEndDate;
+		var epiTime;
 		for (var j=0; j<favoritesData.getNumberOfRows(); j++){			
 				
 			epiName = favoritesData.getValue(j,1);
+			epiTime = favoritesData.getValue(j,12);					
 			epiStartDate = getGoogleTimeFormat(favoritesData.getValue(j,8),favoritesData.getValue(j,11),0);
-			epiEndDate = getGoogleTimeFormat(favoritesData.getValue(j,8),favoritesData.getValue(j,11),60);			
+			epiEndDate = getGoogleTimeFormat(favoritesData.getValue(j,8),favoritesData.getValue(j,11),epiTime);			
 			
 			if (favoritesData.getValue(j,11) == "Show Ended")
-				favoritesData.setValue(j , 12, '<img onclick="UnTip();" id="book'+j+'" src="' + currLink + 'images/book_off.png" alt="Show Ended!" border="0" />');						
+				favoritesData.setValue(j , 13, '<img onclick="UnTip();" id="book'+j+'" src="' + currLink + 'images/book_off.png" alt="Show Ended!" border="0" />');						
 			else
-				favoritesData.setValue(j , 12, '<a id="book' + j +'" onclick="UnTip()" href="http://www.google.com/calendar/event?action=TEMPLATE&text=EPI%20HOUR%20-%20' + epiName + '&dates=' + epiStartDate + '/' + epiEndDate + '&details=HAVE%20FUN!&location=TV&trp=true&sprop=&sprop=name:epi%20hour%20gadget" target="_blank"><img id="book'+j+'" src="' + currLink + 'images/book.png" alt="Book it!" border="0" /></a>');						
+				favoritesData.setValue(j , 13, '<a id="book' + j +'" onclick="UnTip()" href="http://www.google.com/calendar/event?action=TEMPLATE&text=EPI%20HOUR%20-%20' + epiName + '&dates=' + epiStartDate + '/' + epiEndDate + '&details=HAVE%20FUN!&location=TV&trp=true&sprop=&sprop=name:epi%20hour%20gadget" target="_blank"><img id="book'+j+'" src="' + currLink + 'images/book.png" alt="Book it!" border="0" /></a>');						
 
 		
 			
@@ -474,12 +482,12 @@
 		
 		// remove! buttons
 		for (var j=0; j<favoritesData.getNumberOfRows(); j++){			
-			favoritesData.setValue(j , 13, '<img style="cursor:hand" id="delete'+j+'" src="' + currLink + 'images/delete.png" alt="Remove it!" onclick="UnTip(); remove_row('+favoritesData.getValue(j,0)+');" />');
+			favoritesData.setValue(j , 14, '<img style="cursor:hand" id="delete'+j+'" src="' + currLink + 'images/delete.png" alt="Remove it!" onclick="UnTip(); remove_row('+favoritesData.getValue(j,0)+');" />');
 		}
 		
 		var favoritesTable = new google.visualization.Table(document.getElementById('favorites'));
 		var view = new google.visualization.DataView(favoritesData);
-		view.hideColumns([0,2,3,4,5,6,7,8,9,10]); // show only name and next air date.
+		view.hideColumns([0,2,3,4,5,6,7,8,9,10,12]); // show only name and next air date.
 		document.getElementById('getting_fav').style.display = 'none' ;
 		if (favoritesData.getNumberOfRows() < 1){
 			document.getElementById('getting_fav').style.display = 'none' ;
@@ -613,8 +621,11 @@
 
 		if (favoritesData != null) {
 			if (favoritesData.getNumberOfRows() <= 0) {
-				tabs.setSelectedTab(2);
+				document.getElementById('divNewUser').style.display = '';	
+				//tabs.setSelectedTab(2);
 			} else {
+				document.getElementById('divNewUser').style.display = 'none';	
+				
 				for (var i=0; i < favoritesData.getNumberOfRows(); i++) {
 					var nextAirDate = favoritesData.getValue(i,11);
 					var prevAirDate = favoritesData.getValue(i,10);
@@ -764,7 +775,7 @@
 				return true;
 		}
 	}
- 
+  
       // Call init function to initialize and display tabs.
     _IG_RegisterOnloadHandler(init); 
 	
@@ -776,6 +787,18 @@
 
     <div id="news_div" class="background" align="center">
 		<div id="news"></div>
+		<div style="display:none" id="divNewUser">
+		<span align="center">			
+			<b>W</b>elcome !!!
+			<br>
+			welcome !!!
+			<br>
+			welcome !!!
+			<br>
+			
+			<img src="images/thumbnail.png" />
+		</span>
+		</div>
 	</div>
 	        
     <div id="epsd_div" class="background" align="center" >
