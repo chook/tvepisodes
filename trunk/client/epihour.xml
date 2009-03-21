@@ -74,7 +74,6 @@
 		// Set the user Id
 		userID = owner.getId();
 
-		create_msg();
 		ownerFriends.each(function(person) {
 			if (person.getId()) {
 				userFriendsID += person.getId() + ',' ;
