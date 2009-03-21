@@ -625,7 +625,7 @@
 					prevDate.setFullYear(prevDateArray[0], prevDateArray[1]-1, prevDateArray[2]);
 					
 					var leftDays = Math.floor((showDate - today) / oneDay);
-					if ((((showDate - yesterday)/oneDay) == 0 ) || ((prevDate - yesterday)/oneDay == 0)
+					if ((((showDate - yesterday)/oneDay) == 0 ) || (((prevDate - yesterday)/oneDay) == 0))
 						msg.createStaticMessage(tvImg2 + " \""+name + "\" was yesterday!");
 					if (leftDays == 0) {
 						msg.createStaticMessage(tvImg2 + " \""+name + "\" is on today!");
