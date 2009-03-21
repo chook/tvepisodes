@@ -470,7 +470,7 @@
 				epiTime =60; //default time
 				
 			epiStartDate = getGoogleTimeFormat(favoritesData.getValue(j,8),favoritesData.getValue(j,11),0);
-			epiEndDate = getGoogleTimeFormat(favoritesData.getValue(j,8),favoritesData.getValue(j,11),epiTime);			
+			epiEndDate = getGoogleTimeFormat(favoritesData.getValue(j,8),favoritesData.getValue(j,11),60);			
 			
 			if (favoritesData.getValue(j,11) == "Show Ended")
 				favoritesData.setValue(j , 12, '<img onclick="UnTip();" id="book'+j+'" src="' + currLink + 'images/book_off.png" alt="Show Ended!" border="0" />');						
