@@ -603,7 +603,6 @@
 		var today = new Date();
 		var yesterday = new Date();
 		yesterday.setDate(yesterday.getDate()-1);
-		alert ("today "+today+ ".yesterday= :"+yesterday);
 		var year = today.getFullYear();
 		var month = today.getMonth() + 1;
 		var day = today.getDate();
@@ -623,7 +622,7 @@
 						var prevDateArray = prevAirDate.split('-');
 						var prevDate = new Date();
 						prevDate.setFullYear(prevDateArray[0], prevDateArray[1]-1, prevDateArray[2]);
-						if ((((yesterday - showDate)/oneDay) == 0 ) || (((yesterday - prevDate)/oneDay) == 2))
+						if ((((yesterday - showDate)/oneDay) == 0 ) || (((yesterday - prevDate)/oneDay) == 1))
 						msg.createStaticMessage(tvImg2 + " \""+name + "\" was yesterday!");
 					}
 					//messages for the next 3 days
