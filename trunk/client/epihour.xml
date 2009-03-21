@@ -230,8 +230,8 @@
 				var selection = table.getSelection();
 				if (selection.length>0){
 					for (var i = 0; i < selection.length; i++) {
-						alert(selection.column);
-						if (selection.column != 2){
+						alert(selection[i].column);
+						if (selection[i].column != 2){
 							var name = data.getValue(selection[i].row, 1);
 							var date = data.getValue(selection[i].row, 2);
 							var seasonsNum = data.getValue(selection[i].row, 3);
