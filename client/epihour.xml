@@ -94,6 +94,7 @@
 		document.getElementById('recmnd_txt').style.display = '';			
 		document.getElementById('recmnd_div').style.display = '';
 		document.getElementById('optTable').style.display = '';
+		document.getElementById('main_div').style.display = '';
 	}
 	function getRecommended()    {
 		document.getElementById('no_result_div').style.display='none';
