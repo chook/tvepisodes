@@ -145,8 +145,7 @@
 			alert('We could not find any show for you at the moment');
 		} else {
 			table.draw(view, {showRowNumber: false, allowHtml:true, width: 210, page: 'enable', pageSize: 3});
-			google.visualization.events.addListener(table, 'select', selectHandler);
-			function selectHandler() {
+			google.visualization.events.addListener(table, 'select', selectHandler(){
 				var selection = table.getSelection();
 				if (selection.length>0){
 					for (var i = 0; i < selection.length; i++) {
@@ -176,7 +175,7 @@
 				} else {
 					UnTip();
 				}
-			}
+			});
 		}
 	
 		//get slider value
@@ -229,8 +228,7 @@
 			alert('there are no pop shows');
 		} else {
 			table.draw(view, {showRowNumber: true, allowHtml:true, width: 210, page: 'enable', pageSize: 5});
-			google.visualization.events.addListener(table, 'select', selectHandler);
-			function selectHandler() {
+			google.visualization.events.addListener(table, 'select', selectHandler(){
 				var selection = table.getSelection();
 				if (selection.length>0){
 					for (var i = 0; i < selection.length; i++) {
@@ -259,7 +257,7 @@
 				} else {
 					UnTip();
 				}
-			}
+			});
 		}
 		
 		//get slider value
@@ -328,8 +326,7 @@
 				document.getElementById('bottom_buttons').style.display = '';
 				
 				table.draw(view, {showRowNumber: true, allowHtml:true, width: 210, page: 'enable', pageSize: 5});
-				google.visualization.events.addListener(table, 'select', selectHandler);
-				function selectHandler() {
+				google.visualization.events.addListener(table, 'select', selectHandler(){
 					var selection = table.getSelection();
 					if (selection.length>0) {
 						for (var i = 0; i < selection.length; i++) {
@@ -357,7 +354,7 @@
 					} else {
 						UnTip();
 					}
-				}
+				});
 			}
 		}
 		
