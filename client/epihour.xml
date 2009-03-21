@@ -529,12 +529,14 @@
 				document.getElementById('add'+answer[1]).src = currLink + "images/added.png";
 				document.getElementById('add'+answer[1]).alt = "Added!";
 				document.getElementById('add'+answer[1]).onclick = "";
+				getMostPopularShows();
 			}
 		}
 		//remove show
 		else{
 			if (answer[1] != "0"){
 				getFavorites();
+				getMostPopularShows();
 			}
 		}
 	};
