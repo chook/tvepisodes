@@ -145,7 +145,8 @@
 			alert('We could not find any show for you at the moment');
 		} else {
 			table.draw(view, {showRowNumber: false, allowHtml:true, width: 210, page: 'enable', pageSize: 3});
-			google.visualization.events.addListener(table, 'select', selectHandler(){
+			google.visualization.events.addListener(table, 'select', selectHandler);
+			function selectHandler(e) {
 				var selection = table.getSelection();
 				if (selection.length>0){
 					for (var i = 0; i < selection.length; i++) {
@@ -161,21 +162,21 @@
 						var recmnd =  data.getValue(selection[i].row, 10);
 						if (seasonsNum != 1){
 							if (status == 'Canceled/Ended')
-								Tip(recmnd + ' &quot;'+name+ '&quot; was first broadcasted on '+date+'. There were '+seasonsNum+' seasons for this show (it was canceled/ended) and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=&quot;_blank&quot;>'+infoLink+'</a>' , TITLE, '<div class=&quot;TitleCls&quot;>'+name+'</div>', STICKY, true, CLOSEBTN , true,CENTERMOUSE, true, ABOVE, false , FADEIN, 500, FADEOUT, 500);
+								Tip(recmnd + ' \"'+name+ '\" was first broadcasted on '+date+'. There were '+seasonsNum+' seasons for this show (it was canceled/ended) and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>', STICKY, true, CLOSEBTN , true,CENTERMOUSE, true, ABOVE, false , FADEIN, 500, FADEOUT, 500);
 							else
-								Tip(recmnd + ' &quot;'+name+ '&quot; was first broadcasted on '+date+'. There are '+seasonsNum+' seasons for this show and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=&quot;_blank&quot;>'+infoLink+'</a>' , TITLE, '<div class=&quot;TitleCls&quot;>'+name+'</div>', STICKY, true, CLOSEBTN , true,CENTERMOUSE, true, ABOVE, false , FADEIN, 500, FADEOUT, 500);
+								Tip(recmnd + ' \"'+name+ '\" was first broadcasted on '+date+'. There are '+seasonsNum+' seasons for this show and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>', STICKY, true, CLOSEBTN , true,CENTERMOUSE, true, ABOVE, false , FADEIN, 500, FADEOUT, 500);
 						}
 						else{
 							if ((status == 'Canceled/Ended') || (status == 'Pilot Rejected'))
-								Tip(recmnd + ' &quot;'+name+ '&quot; was first broadcasted on '+date+'. There was only '+seasonsNum+' season for this show (it was canceled/ended) and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=&quot;_blank&quot;>'+infoLink+'</a>' , TITLE, '<div class=&quot;TitleCls&quot;>'+name+'</div>' , STICKY, true, CLOSEBTN , true ,CENTERMOUSE, true , ABOVE , false , FADEIN, 500, FADEOUT, 500);
+								Tip(recmnd + ' \"'+name+ '\" was first broadcasted on '+date+'. There was only '+seasonsNum+' season for this show (it was canceled/ended) and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>' , STICKY, true, CLOSEBTN , true ,CENTERMOUSE, true , ABOVE , false , FADEIN, 500, FADEOUT, 500);
 							else
-								Tip(recmnd + ' &quot;'+name+ '&quot; was first broadcasted on '+date+'. There is '+seasonsNum+' season for this show and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=&quot;_blank&quot;>'+infoLink+'</a>' , TITLE, '<div class=&quot;TitleCls&quot;>'+name+'</div>' , STICKY, true, CLOSEBTN , true ,CENTERMOUSE, true , ABOVE , false , FADEIN, 500, FADEOUT, 500);
+								Tip(recmnd + ' \"'+name+ '\" was first broadcasted on '+date+'. There is '+seasonsNum+' season for this show and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>' , STICKY, true, CLOSEBTN , true ,CENTERMOUSE, true , ABOVE , false , FADEIN, 500, FADEOUT, 500);
 						}
 					}
 				} else {
 					UnTip();
 				}
-			});
+			}
 		}
 	
 		//get slider value
@@ -228,7 +229,8 @@
 			alert('there are no pop shows');
 		} else {
 			table.draw(view, {showRowNumber: true, allowHtml:true, width: 210, page: 'enable', pageSize: 5});
-			google.visualization.events.addListener(table, 'select', selectHandler(){
+			google.visualization.events.addListener(table, 'select', selectHandler);
+			function selectHandler(e) {
 				var selection = table.getSelection();
 				if (selection.length>0){
 					for (var i = 0; i < selection.length; i++) {
@@ -257,7 +259,7 @@
 				} else {
 					UnTip();
 				}
-			});
+			}
 		}
 		
 		//get slider value
@@ -326,7 +328,8 @@
 				document.getElementById('bottom_buttons').style.display = '';
 				
 				table.draw(view, {showRowNumber: true, allowHtml:true, width: 210, page: 'enable', pageSize: 5});
-				google.visualization.events.addListener(table, 'select', selectHandler(){
+				google.visualization.events.addListener(table, 'select', selectHandler);
+				function selectHandler(e) {
 					var selection = table.getSelection();
 					if (selection.length>0) {
 						for (var i = 0; i < selection.length; i++) {
@@ -354,7 +357,7 @@
 					} else {
 						UnTip();
 					}
-				});
+				}
 			}
 		}
 		
