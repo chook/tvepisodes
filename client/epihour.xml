@@ -602,10 +602,12 @@
 		favoritesData = response.getDataTable();
 		var today = new Date();
 		var yesterday = new Date();
-		yesterday = yesterday - 1;
+		yesterday.setDate(yesterday.getDate()-1);
+		alert ("today "+today+ ".yesterday= :"+yesterday);
 		var year = today.getFullYear();
 		var month = today.getMonth() + 1;
 		var day = today.getDate();
+		
 
 		if (favoritesData != null) {
 			if (favoritesData.getNumberOfRows() <= 0) {
