@@ -52,7 +52,7 @@
         // dynamically generated through the callback function. 
         tabs.addTab("News", "news_div", create_msg);
         tabs.addTab("My Shows", "epsd_div", showFavorites);
-        tabs.addTab("Add", "add_div");
+        tabs.addTab("Add", "add_div" , showAddDiv());
         tabs.addTab("Statistics", "sts_div",showSts);
 		getMostPopularShows();
 		//getFavorites();	
@@ -85,7 +85,12 @@
 		//init all the other stuff
 		loadAll();
 	}
-
+	function showAddDiv(){
+		document.getElementById('search_buttons').style.display = '';
+		document.getElementById('bottom_buttons').style.display = '';
+		document.getElementById('most_pop').style.display = '';		
+		document.getElementById('most_pop_txt').style.display = '';	
+	}
 	function getRecommended()    {
 		document.getElementById('no_result_div').style.display='none';
 		document.getElementById('search_error_div').style.display='none';
@@ -821,7 +826,7 @@
 				<img src="images/loading_animation.gif" />
 		</div>
 
-		<div id="bottom_buttons">
+		<div id="bottom_buttons" style="display:none">
 			<table border="0" align="center">
 
 			  <tr>
