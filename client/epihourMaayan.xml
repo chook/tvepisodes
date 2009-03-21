@@ -747,6 +747,12 @@
 		document.getElementById('txtDone').style.display = 'none';
 	}
 	
+	function entsub(event,ourform) {
+		if (event && event.which == 13)
+			search_episode();
+		else
+			return true;
+	}
  
       // Call init function to initialize and display tabs.
     _IG_RegisterOnloadHandler(init); 
@@ -780,7 +786,7 @@
         <table border="0" id="search_buttons" style="display:none" align="center">
           <tr>
             <td> 
-            	<input type="text" class="txt" value="TV Show Name Here" id="srch_txt" onclick="reset_srch_text()"/> 
+            	<input type="text" class="txt" value="TV Show Name Here" id="srch_txt" onclick="reset_srch_text()" onkeypress="return entsub(event)" /> 
             </td>                        
             <td>
             	<!-- input type="button" class="btn" value="Search" id="srch_btn" onmouseover="this.className='btnhov'" onmouseout="this.className='btn'" onclick="search_episode()" / --> 
