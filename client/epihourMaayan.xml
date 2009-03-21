@@ -21,6 +21,7 @@
 	//global variables
 	var checked_no=0;
 	var data = null;
+	var favoritesTable = null;
 	var table = null;
 	var query = null;
 	var favoritesData = null;
@@ -481,7 +482,7 @@
 			favoritesData.setValue(j , 14, '<img style="cursor:hand" id="delete'+j+'" src="' + currLink + 'images/delete.png" alt="Remove it!" onclick="UnTip(); remove_row('+favoritesData.getValue(j,0)+');" />');
 		}
 		
-		var favoritesTable = new google.visualization.Table(document.getElementById('favorites'));
+		favoritesTable = new google.visualization.Table(document.getElementById('favorites'));
 		var view = new google.visualization.DataView(favoritesData);
 		view.hideColumns([0,2,3,4,5,6,7,8,9,10,12]); // show only name and next air date.
 		document.getElementById('getting_fav').style.display = 'none' ;
