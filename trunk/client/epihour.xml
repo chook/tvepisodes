@@ -488,7 +488,7 @@
 		
 		var favoritesTable = new google.visualization.Table(document.getElementById('favorites'));
 		var view = new google.visualization.DataView(favoritesData);
-		view.hideColumns([0,2,3,4,5,6,7,8,9,10]); // show only name and next air date.
+		view.hideColumns([0,2,3,4,5,6,7,8,9,10,12]); // show only name and next air date.
 		document.getElementById('getting_fav').style.display = 'none' ;
 		if (favoritesData.getNumberOfRows() < 1){
 			document.getElementById('getting_fav').style.display = 'none' ;
