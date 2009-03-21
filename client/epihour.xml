@@ -768,11 +768,16 @@
     <div id="news_div" class="background" align="center">
 		<div id="news"></div>
 		<div id="divNewUser">
-			welcome !!!
+		<span align="center">			
+			<b>W</b>elcome !!!
 			<br>
 			welcome !!!
 			<br>
 			welcome !!!
+			<br>
+			
+			<img src="images/thumbnail.png" />
+		</span>
 		</div>
 	</div>
 	        
