@@ -765,7 +765,7 @@
 		</div>
 	</div>
 	
-    <div class="background" align="center" id="add_div" >        
+    <div class="background"  style="display:none" align="center" id="add_div" >        
         <table border="0" align="center">
           <tr>
             <td> 
@@ -779,14 +779,14 @@
 
         </table>
       
-		<div id="main_div">
+		<div id="main_div" style="display:none">
 			<div id="vis_results"> </div>
 
 			<span  id="most_pop_txt">
 				<font size="2">Most Popular Shows:</font>
 			</span>				
 
-			<div id="most_pop"></div>
+			<div id="most_pop" style="display:none"></div>
 			
 			<span style="display:none" id="recmnd_txt">
 				<font size="2">Recommendations:</font>
@@ -829,7 +829,7 @@
 				<a href="javascript:void(0);" onclick="this.blur(); getRecommended();"><span><img src="images/recmnd.png" border="0" /><font size="1">Get Recommendations!</font></span></a>
 			    </td>
 			    <td>	            	
-				<a href="javascript:void(0);" onclick="this.blur(); getMostPopularShows();"><span><img src="images/top.png" border="0" /><font size="1">Get Top!</font></span></a>
+				<a href="javascript:void(0);" onclick="this.blur(); printMostPopularShows();"><span><img src="images/top.png" border="0" /><font size="1">Get Top!</font></span></a>
 			    </td>
 			  </tr>
 
