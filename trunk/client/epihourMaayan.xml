@@ -30,7 +30,7 @@
 	var friendsinf = 40;
 	var genresinf = 60;
 	var browser = navigator.appName;
-	alert(browser);
+
 	// Tabs
 	var tabs = null;
         
@@ -54,7 +54,7 @@
         tabs.addTab("News", "news_div", create_msg);
         tabs.addTab("My Shows", "epsd_div", showFavorites);
         tabs.addTab("Add", "add_div" , showAddDiv());
-        tabs.addTab("Statistics", "sts_div",showSts);
+        tabs.addTab("Statistics", "sts_div",showSts());
 		getMostPopularShows();
 		//getFavorites();	
 	}
@@ -66,6 +66,7 @@
 	function showSts()	
 	{
 		document.getElementById('sts_div').style.display = '';
+		getStatistics('genres' , 5)
 	}
 
 	function onLoadFriends(data) {
