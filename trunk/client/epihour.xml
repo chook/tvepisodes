@@ -598,6 +598,7 @@
 			alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
 			return;
 		}
+		var msgCount = 0;
 		favoritesData = response.getDataTable();
 		var today = new Date();
 		var yesterday = new Date();
@@ -608,7 +609,6 @@
 				tabs.setSelectedTab(2);
 			} else {
 				for (var i=0; i < favoritesData.getNumberOfRows(); i++) {
-					var msgCount = 0;
 					var nextAirDate = favoritesData.getValue(i,11);
 					var prevAirDate = favoritesData.getValue(i,10);
 					var name = favoritesData.getValue(i,1);
@@ -641,9 +641,9 @@
 							msg.createStaticMessage(tvImg1 + " \""+name + "\" will be broadcast in "+ leftDays+" days!");
 							msgCount++;
 						}
-					if (msgCount == 0)
-						msg.createStaticMessage("No news for your favorites shows.");
-				}		
+				}
+				if (msgCount == 0)
+					msg.createStaticMessage("No news for your favorites shows.");
 			}
 		}	
     }
