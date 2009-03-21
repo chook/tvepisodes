@@ -209,11 +209,6 @@
 				data.setValue(j , 12, '<img style="cursor:hand" id="add'+data.getValue(j,0)+'" src="' + currLink + 'images/add.png" alt="Add it!" onclick="UnTip(); add_show('+data.getValue(j,0)+',id);"\>');
 			else	//this show is in the user's favorites shows		
 				data.setValue(j , 12, '<img id="added'+data.getValue(j,0)+'" src="' + currLink + 'images/added.png" alt="Added!" onclick="UnTip();"\>');
-								
-				//data.setValue(j , 12, '<img style="cursor:hand" id="add'+data.getValue(j,0)+'" src="' + currLink + 'images/add.png" alt="Add it!" onclick="UnTip(); add_show('+data.getValue(j,0)+',id);"\>');
-			//data.setValue(j , 12, '<input type="submit" align="center"  class="btn" value="Add" id="add'+data.getValue(j,0)+'" onmouseover="this.className=\'btnhov\'" onmouseout="this.className=\'btn\'" onclick="add_show('+data.getValue(j,0)+')" />');			
-			
-			
 		}
 		table = new google.visualization.Table(document.getElementById('most_pop'));
 		var view = new google.visualization.DataView(data);
@@ -834,7 +829,7 @@
 				<a href="javascript:void(0);" onclick="this.blur(); getRecommended();"><span><img src="images/recmnd.png" border="0" /><font size="1">Get Recommendations!</font></span></a>
 			    </td>
 			    <td>	            	
-				<a href="javascript:void(0);" onclick="this.blur(); printMostPopularShows();"><span><img src="images/top.png" border="0" /><font size="1">Get Top!</font></span></a>
+				<a href="javascript:void(0);" onclick="this.blur(); getMostPopularShows();"><span><img src="images/top.png" border="0" /><font size="1">Get Top!</font></span></a>
 			    </td>
 			  </tr>
 
