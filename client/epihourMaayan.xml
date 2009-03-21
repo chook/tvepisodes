@@ -749,10 +749,18 @@
 	}
 	
 	function entsub(event,ourform) {
-		if (event && event.which == 13)
-			search_episode();
-		else
-			return true;
+		if (browser == "Microsoft Internet Explorer") {
+			if (window.event && window.event.keyCode == 13)
+				search_episode();
+			else
+				return true;
+		}
+		else{
+			if (event && event.which == 13)
+				search_episode();
+			else
+				return true;
+		}
 	}
  
       // Call init function to initialize and display tabs.
