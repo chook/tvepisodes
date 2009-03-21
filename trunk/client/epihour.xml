@@ -457,9 +457,7 @@
 		var epiStartDate;
 		var epiEndDate;
 		for (var j=0; j<favoritesData.getNumberOfRows(); j++){			
-			
-			alert(favoritesData.getValue(j,12));
-			
+				
 			epiName = favoritesData.getValue(j,1);
 			epiStartDate = getGoogleTimeFormat(favoritesData.getValue(j,8),favoritesData.getValue(j,11),0);
 			epiEndDate = getGoogleTimeFormat(favoritesData.getValue(j,8),favoritesData.getValue(j,11),favoritesData.getValue(j,12));			
