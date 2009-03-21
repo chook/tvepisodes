@@ -781,13 +781,23 @@
 	}
   
       // Call init function to initialize and display tabs.
-    _IG_RegisterOnloadHandler(init); 
+      if (gadgets.util != null)	{
+    		_IG_RegisterOnloadHandler(init); 
+      }
+	else	{
+		document.getElementById('NotLoggedUser').style.display = '';
+	}
+ 
 	
 </script>
 
 
 <body bgcolor="#dbe3eb">
 <script type="text/javascript" src="js/wz_tooltip.js"></script>
+
+<div style="display:none" id="NotLoggedUser">
+	Open Social is not available.<br>Check out the <b><a href="http://www.google.com/ig/sandbox" target="_blank">iGoogle developer sandbox</a></b>;	      	
+</div>
 
     <div id="news_div" class="background" align="center">
 		<div id="news"></div>
