@@ -622,7 +622,7 @@
 						var prevDateArray = prevAirDate.split('-');
 						var prevDate = new Date();
 						prevDate.setFullYear(prevDateArray[0], prevDateArray[1]-1, prevDateArray[2]);
-						if ((((yesterday - showDate)/oneDay) == 0 ) || (((prevDate - yesterday)/oneDay) == 1))
+						if ((Math.floor((showDate - yesterday)/oneDay) == 0 ) || (Math.floor((prevDate - yesterday)/oneDay) == 1))
 						msg.createStaticMessage(tvImg2 + " \""+name + "\" was yesterday!");
 					}
 					//messages for the next 3 days
