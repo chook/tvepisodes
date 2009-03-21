@@ -601,7 +601,8 @@
 
 		favoritesData = response.getDataTable();
 		var today = new Date();
-		var yesterday = (new Date()) - 1;
+		var yesterday = new Date();
+		yesterday = yesterday - 1;
 		alert(yesterday);
 		var year = today.getFullYear();
 		var month = today.getMonth() + 1;
