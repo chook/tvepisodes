@@ -749,6 +749,7 @@
 	}
 	
 	function entsub(event) {
+	//pressing Enter will perform a search
 		if (browser == "Microsoft Internet Explorer") {
 			if (window.event && window.event.keyCode == 13)
 				search_episode();
