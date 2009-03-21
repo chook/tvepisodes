@@ -35,17 +35,27 @@
         
 	google.load("visualization", "1", {packages:["columnchart", "table" ,"barchart" , "piechart"]});	 
     function init() {
-		loadFriends();
-		getMostPopularShows();
-		getFavorites();	
+		var req = opensocial.newDataRequest();
+		req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), 'owner');
+  
+		var ownerFriends = opensocial.newIdSpec({ "userId" : "OWNER", "groupId" : "FRIENDS" });
+		var opt_params = {};
 		
+		req.add(req.newFetchPeopleRequest(ownerFriends, opt_params), 'ownerFriends');
+
+		req.send(onLoadFriends);
+		
+	}
+	function loadAll(){
 		tabs = new _IG_Tabs(__MODULE_ID__ );
 		// When you use addDynamicTab, the tab's content is 
         // dynamically generated through the callback function. 
         tabs.addTab("News", "news_div", create_msg);
         tabs.addTab("My Shows", "epsd_div", showFavorites);
-        tabs.addTab("Add", "add_div");
+        tabs.addTab("Add", "add_div" , showAddDiv());
         tabs.addTab("Statistics", "sts_div",showSts);
+		getMostPopularShows();
+		//getFavorites();	
 	}
        
 	function showFavorites() {
@@ -56,17 +66,6 @@
 	{
 		document.getElementById('sts_div').style.display = '';
 	}
-	function loadFriends() {	
-		var req = opensocial.newDataRequest();
-		req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), 'owner');
-  
-		var ownerFriends = opensocial.newIdSpec({ "userId" : "OWNER", "groupId" : "FRIENDS" });
-		var opt_params = {};
-		
-		req.add(req.newFetchPeopleRequest(ownerFriends, opt_params), 'ownerFriends');
-
-		req.send(onLoadFriends);
-	}
 
 	function onLoadFriends(data) {
 		var owner = data.get('owner').getData();
@@ -75,7 +74,6 @@
 		// Set the user Id
 		userID = owner.getId();
 
-		create_msg();
 		ownerFriends.each(function(person) {
 			if (person.getId()) {
 				userFriendsID += person.getId() + ',' ;
@@ -83,29 +81,37 @@
 		});
 		if (userFriendsID.length > 0)
 			userFriendsID = userFriendsID.substring(0,userFriendsID.length - 1);
+		
+		//init all the other stuff
+		loadAll();
 	}
-
+	function showAddDiv(){
+		document.getElementById('search_buttons').style.display = '';
+		document.getElementById('bottom_buttons').style.display = '';
+		document.getElementById('most_pop').style.display = '';		
+		document.getElementById('most_pop_txt').style.display = '';	
+		document.getElementById('vis_results').style.display = '';
+		document.getElementById('optTable').style.display = '';
+		document.getElementById('main_div').style.display = '';
+	}
 	function getRecommended()    {
 		document.getElementById('no_result_div').style.display='none';
 		document.getElementById('search_error_div').style.display='none';
-		document.getElementById('vis_results').style.display = 'none' 
+		document.getElementById('vis_results').style.display = 'none'; 
 		document.getElementById('most_pop').style.display = 'none';		
 		document.getElementById('most_pop_txt').style.display = 'none';	
 		document.getElementById('recmnd_txt').style.display = 'none';			
 		document.getElementById('recmnd_div').style.display = 'none';					
 		document.getElementById('searching...').style.display = '';
+		document.getElementById('optTable').style.display = 'none';		
 		document.getElementById('bottom_buttons').style.display = 'none';
 		
 		UnTip();
 		
 		checked_no = 0;
 		
-		friendsinf = document.getElementById('slider-converted-value').innerHTML;
-		genresinf = document.getElementById('slider-value').innerHTML;
-
-		var url = 'http://epihourtesting2.appspot.com/recommend?user=' + userID + 
-				  '&friends=' + userFriendsID + '&showscount=36&friendsinf=' + friendsinf +
-				  '&genresinf=' + genresinf;
+		var url = 'http://epihourtesting2.appspot.com/recommend?uid=' + userID + 
+				  '&friends=' + userFriendsID + '&showscount=36';
 		
 		query = new google.visualization.Query(url);
 
@@ -119,6 +125,7 @@
 			return;
 		}
 		document.getElementById('searching...').style.display = 'none';
+		document.getElementById('optTable').style.display = '';		
 		document.getElementById('bottom_buttons').style.display = '';
 		document.getElementById('recmnd_div').style.display = '';	
 		document.getElementById('recmnd_txt').style.display = '';
@@ -126,7 +133,7 @@
 		data = response.getDataTable();
 		data.addColumn('string' , '');
 		for (var j=0; j<data.getNumberOfRows(); j++){						
-			data.setValue(j , 12, '<img style="cursor:hand" id="add'+j+'" src="' + currLink + 'images/add.png" alt="Add it!" onclick="UnTip(); add_show('+data.getValue(j,0)+',id);" />');					
+			data.setValue(j , 12, '<img style="cursor:hand" id="add'+data.getValue(j,0)+'" src="' + currLink + 'images/add.png" alt="Add it!" onclick="UnTip(); add_show('+data.getValue(j,0)+',id);" />');					
 		}
 		table = new google.visualization.Table(document.getElementById('recmnd_div'));
 		var view = new google.visualization.DataView(data);
@@ -168,6 +175,9 @@
 				}
 			}
 		}
+	
+		//get slider value
+		getOptions();
 	}
 
     function printMostPopularShows()
@@ -185,7 +195,7 @@
 		UnTip();
 
 		checked_no = 0;
-		var url = 'http://epihourtesting2.appspot.com/topShows?limit=5';
+		var url = 'http://epihourtesting2.appspot.com/topShows?limit=5' + '&uid=' + userID;
 
 		query = new google.visualization.Query(url);
 
@@ -201,15 +211,16 @@
 		}
 		data = response.getDataTable();
 		data.addColumn('string' , '');
-		for (var j=0; j<data.getNumberOfRows(); j++){			
-			data.setValue(j , 11, '<img style="cursor:hand" id="add'+j+'" src="' + currLink + 'images/add.png" alt="Add it!" onclick="UnTip(); add_show('+data.getValue(j,0)+',id);"\>');
-			//data.setValue(j , 11, '<input type="submit" align="center"  class="btn" value="Add" id="add'+j+'" onmouseover="this.className=\'btnhov\'" onmouseout="this.className=\'btn\'" onclick="add_show('+data.getValue(j,0)+')" />');			
-			
-			
+		for (var j=0; j<data.getNumberOfRows(); j++){
+			if (data.getValue(j,11) == '0')
+				//this show is not in the user's favorites shows
+				data.setValue(j , 12, '<img style="cursor:hand" id="add'+data.getValue(j,0)+'" src="' + currLink + 'images/add.png" alt="Add it!" onclick="UnTip(); add_show('+data.getValue(j,0)+',id);"\>');
+			else	//this show is in the user's favorites shows		
+				data.setValue(j , 12, '<img id="added'+data.getValue(j,0)+'" src="' + currLink + 'images/added.png" alt="Added!" onclick="UnTip();"\>');
 		}
 		table = new google.visualization.Table(document.getElementById('most_pop'));
 		var view = new google.visualization.DataView(data);
-		view.hideColumns([0,2,3,4,5,6,7,8,9,10]); // show only the show name and the add buttons.
+		view.hideColumns([0,2,3,4,5,6,7,8,9,10,11]); // show only the show name and the add buttons.
 		if (data.getNumberOfRows()<1){
 			alert('there are no pop shows');
 		} else {
@@ -246,6 +257,9 @@
 				}
 			}
 		}
+		
+		//get slider value
+		getOptions();
 	}
        
     function search_episode() {
@@ -258,9 +272,10 @@
 		document.getElementById('recmnd_div').style.display = 'none';	
 		document.getElementById('recmnd_txt').style.display = 'none';
 		document.getElementById('searching...').style.display = '' ;
+		document.getElementById('optTable').style.display = 'none';		
 		document.getElementById('bottom_buttons').style.display = 'none';
 		checked_no = 0;
-		var url = 'http://epihourtesting2.appspot.com/searchShow?name=' + document.getElementById('srch_txt').value.toLowerCase();
+		var url = 'http://epihourtesting2.appspot.com/searchShow?name=' + document.getElementById('srch_txt').value.toLowerCase() + '&uid='+userID;
 		
 		query = new google.visualization.Query(url);
 		
@@ -280,26 +295,32 @@
 		data = response.getDataTable();
 		data.addColumn('string' , '');
 		for (var j=0; j<data.getNumberOfRows(); j++){
-			data.setValue(j , 10, '<img style="cursor:hand" id="add'+j+'" src="' + currLink + 'images/add.png" alt="Add it!" onclick="UnTip(); add_show('+data.getValue(j,0)+',id)"\>');
+			if (data.getValue(j,10) == '0')
+				data.setValue(j , 11, '<img style="cursor:hand" id="add'+data.getValue(j,0)+'" src="' + currLink + 'images/add.png" alt="Add it!" onclick="UnTip(); add_show('+data.getValue(j,0)+',id);"\>');
+			else	//this show is in the user's favorites shows		
+				data.setValue(j , 11, '<img id="added'+data.getValue(j,0)+'" src="' + currLink + 'images/added.png" alt="Added!" onclick="UnTip();"\>');				
 		}
 		
 		table = new google.visualization.Table(document.getElementById('vis_results'));
 		var view = new google.visualization.DataView(data);
-		view.hideColumns([0,2,3,4,5,6,7,8,9]); // show only the show name and the add buttons.
+		view.hideColumns([0,2,3,4,5,6,7,8,9,10]); // show only the show name and the add buttons.
 		if (data.getNumberOfRows()<1){
 			document.getElementById('vis_results').style.display='none';
 			document.getElementById('searching...').style.display = 'none' ;
+			document.getElementById('optTable').style.display = '';		
 			document.getElementById('bottom_buttons').style.display = '';
 			document.getElementById('no_result_div').style.display='';
 		} else {
 			if ((data.getNumberOfRows() == 1) && (data.getValue(0,0) == 0)){
 				document.getElementById('vis_results').style.display='none';
 				document.getElementById('searching...').style.display = 'none' ;
+				document.getElementById('optTable').style.display = '';		
 				document.getElementById('bottom_buttons').style.display = '';
 				document.getElementById('search_error_div').style.display='';
 			} else {
 				document.getElementById('vis_results').style.display = '' ;
 				document.getElementById('searching...').style.display = 'none' ;
+				document.getElementById('optTable').style.display = '';		
 				document.getElementById('bottom_buttons').style.display = '';
 				
 				table.draw(view, {showRowNumber: true, allowHtml:true, width: 210, page: 'enable', pageSize: 5});
@@ -335,6 +356,9 @@
 				}
 			}
 		}
+		
+		//get slider value
+		getOptions();
 	}
 	
     function reset_srch_text() {
@@ -352,6 +376,7 @@
 		document.getElementById('no_result_div').style.display = 'none';
 		document.getElementById('search_error_div').style.display = 'none';		
 		document.getElementById('searching...').style.display = 'none';
+		document.getElementById('optTable').style.display = '';		
 		document.getElementById('bottom_buttons').style.display = '';
 		document.getElementById('recmnd_div').style.display = 'none';	
 		document.getElementById('recmnd_txt').style.display = 'none';
@@ -433,13 +458,13 @@
 		for (var j=0; j<favoritesData.getNumberOfRows(); j++){			
 				
 			epiName = favoritesData.getValue(j,1);
-			epiStartDate = getGoogleTimeFormat(favoritesData.getValue(j,8),favoritesData.getValue(j,10),0);
-			epiEndDate = getGoogleTimeFormat(favoritesData.getValue(j,8),favoritesData.getValue(j,10),60);			
+			epiStartDate = getGoogleTimeFormat(favoritesData.getValue(j,8),favoritesData.getValue(j,11),0);
+			epiEndDate = getGoogleTimeFormat(favoritesData.getValue(j,8),favoritesData.getValue(j,11),60);			
 			
-			if (favoritesData.getValue(j,10) == "Show Ended")
-				favoritesData.setValue(j , 11, '<img onclick="UnTip();" id="book'+j+'" src="' + currLink + 'images/book_off.png" alt="Show Ended!" border="0" />');						
+			if (favoritesData.getValue(j,11) == "Show Ended")
+				favoritesData.setValue(j , 12, '<img onclick="UnTip();" id="book'+j+'" src="' + currLink + 'images/book_off.png" alt="Show Ended!" border="0" />');						
 			else
-				favoritesData.setValue(j , 11, '<a id="book' + j +'" onclick="UnTip()" href="http://www.google.com/calendar/event?action=TEMPLATE&text=EPI%20HOUR%20-%20' + epiName + '&dates=' + epiStartDate + '/' + epiEndDate + '&details=HAVE%20FUN!&location=TV&trp=true&sprop=&sprop=name:epi%20hour%20gadget" target="_blank"><img id="book'+j+'" src="' + currLink + 'images/book.png" alt="Book it!" border="0" /></a>');						
+				favoritesData.setValue(j , 12, '<a id="book' + j +'" onclick="UnTip()" href="http://www.google.com/calendar/event?action=TEMPLATE&text=EPI%20HOUR%20-%20' + epiName + '&dates=' + epiStartDate + '/' + epiEndDate + '&details=HAVE%20FUN!&location=TV&trp=true&sprop=&sprop=name:epi%20hour%20gadget" target="_blank"><img id="book'+j+'" src="' + currLink + 'images/book.png" alt="Book it!" border="0" /></a>');						
 
 		
 			
@@ -447,12 +472,12 @@
 		
 		// remove! buttons
 		for (var j=0; j<favoritesData.getNumberOfRows(); j++){			
-			favoritesData.setValue(j , 12, '<img style="cursor:hand" id="delete'+j+'" src="' + currLink + 'images/delete.png" alt="Remove it!" onclick="UnTip(); remove_row('+favoritesData.getValue(j,0)+');" />');
+			favoritesData.setValue(j , 13, '<img style="cursor:hand" id="delete'+j+'" src="' + currLink + 'images/delete.png" alt="Remove it!" onclick="UnTip(); remove_row('+favoritesData.getValue(j,0)+');" />');
 		}
 		
 		var favoritesTable = new google.visualization.Table(document.getElementById('favorites'));
 		var view = new google.visualization.DataView(favoritesData);
-		view.hideColumns([0,2,3,4,5,6,7,8,9]); // show only name and next air date.
+		view.hideColumns([0,2,3,4,5,6,7,8,9,10]); // show only name and next air date.
 		document.getElementById('getting_fav').style.display = 'none' ;
 		if (favoritesData.getNumberOfRows() < 1){
 			document.getElementById('getting_fav').style.display = 'none' ;
@@ -475,12 +500,11 @@
 						var infoLink =  favoritesData.getValue(selection[i].row, 7);
 						var airTime =  favoritesData.getValue(selection[i].row, 8);
 						var airDay =  favoritesData.getValue(selection[i].row, 9);
-						var message = null;
+							
 						if (seasonsNum != 1){
-							if (status == 'Canceled/Ended'){
-								message = '\"'+name+ '\" was first broadcasted on '+date+'. There were '+seasonsNum+' seasons for this show (it was canceled/ended) and it\'s original country is '+country+'.';
-								Tip(message , TITLE, '<div class=\'TitleCls\'>'+name+'</div>', STICKY, true, CLOSEBTN , true,CENTERMOUSE, true, ABOVE, false , FADEIN, 500, FADEOUT, 500);
-							}else
+							if (status == 'Canceled/Ended')
+								Tip('\"'+name+ '\" was first broadcasted on '+date+'. There were '+seasonsNum+' seasons for this show (it was canceled/ended) and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>', STICKY, true, CLOSEBTN , true,CENTERMOUSE, true, ABOVE, false , FADEIN, 500, FADEOUT, 500);
+							else
 								Tip('\"'+name+ '\" was first broadcasted on '+date+'. There are '+seasonsNum+' seasons for this show and it\'s original country is '+country+'. The show is air on '+airDay+' , '+airTime+ ' (USA time).<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>', STICKY, true, CLOSEBTN , true,CENTERMOUSE, true, ABOVE, false , FADEIN, 500, FADEOUT, 500);
 						}
 						else{
@@ -498,7 +522,24 @@
 	}
 
 	function addCallbackFunction(obj) {
-		alert(obj.text);
+		var answer = obj.text.split(" ");
+		//add show
+		if (answer[0] == "Add"){
+			if (answer[1] != "0"){
+				document.getElementById('add'+answer[1]).src = currLink + "images/added.png";
+				document.getElementById('add'+answer[1]).alt = "Added!";
+				document.getElementById('add'+answer[1]).onclick = "";
+				getMostPopularShows();
+			}
+
+		}
+		//remove show
+		else{
+			if (answer[1] != "0"){
+				getFavorites();
+				getMostPopularShows();
+			}
+		}
 	};
 	
 	// add = 1, remove = 0,id_name = the field to change in the table
@@ -508,20 +549,7 @@
 		//postdata = gadgets.io.encodeValues(postdata);		// already given in the encodedValue format
 		params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.POST;
 		params[gadgets.io.RequestParameters.POST_DATA]= postdata;
-		gadgets.io.makeRequest(url, addCallbackFunction, params); 
-		
-		//add show
-		if (remove_or_add == 1)
-		{
-			document.getElementById(id_name).src = "http://tvepisodes.googlecode.com/svn/trunk/client/added.png";
-			document.getElementById(id_name).alt = "Added!";
-			document.getElementById(id_name).onclick = "";
-		}
-		else //remove show
-		{
-			//wait before refresh favorites tab
-			window.setTimeout('getFavorites()', 500);			
-		}		
+		gadgets.io.makeRequest(url, addCallbackFunction, params); 		
 	};
 	
     function add_show(showId,id_name) {
@@ -575,35 +603,53 @@
 			alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
 			return;
 		}
-
+		var msgCount = 0;
 		favoritesData = response.getDataTable();
 		var today = new Date();
-		
-		var year = today.getFullYear();
-		var month = today.getMonth() + 1;
-		var day = today.getDate();
+		var yesterday = new Date();
+		yesterday.setDate(yesterday.getDate()-1);
 
 		if (favoritesData != null) {
 			if (favoritesData.getNumberOfRows() <= 0) {
 				tabs.setSelectedTab(2);
 			} else {
 				for (var i=0; i < favoritesData.getNumberOfRows(); i++) {
-					var nextAirDate = favoritesData.getValue(i,10);
+					var nextAirDate = favoritesData.getValue(i,11);
+					var prevAirDate = favoritesData.getValue(i,10);
 					var name = favoritesData.getValue(i,1);
 					var airDateArray = nextAirDate.split('-');
-
+					//messages about episodes that were broadcasted yesterday
+					if (prevAirDate != null){ 
+						var prevDateArray = prevAirDate.split('-');
+						var prevDate = new Date();
+						prevDate.setFullYear(prevDateArray[0], prevDateArray[1]-1, prevDateArray[2]);
+						if (Math.ceil((yesterday - prevDate)/oneDay) == 0){
+							msg.createStaticMessage(tvImg2 + " \""+name + "\" was yesterday!");
+							msgCount++;
+						}
+					}
+					//messages for the next 3 days
 					var showDate = new Date();
 					showDate.setFullYear(airDateArray[0] , airDateArray[1] - 1 , airDateArray[2]);
-
+		
 					var leftDays = Math.floor((showDate - today) / oneDay);
-					if (leftDays == 0) {
+					if (leftDays == -1) {
+						msg.createStaticMessage(tvImg2 + " \""+name + "\" was yesterday!");
+						msgCount++;
+					} else if (leftDays == 0) {
 						msg.createStaticMessage(tvImg2 + " \""+name + "\" is on today!");
-					} else if (leftDays == 1) {
+						msgCount++;
+						} else if (leftDays == 1) {
 							msg.createStaticMessage(tvImg3 + " \""+name + "\" is just a day away!");
-					} else if (leftDays == 2) {
+							msgCount++;
+						} else if (leftDays == 2) {
 							msg.createStaticMessage(tvImg1 + " \""+name + "\" will be broadcast in "+ leftDays+" days!");
-					}
-				}		
+							msgCount++;
+						}
+				}
+				if (msgCount == 0)
+				// no messages
+					msg.createStaticMessage("No news for your favorites shows.");
 			}
 		}	
     }
@@ -656,10 +702,46 @@
 		}
 	}
 	
-	function saveOptions()	{
+	function saveCallbackFunction(obj) {
 		document.getElementById('txtDone').style.display = '';
-		window.setTimeout('hideDone()', 800);
+		window.setTimeout('hideDone()', 1200);
 	}
+	
+	
+	function postReqSaveOpt(url, postdata) {
+		var params = {};
+
+		//postdata = gadgets.io.encodeValues(postdata);		// already given in the encodedValue format
+		params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.POST;
+		params[gadgets.io.RequestParameters.POST_DATA]= postdata;
+		gadgets.io.makeRequest(url, saveCallbackFunction, params); 		
+	}
+	
+	function getOptions()	{
+		var params = {};
+		var url = 'http://epihourtesting2.appspot.com/fetchUserPrefs';
+		params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.POST;
+		params[gadgets.io.RequestParameters.POST_DATA]= 'uid=' + encodeURIComponent(userID); ;
+		gadgets.io.makeRequest(url, getOptCallbackFunction, params); 		
+	
+	}
+	
+	//get friends-genres ratio value
+	function getOptCallbackFunction(obj)	{
+		var answer = obj.text.split(" ");
+
+		document.getElementById('mySliderBox').style.left = answer[0] ;
+		document.getElementById('mySliderBox').value = answer[0];	
+	}
+	
+	function saveOptions()	{		
+		var url = 'http://epihourtesting2.appspot.com/assignUserPrefs';
+		var body = 'uid=' + encodeURIComponent(userID); 
+		body += '&inf=' + encodeURIComponent(document.getElementById('mySlider').value);
+		postReqSaveOpt(url, body)
+		
+	}
+	
 	
 	function hideDone()	{
 		document.getElementById('txtDone').style.display = 'none';
@@ -695,7 +777,7 @@
 	</div>
 	
     <div class="background" align="center" id="add_div" >        
-        <table border="0" align="center">
+        <table border="0" id="search_buttons" style="display:none" align="center">
           <tr>
             <td> 
             	<input type="text" class="txt" value="TV Show Name Here" id="srch_txt" onclick="reset_srch_text()"/> 
@@ -708,14 +790,14 @@
 
         </table>
       
-		<div id="main_div">
+		<div id="main_div" style="display:none">
 			<div id="vis_results"> </div>
 
 			<span  id="most_pop_txt">
 				<font size="2">Most Popular Shows:</font>
 			</span>				
 
-			<div id="most_pop"></div>
+			<div id="most_pop" style="display:none"></div>
 			
 			<span style="display:none" id="recmnd_txt">
 				<font size="2">Recommendations:</font>
@@ -750,7 +832,7 @@
 				<img src="images/loading_animation.gif" />
 		</div>
 
-		<div id="bottom_buttons">
+		<div id="bottom_buttons" style="display:none">
 			<table border="0" align="center">
 
 			  <tr>
@@ -764,6 +846,8 @@
 
 			</table>
         </div>		
+        
+        <div id="optTable" style = "display:none">
 		<table border="0" width="100%">
 			<tr align="left">
 				<td align="left" onclick="setOptions()" style="cursor:hand">
@@ -785,42 +869,44 @@
 						<table align="center" border="0" width="120px">
 
 							<tr>
-								<td colspan="3">
-
-										<div class="carpe_horizontal_slider_track">
-											<div class="carpe_slider_slit">&nbsp;</div>
-											<div class="carpe_slider"
-												id="your_slider_id"
-												orientation="horizontal"
-												distance="100"
-												display="your_display_id"
-												style="left: 80px;">&nbsp;</div>
-										</div>
-								</td>
-							</tr>
-							<tr  align="center">
-								<td>
-									<font size="1">
-									<b>Freinds</b>
-									</font>
-								</td>
-								<td>
-									<div style="display:none" class="carpe_slider_display_holder" >
-										<input class="carpe_slider_display"
-											id="your_display_id"
-											name="your_var_name"
-											type="text"
-											from="-50"
-											to="50"
-											valuecount="101"
-											value="30"
-											typelock="off" /></div>
-
-								</td>
 								<td>
 									<font size="1">
 									<b>Genres</b>
 									</font>
+								</td>
+
+								<td>
+
+										<div class="carpe_horizontal_slider_track">
+											<div class="carpe_slider_slit">&nbsp;</div>
+											<div class="carpe_slider"
+												id="mySliderBox"
+												orientation="horizontal"
+												distance="100"
+												display="mySlider"
+												style="left: 50px;">&nbsp;</div>
+										</div>
+								</td>
+								<td>
+									<font size="1">
+									<b>Friends</b>
+									</font>
+								</td>
+
+							</tr>
+							<tr  align="center">
+								<td colspan="3">
+									<div style="display:none" class="carpe_slider_display_holder" >
+										<input class="carpe_slider_display"
+											id="mySlider"
+											name="mySlider"
+											type="text"
+											from="0"
+											to="100"
+											valuecount="101"
+											value="50"
+											typelock="off" /></div>
+
 								</td>
 							</tr>
 
@@ -848,6 +934,9 @@
 			</tr>
 			
 		</table>
+		
+	</div>
+	
 	</div>
 	<div align="center" style="display:none" id="sts_div" class="background">
 	
