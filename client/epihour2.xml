@@ -28,7 +28,6 @@
 	var friendsinf = 40;
 	var genresinf = 60;
 	var browser = navigator.appName;
-
 	
 	// Tabs
 	var tabs = null;
@@ -49,13 +48,10 @@
 			var opt_params = {};
 			
 			req.add(req.newFetchPeopleRequest(ownerFriends, opt_params), 'ownerFriends');
-	
 			req.send(onLoadFriends);
 		}
 		
 	}
-	
-	
 	
 	function loadAll(){
 		tabs = new _IG_Tabs(__MODULE_ID__ );
@@ -117,7 +113,9 @@
 		document.getElementById('searching...').style.display = '';
 		document.getElementById('optTable').style.display = 'none';		
 		document.getElementById('bottom_buttons').style.display = 'none';
-
+		
+		UnTip();
+		
 		checked_no = 0;
 		
 		var url = 'http://epihour.appspot.com/recommend?uid=' + userID + 
@@ -143,7 +141,7 @@
 		data = response.getDataTable();
 		data.addColumn('string' , '');
 		for (var j=0; j<data.getNumberOfRows(); j++){						
-			data.setValue(j , 12, '<img style="cursor:pointer" id="add'+data.getValue(j,0)+'" src="' + currLink + 'images/add.png" alt="Add it!" onclick="add_show('+data.getValue(j,0)+',id);" />');					
+			data.setValue(j , 12, '<img style="cursor:pointer" id="add'+data.getValue(j,0)+'" src="' + currLink + 'images/add.png" alt="Add it!" onclick="UnTip(); add_show('+data.getValue(j,0)+',id);" />');					
 		}
 		table = new google.visualization.Table(document.getElementById('recmnd_div'));
 		var view = new google.visualization.DataView(data);
@@ -186,12 +184,14 @@
 						Tip(recmnd + ' \"'+name+ '\" was first broadcasted on '+date+'. There is '+seasonsNum+' season for this show and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>' , STICKY, true, CLOSEBTN , true ,CENTERMOUSE, true , ABOVE , false , FADEIN, 500, FADEOUT, 500);
 				}
 			}
+		} else {
+			UnTip();
 		}
 	}
 
     function printMostPopularShows()
     {
-    		getMostPopularShows();
+    	getMostPopularShows();
 		document.getElementById('no_result_div').style.display='none';
 		document.getElementById('search_error_div').style.display='none';
 		document.getElementById('vis_results').style.display = 'none';
@@ -202,14 +202,15 @@
     }
 	
 	function getMostPopularShows()    {
-		var url = 'http://epihour.appspot.com/topShows?limit=5' + '&uid=' + userID;
+		UnTip();
+
 		checked_no = 0;
+		var url = 'http://epihour.appspot.com/topShows?limit=5' + '&uid=' + userID;
 
 		query = new google.visualization.Query(url);
 
 		// Send the query with a callback function.
 		query.send(handlePopularQueryResponse);
-	
 	}
   
 	function handlePopularQueryResponse(response)	{
@@ -222,10 +223,9 @@
 		for (var j=0; j<data.getNumberOfRows(); j++){
 			if (data.getValue(j,11) == '0')
 				//this show is not in the user's favorites shows
-				data.setValue(j , 12, '<img style="cursor:pointer" id="add'+data.getValue(j,0)+'" src="' + currLink + 'images/add.png" alt="Add it!" onclick="add_show('+data.getValue(j,0)+',id);"\>');
-			// this show is in the user's favorites shows
-			else			
-				data.setValue(j , 12, '<img id="added'+data.getValue(j,0)+'" src="' + currLink + 'images/added.png" alt="Added!"\>');
+				data.setValue(j , 12, '<img style="cursor:pointer" id="add'+data.getValue(j,0)+'" src="' + currLink + 'images/add.png" alt="Add it!" onclick="UnTip(); add_show('+data.getValue(j,0)+',id);"\>');
+			else	//this show is in the user's favorites shows		
+				data.setValue(j , 12, '<img id="added'+data.getValue(j,0)+'" src="' + currLink + 'images/added.png" alt="Added!" onclick="UnTip();"\>');
 		}
 		table = new google.visualization.Table(document.getElementById('most_pop'));
 		var view = new google.visualization.DataView(data);
@@ -267,10 +267,13 @@
 						Tip('\"'+name+ '\" was first broadcasted on '+date+'. There is '+seasonsNum+' season for this show and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>' , STICKY, true, CLOSEBTN , true ,CENTERMOUSE, true , ABOVE , false , FADEIN, 500, FADEOUT, 500);
 				}
 			}
+		} else {
+			UnTip();
 		}
 	} 
        
     function search_episode() {
+		UnTip();
 		document.getElementById('no_result_div').style.display='none';
 		document.getElementById('search_error_div').style.display='none';
 		document.getElementById('vis_results').style.display = 'none' ;
@@ -303,9 +306,9 @@
 		data.addColumn('string' , '');
 		for (var j=0; j<data.getNumberOfRows(); j++){
 			if (data.getValue(j,10) == '0')
-				data.setValue(j , 11, '<img style="cursor:pointer" id="add'+data.getValue(j,0)+'" src="' + currLink + 'images/add.png" alt="Add it!" onclick="add_show('+data.getValue(j,0)+',id);"\>');
+				data.setValue(j , 11, '<img style="cursor:pointer" id="add'+data.getValue(j,0)+'" src="' + currLink + 'images/add.png" alt="Add it!" onclick="UnTip(); add_show('+data.getValue(j,0)+',id);"\>');
 			else	//this show is in the user's favorites shows		
-				data.setValue(j , 11, '<img id="added'+data.getValue(j,0)+'" src="' + currLink + 'images/added.png" alt="Added!"\>');				
+				data.setValue(j , 11, '<img id="added'+data.getValue(j,0)+'" src="' + currLink + 'images/added.png" alt="Added!" onclick="UnTip();"\>');				
 		}
 		
 		table = new google.visualization.Table(document.getElementById('vis_results'));
@@ -364,6 +367,8 @@
 						Tip('\"'+name+ '\" was first broadcasted on '+date+'. There is '+seasonsNum+' season for this show and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>' , STICKY, true, CLOSEBTN , true ,CENTERMOUSE, true , ABOVE , false , FADEIN, 500, FADEOUT, 500);
 				}
 			}
+		} else {
+			UnTip();
 		}
 	}
 	
@@ -373,6 +378,8 @@
     }
     function reset_srch() { 
         checked_no = 0;
+		UnTip();
+
         document.getElementById('srch_txt').value = 'TV Show Name Here';
         document.getElementById('most_pop').style.display = ''; 
         document.getElementById('most_pop_txt').style.display = '';
@@ -394,6 +401,7 @@
     }
 	  
 	function getFavorites() {
+		UnTip();
 		document.getElementById('epsd_div').removeChild(document.getElementById('favorites'));
 		var newDiv = document.createElement("div");
 		newDiv.id = "favorites";
@@ -471,9 +479,9 @@
 			epiEndDate = getGoogleTimeFormat(favoritesData.getValue(j,8),favoritesData.getValue(j,11),epiTime);			
 			
 			if (favoritesData.getValue(j,11) == "Show Ended")
-				favoritesData.setValue(j , 13, '<img id="book'+j+'" src="' + currLink + 'images/book_off.png" alt="Show Ended!" border="0" />');						
+				favoritesData.setValue(j , 13, '<img onclick="UnTip();" id="book'+j+'" src="' + currLink + 'images/book_off.png" alt="Show Ended!" border="0" />');						
 			else
-				favoritesData.setValue(j , 13, '<a id="book' + j +'" href="http://www.google.com/calendar/event?action=TEMPLATE&text=EPI%20HOUR%20-%20' + epiName + '&dates=' + epiStartDate + '/' + epiEndDate + '&details=HAVE%20FUN!&location=TV&trp=true&sprop=&sprop=name:epi%20hour%20gadget" target="_blank"><img id="book'+j+'" src="' + currLink + 'images/book.png" alt="Book it!" border="0" /></a>');						
+				favoritesData.setValue(j , 13, '<a id="book' + j +'" onclick="UnTip()" href="http://www.google.com/calendar/event?action=TEMPLATE&text=EPI%20HOUR%20-%20' + epiName + '&dates=' + epiStartDate + '/' + epiEndDate + '&details=HAVE%20FUN!&location=TV&trp=true&sprop=&sprop=name:epi%20hour%20gadget" target="_blank"><img id="book'+j+'" src="' + currLink + 'images/book.png" alt="Book it!" border="0" /></a>');						
 
 		
 			
@@ -481,7 +489,7 @@
 		
 		// remove! buttons
 		for (var j=0; j<favoritesData.getNumberOfRows(); j++){			
-			favoritesData.setValue(j , 14, '<img style="cursor:pointer" id="delete'+j+'" src="' + currLink + 'images/delete.png" alt="Remove it!" onclick="remove_row('+favoritesData.getValue(j,0)+');" />');
+			favoritesData.setValue(j , 14, '<img style="cursor:pointer" id="delete'+j+'" src="' + currLink + 'images/delete.png" alt="Remove it!" onclick="UnTip(); remove_row('+favoritesData.getValue(j,0)+');" />');
 		}
 		
 		favoritesTable = new google.visualization.Table(document.getElementById('favorites'));
@@ -525,6 +533,8 @@
 						Tip('\"'+name+ '\" was first broadcasted on '+date+'. There is '+seasonsNum+' season for this show and it\'s original country is '+country+'. The show is air on '+airDay+' , '+airTime+ ' (USA time).<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>' , STICKY, true, CLOSEBTN , true ,CENTERMOUSE, true , ABOVE , false , FADEIN, 500, FADEOUT, 500);
 				}
 			}
+		} else {
+			UnTip();
 		}
 	}
 
