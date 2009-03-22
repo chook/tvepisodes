@@ -570,7 +570,7 @@
 	};
 	
     function add_show(showId,id_name) {
-    	document.getElementById(id_name).src = "http://tvepisodes.googlecode.com/svn/trunk/client/adding.gif";
+    	document.getElementById(id_name).src = currLink + "images/adding.gif";
 		var url = "http://epihour.appspot.com/addFavorite";
 		
 		//creating the shows to add array
