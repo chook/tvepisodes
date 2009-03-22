@@ -38,10 +38,11 @@
         
 	google.load("visualization", "1", {packages:["columnchart", "table" ,"barchart" , "piechart"]});	 
     function init() {
+
+		alert(opensocial);
+		
 		var req = opensocial.newDataRequest();
-		
-		alert(req);
-		
+
 		req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), 'owner');
   
 		var ownerFriends = opensocial.newIdSpec({ "userId" : "OWNER", "groupId" : "FRIENDS" });
