@@ -110,15 +110,17 @@ class SearchShow(webapp.RequestHandler):
             query = User.all()
             query.filter("userid = ", userid)
             user = query.get()
-            userFavShows = []
-            for k in user.favorite_shows:
-                show = db.get(k)
-                if show is not None:
-                    userFavShows.append(show.showid)
-    
-            for show in dicShows:
-                if show.get("showid") in userFavShows:
-                    show["favorite"] = "1" 
+            
+            if user is not None:
+                userFavShows = []
+                for k in user.favorite_shows:
+                    show = db.get(k)
+                    if show is not None:
+                        userFavShows.append(show.showid)
+        
+                for show in dicShows:
+                    if show.get("showid") in userFavShows:
+                        show["favorite"] = "1" 
         
         # Decide on the data table description
         description = {"showid"         : ("number", "ID"),
@@ -203,15 +205,17 @@ class TopShows(webapp.RequestHandler):
         query = User.all()
         query.filter("userid = ", userid)
         user = query.get()
-        userFavShows = []
-        for k in user.favorite_shows:
-            show = db.get(k)
-            if show is not None:
-                userFavShows.append(show.showid)
-
-        for show in dicShows:
-            if show.get("showid") in userFavShows:
-                show["favorite"] = "1" 
+        
+        if user is not None:
+            userFavShows = []       
+            for k in user.favorite_shows:
+                show = db.get(k)
+                if show is not None:
+                    userFavShows.append(show.showid)
+    
+            for show in dicShows:
+                if show.get("showid") in userFavShows:
+                    show["favorite"] = "1" 
     
     # Decide on the data table description
     description = {"showid"         : ("number", "ID"),
