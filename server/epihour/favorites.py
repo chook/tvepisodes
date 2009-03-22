@@ -129,7 +129,7 @@ class GetFavorites(webapp.RequestHandler):
                     for date in dates:
                         try:
                             d = datetime.date(int(date[0:4]),int(date[5:7]), int(date[8:10]))
-                            if d > datetime.date.today():
+                            if d >= datetime.date.today():
                                 favoriteShow.prevdate = favoriteShow.nextdate
                                 favoriteShow.nextdate = date
                                 foundNewDate = True
