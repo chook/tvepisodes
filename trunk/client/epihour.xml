@@ -818,7 +818,7 @@
 			<br>
 			You don't have any favorite shows.
 			<br>
-			<span onclick="tabs.setSelectedTab(2);"><b>Click here</b></span> to start adding.
+			<span style="cursor:hand" onclick="tabs.setSelectedTab(2);"><b>Click here</b></span> to start adding.
 			
 			
 			<br>
