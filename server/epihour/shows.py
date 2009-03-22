@@ -308,6 +308,8 @@ def addShow(showid):
         is_show_over = False
     
     try:
+        if runtime is None:
+            runtime = "60"
         # creating the show in the DS
         newShow = Show(showid = int(showid),
                        name = name,
