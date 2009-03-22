@@ -148,7 +148,7 @@
 		data = response.getDataTable();
 		data.addColumn('string' , '');
 		for (var j=0; j<data.getNumberOfRows(); j++){						
-			data.setValue(j , 12, '<img style="cursor:hand" id="add'+data.getValue(j,0)+'" src="' + currLink + 'images/add.png" alt="Add it!" onclick="UnTip(); add_show('+data.getValue(j,0)+',id);" />');					
+			data.setValue(j , 12, '<img style="cursor:pointer" id="add'+data.getValue(j,0)+'" src="' + currLink + 'images/add.png" alt="Add it!" onclick="UnTip(); add_show('+data.getValue(j,0)+',id);" />');					
 		}
 		table = new google.visualization.Table(document.getElementById('recmnd_div'));
 		var view = new google.visualization.DataView(data);
@@ -231,7 +231,7 @@
 		for (var j=0; j<data.getNumberOfRows(); j++){
 			if (data.getValue(j,11) == '0')
 				//this show is not in the user's favorites shows
-				data.setValue(j , 12, '<img style="cursor:hand" id="add'+data.getValue(j,0)+'" src="' + currLink + 'images/add.png" alt="Add it!" onclick="UnTip(); add_show('+data.getValue(j,0)+',id);"\>');
+				data.setValue(j , 12, '<img style="cursor:pointer" id="add'+data.getValue(j,0)+'" src="' + currLink + 'images/add.png" alt="Add it!" onclick="UnTip(); add_show('+data.getValue(j,0)+',id);"\>');
 			else	//this show is in the user's favorites shows		
 				data.setValue(j , 12, '<img id="added'+data.getValue(j,0)+'" src="' + currLink + 'images/added.png" alt="Added!" onclick="UnTip();"\>');
 		}
@@ -314,7 +314,7 @@
 		data.addColumn('string' , '');
 		for (var j=0; j<data.getNumberOfRows(); j++){
 			if (data.getValue(j,10) == '0')
-				data.setValue(j , 11, '<img style="cursor:hand" id="add'+data.getValue(j,0)+'" src="' + currLink + 'images/add.png" alt="Add it!" onclick="UnTip(); add_show('+data.getValue(j,0)+',id);"\>');
+				data.setValue(j , 11, '<img style="cursor:pointer" id="add'+data.getValue(j,0)+'" src="' + currLink + 'images/add.png" alt="Add it!" onclick="UnTip(); add_show('+data.getValue(j,0)+',id);"\>');
 			else	//this show is in the user's favorites shows		
 				data.setValue(j , 11, '<img id="added'+data.getValue(j,0)+'" src="' + currLink + 'images/added.png" alt="Added!" onclick="UnTip();"\>');				
 		}
@@ -497,7 +497,7 @@
 		
 		// remove! buttons
 		for (var j=0; j<favoritesData.getNumberOfRows(); j++){			
-			favoritesData.setValue(j , 14, '<img style="cursor:hand" id="delete'+j+'" src="' + currLink + 'images/delete.png" alt="Remove it!" onclick="UnTip(); remove_row('+favoritesData.getValue(j,0)+');" />');
+			favoritesData.setValue(j , 14, '<img style="cursor:pointer" id="delete'+j+'" src="' + currLink + 'images/delete.png" alt="Remove it!" onclick="UnTip(); remove_row('+favoritesData.getValue(j,0)+');" />');
 		}
 		
 		favoritesTable = new google.visualization.Table(document.getElementById('favorites'));
@@ -818,7 +818,7 @@
 			<br>
 			You don't have any favorite shows.
 			<br>
-			<span style="cursor:hand" onclick="tabs.setSelectedTab(2);"><b>Click here</b></span> to start adding.
+			<span style="cursor:pointer" onclick="tabs.setSelectedTab(2);"><b>Click here</b></span> to start adding.
 			
 			
 			<br>
@@ -918,7 +918,7 @@
         <div id="optTable" style = "display:none">
 		<table border="0" width="100%">
 			<tr align="left">
-				<td align="left" onclick="setOptions()" style="cursor:hand">
+				<td align="left" onclick="setOptions()" style="cursor:pointer">
 					
 						<font size="1">
 							<span id="optId">
