@@ -39,6 +39,9 @@
 	google.load("visualization", "1", {packages:["columnchart", "table" ,"barchart" , "piechart"]});	 
     function init() {
 		var req = opensocial.newDataRequest();
+		
+		alert(req);
+		
 		req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), 'owner');
   
 		var ownerFriends = opensocial.newIdSpec({ "userId" : "OWNER", "groupId" : "FRIENDS" });
@@ -781,12 +784,11 @@
 	}
   
       // Call init function to initialize and display tabs.
-      if (gadgets.util != null)	{
+
     		_IG_RegisterOnloadHandler(init); 
-      }
-	else	{
-		document.getElementById('NotLoggedUser').style.display = '';
-	}
+		
+
+
  
 	
 </script>
