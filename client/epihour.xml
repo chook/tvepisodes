@@ -39,7 +39,9 @@
 	google.load("visualization", "1", {packages:["columnchart", "table" ,"barchart" , "piechart"]});	 
     function init() {
 	
-		alert(isdefined(gadgets.util));
+		if (!(gadgets.util))
+			document.getElementById('NotLoggedUser').style.display = '';
+				
 		
 		
 		//var req = opensocial.newDataRequest();
@@ -55,12 +57,7 @@
 		
 	}
 	
-	//check if object is defined
-	function isdefined( variable)
-	{
-	    return (typeof(window[variable]) == "undefined")?  false: true;
-	}
-
+	
 	
 	function loadAll(){
 		tabs = new _IG_Tabs(__MODULE_ID__ );
