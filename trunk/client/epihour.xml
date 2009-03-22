@@ -550,7 +550,11 @@
 				document.getElementById('add'+answer[1]).onclick = "";
 				getMostPopularShows();
 			}
-
+			else{
+				document.getElementById('add'+answer[1]).src = currLink + "images/addErr.png";
+				document.getElementById('add'+answer[1]).alt = "Couldn't Add!";
+				document.getElementById('add'+answer[1]).onclick = "";
+			}
 		}
 		//remove show
 		else{
