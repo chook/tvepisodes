@@ -60,7 +60,7 @@ class AddFavorite(webapp.RequestHandler):
 
     # This function is invoked when a user sends a get request
     def get(self):
-        self.post()
+        self.response.out.write("Use Post")
 
 class RemoveFavorite(webapp.RequestHandler):
     def post(self):
@@ -76,7 +76,7 @@ class RemoveFavorite(webapp.RequestHandler):
 
     # This function is invoked when a user sends a get request
     def get(self):
-        self.post()
+        self.response.out.write("Use Post")
 
 # This class handles the fetching of favorites
 class GetFavorites(webapp.RequestHandler):
@@ -142,6 +142,7 @@ class GetFavorites(webapp.RequestHandler):
                     nextAirDateFixed = 'Show Ended'
                 else:
                     nextAirDateFixed = favoriteShow.nextdate
+                    
                 # Appending the showid as int and name as string
                 dicUserFavorites.append({ 
                     'showid'         : favoriteShow.showid, 
@@ -155,7 +156,8 @@ class GetFavorites(webapp.RequestHandler):
                     'airtime'        : favoriteShow.airtime,
                     'airday'         : favoriteShow.airday,                   
                     'prevdate'       : favoriteShow.prevdate,
-                    'nextdate'       : nextAirDateFixed})
+                    'nextdate'       : nextAirDateFixed,
+                    'runtime'        : favoriteShow.runtime})
             # End For
         # End If
                   
@@ -171,7 +173,8 @@ class GetFavorites(webapp.RequestHandler):
                        "airtime"        : ("string", "Air Time"),
                        "airday"         : ("string", "Air Day"),
                        "prevdate"       : ("string", "Prev Date"),
-                       "nextdate"       : ("string", "Next Date")}
+                       "nextdate"       : ("string", "Next Date"),
+                       "runtime"        : ("number", "Runtime")}
         
         # Build the data table object with description and shows dictionary
         data_table = gviz_api.DataTable(description)
@@ -189,7 +192,8 @@ class GetFavorites(webapp.RequestHandler):
                                                                          "airtime",
                                                                          "airday",
                                                                          "prevdate",
-                                                                         "nextdate"),
+                                                                         "nextdate",
+                                                                         "runtime"),
                                                           order_by=("nextdate","asc"),
                                                           req_id=reqId))
 
