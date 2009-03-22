@@ -54,7 +54,7 @@ class AddFavorite(webapp.RequestHandler):
         logging.error('userid %s showid %s' % (userid, showid))
         
         if addFavorite(userid, showid):
-            self.response.out.write("Add " + showid)
+            self.response.out.write("Add " + showid + " 1")
         else:
             self.response.out.write("Add " + showid + " 0")
 
@@ -70,9 +70,9 @@ class RemoveFavorite(webapp.RequestHandler):
         showid = self.request.get('sid')
 
         if removeFavorite(userid, showid):
-            self.response.out.write("Remove " + showid)
+            self.response.out.write("Remove " + showid + " 1")
         else:
-            self.response.out.write("Remove 0")
+            self.response.out.write("Remove " + showid + " 0")
 
     # This function is invoked when a user sends a get request
     def get(self):
