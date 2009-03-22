@@ -544,7 +544,7 @@
 		var answer = obj.text.split(" ");
 		//add show
 		if (answer[0] == "Add"){
-			if (answer[1] != "0"){
+			if (answer[2] == '1'){
 				document.getElementById('add'+answer[1]).src = currLink + "images/added.png";
 				document.getElementById('add'+answer[1]).alt = "Added!";
 				document.getElementById('add'+answer[1]).onclick = "";
@@ -558,18 +558,18 @@
 		}
 		//remove show
 		else{
-			if (answer[1] != "0"){
+			if (answer[2] == '1'){
 				getFavorites();
 				getMostPopularShows();
 			}
+			else
+				getFavorites();
 		}
 	};
 	
 	// add = 1, remove = 0,id_name = the field to change in the table
 	function makePOSTRequest(url, postdata,remove_or_add,id_name) {
 		var params = {};
-
-		//postdata = gadgets.io.encodeValues(postdata);		// already given in the encodedValue format
 		params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.POST;
 		params[gadgets.io.RequestParameters.POST_DATA]= postdata;
 		gadgets.io.makeRequest(url, addCallbackFunction, params); 		
@@ -642,6 +642,7 @@
 					var nextAirDate = favoritesData.getValue(i,11);
 					var prevAirDate = favoritesData.getValue(i,10);
 					var name = favoritesData.getValue(i,1);
+					var airTime =  favoritesData.getValue(i, 8);
 					var airDateArray = nextAirDate.split('-');
 					//messages about episodes that were broadcasted yesterday
 					if (prevAirDate != null){ 
@@ -662,7 +663,7 @@
 						msg.createStaticMessage(tvImg2 + " \""+name + "\" was yesterday!");
 						msgCount++;
 					} else if (leftDays == 0) {
-						msg.createStaticMessage(tvImg2 + " \""+name + "\" is on today!");
+						msg.createStaticMessage(tvImg2 + " \""+name + "\" is on today (" +airTime+ " USA time zone)");
 						msgCount++;
 						} else if (leftDays == 1) {
 							msg.createStaticMessage(tvImg3 + " \""+name + "\" is just a day away!");
