@@ -56,7 +56,7 @@ class AddFavorite(webapp.RequestHandler):
         if addFavorite(userid, showid):
             self.response.out.write("Add " + showid)
         else:
-            self.response.out.write("Add 0")
+            self.response.out.write("Add " + showid + " 0")
 
     # This function is invoked when a user sends a get request
     def get(self):
