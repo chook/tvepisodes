@@ -42,18 +42,19 @@
 		if (!(gadgets.util))
 			document.getElementById('NotLoggedUser').style.display = '';
 				
-		
-		
-		//var req = opensocial.newDataRequest();
+		else		
+		{		
+			var req = opensocial.newDataRequest();
 
-		//req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), 'owner');
+			req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), 'owner');
   
-		//var ownerFriends = opensocial.newIdSpec({ "userId" : "OWNER", "groupId" : "FRIENDS" });
-		//var opt_params = {};
-		
-		//req.add(req.newFetchPeopleRequest(ownerFriends, opt_params), 'ownerFriends');
-
-		//req.send(onLoadFriends);
+			var ownerFriends = opensocial.newIdSpec({ "userId" : "OWNER", "groupId" : "FRIENDS" });
+			var opt_params = {};
+			
+			req.add(req.newFetchPeopleRequest(ownerFriends, opt_params), 'ownerFriends');
+	
+			req.send(onLoadFriends);
+		}
 		
 	}
 	
