@@ -39,7 +39,7 @@
 	google.load("visualization", "1", {packages:["columnchart", "table" ,"barchart" , "piechart"]});	 
     function init() {
 	
-		alert(gadgets.util);
+		alert(isdefined(gadgets.util));
 		
 		
 		//var req = opensocial.newDataRequest();
@@ -54,6 +54,14 @@
 		//req.send(onLoadFriends);
 		
 	}
+	
+	//check if object is defined
+	function isdefined( variable)
+	{
+	    return (typeof(window[variable]) == "undefined")?  false: true;
+	}
+
+	
 	function loadAll(){
 		tabs = new _IG_Tabs(__MODULE_ID__ );
 		// When you use addDynamicTab, the tab's content is 
