@@ -544,6 +544,7 @@
 		var answer = obj.text.split(" ");
 		//add show
 		if (answer[0] == "Add"){
+			alert(answer[1]);
 			if (answer[1] != 0){
 				document.getElementById('add'+answer[1]).src = currLink + "images/added.png";
 				document.getElementById('add'+answer[1]).alt = "Added!";
