@@ -425,19 +425,21 @@
 	{
 		var myDate = new Date();
 		var oStr = "";
+		
+		if ((iTime != null) && (iDate != null))	{
+			myDate.setHours(iTime.substr(0,2));
+			myDate.setMinutes(iTime.substr(3,2));
 
-		myDate.setHours(iTime.substr(0,2));
-		myDate.setMinutes(iTime.substr(3,2));
+			myDate.setDate(iDate.substr(8,2)); //set day
+			myDate.setMonth(iDate.substr(5,2));
+			myDate.setFullYear(iDate.substr(0,4));
 
-		myDate.setDate(iDate.substr(8,2)); //set day
-		myDate.setMonth(iDate.substr(5,2));
-		myDate.setFullYear(iDate.substr(0,4));
+			// add minutes
+			myDate.setMinutes(myDate.getMinutes() + iAddMinutes);
 
-		// add minutes
-		myDate.setMinutes(myDate.getMinutes() + iAddMinutes);
-
-		oStr = myDate.getFullYear() +  fixTime(myDate.getMonth()) + fixTime(myDate.getDate()) + "T" + fixTime(myDate.getHours()) + fixTime(myDate.getMinutes()) + "00Z";
-
+			oStr = myDate.getFullYear() +  fixTime(myDate.getMonth()) + fixTime(myDate.getDate()) + "T" + fixTime(myDate.getHours()) + fixTime(myDate.getMinutes()) + "00Z";
+		}
+		
 		return oStr;
 
 	}
