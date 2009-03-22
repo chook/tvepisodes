@@ -10,12 +10,9 @@
     <![CDATA[
   <html>
 <head>
-
 	<link href="css/myEpisodesCss.css" rel="stylesheet" type="text/css" />	
 	<script language="JavaScript" src="js/slider.js" ></script>
 	<link href="css/slider.css" rel="stylesheet" type="text/css" />
-
-
 <script type="text/javascript" src="http://www.google.com/jsapi"></script>
 <script type="text/javascript" >
 	//global variables
@@ -31,7 +28,6 @@
 	var friendsinf = 40;
 	var genresinf = 60;
 	var browser = navigator.appName;
-
 	
 	// Tabs
 	var tabs = null;
@@ -52,13 +48,10 @@
 			var opt_params = {};
 			
 			req.add(req.newFetchPeopleRequest(ownerFriends, opt_params), 'ownerFriends');
-	
 			req.send(onLoadFriends);
 		}
 		
 	}
-	
-	
 	
 	function loadAll(){
 		tabs = new _IG_Tabs(__MODULE_ID__ );
@@ -125,7 +118,7 @@
 		
 		checked_no = 0;
 		
-		var url = 'http://epihourtesting2.appspot.com/recommend?uid=' + userID + 
+		var url = 'http://epihour.appspot.com/recommend?uid=' + userID + 
 				  '&friends=' + userFriendsID + '&showscount=36';
 		
 		query = new google.visualization.Query(url);
@@ -198,7 +191,7 @@
 
     function printMostPopularShows()
     {
-    		getMostPopularShows();
+    	getMostPopularShows();
 		document.getElementById('no_result_div').style.display='none';
 		document.getElementById('search_error_div').style.display='none';
 		document.getElementById('vis_results').style.display = 'none';
@@ -212,13 +205,12 @@
 		UnTip();
 
 		checked_no = 0;
-		var url = 'http://epihourtesting2.appspot.com/topShows?limit=5' + '&uid=' + userID;
+		var url = 'http://epihour.appspot.com/topShows?limit=5' + '&uid=' + userID;
 
 		query = new google.visualization.Query(url);
 
 		// Send the query with a callback function.
 		query.send(handlePopularQueryResponse);
-	
 	}
   
 	function handlePopularQueryResponse(response)	{
@@ -239,7 +231,7 @@
 		var view = new google.visualization.DataView(data);
 		view.hideColumns([0,2,3,4,5,6,7,8,9,10,11]); // show only the show name and the add buttons.
 		if (data.getNumberOfRows()<1){
-			alert('there are no pop shows');
+			alert('There are no shows in the system (Clean start huh?)');
 		} else {
 			table.draw(view, {showRowNumber: true, allowHtml:true, width: 210, page: 'enable', pageSize: 5});
 			google.visualization.events.addListener(table, 'select', selectPopHandler);
@@ -293,7 +285,7 @@
 		document.getElementById('optTable').style.display = 'none';		
 		document.getElementById('bottom_buttons').style.display = 'none';
 		checked_no = 0;
-		var url = 'http://epihourtesting2.appspot.com/searchShow?name=' + document.getElementById('srch_txt').value.toLowerCase() + '&uid='+userID;
+		var url = 'http://epihour.appspot.com/searchShow?name=' + document.getElementById('srch_txt').value.toLowerCase() + '&uid='+userID;
 		
 		query = new google.visualization.Query(url);
 		
@@ -415,7 +407,7 @@
 		newDiv.id = "favorites";
 		document.getElementById('epsd_div').appendChild(newDiv);
 		
-		var url = 'http://epihourtesting2.appspot.com/getFavorites?uid='+ userID;
+		var url = 'http://epihour.appspot.com/getFavorites?uid='+ userID;
 		document.getElementById('favorites').style.display = 'none';
 		document.getElementById('getting_fav').style.display = '' ;
 		document.getElementById('no_fav').style.display = 'none' ;
@@ -579,7 +571,7 @@
 	
     function add_show(showId,id_name) {
     	document.getElementById(id_name).src = "http://tvepisodes.googlecode.com/svn/trunk/client/adding.gif";
-		var url = "http://epihourtesting2.appspot.com/addFavorite";
+		var url = "http://epihour.appspot.com/addFavorite";
 		
 		//creating the shows to add array
 		var body = "uid=" + encodeURIComponent(userID);
@@ -592,7 +584,7 @@
     function remove_row(showId){
 		var answer = confirm("Are you sure you want to delete this show?")
 		if (answer){      
-			var url = "http://epihourtesting2.appspot.com/removeFavorite";
+			var url = "http://epihour.appspot.com/removeFavorite";
 			var body = "uid=" + encodeURIComponent(userID);
 			body += "&sid=" + encodeURIComponent(showId);
 
@@ -607,7 +599,7 @@
 			newDiv.id = "news";
 			document.getElementById('news_div').appendChild(newDiv);
 			
-			var url = 'http://epihourtesting2.appspot.com/getFavorites?uid='+ userID;
+			var url = 'http://epihour.appspot.com/getFavorites?uid='+ userID;
 			var favoritesQuery = new google.visualization.Query(url);
 			
 			// Send the query with a callback function.
@@ -686,7 +678,7 @@
 		newDiv.id = "statistics";
 		document.getElementById('sts_div').appendChild(newDiv);
 		
-		var url = 'http://epihourtesting2.appspot.com/statistics?type='+type+
+		var url = 'http://epihour.appspot.com/statistics?type='+type+
 				  '&limit='+limit+'&friends='+userFriendsID;
 
 		var query = new google.visualization.Query(url);
@@ -746,7 +738,7 @@
 	
 	function getOptions()	{
 		var params = {};
-		var url = 'http://epihourtesting2.appspot.com/fetchUserPrefs';
+		var url = 'http://epihour.appspot.com/fetchUserPrefs';
 		params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.POST;
 		params[gadgets.io.RequestParameters.POST_DATA]= 'uid=' + encodeURIComponent(userID); ;
 		gadgets.io.makeRequest(url, getOptCallbackFunction, params); 		
@@ -762,7 +754,7 @@
 	}
 	
 	function saveOptions()	{		
-		var url = 'http://epihourtesting2.appspot.com/assignUserPrefs';
+		var url = 'http://epihour.appspot.com/assignUserPrefs';
 		var body = 'uid=' + encodeURIComponent(userID); 
 		body += '&inf=' + encodeURIComponent(document.getElementById('mySlider').value);
 		postReqSaveOpt(url, body)
