@@ -38,19 +38,20 @@
         
 	google.load("visualization", "1", {packages:["columnchart", "table" ,"barchart" , "piechart"]});	 
     function init() {
-
-		alert(opensocial);
+	
+		alert(gadgets.util);
 		
-		var req = opensocial.newDataRequest();
+		
+		//var req = opensocial.newDataRequest();
 
-		req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), 'owner');
+		//req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), 'owner');
   
-		var ownerFriends = opensocial.newIdSpec({ "userId" : "OWNER", "groupId" : "FRIENDS" });
-		var opt_params = {};
+		//var ownerFriends = opensocial.newIdSpec({ "userId" : "OWNER", "groupId" : "FRIENDS" });
+		//var opt_params = {};
 		
-		req.add(req.newFetchPeopleRequest(ownerFriends, opt_params), 'ownerFriends');
+		//req.add(req.newFetchPeopleRequest(ownerFriends, opt_params), 'ownerFriends');
 
-		req.send(onLoadFriends);
+		//req.send(onLoadFriends);
 		
 	}
 	function loadAll(){
