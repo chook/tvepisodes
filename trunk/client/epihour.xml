@@ -663,7 +663,7 @@
 						msg.createStaticMessage(tvImg2 + " \""+name + "\" was yesterday!");
 						msgCount++;
 					} else if (leftDays == 0) {
-						msg.createStaticMessage(tvImg2 + " \""+name + "\" is on today (" +airTime+ " USA time zone)");
+						msg.createStaticMessage(tvImg2 + " \""+name + "\" is on today! (" +airTime+ " USA time zone)");
 						msgCount++;
 						} else if (leftDays == 1) {
 							msg.createStaticMessage(tvImg3 + " \""+name + "\" is just a day away!");
