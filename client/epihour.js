@@ -1,20 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Module>
-  <ModulePrefs author="Chen Harel, Nadav Shamgar, Maayan Shani, Tal Moran" scrolling="true" title="Epi Hour" height="300" description="Get familiar with new shows your friends are watching and be up-to-date!" author_email="myEpiGadget@gmail.com" thumbnail="http://tvepisodes.googlecode.com/svn/trunk/client/thumbnail.png" screenshot="http://tvepisodes.googlecode.com/svn/trunk/client/screenshot.png">
-	<Require feature="dynamic-height" /> 
-    <Require feature="tabs" />
-    <Require feature="minimessage" />
-    <Require feature="opensocial-0.8"/>
-  </ModulePrefs>
-  <Content type="html" view="home,profile,canvas">
-    <![CDATA[
-  <html>
-<head>
-	<link href="myEpisodesCss.css" rel="stylesheet" type="text/css" />	
-	<script language="JavaScript" src="slider.js" ></script>
-	<link href="slider.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="http://www.google.com/jsapi"></script>
-<script type="text/javascript" >
 	//global variables
 	var checked_no=0;
 	var data = null;
@@ -28,6 +11,7 @@
 	var friendsinf = 40;
 	var genresinf = 60;
 	var browser = navigator.appName;
+
 	
 	// Tabs
 	var tabs = null;
@@ -48,10 +32,13 @@
 			var opt_params = {};
 			
 			req.add(req.newFetchPeopleRequest(ownerFriends, opt_params), 'ownerFriends');
+	
 			req.send(onLoadFriends);
 		}
 		
 	}
+	
+	
 	
 	function loadAll(){
 		tabs = new _IG_Tabs(__MODULE_ID__ );
@@ -118,7 +105,7 @@
 		
 		checked_no = 0;
 		
-		var url = 'http://epihour.appspot.com/recommend?uid=' + userID + 
+		var url = 'http://epihourtesting2.appspot.com/recommend?uid=' + userID + 
 				  '&friends=' + userFriendsID + '&showscount=36';
 		
 		query = new google.visualization.Query(url);
@@ -141,7 +128,7 @@
 		data = response.getDataTable();
 		data.addColumn('string' , '');
 		for (var j=0; j<data.getNumberOfRows(); j++){						
-			data.setValue(j , 12, '<img style="cursor:pointer" id="add'+data.getValue(j,0)+'" src="' + currLink + 'add.png" alt="Add it!" onclick="UnTip(); add_show('+data.getValue(j,0)+',id);" />');					
+			data.setValue(j , 12, '<img style="cursor:hand" id="add'+data.getValue(j,0)+'" src="' + currLink + 'images/add.png" alt="Add it!" onclick="UnTip(); add_show('+data.getValue(j,0)+',id);" />');					
 		}
 		table = new google.visualization.Table(document.getElementById('recmnd_div'));
 		var view = new google.visualization.DataView(data);
@@ -191,7 +178,7 @@
 
     function printMostPopularShows()
     {
-    	getMostPopularShows();
+    		getMostPopularShows();
 		document.getElementById('no_result_div').style.display='none';
 		document.getElementById('search_error_div').style.display='none';
 		document.getElementById('vis_results').style.display = 'none';
@@ -205,12 +192,13 @@
 		UnTip();
 
 		checked_no = 0;
-		var url = 'http://epihour.appspot.com/topShows?limit=5' + '&uid=' + userID;
+		var url = 'http://epihourtesting2.appspot.com/topShows?limit=5' + '&uid=' + userID;
 
 		query = new google.visualization.Query(url);
 
 		// Send the query with a callback function.
 		query.send(handlePopularQueryResponse);
+	
 	}
   
 	function handlePopularQueryResponse(response)	{
@@ -223,15 +211,15 @@
 		for (var j=0; j<data.getNumberOfRows(); j++){
 			if (data.getValue(j,11) == '0')
 				//this show is not in the user's favorites shows
-				data.setValue(j , 12, '<img style="cursor:pointer" id="add'+data.getValue(j,0)+'" src="' + currLink + 'add.png" alt="Add it!" onclick="UnTip(); add_show('+data.getValue(j,0)+',id);"\>');
+				data.setValue(j , 12, '<img style="cursor:hand" id="add'+data.getValue(j,0)+'" src="' + currLink + 'images/add.png" alt="Add it!" onclick="UnTip(); add_show('+data.getValue(j,0)+',id);"\>');
 			else	//this show is in the user's favorites shows		
-				data.setValue(j , 12, '<img id="added'+data.getValue(j,0)+'" src="' + currLink + 'added.png" alt="Added!" onclick="UnTip();"\>');
+				data.setValue(j , 12, '<img id="added'+data.getValue(j,0)+'" src="' + currLink + 'images/added.png" alt="Added!" onclick="UnTip();"\>');
 		}
 		table = new google.visualization.Table(document.getElementById('most_pop'));
 		var view = new google.visualization.DataView(data);
 		view.hideColumns([0,2,3,4,5,6,7,8,9,10,11]); // show only the show name and the add buttons.
 		if (data.getNumberOfRows()<1){
-			alert('There are no shows in the system (Clean start huh?)');
+			alert('there are no pop shows');
 		} else {
 			table.draw(view, {showRowNumber: true, allowHtml:true, width: 210, page: 'enable', pageSize: 5});
 			google.visualization.events.addListener(table, 'select', selectPopHandler);
@@ -285,7 +273,7 @@
 		document.getElementById('optTable').style.display = 'none';		
 		document.getElementById('bottom_buttons').style.display = 'none';
 		checked_no = 0;
-		var url = 'http://epihour.appspot.com/searchShow?name=' + document.getElementById('srch_txt').value.toLowerCase() + '&uid='+userID;
+		var url = 'http://epihourtesting2.appspot.com/searchShow?name=' + document.getElementById('srch_txt').value.toLowerCase() + '&uid='+userID;
 		
 		query = new google.visualization.Query(url);
 		
@@ -306,9 +294,9 @@
 		data.addColumn('string' , '');
 		for (var j=0; j<data.getNumberOfRows(); j++){
 			if (data.getValue(j,10) == '0')
-				data.setValue(j , 11, '<img style="cursor:pointer" id="add'+data.getValue(j,0)+'" src="' + currLink + 'add.png" alt="Add it!" onclick="UnTip(); add_show('+data.getValue(j,0)+',id);"\>');
+				data.setValue(j , 11, '<img style="cursor:hand" id="add'+data.getValue(j,0)+'" src="' + currLink + 'images/add.png" alt="Add it!" onclick="UnTip(); add_show('+data.getValue(j,0)+',id);"\>');
 			else	//this show is in the user's favorites shows		
-				data.setValue(j , 11, '<img id="added'+data.getValue(j,0)+'" src="' + currLink + 'added.png" alt="Added!" onclick="UnTip();"\>');				
+				data.setValue(j , 11, '<img id="added'+data.getValue(j,0)+'" src="' + currLink + 'images/added.png" alt="Added!" onclick="UnTip();"\>');				
 		}
 		
 		table = new google.visualization.Table(document.getElementById('vis_results'));
@@ -407,7 +395,7 @@
 		newDiv.id = "favorites";
 		document.getElementById('epsd_div').appendChild(newDiv);
 		
-		var url = 'http://epihour.appspot.com/getFavorites?uid='+ userID;
+		var url = 'http://epihourtesting2.appspot.com/getFavorites?uid='+ userID;
 		document.getElementById('favorites').style.display = 'none';
 		document.getElementById('getting_fav').style.display = '' ;
 		document.getElementById('no_fav').style.display = 'none' ;
@@ -425,21 +413,19 @@
 	{
 		var myDate = new Date();
 		var oStr = "";
-		
-		if ((iTime != null) && (iDate != null))	{
-			myDate.setHours(iTime.substr(0,2));
-			myDate.setMinutes(iTime.substr(3,2));
 
-			myDate.setDate(iDate.substr(8,2)); //set day
-			myDate.setMonth(iDate.substr(5,2));
-			myDate.setFullYear(iDate.substr(0,4));
+		myDate.setHours(iTime.substr(0,2));
+		myDate.setMinutes(iTime.substr(3,2));
 
-			// add minutes
-			myDate.setMinutes(myDate.getMinutes() + iAddMinutes);
+		myDate.setDate(iDate.substr(8,2)); //set day
+		myDate.setMonth(iDate.substr(5,2));
+		myDate.setFullYear(iDate.substr(0,4));
 
-			oStr = myDate.getFullYear() +  fixTime(myDate.getMonth()) + fixTime(myDate.getDate()) + "T" + fixTime(myDate.getHours()) + fixTime(myDate.getMinutes()) + "00Z";
-		}
-		
+		// add minutes
+		myDate.setMinutes(myDate.getMinutes() + iAddMinutes);
+
+		oStr = myDate.getFullYear() +  fixTime(myDate.getMonth()) + fixTime(myDate.getDate()) + "T" + fixTime(myDate.getHours()) + fixTime(myDate.getMinutes()) + "00Z";
+
 		return oStr;
 
 	}
@@ -481,9 +467,9 @@
 			epiEndDate = getGoogleTimeFormat(favoritesData.getValue(j,8),favoritesData.getValue(j,11),epiTime);			
 			
 			if (favoritesData.getValue(j,11) == "Show Ended")
-				favoritesData.setValue(j , 13, '<img onclick="UnTip();" id="book'+j+'" src="' + currLink + 'book_off.png" alt="Show Ended!" border="0" />');						
+				favoritesData.setValue(j , 13, '<img onclick="UnTip();" id="book'+j+'" src="' + currLink + 'images/book_off.png" alt="Show Ended!" border="0" />');						
 			else
-				favoritesData.setValue(j , 13, '<a id="book' + j +'" onclick="UnTip()" href="http://www.google.com/calendar/event?action=TEMPLATE&text=EPI%20HOUR%20-%20' + epiName + '&dates=' + epiStartDate + '/' + epiEndDate + '&details=HAVE%20FUN!&location=TV&trp=true&sprop=&sprop=name:epi%20hour%20gadget" target="_blank"><img id="book'+j+'" src="' + currLink + 'book.png" alt="Book it!" border="0" /></a>');						
+				favoritesData.setValue(j , 13, '<a id="book' + j +'" onclick="UnTip()" href="http://www.google.com/calendar/event?action=TEMPLATE&text=EPI%20HOUR%20-%20' + epiName + '&dates=' + epiStartDate + '/' + epiEndDate + '&details=HAVE%20FUN!&location=TV&trp=true&sprop=&sprop=name:epi%20hour%20gadget" target="_blank"><img id="book'+j+'" src="' + currLink + 'images/book.png" alt="Book it!" border="0" /></a>');						
 
 		
 			
@@ -491,7 +477,7 @@
 		
 		// remove! buttons
 		for (var j=0; j<favoritesData.getNumberOfRows(); j++){			
-			favoritesData.setValue(j , 14, '<img style="cursor:pointer" id="delete'+j+'" src="' + currLink + 'delete.png" alt="Remove it!" onclick="UnTip(); remove_row('+favoritesData.getValue(j,0)+');" />');
+			favoritesData.setValue(j , 14, '<img style="cursor:hand" id="delete'+j+'" src="' + currLink + 'images/delete.png" alt="Remove it!" onclick="UnTip(); remove_row('+favoritesData.getValue(j,0)+');" />');
 		}
 		
 		favoritesTable = new google.visualization.Table(document.getElementById('favorites'));
@@ -526,13 +512,13 @@
 					if (status == 'Canceled/Ended')
 						Tip('\"'+name+ '\" was first broadcasted on '+date+'. There were '+seasonsNum+' seasons for this show (it was canceled/ended) and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>', STICKY, true, CLOSEBTN , true,CENTERMOUSE, true, ABOVE, false , FADEIN, 500, FADEOUT, 500);
 					else
-						Tip('\"'+name+ '\" was first broadcasted on '+date+'. There are '+seasonsNum+' seasons for this show and it\'s original country is '+country+'. The show is on '+airDay+' , '+airTime+ ' (USA time).<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>', STICKY, true, CLOSEBTN , true,CENTERMOUSE, true, ABOVE, false , FADEIN, 500, FADEOUT, 500);
+						Tip('\"'+name+ '\" was first broadcasted on '+date+'. There are '+seasonsNum+' seasons for this show and it\'s original country is '+country+'. The show is air on '+airDay+' , '+airTime+ ' (USA time).<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>', STICKY, true, CLOSEBTN , true,CENTERMOUSE, true, ABOVE, false , FADEIN, 500, FADEOUT, 500);
 				}
 				else{
 					if ((status == 'Canceled/Ended') || (status == 'Pilot Rejected'))
 						Tip('\"'+name+ '\" was first broadcasted on '+date+'. There was only '+seasonsNum+' season for this show (it was canceled/ended) and it\'s original country is '+country+'.<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>' , STICKY, true, CLOSEBTN , true ,CENTERMOUSE, true , ABOVE , false , FADEIN, 500, FADEOUT, 500);
 					else
-						Tip('\"'+name+ '\" was first broadcasted on '+date+'. There is '+seasonsNum+' season for this show and it\'s original country is '+country+'. The show is on '+airDay+' , '+airTime+ ' (USA time).<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>' , STICKY, true, CLOSEBTN , true ,CENTERMOUSE, true , ABOVE , false , FADEIN, 500, FADEOUT, 500);
+						Tip('\"'+name+ '\" was first broadcasted on '+date+'. There is '+seasonsNum+' season for this show and it\'s original country is '+country+'. The show is air on '+airDay+' , '+airTime+ ' (USA time).<br>For more information please visit <a href='+infoLink+' target=\'_blank\'>'+infoLink+'</a>' , TITLE, '<div class=\'TitleCls\'>'+name+'</div>' , STICKY, true, CLOSEBTN , true ,CENTERMOUSE, true , ABOVE , false , FADEIN, 500, FADEOUT, 500);
 				}
 			}
 		} else {
@@ -544,40 +530,36 @@
 		var answer = obj.text.split(" ");
 		//add show
 		if (answer[0] == "Add"){
-			if (answer[2] == '1'){
-				document.getElementById('add'+answer[1]).src = currLink + "added.png";
+			if (answer[1] != "0"){
+				document.getElementById('add'+answer[1]).src = currLink + "images/added.png";
 				document.getElementById('add'+answer[1]).alt = "Added!";
 				document.getElementById('add'+answer[1]).onclick = "";
 				getMostPopularShows();
 			}
-			else{
-				document.getElementById('add'+answer[1]).src = currLink + "addErr.png";
-				document.getElementById('add'+answer[1]).alt = "Couldn't Add!";
-				document.getElementById('add'+answer[1]).onclick = "";
-			}
+
 		}
 		//remove show
 		else{
-			if (answer[2] == '1'){
+			if (answer[1] != "0"){
 				getFavorites();
 				getMostPopularShows();
 			}
-			else
-				getFavorites();
 		}
 	};
 	
 	// add = 1, remove = 0,id_name = the field to change in the table
 	function makePOSTRequest(url, postdata,remove_or_add,id_name) {
 		var params = {};
+
+		//postdata = gadgets.io.encodeValues(postdata);		// already given in the encodedValue format
 		params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.POST;
 		params[gadgets.io.RequestParameters.POST_DATA]= postdata;
 		gadgets.io.makeRequest(url, addCallbackFunction, params); 		
 	};
 	
     function add_show(showId,id_name) {
-    	document.getElementById(id_name).src = currLink + "adding.gif";
-		var url = "http://epihour.appspot.com/addFavorite";
+    	document.getElementById(id_name).src = "http://tvepisodes.googlecode.com/svn/trunk/client/adding.gif";
+		var url = "http://epihourtesting2.appspot.com/addFavorite";
 		
 		//creating the shows to add array
 		var body = "uid=" + encodeURIComponent(userID);
@@ -590,7 +572,7 @@
     function remove_row(showId){
 		var answer = confirm("Are you sure you want to delete this show?")
 		if (answer){      
-			var url = "http://epihour.appspot.com/removeFavorite";
+			var url = "http://epihourtesting2.appspot.com/removeFavorite";
 			var body = "uid=" + encodeURIComponent(userID);
 			body += "&sid=" + encodeURIComponent(showId);
 
@@ -605,7 +587,7 @@
 			newDiv.id = "news";
 			document.getElementById('news_div').appendChild(newDiv);
 			
-			var url = 'http://epihour.appspot.com/getFavorites?uid='+ userID;
+			var url = 'http://epihourtesting2.appspot.com/getFavorites?uid='+ userID;
 			var favoritesQuery = new google.visualization.Query(url);
 			
 			// Send the query with a callback function.
@@ -619,9 +601,9 @@
 		var oneHour = oneMinute * 60
 		var oneDay = oneHour * 24
 		var oneWeek = oneDay * 7
-		var tvImg1 = '<img src="' + currLink + 'tv1.png" />';
-		var tvImg2 = '<img src="' + currLink + 'tv2.png" />';
-		var tvImg3 = '<img src="' + currLink + 'tv3.png" />';
+		var tvImg1 = '<img src="' + currLink + 'images/tv1.png" />';
+		var tvImg2 = '<img src="' + currLink + 'images/tv2.png" />';
+		var tvImg3 = '<img src="' + currLink + 'images/tv3.png" />';
 		if (response.isError()) {
 			alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
 			return;
@@ -642,7 +624,6 @@
 					var nextAirDate = favoritesData.getValue(i,11);
 					var prevAirDate = favoritesData.getValue(i,10);
 					var name = favoritesData.getValue(i,1);
-					var airTime =  favoritesData.getValue(i, 8);
 					var airDateArray = nextAirDate.split('-');
 					//messages about episodes that were broadcasted yesterday
 					if (prevAirDate != null){ 
@@ -663,7 +644,7 @@
 						msg.createStaticMessage(tvImg2 + " \""+name + "\" was yesterday!");
 						msgCount++;
 					} else if (leftDays == 0) {
-						msg.createStaticMessage(tvImg2 + " \""+name + "\" is on today! (" +airTime+ " USA time zone)");
+						msg.createStaticMessage(tvImg2 + " \""+name + "\" is on today!");
 						msgCount++;
 						} else if (leftDays == 1) {
 							msg.createStaticMessage(tvImg3 + " \""+name + "\" is just a day away!");
@@ -685,7 +666,7 @@
 		newDiv.id = "statistics";
 		document.getElementById('sts_div').appendChild(newDiv);
 		
-		var url = 'http://epihour.appspot.com/statistics?type='+type+
+		var url = 'http://epihourtesting2.appspot.com/statistics?type='+type+
 				  '&limit='+limit+'&friends='+userFriendsID;
 
 		var query = new google.visualization.Query(url);
@@ -745,7 +726,7 @@
 	
 	function getOptions()	{
 		var params = {};
-		var url = 'http://epihour.appspot.com/fetchUserPrefs';
+		var url = 'http://epihourtesting2.appspot.com/fetchUserPrefs';
 		params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.POST;
 		params[gadgets.io.RequestParameters.POST_DATA]= 'uid=' + encodeURIComponent(userID); ;
 		gadgets.io.makeRequest(url, getOptCallbackFunction, params); 		
@@ -761,7 +742,7 @@
 	}
 	
 	function saveOptions()	{		
-		var url = 'http://epihour.appspot.com/assignUserPrefs';
+		var url = 'http://epihourtesting2.appspot.com/assignUserPrefs';
 		var body = 'uid=' + encodeURIComponent(userID); 
 		body += '&inf=' + encodeURIComponent(document.getElementById('mySlider').value);
 		postReqSaveOpt(url, body)
@@ -794,247 +775,3 @@
     		_IG_RegisterOnloadHandler(init); 
 		
 
-
- 
-	
-</script>
-
-
-<body bgcolor="#dbe3eb">
-<script type="text/javascript" src="wz_tooltip.js"></script>
-
-<div style="display:none" id="NotLoggedUser">
-	Open Social is not available.
-	<br>
-	Check out the <b><a href="http://www.google.com/ig/sandbox" target="_blank">iGoogle developer sandbox</a></b>      	
-</div>
-
-    <div id="news_div" class="background" align="center">
-		<div id="news"></div>
-		<div style="display:none" id="divNewUser">
-		<span align="center">			
-			Welcome !!!
-			<br>
-			You don't have any favorite shows.
-			<br>
-			<span style="cursor:pointer" onclick="tabs.setSelectedTab(2);"><b>Click here</b></span> to start adding.
-			
-			
-			<br>
-			<br>
-			
-			<img src="thumbnail.png" />
-		</span>
-		</div>
-	</div>
-	        
-    <div id="epsd_div" class="background" align="center" >
-		<div style="display:none" id="favorites"> </div>
-		<div style="display:none" id="getting_fav"> 
-			<br><br><br><br>
-			<img src="loading_animation.gif" />
-		</div>
-		<div style="display:none" id="no_fav"> 
-			<table id="search_result" class="sample" border="1">
-				<tr>
-					<th> You currently don't have favorites shows. Click "Add" tab to add shows.</th>
-				</tr>
-			</table>
-		</div>
-	</div>
-	
-    <div class="background" align="center" id="add_div" >        
-        <table border="0" id="search_buttons" style="display:none" align="center">
-          <tr>
-            <td> 
-            	<input type="text" class="txt" value="TV Show Name Here" id="srch_txt" onclick="reset_srch_text()" onkeypress="return entsub(event)" /> 
-            </td>                        
-            <td>
-            	<!-- input type="button" class="btn" value="Search" id="srch_btn" onmouseover="this.className='btnhov'" onmouseout="this.className='btn'" onclick="search_episode()" / --> 
-            	<a class="button" href="javascript:void(0);" onclick="this.blur(); search_episode();"><span>Search</span></a>
-            </td>
-          </tr>
-
-        </table>
-      
-		<div id="main_div" style="display:none">
-			<div id="vis_results"> </div>
-
-			<span  id="most_pop_txt">
-				<font size="2">Most Popular Shows:</font>
-			</span>				
-
-			<div id="most_pop" style="display:none"></div>
-			
-			<span style="display:none" id="recmnd_txt">
-				<font size="2">Recommendations:</font>
-			</span>			
-			<div style="display:none" id="recmnd_div"></div>			
-			
-		</div>
-		<div style="display:none" id="no_result_div"> 
-			<table id="search_result" class="sample" border="1">
-				<tr>
-					<th> No Results. try again! </th>
-				</tr>
-			</table>
-		</div>
-		<div style="display:none" id="search_error_div"> 
-			<table id="search_result" class="sample" border="1">
-				<tr>
-					<th> Error in search, please try a different search! </th>
-				</tr>
-			</table>
-		</div>
-		<div style="display:none" id="no_popular_div"> 
-			<table id="search_result" class="sample" border="1">
-				<tr>
-					<th> There are no popular shows! </th>
-				</tr>
-			</table>
-		</div>		
-		
-		<div style="display:none" id="searching..."> 
-				<br><br><br>
-				<img src="loading_animation.gif" />
-		</div>
-
-		<div id="bottom_buttons" style="display:none">
-			<table border="0" align="center">
-
-			  <tr>
-			    <td>	            	
-				<a href="javascript:void(0);" onclick="this.blur(); getRecommended();"><span><img src="recmnd.png" border="0" /><font size="1">Get Recommendations!</font></span></a>
-			    </td>
-			    <td>	            	
-				<a href="javascript:void(0);" onclick="this.blur(); printMostPopularShows();"><span><img src="top.png" border="0" /><font size="1">Get Top!</font></span></a>
-			    </td>
-			  </tr>
-
-			</table>
-        </div>		
-        
-        <div id="optTable" style = "display:none">
-		<table border="0" width="100%">
-			<tr align="left">
-				<td align="left" onclick="setOptions()" style="cursor:pointer">
-					
-						<font size="1">
-							<span id="optId">
-								<b>+</b> Recommendations Options:
-							</span>
-						</font>
-				
-				</td>
-			</tr>						
-			<tr>			
-				<td>
-					<div id="recommendations_slider" style="display:none">
-						<hr>
-						
-						<!-- slider -->			
-						<table align="center" border="0" width="120px">
-
-							<tr>
-								<td>
-									<font size="1">
-									<b>Genres</b>
-									</font>
-								</td>
-
-								<td>
-
-										<div class="carpe_horizontal_slider_track">
-											<div class="carpe_slider_slit">&nbsp;</div>
-											<div class="carpe_slider"
-												id="mySliderBox"
-												orientation="horizontal"
-												distance="100"
-												display="mySlider"
-												style="left: 50px;">&nbsp;</div>
-										</div>
-								</td>
-								<td>
-									<font size="1">
-									<b>Friends</b>
-									</font>
-								</td>
-
-							</tr>
-							<tr  align="center">
-								<td colspan="3">
-									<div style="display:none" class="carpe_slider_display_holder" >
-										<input class="carpe_slider_display"
-											id="mySlider"
-											name="mySlider"
-											type="text"
-											from="0"
-											to="100"
-											valuecount="101"
-											value="50"
-											typelock="off" /></div>
-
-								</td>
-							</tr>
-
-							<tr>
-								<td colspan="3" align="center">
-									<a href="javascript:void(0);" onclick="this.blur(); saveOptions();">
-										<font size="1">
-											<b>Save</b> 
-										</font>
-									</a>
-									
-									<span style="display:none" id="txtDone">
-										<font size="1" color="red">
-											(done)
-										</font>
-									</span>
-									
-								</td>
-							</tr>
-						</table>				
-
-						<!-- slider -->
-					</div>
-				</td>
-			</tr>
-			
-		</table>
-		
-	</div>
-	
-	</div>
-	<div align="center" style="display:none" id="sts_div" class="background">
-	
-	<table border="0" align="center">
-		<tr>
-			<td>
-				<select align="center" id="type_selection">
-					<option value="genres">Genres</option>
-					<option value="shows" >Shows</option>
-				</select>
-			</td>
-			<td>
-				<select align="center" id="limit_selection">
-					<option value="5">5</option>
-					<option value="4">4</option>
-					<option value="3">3</option>
-					<option value="2">2</option>
-					<option value="1">1</option>
-				</select>
-			</td>
-			<td>
-				<a class="button" href="javascript:void(0);" onclick="this.blur(); getStatistics(document.getElementById('type_selection').value.toLowerCase(),document.getElementById('limit_selection').value.toLowerCase());"><span id="get_stat">See Statistics</span></a>
-				<!-- input type="button" class="btn" value="See Statistics" id="get_stat" onmouseover="this.className='btnhov'" onmouseout="this.className='btn'" onclick="getStatistics(document.getElementById('type_selection').value.toLowerCase(),document.getElementById('limit_selection').value.toLowerCase())" / -->
-			</td>
-		</tr>				
-	</table>
-		<div align="center" id="statistics"></div>
-	</div>
-
-</body>
-</html>
-    ]]>
-  </Content>
-</Module>
