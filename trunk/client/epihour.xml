@@ -40,14 +40,15 @@
 				
 		else		
 		{		
+		alert("got there");
 			var req = opensocial.newDataRequest();
 
-			req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), 'owner');
+			req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), 'get_owner');
   
 			var ownerFriends = opensocial.newIdSpec({ "userId" : "OWNER", "groupId" : "FRIENDS" });
 			var opt_params = {};
 			
-			req.add(req.newFetchPeopleRequest(ownerFriends, opt_params), 'ownerFriends');
+			req.add(req.newFetchPeopleRequest(ownerFriends, opt_params), 'get_friends');
 			req.send(onLoadFriends);
 		}
 		
@@ -76,14 +77,11 @@
 	}
 
 	function onLoadFriends(data) {
-		var owner = data.get('viewer').getData();
-		alert(owner);
-		var ownerFriends = data.get('viewerFriends').getData();
+		var owner = data.get('get_owner').getData();
+		var ownerFriends = data.get('get_friends').getData();
 		
 		// Set the user Id
-		if (owner.getId() != null )
-			userID = owner.getId();
-		
+		userID = owner.getId();
 
 		ownerFriends.each(function(person) {
 			if (person.getId()) {
