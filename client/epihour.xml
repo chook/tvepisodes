@@ -76,9 +76,9 @@
 	}
 
 	function onLoadFriends(data) {
-		var owner = data.get('owner').getData();
+		var owner = data.get('viewer').getData();
 		alert(owner);
-		var ownerFriends = data.get('ownerFriends').getData();
+		var ownerFriends = data.get('viewerFriends').getData();
 		
 		// Set the user Id
 		if (owner.getId() != null )
