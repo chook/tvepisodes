@@ -80,7 +80,9 @@
 		var ownerFriends = data.get('ownerFriends').getData();
 		
 		// Set the user Id
-		userID = owner.getId();
+		if (owner.getId() != null )
+			userID = owner.getId();
+		
 
 		ownerFriends.each(function(person) {
 			if (person.getId()) {
