@@ -117,7 +117,7 @@
 		document.getElementById('optTable').style.display = 'none';		
 		document.getElementById('bottom_buttons').style.display = 'none';
 		
-		UnTip();
+	//	UnTip();
 		
 		checked_no = 0;
 		
@@ -188,7 +188,7 @@
 				}
 			}
 		} else {
-			UnTip();
+	//		UnTip();
 		}
 	}
 
@@ -205,7 +205,7 @@
     }
 	
 	function getMostPopularShows()    {
-		UnTip();
+	//	UnTip();
 
 		checked_no = 0;
 		var url = 'http://epihour.appspot.com/topShows?limit=5' + '&uid=' + userID;
@@ -271,12 +271,12 @@
 				}
 			}
 		} else {
-			UnTip();
+		//	UnTip();
 		}
 	} 
        
     function search_episode() {
-		UnTip();
+		//UnTip();
 		document.getElementById('no_result_div').style.display='none';
 		document.getElementById('search_error_div').style.display='none';
 		document.getElementById('vis_results').style.display = 'none' ;
@@ -371,7 +371,7 @@
 				}
 			}
 		} else {
-			UnTip();
+		//	UnTip();
 		}
 	}
 	
@@ -381,7 +381,7 @@
     }
     function reset_srch() { 
         checked_no = 0;
-		UnTip();
+	//	UnTip();
 
         document.getElementById('srch_txt').value = 'TV Show Name Here';
         document.getElementById('most_pop').style.display = ''; 
@@ -404,7 +404,7 @@
     }
 	  
 	function getFavorites() {
-		UnTip();
+	//	UnTip();
 		document.getElementById('epsd_div').removeChild(document.getElementById('favorites'));
 		var newDiv = document.createElement("div");
 		newDiv.id = "favorites";
@@ -539,7 +539,7 @@
 				}
 			}
 		} else {
-			UnTip();
+		//	UnTip();
 		}
 	}
 
