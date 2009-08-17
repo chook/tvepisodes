@@ -81,7 +81,8 @@
 		var ownerFriends = data.get('get_friends').getData();
 		
 		// Set the user Id
-		userID = owner.getId();
+		if (owner != null)
+			userID = owner.getId();
 
 		ownerFriends.each(function(person) {
 			if (person.getId()) {
