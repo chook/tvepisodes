@@ -40,7 +40,6 @@
 				
 		else		
 		{		
-		alert("got there");
 			var req = opensocial.newDataRequest();
 
 			req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), 'get_owner');
@@ -76,10 +75,10 @@
 		getStatistics('genres' , 5);
 	}
 
-	function onLoadFriends(data1) {
-		alert(data1);
-		var owner = data1.get('get_owner').getData();
-		var ownerFriends = data1.get('get_friends').getData();
+	function onLoadFriends(data) {
+		var owner = data.get('get_owner').getData();
+		
+		var ownerFriends = data.get('get_friends').getData();
 		
 		// Set the user Id
 		userID = owner.getId();
