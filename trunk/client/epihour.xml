@@ -11,7 +11,7 @@
   <html>
 <head>
 	<link href="myEpisodesCss.css" rel="stylesheet" type="text/css" />	
-	<script language="JavaScript" src=currLink +"slider.js" ></script>
+	<script language="JavaScript" src="http://tvepisodes.googlecode.com/svn/trunk/client/slider.js" ></script>
 	<link href="slider.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="http://www.google.com/jsapi"></script>
 <script type="text/javascript" >
@@ -804,7 +804,7 @@
 
 
 <body bgcolor="#dbe3eb">
-<script type="text/javascript" src="' + currLink + 'wz_tooltip.js"></script>
+<script type="text/javascript" src="http://tvepisodes.googlecode.com/svn/trunk/client/wz_tooltip.js"></script>
 
 <div style="display:none" id="NotLoggedUser">
 	Open Social is not available.
@@ -826,7 +826,7 @@
 			<br>
 			<br>
 			
-			<img src=currLink + "thumbnail.png" />
+			<img src="http://tvepisodes.googlecode.com/svn/trunk/client/thumbnail.png" />
 		</span>
 		</div>
 	</div>
@@ -835,7 +835,7 @@
 		<div style="display:none" id="favorites"> </div>
 		<div style="display:none" id="getting_fav"> 
 			<br><br><br><br>
-			<img src=currLink +"loading_animation.gif" />
+			<img src="http://tvepisodes.googlecode.com/svn/trunk/client/loading_animation.gif" />
 		</div>
 		<div style="display:none" id="no_fav"> 
 			<table id="search_result" class="sample" border="1">
@@ -899,7 +899,7 @@
 		
 		<div style="display:none" id="searching..."> 
 				<br><br><br>
-				<img src=currLink +"loading_animation.gif" />
+				<img src="http://tvepisodes.googlecode.com/svn/trunk/client/loading_animation.gif" />
 		</div>
 
 		<div id="bottom_buttons" style="display:none">
@@ -907,10 +907,10 @@
 
 			  <tr>
 			    <td>	            	
-				<a href="javascript:void(0);" onclick="this.blur(); getRecommended();"><span><img src="'currLink +'recmnd.png" border="0" /><font size="1">Get Recommendations!</font></span></a>
+				<a href="javascript:void(0);" onclick="this.blur(); getRecommended();"><span><img src="http://tvepisodes.googlecode.com/svn/trunk/client/recmnd.png" border="0" /><font size="1">Get Recommendations!</font></span></a>
 			    </td>
 			    <td>	            	
-				<a href="javascript:void(0);" onclick="this.blur(); printMostPopularShows();"><span><img src="'currLink +'top.png" border="0" /><font size="1">Get Top!</font></span></a>
+				<a href="javascript:void(0);" onclick="this.blur(); printMostPopularShows();"><span><img src="http://tvepisodes.googlecode.com/svn/trunk/client/top.png" border="0" /><font size="1">Get Top!</font></span></a>
 			    </td>
 			  </tr>
 
