@@ -83,7 +83,8 @@
 		// Set the user Id
 		if (owner != null)
 			userID = owner.getId();
-
+		
+		if (ownerFriends != null) {
 		ownerFriends.each(function(person) {
 			if (person.getId()) {
 				userFriendsID += person.getId() + ',' ;
@@ -91,7 +92,7 @@
 		});
 		if (userFriendsID.length > 0)
 			userFriendsID = userFriendsID.substring(0,userFriendsID.length - 1);
-		
+		}
 		//init all the other stuff
 		loadAll();
 	}
