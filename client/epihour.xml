@@ -10,7 +10,7 @@
     <![CDATA[
   <html>
 <head>
-	//<link href="myEpisodesCss.css" rel="stylesheet" type="text/css" />	
+	
 	<script language="JavaScript" src="http://tvepisodes.googlecode.com/svn/trunk/client/slider.js" ></script>
 	<link href="slider.css" rel="stylesheet" type="text/css" />
 	<style type="text/css">
