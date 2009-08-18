@@ -616,7 +616,7 @@
 		}
 	}
 	function createMessagesFromFav(response)	{
-		var msg = new _IG_MiniMessage(__MODULE_ID__, _gel("news"));
+		var msg = new gadgets.MiniMessage(__MODULE_ID__, _gel("news"));
 		// date variables used for date arithmetic
 		var oneMinute = 60 * 1000  // milliseconds in a minute
 		var oneHour = oneMinute * 60
