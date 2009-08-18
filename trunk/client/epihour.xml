@@ -602,7 +602,7 @@
     }
 	
     function create_msg() {
-		if (userID != "ndef") {
+	//	if (userID != "ndef") {
 			document.getElementById('news_div').removeChild(document.getElementById('news'));
 			var newDiv = document.createElement("div");
 			newDiv.id = "news";
@@ -613,7 +613,7 @@
 			
 			// Send the query with a callback function.
 			favoritesQuery.send(createMessagesFromFav);
-		}
+	//	}
 	}
 	function createMessagesFromFav(response)	{
 		var msg = new gadgets.MiniMessage(__MODULE_ID__, document.getElementById('news'));
