@@ -127,13 +127,13 @@
 	  }
 
 
-	.clear { /* generic container (i.e. div) for floating buttons */
+	.clear { 
 	    overflow: hidden;
 	    width: 100%;
 	}
 
 	a.button {
-	    background: transparent url('bg_button_a.gif') no-repeat scroll top right;
+	    background: transparent url(./bg_button_a.gif) no-repeat scroll top right;
 	    color: #444;
 	    display: block;
 	    float: left;
@@ -145,7 +145,8 @@
 	}
 
 	a.button span {
-	    background: transparent url('bg_button_span.gif') no-repeat;
+	    background: transparent url(./bg_button_span.gif); 
+		background-repeat: no-repeat;
 	    font-size: 10px;
 	    display: block;
 	    line-height: 14px;
@@ -162,7 +163,7 @@
 	    padding: 6px 0 4px 18px; /* push text down 1px */
 	}
 	a.button {
-	    background: transparent url('bg_button_a.gif') no-repeat scroll top right;
+	    background: transparent url(./bg_button_a.gif) no-repeat scroll top right;
 	    color: #444;
 	    display: block;
 	    float: left;
@@ -174,7 +175,7 @@
 	}
 	
 	a.button span {
-	    background: transparent url('bg_button_span.gif') no-repeat;
+	    background: transparent url(./bg_button_span.gif) no-repeat;
 	    display: block;
 	    line-height: 14px;
 	    padding: 5px 0 5px 18px;
